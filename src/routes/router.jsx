@@ -17,23 +17,23 @@ const router = createBrowserRouter([
         path: '',
         element: <HomePage />,
       },
+    ],
+  },
+  {
+    path: '/auth',
+    element: <AuthLayout />,
+    children: [
       {
-        path: 'auth',
-        element: <AuthLayout />,
-        children: [
-          {
-            path: '',
-            element: <SigninPage />,
-          },
-          {
-            path: 'signup',
-            element: <SignupPage />,
-          },
-          {
-            path: '*',
-            element: <Navigate to="/auth" replace />,
-          },
-        ],
+        path: '',
+        element: <SigninPage />,
+      },
+      {
+        path: 'signup',
+        element: <SignupPage />,
+      },
+      {
+        path: '*',
+        element: <Navigate to="/auth" replace />,
       },
     ],
   },
