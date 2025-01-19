@@ -5,6 +5,7 @@ import { HomePage } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import SigninPage from '../pages/SigninPage';
 import SignupPage from '../pages/SignupPage';
+import TripPage from '../pages/Trip/index.jsx';
 
 // TODO : errorElement 추가하기
 // TODO : Path 상수화하기
@@ -37,6 +38,18 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: '/trip',
+    children: [
+      {
+        path : 'add-trip',
+        element: <TripPage />,
+      },
+      {
+
+      }
+    ]
+  }
 ]);
 
 export default router;
