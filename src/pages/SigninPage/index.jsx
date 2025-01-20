@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { postSigninApi } from '../../apis/user';
 import { setUser } from '../../redux/slices/user.slice';
+import { setCookie } from '../../utils/cookie';
 // 로그인
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -26,6 +27,8 @@ const SigninPage = () => {
         userId: result.user._id,
         userFullName: result.user.fullName,
       };
+      // 쿠키에 jwt 저장
+      setCookie('jwt', jwt, { path: '/' });
 
       // 사용자 정보를 redux에 저장
       dispatch(

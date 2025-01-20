@@ -6,6 +6,7 @@ import { Button } from 'antd';
 import Form from '../../components/common/Form';
 import { postSignupApi } from '../../apis/user';
 import { setUser } from '../../redux/slices/user.slice';
+import { setCookie } from '../../utils/cookie';
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -30,6 +31,9 @@ const SignupPage = () => {
         userId: result.user._id,
         userFullName: result.user.fullName,
       };
+
+      //쿠키에 jwt 저장
+      setCookie('jwt', jwt, { path: '/' });
 
       // 사용자 정보를 redux에 저장
       dispatch(
