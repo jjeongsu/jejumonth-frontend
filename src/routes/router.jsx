@@ -1,13 +1,12 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
 import DefaultLayout from '../layouts/DefaultLayout';
 import { HomePage } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import SigninPage from '../pages/SigninPage';
 import SignupPage from '../pages/SignupPage';
+import CommunityPage from '../pages/CommunityPage';
 
-// TODO : errorElement 추가하기
-// TODO : Path 상수화하기
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -36,6 +35,10 @@ const router = createBrowserRouter([
         element: <Navigate to="/auth" replace />,
       },
     ],
+  },
+  {
+    path: '/community',
+    element: <CommunityPage />,
   },
 ]);
 
