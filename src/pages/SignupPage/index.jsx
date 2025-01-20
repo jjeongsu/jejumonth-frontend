@@ -1,14 +1,36 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import Form from '../../components/common/Form';
+import { postSignupApi } from '../../apis/user';
 
 const SignupPage = () => {
-  const onSubmit = data => {
-    console.log('do something');
+  const navigate = useNavigate();
+  const onSubmit = async data => {
+    const { email, nickname, password } = data;
+    const signUpReqData = {
+      email,
+      nickname,
+      password,
+    };
+    // 회원가입 요청
+    const result = await postSignupApi(signUpReqData);
+
+    // userData를 전역에 저장
+    if (result) {
+      // result 의 토큰과 유저정보 받아오기
+      const jwt = result.token;
+      const userData = {
+        userEmail: result.user.email,
+        userId: result.user._id,
+        userFullName: result.user.fullName,
+      };
+
+      // 사용자 정보를 redux에 저장
+    }
   };
 
-  console.log('signup page 리랜더링');
   const SignupInputs = getValues => {
     return {
       email: {

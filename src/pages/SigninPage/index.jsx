@@ -1,11 +1,29 @@
 import Form from '../../components/common/Form';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
+import { postSigninApi } from '../../apis/user';
 
 // 로그인
 const SigninPage = () => {
-  const onSubmit = data => {
-    console.log('do something');
+  const onSubmit = async data => {
+    const { email, password } = data;
+    const loginReqData = { email, password };
+
+    // 로그인 요청
+    const result = await postSigninApi(loginReqData);
+
+    // userData를 전역에 저장
+    if (result) {
+      // result의 토큰과 유저정보 받아오기
+      const jwt = result.token;
+      const userData = {
+        userEmail: result.user.email,
+        userId: result.user._id,
+        userFullName: result.user.fullName,
+      };
+    }
+
+    // 사용자 정보를 redux에 저장
   };
 
   const SigninInputs = getValues => {
