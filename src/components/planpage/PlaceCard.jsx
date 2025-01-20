@@ -1,5 +1,4 @@
 const PlaceCard = ({ item }) => {
-
   return (
     <div className="w-559 h-66 relative border flex justify-around items-center border-white">
       <img
@@ -13,7 +12,8 @@ const PlaceCard = ({ item }) => {
           <br />
         </span>
         <span className="text-gray-400 text-base font-medium">
-          {item?.contentscd?.label}{item?.region1cd?.label ? ` · ${item?.region1cd?.label}` : ''}
+          {item?.contentscd?.label}
+          {item?.region1cd?.label ? ` · ${item?.region1cd?.label}` : ''}
         </span>
       </div>
       <button className="w-45 h-27 flex justify-center items-center bg-gray-200 rounded-full text-black text-xs font-semibold">
