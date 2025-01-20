@@ -44,28 +44,28 @@ const router = createBrowserRouter([
   },
   {
     path: '/trip',
-    element : <TripLayout/>,
+    element: <TripLayout />,
     children: [
       {
-        path : 'add-trip',
+        path: 'add-trip',
         element: <AddTripPage />,
       },
       {
-        path : 'my',
+        path: 'my',
         element: <MyTripPage />,
-      }
-    ]
+      },
+    ],
   },
   {
     path: '/plan',
-    element : <PlanLayout />,
+    element: <PlanLayout />,
     children: [
       {
-        path : 'add-plan',
+        path: 'add-plan',
         element: <AddPlanPage />,
       },
-    ]
-  }
+    ],
+  },
 ]);
 
 export default router;

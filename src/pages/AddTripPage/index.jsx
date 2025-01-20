@@ -1,7 +1,7 @@
 import { Alert } from 'antd';
 import { DateRangePicker } from 'react-date-range';
 import { addDays } from 'date-fns';
-import {ko} from 'date-fns/locale';
+import { ko } from 'date-fns/locale';
 import { useState } from 'react';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css';
@@ -42,7 +42,9 @@ const AddTripPage = () => {
   return (
     <>
       <div className="font-extrabold text-48 text-gray-8 mb-10">여행 일정 등록</div>
-      <div className="font-semibold text-16 text-gray-6 mb-25">여행을 시작할 날짜, 종료할 날짜를 선택해주세요.</div>
+      <div className="font-semibold text-16 text-gray-6 mb-25">
+        여행을 시작할 날짜, 종료할 날짜를 선택해주세요.
+      </div>
       <div className="grid place-items-center">
         <div className="h-412 border-solid border-gray-200 border-[1px] mb-25">
           <DateRangePicker
