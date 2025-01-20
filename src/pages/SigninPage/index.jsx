@@ -1,11 +1,45 @@
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Form from '../../components/common/Form';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
-
+import { postSigninApi } from '../../apis/user';
+import { setUser } from '../../redux/slices/user.slice';
+import { setCookie } from '../../utils/cookie';
 // 로그인
 const SigninPage = () => {
-  const onSubmit = data => {
-    console.log('do something');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onSubmit = async data => {
+    const { email, password } = data;
+    const loginReqData = { email, password };
+
+    // 로그인 요청
+    const result = await postSigninApi(loginReqData);
+
+    // userData를 전역에 저장
+    if (result) {
+      // result의 토큰과 유저정보 받아오기
+      const jwt = result.token;
+      const userData = {
+        userEmail: result.user.email,
+        userId: result.user._id,
+        userFullName: result.user.fullName,
+      };
+      // 쿠키에 jwt 저장
+      setCookie('jwt', jwt, { path: '/' });
+
+      // 사용자 정보를 redux에 저장
+      dispatch(
+        setUser({
+          ...userData,
+        }),
+      );
+
+      // 메인화면으로 이동
+      navigate('/');
+    }
   };
 
   const SigninInputs = getValues => {
