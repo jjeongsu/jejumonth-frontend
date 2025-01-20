@@ -13,6 +13,8 @@ import AuthLayout from '../layouts/AuthLayout';
 import TripLayout from '../layouts/TripLayout.jsx';
 import PlanLayout from '../layouts/PlanLayout.jsx';
 
+// TODO  Error element 추가하기
+// TODO Path 상수처리하기
 const router = createBrowserRouter([
   {
     path: '/',
@@ -61,7 +63,7 @@ const router = createBrowserRouter([
     element: <PlanLayout />,
     children: [
       {
-        path: 'add-plan',
+        path: '',
         element: <AddPlanPage />,
       },
     ],
