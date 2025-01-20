@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <div>
       HomePage
-      <p>user가 있습니까? {user.userEmail !== '' ? 'yes' : 'no'}</p>
+      <p>user가 있습니까? {user !== '' ? 'yes' : 'no'}</p>
     </div>
   );
 };

@@ -1,17 +1,27 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { userReducer } from './slices/user.slice';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // ? 창이 닫힐 때 유저정보가 삭제되길 원한다면 session storage로 변경
-
-const store = configureStore({
-  reducer: {
-    user: userReducer,
-  },
-});
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { userSlice } from './slices/user.slice';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage/session'; // 세션 스토리지에 저장
 
 const persistConfig = {
   key: 'root',
-  storage, // 기본적으로는 local storage
-  whitelist: ['user'], // 'user'리듀서만 persist하게 설정
+  storage,
+  whitelist: ['user'], // 'user'리듀서만 persist하게 설정,
+  timeout: 1000,
 };
+
+const reducers = combineReducers({
+  user: userSlice.reducer,
+});
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+
 export default store;
