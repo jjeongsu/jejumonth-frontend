@@ -1,10 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Form from '../../components/common/Form';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import { postSigninApi } from '../../apis/user';
-
+import { setUser } from '../../redux/slices/user.slice';
 // 로그인
 const SigninPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onSubmit = async data => {
     const { email, password } = data;
     const loginReqData = { email, password };
@@ -21,9 +26,17 @@ const SigninPage = () => {
         userId: result.user._id,
         userFullName: result.user.fullName,
       };
-    }
 
-    // 사용자 정보를 redux에 저장
+      // 사용자 정보를 redux에 저장
+      dispatch(
+        setUser({
+          ...userData,
+        }),
+      );
+
+      // 메인화면으로 이동
+      navigate('/');
+    }
   };
 
   const SigninInputs = getValues => {

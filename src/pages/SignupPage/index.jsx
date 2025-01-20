@@ -1,12 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import Form from '../../components/common/Form';
 import { postSignupApi } from '../../apis/user';
+import { setUser } from '../../redux/slices/user.slice';
 
 const SignupPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const onSubmit = async data => {
     const { email, nickname, password } = data;
     const signUpReqData = {
@@ -28,6 +32,14 @@ const SignupPage = () => {
       };
 
       // 사용자 정보를 redux에 저장
+      dispatch(
+        setUser({
+          ...userData,
+        }),
+      );
+
+      // 메인 화면으로 이동
+      navigate('/');
     }
   };
 

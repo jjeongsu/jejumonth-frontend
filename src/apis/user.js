@@ -34,9 +34,7 @@ export const postSigninApi = async data => {
     });
 
     console.log('login res', response);
-    if (!response.ok) {
-      console.log('login 문제');
-    }
+
     return response.data;
   } catch (error) {
     console.log('error', error);
