@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Tabs from '../../components/common/Tabs';
 import Dropdown from '../../components/common/Dropdown';
 import SearchBar from '../../components/common/SearchBar';
-import leftArrIcon from '../../../public/icon/leftArr.svg';
+// import leftArrIcon from '/icon/leftArr.svg';
 
 
 const CommunityPage = () => {
@@ -17,7 +17,7 @@ const CommunityPage = () => {
     <div className="container mx-auto py-8 mt-196" style={{ paddingLeft: '159px', paddingRight: '159px' }}>
       <div className="flex items-center mb-8">
         <button className="text-gray-500 hover:text-orange-500 text-lg mr-4">
-          <img src={leftArrIcon} alt="leftArrow" className="" />
+          {/* <img src={leftArrIcon} alt="leftArrow" className="" /> */}
         </button>
         <h2 className="text-3xl font-bold">커뮤니티</h2>
       </div>

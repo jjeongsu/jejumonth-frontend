@@ -4,16 +4,13 @@ import { HomePage } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import SigninPage from '../pages/SigninPage';
 import SignupPage from '../pages/SignupPage';
-<<<<<<< HEAD
 import DetailPage from '../pages/DetailPage';
-=======
 import TripLayout from '../layouts/TripLayout.jsx';
 import PlanLayout from '../layouts/PlanLayout.jsx';
 import MyTripPage from '../pages/MyTripPage/index.jsx';
 import AddTripPage from '../pages/AddTripPage/index.jsx';
 import AddPlanPage from '../pages/AddPlanPage/index.jsx';
 import CommunityPage from '../pages/CommunityPage';
->>>>>>> 7a373843490cae2d8a4864b90ca0e0c24244d1df
 
 const router = createBrowserRouter([
   {
@@ -25,7 +22,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/detail',
+        path: '/detail/:contentsid',
         element: <DetailPage/>
       }
     ],
