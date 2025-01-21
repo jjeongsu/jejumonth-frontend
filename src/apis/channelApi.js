@@ -2,7 +2,6 @@ import axios from 'axios';
 import { serverURL } from './endpoints';
 
 
-
 export const fetchChannels = async () => {
   try {
     const response = await axios.get(`${serverURL}/channels`, {
