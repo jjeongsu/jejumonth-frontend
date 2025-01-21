@@ -1,5 +1,5 @@
 import { Input } from 'antd';
-import PlaceCard from '../../components/planpage/PlaceCard.jsx';
+import PlaceCard from './components/PlaceCard.jsx';
 import { getPlaceBySearchApi } from '../../apis/visitJejuApi.js';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
