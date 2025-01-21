@@ -7,7 +7,7 @@ const DayCard = ({ number, date }) => {
   const tripId = queryParams.get('trip_id');
 
   const handleClick = () => {
-    navigate(`/plan?trip_id=${tripId}?date=${date}`);
+    navigate(`/plan?trip_id=${tripId}&date=${date}`);
   };
 
   return (
