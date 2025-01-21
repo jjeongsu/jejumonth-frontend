@@ -61,7 +61,7 @@ const router = createBrowserRouter([
     element: <PlanLayout />,
     children: [
       {
-        path: 'add-plan',
+        path: '',
         element: <AddPlanPage />,
       },
     ],
