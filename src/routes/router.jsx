@@ -21,11 +21,13 @@ const router = createBrowserRouter([
         path: '',
         element: <HomePage />,
       },
-      {
-        path: '/detail/:contentsid',
-        element: <DetailPage/>
-      }
     ],
+  },
+  {
+    
+    path: '/detail/:contentsid',
+    element: <DetailPage/>
+    
   },
   {
     path: '/auth',

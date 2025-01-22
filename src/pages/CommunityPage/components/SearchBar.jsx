@@ -1,7 +1,7 @@
 
 const SearchBar = ({ onSearch }) => {
   return (
-    <div className="flex items-center border rounded-r-md px-2 py-1 bg-gray-100 text-sm w-256 h-44"> 
+    <div className="flex items-center border rounded-r-md px-2 py-1 bg-gray-100 text-sm w-256 h-44 relative -top-50"> 
       <input
         type="text"
         placeholder="검색어를 입력해주세요"
