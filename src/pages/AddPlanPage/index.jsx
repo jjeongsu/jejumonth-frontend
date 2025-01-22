@@ -1,10 +1,38 @@
 import PlaceCard from './components/PlaceCard.jsx';
 import { getPlaceBySearchApi } from '../../apis/visitJejuApi.js';
 import { useState } from 'react';
+import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
+import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { getTripApi } from '../../apis/supabaseApi.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Modal, ConfigProvider, Empty, Select, Space } from 'antd';
 
 const AddPlanPage = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const userId = useSelector(state => state.user.userId);
+
+  // tripId와 date 값 가져오기
+  const tripId = queryParams.get('trip_id');
+  const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
+
+  // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
+  const { data: tripData } = useQuery({
+    queryKey: ['trip', tripId],
+    //queryFn: () => getTripApi(userId, tripId), 실제로 동작해야하는 코드
+    queryFn: () => getTripApi('test', 30), // 테스트용
+  });
+
+  // 시간 등록 컴포넌트에게 줘야 할 정보 : startDate, endDate, targetDate, 📌사용자가 등록할 장소 정보
+
+  // 최종 일정 생성 "확인"버튼을 눌렀을 때 작동하는 핸들러
+  const onRegister = data => {
+    console.log('시간등록 컴포넌트에서 전달받는 데이터', data);
+    alert(`일정이 등록되었습니다. ${data.time}`);
+  };
+
   const [searchData, setSearchData] = useState([]);
   const [searchWord, setSearchWord] = useState('');
   const [tag, setTag] = useState('');
@@ -56,9 +84,10 @@ const AddPlanPage = () => {
   const handleBackClick = () => {
     navigate(`/trip/my?trip_id=${tripId}`); // TODO 이렇게 하면 다시 돌아갈때마다 API가 호출되는 문제가 존재
   };
-
+  const startDate = '2025-01-20';
+  const endDate = '2025-02-12';
   return (
-    <div>
+        <div>
       <button onClick={handleBackClick}>
         <img
           src="/icons/back-icon.svg"
@@ -69,7 +98,7 @@ const AddPlanPage = () => {
         />
       </button>
       <div className="w-560 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
-        <ConfigProvider theme={{ token: { colorPrimary: '#FF7900' , colorText : '#8C8C8C' , } }}>
+        <ConfigProvider theme={{ token: { colorPrimary: '#FF7900', colorText: '#8C8C8C' } }}>
           <Select
             className="border-0 outline-none bg-transparent"
             defaultValue="전체"
@@ -123,9 +152,17 @@ const AddPlanPage = () => {
       <div className="m-15 h-16 w-auto flex">
         {searchData.length > 0 && (
           <div className="font-semibold flex">
-            <div>{tag}에 대한 검색결과</div>
-            <div className='text-sub-accent-1'>&nbsp;{searchData.length}</div>
+            <div>{submittedSearchWord}에 대한 검색결과</div>
+            <div className="text-sub-accent-1">&nbsp;{searchData.length}</div>
             <div>건</div>
+          </div>
+        )}
+        {isBeforeSearch && (
+          <div className="flex">
+            <div className="text-primary-0 font-bold">🍊 제주도청</div>
+            <div className="text-gray-7 font-semibold">에서 추천하는&nbsp;</div>
+            <div className="text-gray-8 font-semibold">관광명소</div>
+            <div className="text-gray-7 font-semibold">에요</div>
           </div>
         )}
       </div>
@@ -136,9 +173,16 @@ const AddPlanPage = () => {
           msOverflowStyle: 'none',
         }}
       >
-        {searchData.length > 0 ?
-          searchData.map((item, index) => <PlaceCard key={index} item={item} />)
-        : tag.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
+        {isBeforeSearch && (
+          <div className="w-560 flex flex-wrap justify-between gap-8">
+            {tagData.map(tag => (
+              <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
+            ))}
+          </div>
+        )}
+        {searchData.length > 0
+          ? searchData.map((item, index) => <PlaceCard key={index} item={item} />)
+          : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
       </div>
       <ConfigProvider theme={{ token: { colorPrimary: '#FF7900' } }}>
         <Modal
@@ -154,6 +198,18 @@ const AddPlanPage = () => {
           ]}
         />
       </ConfigProvider>
+   <div className="h-full">
+      <div className=" h-full">
+        {/* TODO : Prop객체로 묶기 */}
+        <RegisterDayAndTime
+          startDate={startDate}
+          endDate={endDate}
+          initialTargetDate={initialTargetDate}
+          place="미띠뽀 티하우스"
+          onRegister={onRegister}
+        />
+      </div>
+    </div>
     </div>
   );
 };
