@@ -14,10 +14,11 @@ const AddPlanPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const userId = useSelector(state => state.user.userId);
+
   // tripId와 date 값 가져오기
   const tripId = queryParams.get('trip_id');
   const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
-  console.log('querystring에서 받아오는 ', initialTargetDate);
+
   // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
   const { data: tripData } = useQuery({
     queryKey: ['trip', tripId],
@@ -25,7 +26,12 @@ const AddPlanPage = () => {
     queryFn: () => getTripApi('test', 30), // 테스트용
   });
 
-  // 시간 등록 컴포넌트에게 줘야 할 정보 : startDate, endDate, targetDate
+  // 시간 등록 컴포넌트에게 줘야 할 정보 : startDate, endDate, targetDate, 📌사용자가 등록할 장소 정보
+
+  // 최종 일정 생성 "확인"버튼을 눌렀을 때 작동하는 핸들러
+  const onRegister = data => {
+    console.log('시간등록 컴포넌트에서 전달받는 데이터', data);
+  };
 
   const [searchData, setSearchData] = useState([]);
   const [searchWord, setSearchWord] = useState('');
@@ -71,10 +77,13 @@ const AddPlanPage = () => {
           searchData.map((item, index) => <PlaceCard key={index} item={item} />)}
       </div> */}
       <div className=" h-full">
+        {/* TODO : Prop객체로 묶기 */}
         <RegisterDayAndTime
           startDate={startDate}
           endDate={endDate}
           initialTargetDate={initialTargetDate}
+          place="미띠뽀 티하우스"
+          onRegister={onRegister}
         />
       </div>
     </div>

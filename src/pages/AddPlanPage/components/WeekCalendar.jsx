@@ -23,13 +23,10 @@ export const getRefinedDate = dateString => {
 const WeekCalendar = ({ initialTargetDate, selectedDay, setSelectedDay }) => {
   const [targetDay, setTargetDay] = useState(() => getRefinedDate(initialTargetDate)); // ui 상에서 선택된 날짜
   const [targetWeek, setTargetWeek] = useState(() => makeWeekArr(targetDay)); // 현재 보여주는 주차
-  //const [selectedDay, setSelectedDay] = useState(() => getRefinedDate(initialTargetDate)); // 서버에 보낼 날짜
 
   // 오늘날짜 표시를 위함.
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-  console.log('선택된 날짜', selectedDay);
 
   // 한 주 전으로 이동하는 버튼을 눌렀을 때
   const onClickLeft = () => {
