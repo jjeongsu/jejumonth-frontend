@@ -3,7 +3,7 @@ import { useState } from 'react';
 const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
 // date 객체를 받아서 해당 날짜가 포함된 일~토 주차를 반환.
-const makeWeekArr = date => {
+const makeWeekArray = date => {
   let day = date.getDay(); // 화요일은 2
   let week = [];
   for (let i = 0; i < 7; i++) {
@@ -20,34 +20,56 @@ export const getRefinedDate = dateString => {
 };
 
 // 여행일정을 만들고자 선택된 기본 날짜가 주어진다.
-const WeekCalendar = ({ initialTargetDate, selectedDay, setSelectedDay }) => {
+const WeekCalendar = ({
+  initialTargetDate,
+  selectedDay,
+  setSelectedDay,
+  startDate: startDay,
+  endDate: endDay,
+}) => {
   const [targetDay, setTargetDay] = useState(() => getRefinedDate(initialTargetDate)); // ui 상에서 선택된 날짜
-  const [targetWeek, setTargetWeek] = useState(() => makeWeekArr(targetDay)); // 현재 보여주는 주차
+  const [targetWeek, setTargetWeek] = useState(() => makeWeekArray(targetDay)); // 현재 보여주는 주차
+
+  // 시작날짜와 종료 날짜를 Date 객체로 변환
+  const startDate = new Date(startDay);
+  const endDate = new Date(endDay);
 
   // 오늘날짜 표시를 위함.
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-  // 한 주 전으로 이동하는 버튼을 눌렀을 때
+  // 한 주 전으로 이동
   const onClickLeft = () => {
     let newDate = new Date(targetDay.valueOf() - 86400000 * 7); // 타겟 날짜를 일주일 전으로 이동시킨다.
-    let newWeek = makeWeekArr(newDate); // 보여질 주차를 일주일 전으로 이동시킨다.
+    let newWeek = makeWeekArray(newDate); // 보여질 주차를 일주일 전으로 이동시킨다.
     setTargetDay(newDate);
     setTargetWeek(newWeek);
   };
 
-  // 한 주 뒤로 이동하는 버튼을 눌렀을 때
+  // 한 주 뒤로 이동
   const onClickRight = () => {
     let newDate = new Date(targetDay.valueOf() + 86400000 * 7);
-    let newWeek = makeWeekArr(newDate);
+    let newWeek = makeWeekArray(newDate);
     setTargetDay(newDate);
     setTargetWeek(newWeek);
   };
 
   const onButtonClick = event => {
     // 현재 선택된 날짜를 selected day로 정한다.
-    const newDate = new Date(event.target.value);
-    setSelectedDay(newDate);
+    const clickedDate = event.target.value;
+    if (isValidDay(clickedDate)) {
+      const newDate = new Date(clickedDate);
+      setSelectedDay(newDate);
+    } else {
+      // 모달창을 띄우자
+      alert('유효하지 않은 날짜 입니다..!');
+    }
+  };
+
+  // 특정 날짜가 시작일과 종료일 사이에 있는 유효한 날짜인지 판별
+  const isValidDay = date => {
+    const currentDate = new Date(date);
+    return currentDate < startDate || currentDate > endDate ? false : true;
   };
   return (
     <div className="relatvie">
