@@ -1,13 +1,21 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-
 import DefaultLayout from '../layouts/DefaultLayout';
-import { DetailPage, HomePage } from '../pages';
+import {
+  HomePage,
+  SigninPage,
+  SignupPage,
+  MyTripPage,
+  AddTripPage,
+  AddPlanPage,
+  CommunityPage,
+  DetailPage,
+} from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
-import SigninPage from '../pages/SigninPage';
-import SignupPage from '../pages/SignupPage';
+import TripLayout from '../layouts/TripLayout.jsx';
+import PlanLayout from '../layouts/PlanLayout.jsx';
 
-// TODO : errorElement 추가하기
-// TODO : Path 상수화하기
+// TODO  Error element 추가하기
+// TODO Path 상수처리하기
 const router = createBrowserRouter([
   {
     path: '/',
@@ -46,6 +54,34 @@ const router = createBrowserRouter([
         element: <DetailPage />,
       },
     ],
+  },
+  {
+    path: '/trip',
+    element: <TripLayout />,
+    children: [
+      {
+        path: 'add-trip',
+        element: <AddTripPage />,
+      },
+      {
+        path: 'my',
+        element: <MyTripPage />,
+      },
+    ],
+  },
+  {
+    path: '/plan',
+    element: <PlanLayout />,
+    children: [
+      {
+        path: '',
+        element: <AddPlanPage />,
+      },
+    ],
+  },
+  {
+    path: '/community',
+    element: <CommunityPage />,
   },
 ]);
 
