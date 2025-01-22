@@ -53,3 +53,8 @@ export async function postPlanApi(placeInfo, tripId, date) {
     lng: placeInfo.longitude,
   });
 }
+
+export async function getPlanApi(userId, tripId) {
+  const { data, error } = await supabase.from('Plans').select();
+  return data ? data : error;
+}
