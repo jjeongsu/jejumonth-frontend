@@ -11,15 +11,15 @@ const Dropdown = ({ options, onSelect }) => {
   };
 
   return (
-    <div className="relative w-75 h-44">
+    <div className="relative w-75 h-44 ">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-gray-100 px-4 py-2 text-sm rounded-l-md flex items-center justify-between w-full h-full text-center"
+        className="bg-gray-100 px-4 py-2 text-sm rounded-l-md flex items-center justify-center w-full h-full text-center relative -top-50 -right-5"
       >
         {selected} ▼
       </button>
       {isOpen && (
-        <ul className="absolute bg-white shadow-md mt-2 w-full rounded-md z-10 text-center">
+        <ul className=" bg-white shadow-md mt-2 w-full rounded-md z-10 text-center relative -top-53 ">
           {options.map((option, index) => (
             <li
               key={index}
