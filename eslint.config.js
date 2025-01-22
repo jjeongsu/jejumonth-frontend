@@ -31,6 +31,8 @@ export default [
       'react/jsx-no-target-blank': 'off',
       'no-undef': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      // props 전달이 안되기때문에 추가
+      'react/prop-types': 'off',
     },
   },
 ];
