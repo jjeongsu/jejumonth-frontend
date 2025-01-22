@@ -7,7 +7,7 @@ import { Button, Modal, ConfigProvider, Empty, Select, Space } from 'antd';
 const AddPlanPage = () => {
   const [searchData, setSearchData] = useState([]);
   const [searchWord, setSearchWord] = useState('');
-  const [tag, setTag] = useState('');
+  const [submittedSearchWord, setSubmittedSearchWord] = useState('');
   const [category, setCategory] = useState('all');
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const location = useLocation();
@@ -46,11 +46,10 @@ const AddPlanPage = () => {
       return
     }
     const result = await getPlaceBySearchApi(searchWord.trim(),category);
-    setSearchData([]);
     const data = result.data;
     console.log(data);
     setSearchData(data.items);
-    setTag(searchWord.trim());
+    setSubmittedSearchWord(searchWord.trim());
   };
 
   const handleBackClick = () => {
@@ -123,7 +122,7 @@ const AddPlanPage = () => {
       <div className="m-15 h-16 w-auto flex">
         {searchData.length > 0 && (
           <div className="font-semibold flex">
-            <div>{tag}에 대한 검색결과</div>
+            <div>{submittedSearchWord}에 대한 검색결과</div>
             <div className='text-sub-accent-1'>&nbsp;{searchData.length}</div>
             <div>건</div>
           </div>
@@ -138,7 +137,7 @@ const AddPlanPage = () => {
       >
         {searchData.length > 0 ?
           searchData.map((item, index) => <PlaceCard key={index} item={item} />)
-        : tag.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
+        : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
       </div>
       <ConfigProvider theme={{ token: { colorPrimary: '#FF7900' } }}>
         <Modal
