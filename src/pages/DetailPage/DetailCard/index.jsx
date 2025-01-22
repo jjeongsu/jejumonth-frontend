@@ -9,11 +9,7 @@ const DetailCard = ({ title, area, description, img }) => {
           </div>
           {
             <button>
-              <img
-                src="../../../../public/icon/scrapPNG-icon.png"
-                className="w-21 h-19"
-                alt="스크랩 아이콘"
-              />
+              <img src="/icons/scrap-icon.svg" className="w-21 h-19" alt="스크랩 아이콘" />
             </button>
           }
         </div>

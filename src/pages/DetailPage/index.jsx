@@ -7,8 +7,23 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 // import { useState } from 'react';
 
+// export async function getPlaceBySearchApi(targetWord, category) {
+//   const updatedCategory = category === 'all' ? '' : category;
+//   const result = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchList', {
+//     params: {
+//       apiKey: import.meta.env.VITE_VISITJEJU_KEY,
+//       locale: 'kr',
+//       title: targetWord,
+//       category: updatedCategory,
+//     },
+//   });
+//   return result;
+// }
+
+// src="/icons/search-icon.svg"  //이미지들만 이렇게 써도된다 . 왜냐면 자동으로 컴파일로 해서 찾아가준다 (폴더를 안에다 안넣어도됨)
+// 테스트 절대 필요!!
 const DetailPage = () => {
-  const img = '../../../public';
+  const URL = 'https://api.visitjeju.net/vsjApi/contents/searchlist';
 
   // const [detailList, setDetailList] = useState([
   const detailList = [
@@ -53,8 +68,9 @@ const DetailPage = () => {
   // 카테고리를 배열로 빼야할지... api 할때 고민해봐야할것같다.... 페이지 네이션도 같이해야할듯
   // 1. api 가지고오기
   // 2. 다 가져오면 페이지네이션 하기
-  // 3. click 버튼 만들기
+  // 3. click 버튼 만들기 (클릭에 따라 아이콘 바뀌기)
   // 4. 검색 결과 만들기
+  // 5. 레이아웃 에 따라 정보 바뀌기
 
   /// APi 불러와보기
 
@@ -62,13 +78,15 @@ const DetailPage = () => {
 
   // const apiKey = '16c8cf73146b4019b20575829761d771';
 
-  // http://13.209.75.182:5001
   useEffect(() => {
     (async () => {
       try {
         // const response = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchlist', {
-        const response = await axios.get('http://13.209.75.182:5001', {
-          timeout: 300,
+        const response = await axios.get(URL, {
+          params: {
+            apikey: import.meta.env.VITE_SUPABASE_SERVICE_KEY,
+            local: 'kr',
+          },
         });
         const result = response.json();
         setDetailData(result);
@@ -78,14 +96,14 @@ const DetailPage = () => {
     })();
   }, []);
 
-  console.log(setDetailData);
+  // console.log(setDetailData);
 
   return (
     <div>
       <div className="w-512 h-52 rounded-20  shadow-2md p-16 box-border flex mx-auto mb-50">
         <input type="text" className="w-full w-full inline-block focus:outline-none" />
         <button>
-          <img src={`${img}/icon/search-icon.png`} alt="search-icon" />
+          <img src="/icons/search.svg" alt="search-icon" />
         </button>
       </div>
       <nav className="flex justify-between">
@@ -134,13 +152,13 @@ const DetailPage = () => {
         </ul>
         <div className="flex align-middle ">
           <button className="mx-5">
-            <img src={`${img}/icon/grid_option1-icon.svg`} alt="그리드 레이아웃" />
+            <img src="/icons/grid_option1-icon.svg" alt="그리드 레이아웃" />
           </button>
           <button className="mx-5">
-            <img src={`${img}/icon/grid_option2-icon.svg`} alt="그리드 레이아웃" />
+            <img src="/icons/grid_option2-icon.svg" alt="그리드 레이아웃" />
           </button>
           <button className="mx-5">
-            <img src={`${img}/icon/grid_option3-icon.svg`} alt="그리드 레이아웃" />
+            <img src="/icons/grid_option3-icon.svg" alt="그리드 레이아웃" />
           </button>
         </div>
       </nav>
