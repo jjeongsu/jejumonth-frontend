@@ -3,7 +3,7 @@ import { getRefinedDate } from './WeekCalendar';
 import { useState } from 'react';
 import WeekCalendar from './WeekCalendar';
 import ButtonList from './ButtonList';
-import { formatDate, dateToString, formatTime } from '../../../utils/dateFormat';
+import { formatDateKo, formatDate, formatTime } from '../../../utils/dateFormat';
 // TODO 랜더링 최적화
 // TODO 요약부 이모지를 아이콘으로 변경
 const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRegister }) => {
@@ -23,7 +23,7 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
 
     if (time !== null) {
       const data = {
-        day: dateToString(selectedDay), // date 'yyyy-mm-dd'형식
+        day: formatDate(selectedDay), // date 'yyyy-mm-dd'형식
         time,
       };
       onRegister(data);
@@ -51,7 +51,7 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
       <div className="border border-solid border-gray-5 rounded-mds w-full h-80 flex justify-center items-center relative">
         <div>⏰</div>
         <div className="text-16 font-semibold text-gray-8 mx-10">
-          <span>{formatDate(selectedDay)} </span>
+          <span>{formatDateKo(selectedDay)} </span>
           <span>{time !== null && formatTime(time)}</span>
         </div>
         <div className="text-sub-accent-2 font-bold text-16 mr-5"> {place}</div>
