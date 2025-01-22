@@ -20,14 +20,23 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
     setSelectedDay,
   };
 
-  const onClick = event => {
-    const data = {
-      //TODO 서버에 들어갈 형식으로 day, time 포맷 변경
-      day: selectedDay,
-      time,
-    };
-    onRegister(data);
+  const onSubmitClick = event => {
+    // 여기서 필요한 정보가 모두 모였는지 확인
+    console.log('time');
+    if (time) {
+      console.log('created!');
+      const data = {
+        //TODO 서버에 들어갈 형식으로 day, time 포맷 변경
+        day: selectedDay,
+        time,
+      };
+      onRegister(data);
+      console.log('완료');
+    } else {
+      alert('시간을 등록해주세요');
+    }
   };
+  console.log('리랜더링', time);
   return (
     <div>
       <h2 className="text-24 font-semibold ml-7">여행 날짜</h2>
@@ -55,7 +64,11 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
         <span className="font-regular text-16 text-gray-7">에 일정을 만들까요?</span>
         <div className="ml-10">
           <span>✅</span>
-          <button className="text-16 font-semibold text-green-500 ml-3" onClick={onClick}>
+          <button
+            type="submit"
+            className="text-16 font-semibold text-green-500 ml-3"
+            onClick={onSubmitClick}
+          >
             확인
           </button>
         </div>

@@ -31,6 +31,7 @@ const AddPlanPage = () => {
   // 최종 일정 생성 "확인"버튼을 눌렀을 때 작동하는 핸들러
   const onRegister = data => {
     console.log('시간등록 컴포넌트에서 전달받는 데이터', data);
+    alert(`일정이 등록되었습니다. ${data.time}`);
   };
 
   const [searchData, setSearchData] = useState([]);
