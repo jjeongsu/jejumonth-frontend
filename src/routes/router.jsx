@@ -8,14 +8,9 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
+  DetailPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
-<<<<<<< HEAD
-import SigninPage from '../pages/SigninPage';
-import SignupPage from '../pages/SignupPage';
-import DetailPage from '../pages/DetailPage';
-=======
->>>>>>> main
 import TripLayout from '../layouts/TripLayout.jsx';
 import PlanLayout from '../layouts/PlanLayout.jsx';
 
