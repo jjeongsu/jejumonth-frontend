@@ -17,7 +17,7 @@ const AddPlanPage = () => {
   // tripId와 date 값 가져오기
   const tripId = queryParams.get('trip_id');
   const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
-
+  console.log('querystring에서 받아오는 ', initialTargetDate);
   // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
   const { data: tripData } = useQuery({
     queryKey: ['trip', tripId],
@@ -50,7 +50,8 @@ const AddPlanPage = () => {
     console.log(data);
     setSearchData(data.items);
   };
-
+  const startDate = '2025-01-20';
+  const endDate = '2025-02-12';
   return (
     <div className="h-full">
       {/* <div className="bg-primary-3 w-560 h-48">
@@ -70,13 +71,11 @@ const AddPlanPage = () => {
           searchData.map((item, index) => <PlaceCard key={index} item={item} />)}
       </div> */}
       <div className=" h-full">
-        {tripData && (
-          <RegisterDayAndTime
-            startDate={tripData.startDate}
-            endDate={tripData.endDate}
-            initialTargetDate={initialTargetDate}
-          />
-        )}
+        <RegisterDayAndTime
+          startDate={startDate}
+          endDate={endDate}
+          initialTargetDate={initialTargetDate}
+        />
       </div>
     </div>
   );
