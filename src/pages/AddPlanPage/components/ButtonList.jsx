@@ -16,7 +16,7 @@ const ButtonList = ({ setTime }) => {
           className="w-104 h-44 font-semibold text-15 focus-within:bg-primary-5 focus-within:border-primary-2 focus-within:border-2 border-gray-5
               "
           onClick={() => setTime(clock.time)}
-          onBlur={() => setTime('')}
+          // onBlur={() => setTime(null)}
         >
           {clock.label}
         </Button>
@@ -25,4 +25,4 @@ const ButtonList = ({ setTime }) => {
   );
 };
 
-export default ButtonList;
+export default React.memo(ButtonList);

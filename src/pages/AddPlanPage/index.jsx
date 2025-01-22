@@ -20,7 +20,7 @@ const AddPlanPage = () => {
   const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
 
   // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
-  const { data: tripData } = useQuery({
+  const { data: tripData, isLoading } = useQuery({
     queryKey: ['trip', tripId],
     //queryFn: () => getTripApi(userId, tripId), 실제로 동작해야하는 코드
     queryFn: () => getTripApi('test', 30), // 테스트용
@@ -57,8 +57,11 @@ const AddPlanPage = () => {
     console.log(data);
     setSearchData(data.items);
   };
-  const startDate = '2025-01-20';
-  const endDate = '2025-02-12';
+
+  if (isLoading) {
+    return <>trip 정보를 불러오는 중입니다..!</>;
+  }
+  const { start_date: startDate, end_date: endDate } = tripData[0];
   return (
     <div className="h-full">
       {/* <div className="bg-primary-3 w-560 h-48">

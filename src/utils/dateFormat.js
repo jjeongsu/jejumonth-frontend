@@ -24,3 +24,12 @@ export const formatTime = timeString => {
   // 분이 0이 아닐 경우 "시"와 "분" 모두 표시
   return minutes > 0 ? `${period} ${displayHours}시 ${minutes}분` : `${period} ${displayHours}시`;
 };
+
+// date string에서 'yyyy-mm-dd'로 전환
+export const dateToString = day => {
+  const date = new Date(day);
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1 더하기
+  const dd = String(date.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+};
