@@ -3,6 +3,17 @@ import { getPlaceBySearchApi } from '../../apis/visitJejuApi.js';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Modal, ConfigProvider, Empty, Select, Space } from 'antd';
+import PlaceTagButton from './components/PlaceTag.jsx';
+
+const tagData = [
+  { title: '#광치기 해변🌊', id: 'beach', contentId: 'CNTS_000000000018413' },
+  { title: '#카페코지🍵', id: 'cafe', contentId: 'CNTS_000000000019338' },
+  { title: '#카멜리아힐🌺', id: 'hill', contentId: 'CNTS_000000000001195' },
+  { title: '#휴즐리 제주🍧', id: 'husley', contentId: 'CNTS_300000000015965' },
+  { title: '# 제4회 제주비엔날레 : 물과 바람과 별의 길🌟', id: 'vienna', contentId: 'CNTS_300000000013355' },
+  { title: '#파더스가든🐰', id: 'garden', contentId: 'CNTS_200000000014189' },
+  { title: '#비자림🌳', id: 'beejalim', contentId: 'CONT_000000000500270' },
+];
 
 const AddPlanPage = () => {
   const [searchData, setSearchData] = useState([]);
@@ -67,8 +78,9 @@ const AddPlanPage = () => {
           className="h-36 w-36"
         />
       </button>
-      <div className="w-560 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
-        <ConfigProvider theme={{ token: { colorPrimary: '#FF7900' , colorText : '#8C8C8C' , } }}>
+      <div
+        className="w-560 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
+        <ConfigProvider theme={{ token: { colorPrimary: '#FF7900', colorText: '#8C8C8C', } }}>
           <Select
             className="border-0 outline-none bg-transparent"
             defaultValue="전체"
@@ -127,6 +139,14 @@ const AddPlanPage = () => {
             <div>건</div>
           </div>
         )}
+        <div>
+          🍊 제주도청에서 추천하는 관광명소에요
+        </div>
+      </div>
+      <div className="w-560 flex flex-wrap justify-between gap-8">
+        {tagData.map((tag) => (
+          <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
+        ))}
       </div>
       <div
         className="overflow-auto h-400"
@@ -137,7 +157,7 @@ const AddPlanPage = () => {
       >
         {searchData.length > 0 ?
           searchData.map((item, index) => <PlaceCard key={index} item={item} />)
-        : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
+          : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
       </div>
       <ConfigProvider theme={{ token: { colorPrimary: '#FF7900' } }}>
         <Modal
