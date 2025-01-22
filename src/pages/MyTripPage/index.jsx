@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import DayCard from '../../components/trippage/DayCard.jsx';
+<<<<<<< HEAD
 import PlanCard from '../../components/planpage/PlaceCard.jsx';
+=======
+>>>>>>> main
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getTripApi } from '../../apis/supabaseApi.js';
 
