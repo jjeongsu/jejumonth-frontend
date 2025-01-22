@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import DayCard from '../AddTripPage/components/DayCard.jsx';
+import DayCard from './components/DayCard.jsx';
 import PlanCard from './components/PlanCard.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getPlanApi, getTripApi } from '../../apis/supabaseApi.js';
@@ -62,7 +62,7 @@ const MyTripPage = () => {
   return (
     <>
       <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
-      <div className="flex">
+      <div className="flex mt-30">
         <div
           className="grid h-632 w-397 overflow-auto"
           style={{
