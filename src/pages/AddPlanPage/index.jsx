@@ -2,7 +2,6 @@ import PlaceCard from './components/PlaceCard.jsx';
 import { getPlaceBySearchApi } from '../../apis/visitJejuApi.js';
 import { useState } from 'react';
 import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
-import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 import { getTripApi } from '../../apis/supabaseApi.js';
@@ -24,6 +23,13 @@ const AddPlanPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const userId = useSelector(state => state.user.userId);
+  const [searchData, setSearchData] = useState([]);
+  const [searchWord, setSearchWord] = useState('');
+  const [submittedSearchWord, setSubmittedSearchWord] = useState('');
+  const [category, setCategory] = useState('all');
+  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isBeforeSearch, setIsBeforeSearch] = useState(true);
+  const navigate = useNavigate();
 
   // tripId와 date 값 가져오기
   const tripId = queryParams.get('trip_id');
@@ -43,17 +49,6 @@ const AddPlanPage = () => {
     console.log('시간등록 컴포넌트에서 전달받는 데이터', data);
     alert(`일정이 등록되었습니다. ${data.time}`);
   };
-
-  const [searchData, setSearchData] = useState([]);
-  const [searchWord, setSearchWord] = useState('');
-  const [submittedSearchWord, setSubmittedSearchWord] = useState('');
-  const [category, setCategory] = useState('all');
-  const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
-  const [isBeforeSearch, setIsBeforeSearch] = useState(true);
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const tripId = queryParams.get('trip_id');
-  const navigate = useNavigate();
 
   const handleSelectBoxChange = value => {
     setCategory(value);
@@ -99,7 +94,7 @@ const AddPlanPage = () => {
   const startDate = '2025-01-20';
   const endDate = '2025-02-12';
   return (
-        <div>
+    <div>
       <button onClick={handleBackClick}>
         <img
           src="/icons/back-icon.svg"
@@ -210,18 +205,18 @@ const AddPlanPage = () => {
           ]}
         />
       </ConfigProvider>
-   <div className="h-full">
-      <div className=" h-full">
-        {/* TODO : Prop객체로 묶기 */}
-        <RegisterDayAndTime
-          startDate={startDate}
-          endDate={endDate}
-          initialTargetDate={initialTargetDate}
-          place="미띠뽀 티하우스"
-          onRegister={onRegister}
-        />
+      <div className="h-full">
+        <div className=" h-full">
+          {/* TODO : Prop객체로 묶기 */}
+          <RegisterDayAndTime
+            startDate={startDate}
+            endDate={endDate}
+            initialTargetDate={initialTargetDate}
+            place="미띠뽀 티하우스"
+            onRegister={onRegister}
+          />
+        </div>
       </div>
-    </div>
     </div>
   );
 };
