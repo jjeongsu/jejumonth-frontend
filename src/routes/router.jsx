@@ -9,6 +9,7 @@ import {
   AddPlanPage,
   CommunityPage,
   DetailPage,
+  SearchPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import TripLayout from '../layouts/TripLayout.jsx';
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: '/community',
     element: <CommunityPage />,
+  },
+  {
+    path: '/search',
+    element: <SearchPage />,
   },
 ]);
 
