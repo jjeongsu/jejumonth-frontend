@@ -5,27 +5,25 @@ const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 // date 객체를 받아서 해당 날짜가 포함된 일~토 주차를 반환.
 const makeWeekArr = date => {
   let day = date.getDay(); // 화요일은 2
-  console.log('day', day);
   let week = [];
   for (let i = 0; i < 7; i++) {
     let newDate = new Date(date.valueOf() + 86400000 * (i - day));
     week.push([i, newDate]);
   }
-  console.log('week', week);
   return week;
 };
 
-// 여행일정을 만들고자 선택된 기본 날짜가 주어진다.
-const WeekCalendar = ({ initialTargetDate }) => {
-  // '2025-04-05'를 받아 시간선을 초기화한 Date객체를 생성한다.
-  const getRefinedDate = dateString => {
-    const temp = new Date(dateString);
-    return new Date(temp.getFullYear(), temp.getMonth(), temp.getDate());
-  };
+// '2025-04-05'를 받아 시간선을 초기화한 Date객체를 생성한다.
+export const getRefinedDate = dateString => {
+  const temp = new Date(dateString);
+  return new Date(temp.getFullYear(), temp.getMonth(), temp.getDate());
+};
 
+// 여행일정을 만들고자 선택된 기본 날짜가 주어진다.
+const WeekCalendar = ({ initialTargetDate, selectedDay, setSelectedDay }) => {
   const [targetDay, setTargetDay] = useState(() => getRefinedDate(initialTargetDate)); // ui 상에서 선택된 날짜
   const [targetWeek, setTargetWeek] = useState(() => makeWeekArr(targetDay)); // 현재 보여주는 주차
-  const [selectedDay, setSelectedDay] = useState(() => getRefinedDate(initialTargetDate)); // 서버에 보낼 날짜
+  //const [selectedDay, setSelectedDay] = useState(() => getRefinedDate(initialTargetDate)); // 서버에 보낼 날짜
 
   // 오늘날짜 표시를 위함.
   const now = new Date();
