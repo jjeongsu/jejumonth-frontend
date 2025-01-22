@@ -26,7 +26,7 @@ const AddPlanPage = () => {
   const tripId = queryParams.get('trip_id');
   const navigate = useNavigate();
 
-  const handleSelectBoxChange = (value) => {
+  const handleSelectBoxChange = value => {
     setCategory(value);
   };
 
@@ -54,9 +54,9 @@ const AddPlanPage = () => {
   const handleSearchClick = async () => {
     if (searchWord.length < 1) {
       setIsAlertModalOpen(true);
-      return
+      return;
     }
-    const result = await getPlaceBySearchApi(searchWord.trim(),category);
+    const result = await getPlaceBySearchApi(searchWord.trim(), category);
     const data = result.data;
     console.log(data);
     setSearchData(data.items);
@@ -78,9 +78,8 @@ const AddPlanPage = () => {
           className="h-36 w-36"
         />
       </button>
-      <div
-        className="w-560 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
-        <ConfigProvider theme={{ token: { colorPrimary: '#FF7900', colorText: '#8C8C8C', } }}>
+      <div className="w-560 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
+        <ConfigProvider theme={{ token: { colorPrimary: '#FF7900', colorText: '#8C8C8C' } }}>
           <Select
             className="border-0 outline-none bg-transparent"
             defaultValue="전체"
@@ -135,16 +134,19 @@ const AddPlanPage = () => {
         {searchData.length > 0 && (
           <div className="font-semibold flex">
             <div>{submittedSearchWord}에 대한 검색결과</div>
-            <div className='text-sub-accent-1'>&nbsp;{searchData.length}</div>
+            <div className="text-sub-accent-1">&nbsp;{searchData.length}</div>
             <div>건</div>
           </div>
         )}
-        <div>
-          🍊 제주도청에서 추천하는 관광명소에요
+        <div className="flex">
+          <div className="text-primary-0 font-bold">🍊 제주도청</div>
+          <div className="text-gray-7 font-semibold">에서 추천하는&nbsp;</div>
+          <div className="text-gray-8 font-semibold">관광명소</div>
+          <div className="text-gray-7 font-semibold">에요</div>
         </div>
       </div>
       <div className="w-560 flex flex-wrap justify-between gap-8">
-        {tagData.map((tag) => (
+        {tagData.map(tag => (
           <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
         ))}
       </div>
@@ -155,8 +157,8 @@ const AddPlanPage = () => {
           msOverflowStyle: 'none',
         }}
       >
-        {searchData.length > 0 ?
-          searchData.map((item, index) => <PlaceCard key={index} item={item} />)
+        {searchData.length > 0
+          ? searchData.map((item, index) => <PlaceCard key={index} item={item} />)
           : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
       </div>
       <ConfigProvider theme={{ token: { colorPrimary: '#FF7900' } }}>
