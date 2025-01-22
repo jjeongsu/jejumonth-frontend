@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchChannels } from '../../apis/channelApi';
 import ChannelTabs from './components/ChannelList';
-import leftArr from '/icon/icon/leftArr-icon.png';
+// import leftArr from '/icon/icon/leftArr-icon.png';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 

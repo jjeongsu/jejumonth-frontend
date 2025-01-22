@@ -6,17 +6,17 @@ export default function KaKaoMap({ latitude, longitude }) {
     const kakaoApiKey = import.meta.env.VITE_KAKAOMAP_KEY;
 
     if (!kakaoApiKey) {
-      console.error("Kakao API Key is missing");
+      console.error("API 키 없음!");
       return;
     }
 
     script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${kakaoApiKey}`;
     script.async = true;
     script.onload = () => {
-      console.log("Kakao Map script loaded successfully");
+      console.log("카카오맵 불러오기 성공!");
       const container = document.getElementById("map");
       if (!container) {
-        console.error("Map container not found");
+        console.error("카카오맵 컨테이너가 없음");
         return;
       }
       console.log("window.kakao:", window.kakao);
@@ -33,7 +33,7 @@ export default function KaKaoMap({ latitude, longitude }) {
       marker.setMap(map);
     };
     script.onerror = () => {
-      console.error("Failed to load Kakao Map script");
+      console.error("카카오맵 불러오기 실패");
     };
 
     document.head.appendChild(script);

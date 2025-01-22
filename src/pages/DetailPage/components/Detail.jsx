@@ -27,7 +27,11 @@ const Detail = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-neutral-800">📍 지도</h2>
-          <KaKaoMap latitude={data.latitude} longitude={data.longitude} />
+          {/* <KaKaoMap latitude={data.latitude} longitude={data.longitude} /> */}
+          <iframe 
+            src={`https://map.kakao.com/link/map/${data.latitude},${data.longitude}`}
+            className="w-[390] h-[215]"
+          />
         </div>
 
         <div className="space-y-4">
