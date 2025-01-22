@@ -21,6 +21,7 @@ const AddPlanPage = () => {
   const [submittedSearchWord, setSubmittedSearchWord] = useState('');
   const [category, setCategory] = useState('all');
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
+  const [isBeforeSearch, setIsBeforeSearch] = useState(true);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tripId = queryParams.get('trip_id');
@@ -56,6 +57,7 @@ const AddPlanPage = () => {
       setIsAlertModalOpen(true);
       return;
     }
+    setIsBeforeSearch(false);
     const result = await getPlaceBySearchApi(searchWord.trim(), category);
     const data = result.data;
     console.log(data);
@@ -138,17 +140,14 @@ const AddPlanPage = () => {
             <div>건</div>
           </div>
         )}
-        <div className="flex">
-          <div className="text-primary-0 font-bold">🍊 제주도청</div>
-          <div className="text-gray-7 font-semibold">에서 추천하는&nbsp;</div>
-          <div className="text-gray-8 font-semibold">관광명소</div>
-          <div className="text-gray-7 font-semibold">에요</div>
-        </div>
-      </div>
-      <div className="w-560 flex flex-wrap justify-between gap-8">
-        {tagData.map(tag => (
-          <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
-        ))}
+        {isBeforeSearch && (
+          <div className="flex">
+            <div className="text-primary-0 font-bold">🍊 제주도청</div>
+            <div className="text-gray-7 font-semibold">에서 추천하는&nbsp;</div>
+            <div className="text-gray-8 font-semibold">관광명소</div>
+            <div className="text-gray-7 font-semibold">에요</div>
+          </div>
+        )}
       </div>
       <div
         className="overflow-auto h-400"
@@ -157,6 +156,13 @@ const AddPlanPage = () => {
           msOverflowStyle: 'none',
         }}
       >
+        {isBeforeSearch && (
+          <div className="w-560 flex flex-wrap justify-between gap-8">
+            {tagData.map(tag => (
+              <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
+            ))}
+          </div>
+        )}
         {searchData.length > 0
           ? searchData.map((item, index) => <PlaceCard key={index} item={item} />)
           : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
