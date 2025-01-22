@@ -5,8 +5,6 @@ import leftArr from '../../../public/icon/leftArr.svg';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 
-
-
 const CommunityPage = () => {
   const [activeTab, setActiveTab] = useState('베스트');
   const [channels, setChannels] = useState([]);
@@ -27,7 +25,7 @@ const CommunityPage = () => {
     getChannels();
   }, []);
 
-  const handleSearch = (e) => {
+  const handleSearch = e => {
     e.preventDefault();
   };
 
@@ -43,17 +41,13 @@ const CommunityPage = () => {
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <ChannelTabs
-          channels={channels}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-        />
+        <ChannelTabs channels={channels} activeTab={activeTab} setActiveTab={setActiveTab} />
       )}
 
       <div className="flex items-center justify-end space-x-4 mb-6">
         <Dropdown
           options={['작성자', '내용']}
-          onSelect={(selected) => console.log('Selected:', selected)}
+          onSelect={selected => console.log('Selected:', selected)}
         />
         <SearchBar onSearch={setSearchQuery} />
       </div>
