@@ -8,10 +8,16 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
+  MyPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
-import SigninPage from '../pages/SigninPage';
-import SignupPage from '../pages/SignupPage';
+import TripLayout from '../layouts/TripLayout.jsx';
+import PlanLayout from '../layouts/PlanLayout.jsx';
+import ScrapSection from '../pages/MyPage/components/main/ScrapSection.jsx';
+import PostsSection from '../pages/MyPage/components/main/PostsSection.jsx';
+import CommentSection from '../pages/MyPage/components/main/CommentSection.jsx';
+import LikedSection from '../pages/MyPage/components/main/LikedSection.jsx';
+import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
 
 // TODO  Error element 추가하기
 // TODO Path 상수처리하기
