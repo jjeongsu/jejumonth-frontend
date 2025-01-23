@@ -1,7 +1,7 @@
 // import React from 'react';
 
 import { Link } from 'react-router';
-import DetailCard from './DetailCard';
+//import DetailCard from './DetailCard';
 import { ConfigProvider, Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
