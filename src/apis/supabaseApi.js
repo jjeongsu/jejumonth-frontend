@@ -29,21 +29,27 @@ export async function getTripApi(userId, tripId) {
 }
 
 export async function postPlanApi(placeInfo, tripId, date) {
-  const { data, error } = await supabase.from('Plans').insert({
-    trip_id: tripId,
-    date: date,
-    place_name: placeInfo.name,
-    description: placeInfo.description,
-    category: placeInfo.category,
-    time: placeInfo.time,
-    road_address: placeInfo.address,
-    lat: placeInfo.latitude,
-    lng: placeInfo.longitude,
-  });
+  const { data, error } = await supabase
+    .from('Plans')
+    .insert({
+      trip_id: tripId,
+      date: date,
+      place_name: placeInfo.name,
+      description: placeInfo.description,
+      category: placeInfo.category,
+      time: placeInfo.time,
+      road_address: placeInfo.address,
+      lat: placeInfo.latitude,
+      lng: placeInfo.longitude,
+    })
+    .select();
+  return data ? data : error;
 }
 
 export async function getPlanApi(userId, tripId) {
-  const { data, error } = await supabase.from('Plans').select();
+  const { data, error } = await supabase
+    .from('Plans')
+    .select();
   return data ? data : error;
 }
 
