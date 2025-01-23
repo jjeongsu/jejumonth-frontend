@@ -9,7 +9,7 @@ import { formatDateKo, formatDate, formatTime } from '../../../utils/dateFormat'
 const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRegister }) => {
   const [time, setTime] = useState(null);
   const [selectedDay, setSelectedDay] = useState(() => getRefinedDate(initialTargetDate));
-
+  console.log('time', time);
   // day : Wed Feb 05 2025 00:00:00 GMT+0900 (한국 표준시)
   const calendarProps = {
     initialTargetDate,
@@ -35,7 +35,12 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
     <div>
       <h2 className="text-24 font-semibold ml-7">여행 날짜</h2>
       <div className="mb-25">
-        <h3 className="text-20 font-semibold mt-16 mb-22 ml-14"> 날짜 선택</h3>
+        <div className="flex items-center gap-20 ">
+          <h3 className="text-20 font-semibold mt-16 mb-22 ml-14"> 날짜 선택</h3>
+          <span className="text-12 font-regular text-gray-7">
+            {String(startDate).replaceAll('-', '.')} ~ {String(endDate).replaceAll('-', '.')}
+          </span>
+        </div>
         <div>
           <WeekCalendar {...calendarProps} />
         </div>

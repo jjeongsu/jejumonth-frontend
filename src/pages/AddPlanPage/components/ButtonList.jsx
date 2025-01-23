@@ -1,25 +1,50 @@
 import React from 'react';
-import generateTimeArray from '../../../utils/hourFormat';
+import { generateTimeArray, TIME_BOUNDARY } from '../../../utils/hourFormat';
 import { Button } from 'antd';
 import { useMemo } from 'react';
+
+const TimeButton = ({ onButtonClick, label }) => {
+  return (
+    <Button
+      color="orange"
+      variant="text"
+      className="w-104 h-40 font-semibold text-15 focus-within:bg-primary-5 focus-within:border-primary-2 focus-within:border-2 border-gray-5"
+      onClick={onButtonClick}
+    >
+      {label}
+    </Button>
+  );
+};
+
+const TimezoneButtonList = ({ timezone, hoursArray, setTime }) => {
+  const filterBySection = section => hoursArray.filter(clock => clock.section === section);
+  return (
+    <div className="flex flex-row">
+      <div className="min-w-100 text-center pt-15 font-semibold text-gray-8">{timezone}</div>
+      <div className="flex flex-wrap gap-10">
+        {filterBySection(timezone).map((clock, index) => (
+          <TimeButton key={index} onButtonClick={() => setTime(clock.time)} label={clock.label} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 // TODO : 오전, 낮, 저녁으로 나누기
 const ButtonList = ({ setTime }) => {
   const hoursArray = useMemo(() => generateTimeArray(), []);
+  // {label: '09:00', time: '09:00:00', section: '오전'}
+
+  const timeZone = Object.values(TIME_BOUNDARY); // ['오전','오후','저녁']
   return (
-    <div className="flex gap-10 flex-wrap">
-      {hoursArray.map((clock, index) => (
-        <Button
+    <div className="flex flex-col gap-15 ">
+      {timeZone.map((timezone, index) => (
+        <TimezoneButtonList
+          timezone={timezone}
+          hoursArray={hoursArray}
           key={index}
-          color="orange"
-          variant="text"
-          className="w-104 h-44 font-semibold text-15 focus-within:bg-primary-5 focus-within:border-primary-2 focus-within:border-2 border-gray-5
-              "
-          onClick={() => setTime(clock.time)}
-          // onBlur={() => setTime(null)}
-        >
-          {clock.label}
-        </Button>
+          setTime={setTime}
+        />
       ))}
     </div>
   );
