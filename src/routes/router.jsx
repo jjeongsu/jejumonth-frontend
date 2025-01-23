@@ -42,6 +42,10 @@ const router = createBrowserRouter([
         path: 'community',
         element: <CommunityPage />,
       },
+      {
+        path: '/detail/:contentsid', // 도메인/detail/3
+        element: <DetailPage />,
+      },
     ],
   },
   {
@@ -59,16 +63,6 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <Navigate to="/auth" replace />,
-      },
-    ],
-  },
-  {
-    path: '/detail',
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: ':contentsid',
-        element: <DetailPage />,
       },
     ],
   },
