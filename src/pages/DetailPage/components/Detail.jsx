@@ -5,7 +5,7 @@ const Detail = ({ data }) => {
   if (!data) return <div>데이터가 없습니다.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-4xl mx-auto p-4 mb-10">
       <div className="relative rounded-lg overflow-hidden shadow-md mb-8">
         <img
           src={data.repPhoto.photoid.imgpath}

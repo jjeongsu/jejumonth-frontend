@@ -5,7 +5,7 @@ export default function KaKaoMap({ latitude, longitude }) {
     const container = document.getElementById("map");
     const options = {
       center: new window.kakao.maps.LatLng(latitude, longitude),
-      level: 3,
+      level: 6,
     };
     const map = new window.kakao.maps.Map(container, options);
 
