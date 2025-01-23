@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import uploadIcon from '../../../../public/icons/image-file.svg';
-import defaultProfile from './default-profile.png';
+import PNG_IMAGES from '@public/images/image';
+import uploadIcon from '@public/icons/image-file.svg';
 
 const FileInput = ({ props, watch, options }) => {
-  const [imageSrc, setImageSrc] = useState(defaultProfile);
+  const [imageSrc, setImageSrc] = useState(PNG_IMAGES.defaultProfile);
   const { name } = props;
   const File = watch(name);
 

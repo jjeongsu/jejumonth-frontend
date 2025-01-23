@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import Form from '../../../../../components/common/Form';
+import Form from '@components/common/Form';
 import userUpdateInputs from './userUpdateInputs';
 
 const UpdateUserSection = () => {
