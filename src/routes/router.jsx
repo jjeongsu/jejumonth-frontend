@@ -23,6 +23,7 @@ import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx
 
 // TODO  Error element 추가하기
 // TODO Path 상수처리하기
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,6 +34,18 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       { path: '/search', element: <SearchPage /> },
+      {
+        path: 'user',
+        element: <MyPage />,
+      },
+      {
+        path: 'community',
+        element: <CommunityPage />,
+      },
+      {
+        path: '/detail/:contentsid', // 도메인/detail/3
+        element: <DetailPage />,
+      },
     ],
   },
   {
@@ -50,16 +63,6 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <Navigate to="/auth" replace />,
-      },
-    ],
-  },
-  {
-    path: '/detail',
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: '',
-        element: <DetailPage />,
       },
     ],
   },
@@ -87,40 +90,36 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: '/community',
-    element: <CommunityPage />,
-  },
-  {
-    path: '/mypage',
-    element: <MyPage />,
-    children: [
-      {
-        path: 'scrapsection',
-        element: <ScrapSection />,
-      },
-      {
-        path: 'postssection',
-        element: <PostsSection />,
-      },
-      {
-        path: 'commentsection',
-        element: <CommentSection />,
-      },
-      {
-        path: 'likedSection',
-        element: <LikedSection />,
-      },
-      {
-        path: 'scheduleSection',
-        element: <ScheduleSection />,
-      },
-      {
-        path: '',
-        element: <Navigate to="scrapsection" replace />,
-      },
-    ],
-  },
+  // {
+  //   path: '/mypage',
+  //   element: <MyPage />,
+  //   children: [
+  //     {
+  //       path: 'scrapsection',
+  //       element: <ScrapSection />,
+  //     },
+  //     {
+  //       path: 'postssection',
+  //       element: <PostsSection />,
+  //     },
+  //     {
+  //       path: 'commentsection',
+  //       element: <CommentSection />,
+  //     },
+  //     {
+  //       path: 'likedSection',
+  //       element: <LikedSection />,
+  //     },
+  //     {
+  //       path: 'scheduleSection',
+  //       element: <ScheduleSection />,
+  //     },
+  //     {
+  //       path: '',
+  //       element: <Navigate to="scrapsection" replace />,
+  //     },
+  //   ],
+  // },
 ]);
 
 export default router;
