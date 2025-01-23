@@ -58,7 +58,7 @@ const router = createBrowserRouter([
     element: <DefaultLayout />,
     children: [
       {
-        path: '',
+        path: ':contentsid',
         element: <DetailPage />,
       },
     ],
