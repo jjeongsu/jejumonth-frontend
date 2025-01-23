@@ -1,6 +1,6 @@
 const PlaceCard = ({ item }) => {
   return (
-    <div className="w-559 h-66 relative border flex justify-around items-center border-white">
+    <div className="w-560 h-66 relative border flex justify-around items-center border-white">
       <img
         className="w-57 h-32 rounded-sm"
         src={item?.repPhoto?.photoid?.thumbnailpath}

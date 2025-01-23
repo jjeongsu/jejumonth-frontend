@@ -9,6 +9,8 @@ import {
   AddPlanPage,
   CommunityPage,
   MyPage,
+  DetailPage,
+  SearchPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import TripLayout from '../layouts/TripLayout.jsx';
@@ -30,6 +32,7 @@ const router = createBrowserRouter([
         path: '',
         element: <HomePage />,
       },
+      { path: '/search', element: <SearchPage /> },
     ],
   },
   {
@@ -47,6 +50,16 @@ const router = createBrowserRouter([
       {
         path: '*',
         element: <Navigate to="/auth" replace />,
+      },
+    ],
+  },
+  {
+    path: '/detail',
+    element: <DefaultLayout />,
+    children: [
+      {
+        path: '',
+        element: <DetailPage />,
       },
     ],
   },
