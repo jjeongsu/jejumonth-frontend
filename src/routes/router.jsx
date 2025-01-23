@@ -20,7 +20,7 @@ import PostsSection from '../pages/MyPage/components/main/PostsSection.jsx';
 import CommentSection from '../pages/MyPage/components/main/CommentSection.jsx';
 import LikedSection from '../pages/MyPage/components/main/LikedSection.jsx';
 import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
-import UpdateUserSection from '../pages/MyPage/components/main/UpdateUserSection';
+import UpdateUserSection from '../pages/MyPage/components/main/updateUserProfile/UpdateUserSection.jsx';
 
 // TODO  Error element 추가하기
 // TODO Path 상수처리하기

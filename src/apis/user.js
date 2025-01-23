@@ -40,3 +40,21 @@ export const postSigninApi = async data => {
     console.log('error', error);
   }
 };
+
+export const postProfileImage = async data => {
+  const { imageFile } = data;
+  const url = `${serverURL}/users/upload-photo`;
+
+  try {
+    // 헤더 추가
+    const response = await axios.post(url, {
+      isCover: false, // 프로필 사진인 경우
+      image: imageFile,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const putUserPassword = async data => {};

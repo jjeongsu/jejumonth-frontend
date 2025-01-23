@@ -1,9 +1,3 @@
-import React from 'react';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import Form from '../../../../components/common/Form';
-
-// TODO 유효성 검사 수정
 const userUpdateInputs = getValues => {
   return {
     image: {
@@ -73,28 +67,4 @@ const userUpdateInputs = getValues => {
   };
 };
 
-const UpdateUserSection = () => {
-  const id = useSelector(state => state.user.userId);
-  const fullName = useSelector(state => state.user.userFullName);
-
-  const onSubmit = data => {
-    console.log('submit된 data', data);
-  };
-  const formProps = {
-    onSubmit: onSubmit,
-    submitButtonText: '수정하기',
-    inputs: userUpdateInputs,
-    watchTarget: 'password',
-  };
-
-  return (
-    <div className=" w-full">
-      <h1 className="text-24 font-semibold">{fullName ?? '유저'}님의 회원정보</h1>
-      <div className="w-316">
-        <Form {...formProps}></Form>
-      </div>
-    </div>
-  );
-};
-
-export default UpdateUserSection;
+export default userUpdateInputs;
