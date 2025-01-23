@@ -4,6 +4,7 @@ import ChannelTabs from './components/ChannelList';
 // import leftArr from '/icon/icon/leftArr-icon.png';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
+import PostForm from './components/PostForm';
 
 const CommunityPage = () => {
   const [activeTab, setActiveTab] = useState('베스트');
@@ -33,7 +34,7 @@ const CommunityPage = () => {
     <div className=" container mx-auto py-200 px-160 left-margin-195">
       <div className="flex items-center mb-6">
         <button className="text-gray-500 hover:text-orange-500 text-lg mr-4 ">
-          <img src={leftArr} alt="leftArr" />
+          {/* <img src={leftArr} alt="leftArr" /> */}
         </button>
         <h2 className="text-3xl font-bold text-gray-800">커뮤니티</h2>
       </div>
@@ -50,6 +51,9 @@ const CommunityPage = () => {
           onSelect={selected => console.log('Selected:', selected)}
         />
         <SearchBar onSearch={setSearchQuery} />
+      </div>
+      <div>
+        <PostForm />
       </div>
 
       <div className=" p-6 bg-white rounded-lg shadow-md">
