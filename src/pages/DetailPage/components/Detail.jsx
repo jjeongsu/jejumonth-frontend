@@ -1,11 +1,14 @@
 import React from "react";
 import KaKaoMap from "./Map";
+import Phone from "/icons/phone.svg"
+import Position from "/icons/position.svg"
+import EmptyHeart from "/icons/emptyHeart.svg"
 
 const Detail = ({ data }) => {
   if (!data) return <div>데이터가 없습니다.</div>;
 
   return (
-    <div className="max-w-4xl mx-auto p-4 mb-10">
+    <div className="max-w-4xl mx-auto p-4 mb-10 bg-slate-100">
       <div className="relative rounded-lg overflow-hidden shadow-md mb-8">
         <img
           src={data.repPhoto.photoid.imgpath}
@@ -17,8 +20,21 @@ const Detail = ({ data }) => {
         </div>
       </div>
 
-      <section className="mb-12">
-        <h2 className="text-2xl font-bold text-neutral-800 mb-4">🔎 Info</h2>
+      <section>
+        <div className="flex items-center justify-between mt-11">
+          <h2 className="text-2xl font-bold text-neutral-800">🔎 Info</h2>
+          <button
+            className="w-[110px] h-[45px] rounded-[25px] bg-neutral-100 flex items-center justify-center gap-2 shadow-md"
+            style={{
+              boxShadow:
+                "0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,0.01), 0px 13px 8px 0 rgba(97,97,97,0.05), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)",
+            }}
+          >
+            <img src={EmptyHeart} alt="EmptyHeart" className="w-20 h-20" />
+            <p className="text-sm text-[#595959]">  찜하기</p>
+          </button>
+
+        </div>
         <div className="p-20">
           <p className="text-lg font-bold text-neutral-800 mt-6">{data.introduction || "설명이 없습니다."}</p>
           <div className="space-y-6 mt-20">
@@ -59,22 +75,27 @@ const Detail = ({ data }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-neutral-800">📍 지도</h2>
+          <h2 className="text-2xl font-bold text-neutral-800 mb-20">📍 About</h2>
           <div className="w-full h-[215px] mt-10">
             <KaKaoMap latitude={data?.latitude || 37.5665} longitude={data?.longitude || 126.9780} />
           </div>
         </div>
 
-        <div className="space-y-4">
-          <h2 className="text-2xl font-bold text-neutral-800">📍 About</h2>
+        <div className="space-y-4 mt-30">
           <ul className="space-y-12 h-[215px] p-20">
-            <li className="mb-30">
-              <p className="text-lg font-bold text-[#8c8c8c]">주소</p>
-              <p className="text-base text-[#434343] leading-6">{data.roadaddress}</p>
+            <li className="mb-30 flex item-center gap-4">
+              <img src={Position} alt="position" className="w-20 h-20 pt-6"/>
+              <div>
+                <p className="text-lg font-bold text-[#8c8c8c]">주소</p>
+                <p className="text-base text-[#434343] leading-6">{data.roadaddress}</p>
+              </div>
             </li>
-            <li>
-              <p className="text-lg font-bold text-[#8c8c8c]">전화번호</p>
-              <p className="text-base text-[#434343] leading-6">{data.phoneno}</p>
+            <li className="flex item-center gap-4">
+              <img src={Phone} alt="phone" className="w-20 h-20 pt-6"/>
+              <div>
+                <p className="text-lg font-bold text-[#8c8c8c]">전화번호</p>
+                <p className="text-base text-[#434343] leading-6">{data.phoneno}</p>
+              </div>
             </li>
           </ul>
         </div>
