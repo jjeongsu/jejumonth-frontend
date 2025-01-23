@@ -21,7 +21,7 @@ const Detail = ({ data }) => {
 
       <section className="mb-12">
         <h2 className="text-2xl font-bold text-neutral-800 mb-4">🔎 Info</h2>
-        <p className="text-base text-black leading-7">{data.description || "설명이 없습니다."}</p>
+        <p className="text-base text-black leading-7">{data.introduction || "설명이 없습니다."}</p>
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -37,10 +37,10 @@ const Detail = ({ data }) => {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-neutral-800">📍 About</h2>
           <ul className="space-y-4">
-            <li>
+            {/* <li>
               <p className="text-lg font-bold text-[#8c8c8c]">소개</p>
               <p className="text-base text-[#434343] leading-6">{data.introduction}</p>
-            </li>
+            </li> */}
             <li>
               <p className="text-lg font-bold text-[#8c8c8c]">주소</p>
               <p className="text-base text-[#434343] leading-6">{data.roadaddress}</p>

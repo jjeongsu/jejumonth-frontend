@@ -15,10 +15,6 @@ export default function KaKaoMap({ latitude, longitude }) {
     script.onload = () => {
       console.log("카카오맵 불러오기 성공!");
       const container = document.getElementById("map");
-      if (!container) {
-        console.error("카카오맵 컨테이너가 없음");
-        return;
-      }
       console.log("window.kakao:", window.kakao);
 
       const options = {
