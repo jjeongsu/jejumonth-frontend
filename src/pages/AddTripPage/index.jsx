@@ -65,6 +65,7 @@ const AddTripPage = () => {
             다음
           </Button>
         </div>
+        {/*TODO 여기를 모달로 바꾸기*/}
         {apiStatus ? (
           apiStatus === 'success' ? (
             <Alert message="일정 생성 성공!" description={message} type="success" showIcon />
