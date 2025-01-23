@@ -17,9 +17,8 @@ export async function getPlaceByExplanationApi(targetWord) {
   if (!import.meta.env.VITE_VISITJEJU_KEY) {
     throw new Error('API 키가 설정되어 있지 않습니다.');
   }
-
   try {
-    const response = await axios.get('/api/vsjApi/contents/searchList', {
+    const response = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchList', {
       params: {
         apiKey: import.meta.env.VITE_VISITJEJU_KEY,
         locale: 'kr',
