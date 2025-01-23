@@ -2,7 +2,8 @@ import React from "react";
 import KaKaoMap from "./Map";
 import Phone from "/icons/phone.svg"
 import Position from "/icons/position.svg"
-import EmptyHeart from "/icons/emptyHeart.svg"
+import WishlistButton from "./WishlistButton";
+
 
 const Detail = ({ data }) => {
   if (!data) return <div>데이터가 없습니다.</div>;
@@ -23,17 +24,7 @@ const Detail = ({ data }) => {
       <section>
         <div className="flex items-center justify-between mt-11">
           <h2 className="text-2xl font-bold text-neutral-800">🔎 Info</h2>
-          <button
-            className="w-[110px] h-[45px] rounded-[25px] bg-neutral-100 flex items-center justify-center gap-2 shadow-md"
-            style={{
-              boxShadow:
-                "0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,0.01), 0px 13px 8px 0 rgba(97,97,97,0.05), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)",
-            }}
-          >
-            <img src={EmptyHeart} alt="EmptyHeart" className="w-20 h-20" />
-            <p className="text-sm text-[#595959]">  찜하기</p>
-          </button>
-
+          <WishlistButton/>
         </div>
         <div className="p-20">
           <p className="text-lg font-bold text-neutral-800 mt-6">{data.introduction || "설명이 없습니다."}</p>
