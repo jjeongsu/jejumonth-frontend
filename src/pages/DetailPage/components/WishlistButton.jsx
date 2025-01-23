@@ -20,6 +20,14 @@ const WishlistButton = () => {
       ) : (
         <div className="w-[110px] h-[45px] rounded-[25px] bg-neutral-100 flex items-center justify-center gap-2"></div>
       )}
+
+      {/* 테스트 용입니다. 기능 확인시 삭제 */}
+      <button
+        onClick={() => setIsLoggedIn(!isLoggedIn)}
+        className="mt-4 p-2 bg-blue-500 text-white rounded"
+      >
+        {isLoggedIn ? "로그아웃" : "로그인"}
+      </button>
     </div>
   );
 };
