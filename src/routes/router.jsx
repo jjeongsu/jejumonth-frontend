@@ -8,6 +8,7 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
+  DetailPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import TripLayout from '../layouts/TripLayout.jsx';
@@ -25,6 +26,12 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
     ],
+  },
+  {
+    
+    path: '/detail/:contentsid',
+    element: <DetailPage/>
+    
   },
   {
     path: '/auth',
