@@ -90,36 +90,36 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: '/mypage',
-  //   element: <MyPage />,
-  //   children: [
-  //     {
-  //       path: 'scrapsection',
-  //       element: <ScrapSection />,
-  //     },
-  //     {
-  //       path: 'postssection',
-  //       element: <PostsSection />,
-  //     },
-  //     {
-  //       path: 'commentsection',
-  //       element: <CommentSection />,
-  //     },
-  //     {
-  //       path: 'likedSection',
-  //       element: <LikedSection />,
-  //     },
-  //     {
-  //       path: 'scheduleSection',
-  //       element: <ScheduleSection />,
-  //     },
-  //     {
-  //       path: '',
-  //       element: <Navigate to="scrapsection" replace />,
-  //     },
-  //   ],
-  // },
+  {
+    path: '/mypage',
+    element: <MyPage />,
+    children: [
+      {
+        path: 'scrapsection',
+        element: <ScrapSection />,
+      },
+      {
+        path: 'postssection',
+        element: <PostsSection />,
+      },
+      {
+        path: 'commentsection',
+        element: <CommentSection />,
+      },
+      {
+        path: 'likedSection',
+        element: <LikedSection />,
+      },
+      {
+        path: 'scheduleSection',
+        element: <ScheduleSection />,
+      },
+      {
+        path: '',
+        element: <Navigate to="scrapsection" replace />,
+      },
+    ],
+  },
 ]);
 
 export default router;
