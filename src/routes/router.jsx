@@ -10,8 +10,8 @@ import {
   CommunityPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
-import TripLayout from '../layouts/TripLayout.jsx';
-import PlanLayout from '../layouts/PlanLayout.jsx';
+import SigninPage from '../pages/SigninPage';
+import SignupPage from '../pages/SignupPage';
 
 // TODO  Error element 추가하기
 // TODO Path 상수처리하기
@@ -71,6 +71,36 @@ const router = createBrowserRouter([
   {
     path: '/community',
     element: <CommunityPage />,
+  },
+  {
+    path: '/mypage',
+    element: <MyPage />,
+    children: [
+      {
+        path: 'scrapsection',
+        element: <ScrapSection />,
+      },
+      {
+        path: 'postssection',
+        element: <PostsSection />,
+      },
+      {
+        path: 'commentsection',
+        element: <CommentSection />,
+      },
+      {
+        path: 'likedSection',
+        element: <LikedSection />,
+      },
+      {
+        path: 'scheduleSection',
+        element: <ScheduleSection />,
+      },
+      {
+        path: '',
+        element: <Navigate to="scrapsection" replace />,
+      },
+    ],
   },
 ]);
 
