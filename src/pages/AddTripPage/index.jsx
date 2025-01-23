@@ -1,4 +1,4 @@
-import { Alert } from 'antd';
+import { Modal } from 'antd';
 import { DateRangePicker } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { ko } from 'date-fns/locale';
@@ -18,24 +18,35 @@ const AddTripPage = () => {
       key: 'selection',
     },
   ]);
-  const [apiStatus, setApiStatus] = useState('');
-  const [message, setMessage] = useState('');
 
   const handleSubmit = async () => {
     try {
       const result = await postTripApi('test', state);
-      setMessage(
-        result[0].start_date + ' 부터 ' + result[0].end_date + ' 까지의 일정이 생성됐습니다.',
-      );
-      setApiStatus('success');
+      const message = result[0].start_date + ' 부터 ' + result[0].end_date + ' 까지의 일정이 생성됐습니다.';
       const tripId = result[0].trip_id;
-      setTimeout(() => {
-        navigate(`/trip/my?trip_id=${tripId}`);
-      }, 1500);
+      Modal.success({
+        title: 'Success',
+        content: message,
+        onOk() {
+          navigate(`/trip/my?trip_id=${tripId}`)
+        },
+        okButtonProps : {
+          style: {
+            backgroundColor: '#FDBA74',
+          }
+        }
+      });
     } catch (error) {
       console.error(error);
-      setApiStatus('error');
-      setMessage(error);
+      Modal.error({
+        title: '일정 생성에 문제가 생겼어요',
+        content: '같은 문제가 반복된다면 브라우저를 껐다 켜주세요.',
+        okButtonProps : {
+          style: {
+            backgroundColor: '#FDBA74',
+          }
+        }
+      });
     }
   };
 
@@ -65,19 +76,6 @@ const AddTripPage = () => {
             다음
           </Button>
         </div>
-        {/*TODO 여기를 모달로 바꾸기*/}
-        {apiStatus ? (
-          apiStatus === 'success' ? (
-            <Alert message="일정 생성 성공!" description={message} type="success" showIcon />
-          ) : (
-            <Alert
-              message="Error"
-              description="This is an error message about copywriting."
-              type="error"
-              showIcon
-            />
-          )
-        ) : null}
       </div>
     </>
   );
