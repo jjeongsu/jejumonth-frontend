@@ -8,6 +8,8 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
+  DetailPage,
+  SearchPage,
 } from '../pages';
 import AuthLayout from '../layouts/AuthLayout';
 import TripLayout from '../layouts/TripLayout.jsx';
@@ -45,6 +47,16 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: '/detail',
+    element: <DefaultLayout />,
+    children: [
+      {
+        path: '',
+        element: <DetailPage />,
+      },
+    ],
+  },
+  {
     path: '/trip',
     element: <TripLayout />,
     children: [
@@ -71,6 +83,10 @@ const router = createBrowserRouter([
   {
     path: '/community',
     element: <CommunityPage />,
+  },
+  {
+    path: '/search',
+    element: <SearchPage />,
   },
 ]);
 
