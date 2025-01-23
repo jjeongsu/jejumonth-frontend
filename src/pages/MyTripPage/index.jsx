@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import DayCard from '../../components/trippage/DayCard.jsx';
+import DayCard from '../AddTripPage/components/DayCard.jsx';
+import PlanCard from './components/PlanCard.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getTripApi } from '../../apis/supabaseApi.js';
+import { getPlanApi, getTripApi } from '../../apis/supabaseApi.js';
 
 const { kakao } = window;
 
@@ -9,7 +10,7 @@ const MyTripPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tripId = queryParams.get('trip_id');
-  const [dates, setDates] = useState([]);
+  const [datesData, setDatesData] = useState([]);
 
   const getDates = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -24,15 +25,29 @@ const MyTripPage = () => {
     return dates;
   };
 
-  const getTripInfo = async () => {
+  const getTripAndPlanInfo = async () => {
     try {
-      const result = await getTripApi('test', tripId);
-      const allDates = getDates(result[0].start_date, result[0].end_date);
-      setDates(allDates);
+      const tripResult = await getTripApi('test', tripId);
+      const allDates = getDates(tripResult[0].start_date, tripResult[0].end_date);
+      const tempDatesData = [];
+      for (const date of allDates) {
+        tempDatesData[date] = [];
+      }
+      const planResult = await getPlanApi('test', tripId);
+      for (const planInfo of planResult) {
+        if (tempDatesData[planInfo.date]) {
+          tempDatesData[planInfo.date].push(planInfo);
+        }
+      }
+      setDatesData(tempDatesData);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    console.log(datesData);
+  }, [datesData]);
 
   useEffect(() => {
     const container = document.getElementById('map');
@@ -41,7 +56,7 @@ const MyTripPage = () => {
       level: 10,
     };
     const map = new kakao.maps.Map(container, options);
-    getTripInfo();
+    getTripAndPlanInfo();
   }, []);
 
   return (
@@ -55,8 +70,12 @@ const MyTripPage = () => {
             msOverflowStyle: 'none',
           }}
         >
-          {dates.map((date, i) => (
-            <DayCard key={i} number={i} date={date} />
+          {Object.keys(datesData).map((date, i) => (
+            <DayCard key={i} number={i} date={date}>
+              {datesData[date].map((plan, i) => (
+                <PlanCard key={plan.id} />
+              ))}
+            </DayCard>
           ))}
         </div>
         <div id="map" className="w-813 h-632 ml-24"></div>
