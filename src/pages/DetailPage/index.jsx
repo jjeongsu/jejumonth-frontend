@@ -18,13 +18,6 @@ const DetailPage = () => {
           navigate('/search'); // cid가 없으면 즉시 리다이렉트
           return;
         }
-        // const apiKey = import.meta.env.VITE_VISITJEJU_KEY;
-        // const response = await fetch(
-        //   `https://api.visitjeju.net/vsjApi/contents/searchList?locale=kr&cid=${contentsid}&item=1&apiKey=${apiKey}`,
-        // );
-        // `https://api.visitjeju.net/vsjApi/contents/searchList?locale=kr&cid=${contentsid}&item=1&apiKey=${apiKey}`
-        // getPlaceByExplanationApi(contentsid) // 에러 발생: Unexpected token '<', "<!doctype "... is not valid JSON
-
         const result = await getPlaceByExplanationApi(contentsid);
 
         if (!result.items || result.items.length === 0) {
