@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { message } from 'antd';
 
 const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -29,6 +30,7 @@ const WeekCalendar = ({
 }) => {
   const [targetDay, setTargetDay] = useState(() => getRefinedDate(initialTargetDate)); // ui 상에서 선택된 날짜
   const [targetWeek, setTargetWeek] = useState(() => makeWeekArray(targetDay)); // 현재 보여주는 주차
+  const [messageApi, contextHolder] = message.useMessage();
 
   // 시작날짜와 종료 날짜를 Date 객체로 변환
   const startDate = new Date(startDay);
@@ -61,8 +63,7 @@ const WeekCalendar = ({
       const newDate = new Date(clickedDate);
       setSelectedDay(newDate);
     } else {
-      // 모달창을 띄우자
-      alert('유효하지 않은 날짜 입니다..!');
+      showError();
     }
   };
 
@@ -71,9 +72,22 @@ const WeekCalendar = ({
     const currentDate = new Date(date);
     return currentDate < startDate || currentDate > endDate ? false : true;
   };
+
+  // ? showError, showSucess를 한곳에서 관리하는 방법
+  const showError = () => {
+    messageApi.open({
+      type: 'error',
+      content: '여행 기간내의 날짜를 선택해주세요',
+      style: {
+        marginTop: '100px',
+      },
+    });
+  };
   return (
     <div className="relatvie">
+      {contextHolder}
       <div className="font-semibold text-20 ml-21">{targetDay.getMonth() + 1}월</div>
+
       <hr className="border-gray-5 border-1 my-12" />
       <div className="grid grid-cols-7 grid-rows-[32px_50px] ">
         {WEEK.map((day, index) => (

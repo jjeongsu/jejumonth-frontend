@@ -4,12 +4,15 @@ import { useState } from 'react';
 import WeekCalendar from './WeekCalendar';
 import ButtonList from './ButtonList';
 import { formatDateKo, formatDate, formatTime } from '../../../utils/dateFormat';
+import { message } from 'antd';
+
 // TODO 랜더링 최적화
 // TODO 요약부 이모지를 아이콘으로 변경
 const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRegister }) => {
   const [time, setTime] = useState(null);
   const [selectedDay, setSelectedDay] = useState(() => getRefinedDate(initialTargetDate));
-  console.log('time', time);
+  const [messageApi, contextHolder] = message.useMessage();
+
   // day : Wed Feb 05 2025 00:00:00 GMT+0900 (한국 표준시)
   const calendarProps = {
     initialTargetDate,
@@ -27,9 +30,32 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
         time,
       };
       onRegister(data);
+      showSuccess();
     } else {
-      alert('시간을 등록해주세요'); // TODO toast나 modal로 변경
+      showError();
     }
+  };
+
+  const showError = () => {
+    messageApi.open({
+      type: 'error',
+      content: '시간을 등록해주세요',
+      style: {
+        marginTop: '100px',
+      },
+      duration: 5,
+    });
+  };
+
+  const showSuccess = () => {
+    messageApi.open({
+      type: 'success',
+      content: '일정 등록이 완료되었습니다! 🎉',
+      style: {
+        marginTop: '100px',
+      },
+      duration: 5,
+    });
   };
   return (
     <div>
@@ -67,6 +93,7 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
           className="text-16 font-semibold text-green-500 ml-3 abolute right-0"
           onClick={onSubmitClick}
         >
+          {contextHolder}
           <span>✅</span>
           <span>확인</span>
         </button>
