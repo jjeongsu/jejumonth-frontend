@@ -2,6 +2,7 @@ import ScrapIcon from '../icon/ScrapIcon';
 import PostsIcon from '../icon/PostsIcon ';
 import MessageIcon from '../icon/MessageIcon';
 import LikesIcon from '../icon/LikesIcon';
+import ScheduleIcon from '../icon/ScheduleIcon';
 
 import dummyImg from '../dummy-img.png';
 import { NavLink } from 'react-router';
@@ -12,7 +13,7 @@ const Aside = () => {
     { icon: PostsIcon, title: '작성한 게시글', link: '/mypage/postssection' },
     { icon: MessageIcon, title: '작성한 댓글', link: '/mypage/commentsection' },
     { icon: LikesIcon, title: '좋아요 누른 게시판', link: '/mypage/likedSection' },
-    { icon: LikesIcon, title: '내 여행 일정', link: '/mypage/scheduleSection' },
+    { icon: ScheduleIcon, title: '내 여행 일정', link: '/mypage/scheduleSection' },
   ];
 
   return (
