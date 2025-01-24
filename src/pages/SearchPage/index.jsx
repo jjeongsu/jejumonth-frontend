@@ -1,6 +1,6 @@
 // import React from 'react';
 
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import DetailCard from './components/index';
 import { ConfigProvider, Pagination } from 'antd';
 import { useEffect } from 'react';
@@ -21,6 +21,11 @@ const SearchPage = () => {
 
   // const [searchData, setSearchData] = useState();
   // const [message, setMessage] = useState();
+
+  // const searchParams = useSearchParams();
+  const location = useLocation();
+
+  console.log(location);
 
   useEffect(() => {
     (async () => {

@@ -14,9 +14,6 @@ const visitApi = axios.create({
 
 export async function getList() {
   try {
-    // const response = await visitApi.get('', {
-    //   params: { title: '성산일출봉(UNESCO 세계자연유산)' },
-    // });
     const response = await visitApi.get('', {
       params: { title: '성산일출봉(UNESCO 세계자연유산)' },
     });
