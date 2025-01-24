@@ -1,17 +1,25 @@
 // import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Post from './Post';
-import { getUserPost } from '../../../../../apis/getUserPost';
+import { getUserData } from '../../../../../apis/getUserData';
 
 const PostsSection = () => {
   const userId = '67908daee8a1e4349ed76ec2'; // 더미 데이터
-  //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY3OTA4ZGFlZThhMWU0MzQ5ZWQ3NmVjMiIsImVtYWlsIjoidGVzdCJ9LCJpYXQiOjE3Mzc2OTk2ODF9.RCuyIwJ-9wIuR_gYYQc4gaLwjsmletQQMiWqKL9h5ug
+
+  // const { data, isLoading, isError, error } = useQuery({
+  //   queryKey: [userId],
+  //   queryFn: async ({ queryKey }) => {
+  //     const [userId] = queryKey;
+  //     const response = await getUserPost(userId);
+  //     return response;
+  //   },
+  // });
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: [userId],
-    queryFn: async ({ queryKey }) => {
-      const [userId] = queryKey;
-      const response = await getUserPost(userId);
+    queryKey: ['userData'],
+    queryFn: async () => {
+      const response = await getUserData(userId);
+
       return response;
     },
   });
@@ -22,7 +30,7 @@ const PostsSection = () => {
   }
 
   return (
-    <article className="w-full">
+    <>
       <div>
         <h2 className="text-24 text-gray-13 font-semibold">
           <strong className="text-primary-0">username</strong> 님이 작성한 게시글
@@ -36,12 +44,12 @@ const PostsSection = () => {
           </p>
         )}
         {isLoading && <p className="py-32">로딩 중 ...</p>}
-        {!data && <p className="py-32">아직 작성한 게시글이 없습니다!</p>}
-        {data?.map(post => (
+        {!data.posts && <p className="py-32">아직 작성한 게시글이 없습니다!</p>}
+        {data.posts?.map(post => (
           <Post key={post._id} postData={post}></Post>
         ))}
       </div>
-    </article>
+    </>
   );
 };
 

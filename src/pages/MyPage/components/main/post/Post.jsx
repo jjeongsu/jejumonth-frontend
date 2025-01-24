@@ -1,31 +1,11 @@
 import PropTypes from 'prop-types';
 import CommentIcon from '../../icon/CommentIcon';
 import LikesIcon from '../../icon/LikesIcon';
+import timeFormatter from '../../../../../utils/timeUtil';
 
 const Post = ({ postData }) => {
   const userPostHandler = () => {
     console.log('삭제 및 수정 구현 예정');
-  };
-
-  const timeFormatter = postTime => {
-    const currentTime = new Date();
-
-    const postData = new Date(postTime);
-
-    const timeDifference = currentTime - postData;
-
-    const hourDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-
-    const formatterText =
-      hourDifference < 1
-        ? '방금 전'
-        : hourDifference < 24
-          ? `${hourDifference}시간 전`
-          : `${Math.floor(hourDifference / 24) === 1}`
-            ? `하루 전`
-            : `${Math.floor(hourDifference / 24)}일 전`;
-
-    return formatterText;
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getUserData } from '../../../../../apis/getUserPost';
+import { getUserData } from '../../../../../apis/getUserData';
 import Comment from './Comment';
 
 const CommentSection = () => {
