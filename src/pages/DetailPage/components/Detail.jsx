@@ -25,7 +25,7 @@ const Detail = ({ data }) => {
       <section>
         <div className="flex items-center justify-between mt-11">
           <h2 className="text-2xl font-bold text-neutral-800">🔎 Info</h2>
-          <WishlistButton/>
+          <WishlistButton contentId={data.contentsid}/>
         </div>
         <div className="p-20">
           <p className="text-lg font-bold text-neutral-800 mt-6">{data.introduction || "설명이 없습니다."}</p>
@@ -69,7 +69,8 @@ const Detail = ({ data }) => {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-neutral-800 mb-20">📍 About</h2>
           <div className="w-full h-[215px] mt-10">
-            <KaKaoMap latitude={data?.latitude || 37.5665} longitude={data?.longitude || 126.9780} />
+            <KaKaoMap latitude={data?.latitude || 37.5665} longitude={data?.longitude || 126.9780} /> 
+            {/* 데이터가 없다면 서울시청으로. */}
           </div>
         </div>
 
