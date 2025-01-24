@@ -17,11 +17,13 @@ const Post = ({ postData }) => {
     const hourDifference = Math.floor(timeDifference / (1000 * 60 * 60));
 
     const formatterText =
-      hourDifference < 24
-        ? `${hourDifference}시간 전`
-        : `${Math.floor(hourDifference / 24) === 1}`
-          ? `하루 전`
-          : `${Math.floor(hourDifference / 24)}일 전`;
+      hourDifference < 1
+        ? '방금 전'
+        : hourDifference < 24
+          ? `${hourDifference}시간 전`
+          : `${Math.floor(hourDifference / 24) === 1}`
+            ? `하루 전`
+            : `${Math.floor(hourDifference / 24)}일 전`;
 
     return formatterText;
   };

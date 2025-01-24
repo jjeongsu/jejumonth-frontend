@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const LikesIcon = ({ active, size = 16, baseColor = '#1E1E1E' }) => {
+const LikesIcon = ({ active, size = 24, baseColor = '#1E1E1E' }) => {
   return (
     <svg
       width={size}
