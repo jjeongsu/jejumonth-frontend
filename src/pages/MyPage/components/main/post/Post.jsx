@@ -70,11 +70,13 @@ const Post = ({ postData }) => {
 export default Post;
 
 Post.propTypes = {
-  title: PropTypes.string,
-  channel: PropTypes.shape({
-    name: PropTypes.string,
-    channel: PropTypes.string,
+  postData: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    channel: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    likes: PropTypes.array.isRequired,
+    comments: PropTypes.array.isRequired,
+    createdAt: PropTypes.string.isRequired,
   }),
-  likes: PropTypes.array,
-  comment: PropTypes.array,
 };
