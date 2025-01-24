@@ -29,7 +29,7 @@ const DetailPage = () => {
       } catch (error) {
         console.error("api 호출 중 오류 :", error);
         setError(error.message);
-        navigate('/search'); // 에러시 리다이렉트
+        navigate('/search'); // 에러 시 리다이렉트
       } finally {
         setLoading(false);
       }

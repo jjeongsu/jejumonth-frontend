@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import EmptyHeart from "/icons/emptyHeart.svg"
+import EmptyHeart from "/icons/emptyHeart.svg";
+import FullHeart from "/icons/fullHeart.svg";
 
 const WishlistButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
