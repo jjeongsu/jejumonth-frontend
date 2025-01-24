@@ -20,6 +20,7 @@ import PostsSection from '../pages/MyPage/components/main/PostsSection.jsx';
 import CommentSection from '../pages/MyPage/components/main/CommentSection.jsx';
 import LikedSection from '../pages/MyPage/components/main/LikedSection.jsx';
 import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
+import UpdateUserSection from '../pages/MyPage/components/main/updateUserProfile/UpdateUserSection.jsx';
 
 // TODO  Error element 추가하기
 // TODO Path 상수처리하기
@@ -90,36 +91,40 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // {
-  //   path: '/mypage',
-  //   element: <MyPage />,
-  //   children: [
-  //     {
-  //       path: 'scrapsection',
-  //       element: <ScrapSection />,
-  //     },
-  //     {
-  //       path: 'postssection',
-  //       element: <PostsSection />,
-  //     },
-  //     {
-  //       path: 'commentsection',
-  //       element: <CommentSection />,
-  //     },
-  //     {
-  //       path: 'likedSection',
-  //       element: <LikedSection />,
-  //     },
-  //     {
-  //       path: 'scheduleSection',
-  //       element: <ScheduleSection />,
-  //     },
-  //     {
-  //       path: '',
-  //       element: <Navigate to="scrapsection" replace />,
-  //     },
-  //   ],
-  // },
+  {
+    path: '/mypage',
+    element: <MyPage />,
+    children: [
+      {
+        path: 'scrapsection',
+        element: <ScrapSection />,
+      },
+      {
+        path: 'postssection',
+        element: <PostsSection />,
+      },
+      {
+        path: 'commentsection',
+        element: <CommentSection />,
+      },
+      {
+        path: 'likedSection',
+        element: <LikedSection />,
+      },
+      {
+        path: 'scheduleSection',
+        element: <ScheduleSection />,
+      },
+      {
+        path: 'update',
+        element: <UpdateUserSection />,
+      },
+      {
+        path: '',
+        element: <Navigate to="scrapsection" replace />,
+      },
+    ],
+  },
 ]);
 
 export default router;

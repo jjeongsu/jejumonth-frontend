@@ -1,64 +1,93 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchChannels } from '../../apis/channelApi';
 import ChannelTabs from './components/ChannelList';
-// import leftArr from '/icon/icon/leftArr-icon.png';
+import leftArray from '../../../public/icons/left-array.svg';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 import PostForm from './components/PostForm';
+import TabPosts from './components/DetailedPosts';
+import PostRender from './components/PostRender';
+
 
 const CommunityPage = () => {
-  const [activeTab, setActiveTab] = useState('베스트');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const initialTab = searchParams.get('tab') || '베스트';
+
+  const [activeTab, setActiveTab] = useState(initialTab);
   const [channels, setChannels] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState('전체');
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    setSearchParams({ tab: activeTab });
+  }, [activeTab, setSearchParams]);
 
   useEffect(() => {
     const getChannels = async () => {
       try {
         const data = await fetchChannels();
         setChannels(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message);
       }
     };
 
     getChannels();
   }, []);
 
+  const handleTabChange = tab => {
+    setActiveTab(tab);
+    navigate(`/community?tab=${tab}`);
+  };
+
   const handleSearch = e => {
     e.preventDefault();
+    console.log('검색어:', searchQuery);
   };
 
   return (
-    <div className=" container mx-auto py-200 px-160 left-margin-195">
-      <div className="flex items-center mb-6">
-        <button className="text-gray-500 hover:text-orange-500 text-lg mr-4 ">
-          {/* <img src={leftArr} alt="leftArr" /> */}
+    <div className="container mx-auto px-10 py-10">
+      <div className="flex items-center mb-4">
+        <button className="text-gray-500 hover:text-orange-500 text-lg mr-4">
+          <img src={leftArray} alt="뒤로 가기" />
         </button>
-        <h2 className="text-3xl font-bold text-gray-800">커뮤니티</h2>
+        <h2 className="text-2xl font-bold text-gray-800">커뮤니티</h2>
       </div>
 
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <ChannelTabs channels={channels} activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="mt-20">
+          {' '}
+          <ChannelTabs channels={channels} activeTab={activeTab} setActiveTab={handleTabChange} />
+        </div>
       )}
 
-      <div className="flex items-center justify-end space-x-4 mb-6">
+      <div className="flex items-center justify-end space-x-4 mt-6 mb-8">
+        {' '}
         <Dropdown
           options={['작성자', '내용']}
           onSelect={selected => console.log('Selected:', selected)}
         />
         <SearchBar onSearch={setSearchQuery} />
       </div>
-      <div>
+
+      <div className="mb-30 p-4">
         <PostForm />
       </div>
 
-      <div className=" p-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-xl font-bold mb-4 text-gray-800">{activeTab} 채널</h3>
-        <p className="text-gray-600">이곳에 {activeTab} 채널에 대한 게시물을 표시합니다.</p>
+      <div>
+        <TabPosts
+          activeTab={activeTab}
+          channels={channels}
+          setPosts={setPosts}
+          setError={setError}
+        />
+        <PostRender posts={posts} className="" />
       </div>
     </div>
   );

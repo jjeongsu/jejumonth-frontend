@@ -13,7 +13,6 @@ const Modal = ({ isOpen, onClose, children }) => {
           padding: "2rem", 
         }}
       >
-        {/* 닫기 버튼 */}
         <button
           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
           onClick={onClose}
