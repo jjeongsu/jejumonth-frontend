@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import timeFormatter from '../../../../../utils/timeUtil';
+import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 
 const Comment = ({ commentData }) => {
   return (

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import CommentIcon from '../../icon/CommentIcon';
 import LikesIcon from '../../icon/LikesIcon';
-import timeFormatter from '../../../../../utils/timeUtil';
+import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 
 const Post = ({ postData }) => {
   const userPostHandler = () => {
