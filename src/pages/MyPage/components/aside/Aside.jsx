@@ -17,7 +17,7 @@ const Aside = () => {
   ];
 
   return (
-    <aside className="w-234 h-auto">
+    <aside className="w-234 h-auto top-[120px] fixed">
       <div className="w-234 border border-[#F0F0F0] rounded-21 shadow-[0px_0px_9px_0px_#dbdbdb] h-240">
         <div className="pt-20 w-full h-full rounded-96 flex flex-col items-center">
           <div
