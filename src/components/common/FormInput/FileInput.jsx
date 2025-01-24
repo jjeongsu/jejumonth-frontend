@@ -6,11 +6,13 @@ const FileInput = ({ props, watch, options }) => {
   const [imageSrc, setImageSrc] = useState(PNG_IMAGES.defaultProfile);
   const { name } = props;
   const File = watch(name);
-
+  console.log('file', File);
   useEffect(() => {
     if (File) {
-      const imagePreview = File[0];
-      setImageSrc(URL.createObjectURL(imagePreview));
+      if (File[0]) {
+        const imagePreview = File[0];
+        setImageSrc(URL.createObjectURL(imagePreview));
+      }
     }
   }, [File]);
 
