@@ -54,12 +54,13 @@ const Aside = () => {
               <NavLink
                 to={item.link}
                 className={({ isActive }) =>
-                  `text-center flex justify-center items-center gap-16 py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
+                  `w-[80%] m-auto text-center flex justify-evenly items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
                 }
               >
                 {({ isActive }) => (
                   <>
                     <item.icon active={isActive} />
+
                     <p className={`text-14 ${isActive ? 'text-sub-accent-1' : 'text-gray-10'}`}>
                       {item.title}
                     </p>
