@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { fetchChannels } from '../../../apis/channelApi';
 import { createPost } from '../../../apis/postCreate';
-import { fetchFullName } from '../../../apis/userFullNameApi';
+import { getUserFullNameApi } from '../../../apis/user';
 
 const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -30,7 +30,7 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
   useEffect(() => {
     const fetchName = async () => {
       try {
-        const name = await fetchFullName();
+        const name = await getUserFullNameApi();
         setFullName(name || '닉네임 없음'); 
       } catch (err) {
         console.error('사용자 이름 가져오기 에러:', err.message);

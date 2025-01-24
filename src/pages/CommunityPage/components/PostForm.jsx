@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PostFormModal from "./PostFormModal";
-// import pen from "../../../../public/icon/pen.svg";
+import pencil from "../../../../public/icons/pencil.svg";
 
 const PostForm = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -40,8 +40,8 @@ const PostForm = () => {
         onClick={handleOpenModal}
       >
         <img
-          // src={pen}
-          alt="pen"
+          src={pencil}
+          alt="pencil"
           className="w-[20px] h-[20px] text-gray-400 mt-3 ml-3"
         />
         <span className="mt-3 text-gray-400">회원님, 글을 작성해 보세요!</span>
