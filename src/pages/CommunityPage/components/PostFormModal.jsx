@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { fetchChannels } from '../../../apis/channelApi';
 import { createPost } from '../../../apis/postCreate';
-import { getUserFullNameApi } from '../../../apis/user';
+import { useSelector } from 'react-redux'; 
 
 const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -11,11 +11,11 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
     file: null,
   });
   const [channels, setChannels] = useState([]);
-  const [fullName, setFullName] = useState(''); 
   const [error, setError] = useState(null);
 
+  const fullName = useSelector(state => state.user.userFullName);
 
-  useEffect(() => { 
+  useEffect(() => {
     const loadChannels = async () => {
       try {
         const channelsData = await fetchChannels();
@@ -26,21 +26,6 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
     };
     loadChannels();
   }, []);
-
-  useEffect(() => {
-    const fetchName = async () => {
-      try {
-        const name = await getUserFullNameApi();
-        setFullName(name || '닉네임 없음'); 
-      } catch (err) {
-        console.error('사용자 이름 가져오기 에러:', err.message);
-        setFullName('사용자 이름 로드 실패'); 
-      }
-    };
-  
-    fetchName();
-  }, []);
- 
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -56,15 +41,16 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
 
     const formDataToSend = new FormData();
     formDataToSend.append('title', formData.title || '제목 없음');
-    formDataToSend.append('channelId', formData.channelId); 
+    formDataToSend.append('channelId', formData.channelId);
     if (formData.file) {
-      formDataToSend.append('image', formData.file); 
+      formDataToSend.append('image', formData.file);
     }
 
     try {
       await createPost(formDataToSend);
       alert('게시글이 성공적으로 업로드되었습니다!');
-      onClose(); 
+      onClose();
+      window.location.reload();
     } catch (error) {
       alert('게시글 업로드에 실패했습니다.');
       console.error(error);
@@ -76,7 +62,6 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
       <form onSubmit={handleSubmit} className="p-6 space-y-6 relative" style={{ height: '100%' }}>
         <h2 className="text-2xl font-bold mb-4">게시글 쓰기</h2>
 
-        
         <div
           style={{
             borderBottom: '1px solid #ddd',
@@ -84,10 +69,9 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
             marginBottom: '20px',
           }}
         >
-          <p className="text-gray-500 text-lg">{fullName  || '닉네임 로딩 중...'}</p>
+          <p className="text-gray-500 text-lg">{fullName || '닉네임 로딩 중...'}</p>
         </div>
 
-       
         <label className="block text-sm font-medium mb-2"></label>
         <select
           name="channelId"
@@ -110,8 +94,6 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
               </option>
             ))}
         </select>
-
-     
         <label
           className="block text-sm font-medium"
           style={{
@@ -181,7 +163,6 @@ const PostFormModal = ({ isOpen, onClose, onSubmit }) => {
           )}
         </div>
 
-   
         <div
           className="flex justify-end gap-4"
           style={{
