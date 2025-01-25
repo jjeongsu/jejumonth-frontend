@@ -56,6 +56,7 @@ export async function getPlanApi(userId, tripId) {
   return data ? data : error;
 }
 
+// 찜하기한 장소 저장용 API 4개
 export async function getAllUserLikedPlacesApi(userId) {
   const { data, error } = await supabase.from('UserLikedPlaces').select().eq('user_id', userId);
   return data ? data : error;
@@ -96,6 +97,7 @@ export async function deleteUserLikedPlaceApi(userId, contentId) {
   return data ? data : error;
 }
 
+// 아래 부터 커뮤니티 관련 API
 export async function getAllUserCommentsApi(userId) {
   const { data, error } = await supabase.from('UserComments').select().eq('user_id', userId);
   return data ? data : error;

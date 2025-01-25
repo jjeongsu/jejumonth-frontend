@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//import { Input, Form } from 'antd';
 
-const FormInput = ({ props, errorMessage, label, inputGuide }) => {
+const TextInput = ({ props, errorMessage, label, inputGuide }) => {
   return (
     <div className="w-full flex flex-col gap-5 mb-20">
       {label && <label className="text-11 font-bold mb-4">{label}</label>}
@@ -23,9 +22,9 @@ const FormInput = ({ props, errorMessage, label, inputGuide }) => {
   );
 };
 
-export default FormInput;
+export default TextInput;
 
-FormInput.propTypes = {
+TextInput.propTypes = {
   props: PropTypes.object.isRequired,
   errorMessage: PropTypes.string,
   label: PropTypes.string,
