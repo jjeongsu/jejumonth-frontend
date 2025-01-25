@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getTripApi, postPlanApi } from '../../apis/supabaseApi.js';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
@@ -8,12 +8,13 @@ import Detail from './components/Detail.jsx';
 
 const AddPlanPage = () => {
   const location = useLocation();
+  const queryClient = useQueryClient();
   const queryParams = new URLSearchParams(location.search);
   const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
   const tripId = queryParams.get('trip_id');
   const [step, setStep] = useState('SEARCH'); // * SEARCH | DETAIL | TIME
   const [registerData, setRegisterData] = useState({});
-
+  const [detail, setDetail] = useState();
   // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
   const { data: tripData, isLoading } = useQuery({
     queryKey: ['trip', tripId],
@@ -22,11 +23,12 @@ const AddPlanPage = () => {
   });
 
   // 최종 plan data를 서버에 등록
+  // 내부 인자 객체로 분리
   const uploadPlanMutation = useMutation({
     mutationFn: postPlanApi,
-    onSuccess: () => {
+    onSuccess: async () => {
       console.log('성공적으로 plan 데이터를 보냈습니다.');
-      queryClient.invalidateQueries({
+      await queryClient.invalidateQueries({
         queryKey: ['plans', tripId],
       });
     },
@@ -42,7 +44,7 @@ const AddPlanPage = () => {
       trip_id: tripId,
       date: data.day,
       time: data.time,
-      // TODO place에 관한 정보 등록
+      ...registerData,
     };
     await uploadPlanMutation.mutate({ ...planData });
   };
@@ -65,16 +67,19 @@ const AddPlanPage = () => {
   };
 
   console.log('current step', step);
+  console.log('current registerdata', registerData);
+  console.log('detail', detail);
   return (
     <div>
       {step === 'SEARCH' && (
         <Search
           onBackClick={handleBackClick}
-          onNext={() => {
+          onNext={data => {
             // "장소 이미지 "클릭시
+            setDetail(data);
             setStep('DETAIL');
           }}
-          onPassDetail={data => {
+          onSkipDetail={data => {
             // "선택"버튼 클릭시
             setRegisterData(prev => ({ ...prev, ...data }));
             setStep('TIME');
@@ -84,7 +89,7 @@ const AddPlanPage = () => {
 
       {step === 'DETAIL' && (
         <Detail
-          contentId={registerData.contentsid}
+          contentId={detail}
           onNext={data => {
             // 일정 생성 클릭시
             setRegisterData(prev => ({ ...prev, ...data }));

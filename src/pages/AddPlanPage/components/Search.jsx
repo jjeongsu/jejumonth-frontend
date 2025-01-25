@@ -6,7 +6,7 @@ import { useState } from 'react';
 import categoryCode from '../../../constants/category.js'; //TODO 절대경로로 변경
 import tagData from '../../../constants/tagData.js';
 
-const Search = ({ onBackClick, onNext, onPassDetail }) => {
+const Search = ({ onBackClick, onNext, onSkipDetail }) => {
   const [searchData, setSearchData] = useState([]);
   const [searchWord, setSearchWord] = useState('');
   const [submittedSearchWord, setSubmittedSearchWord] = useState('');
@@ -114,7 +114,7 @@ const Search = ({ onBackClick, onNext, onPassDetail }) => {
         )}
         {searchData.length > 0
           ? searchData.map((item, index) => (
-              <PlaceCard key={index} item={item} onNext={onNext} onPassDetail={onPassDetail} />
+              <PlaceCard key={index} item={item} onNext={onNext} onSkipDetail={onSkipDetail} />
             ))
           : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
       </div>

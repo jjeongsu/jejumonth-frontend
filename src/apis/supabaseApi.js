@@ -28,40 +28,40 @@ export async function getTripApi(userId, tripId) {
   return data ? data : error;
 }
 
-export async function postPlanApi(placeInfo, tripId, date) {
+export async function postPlanApi(planData) {
   const { data, error } = await supabase
     .from('Plans')
     .insert({
-      trip_id: tripId,
-      date: date,
-      place_name: placeInfo.name,
-      description: placeInfo.description,
-      category: placeInfo.category,
-      time: placeInfo.time,
-      road_address: placeInfo.address,
-      lat: placeInfo.latitude,
-      lng: placeInfo.longitude,
+      ...planData,
+      // trip_id: tripId,
+      // date: date,
+      // time: placeInfo.time,
+      // place_name: placeInfo.name,
+      // description: placeInfo.description,
+      // category: placeInfo.category,
+      // road_address: placeInfo.address,
+      // lat: placeInfo.latitude,
+      // lng: placeInfo.longitude,
     })
     .select();
+  console.log('post plan api, res data', data);
+  if (error) {
+    console.log(error);
+  }
   return data ? data : error;
 }
 
 export async function getPlanApi(userId, tripId) {
-  const { data, error } = await supabase
-    .from('Plans')
-    .select();
+  const { data, error } = await supabase.from('Plans').select();
   return data ? data : error;
 }
 
 export async function getAllUserLikedPlacesApi(userId) {
-  const { data, error } = await supabase
-    .from('UserLikedPlaces')
-    .select()
-    .eq('user_id', userId);
+  const { data, error } = await supabase.from('UserLikedPlaces').select().eq('user_id', userId);
   return data ? data : error;
 }
 
-export async function getUserLikedPlaceApi(userId,contentId) {
+export async function getUserLikedPlaceApi(userId, contentId) {
   const { data, error } = await supabase
     .from('UserLikedPlaces')
     .select()
@@ -74,13 +74,13 @@ export async function postUserLikedPlaceApi(userId, placeInfo) {
   const { data, error } = await supabase
     .from('UserLikedPlaces')
     .insert({
-      user_id : userId,
-      content_id : placeInfo.contentId,
-      title : placeInfo.title,
-      category : placeInfo.category,
-      address : placeInfo.address,
-      img_full_url : placeInfo.imagePath,
-      img_thumbnail_url : placeInfo.imageThumbnailPath,
+      user_id: userId,
+      content_id: placeInfo.contentId,
+      title: placeInfo.title,
+      category: placeInfo.category,
+      address: placeInfo.address,
+      img_full_url: placeInfo.imagePath,
+      img_thumbnail_url: placeInfo.imageThumbnailPath,
     })
     .select();
   return data ? data : error;
@@ -97,10 +97,7 @@ export async function deleteUserLikedPlaceApi(userId, contentId) {
 }
 
 export async function getAllUserCommentsApi(userId) {
-  const { data, error } = await supabase
-    .from('UserComments')
-    .select()
-    .eq('user_id', userId)
+  const { data, error } = await supabase.from('UserComments').select().eq('user_id', userId);
   return data ? data : error;
 }
 
@@ -108,7 +105,7 @@ export async function postUserCommentApi(userId, commentId, articleId) {
   const { data, error } = await supabase
     .from('UserComments')
     .insert({
-      user_id : userId,
+      user_id: userId,
       comment_id: commentId,
       article_id: articleId,
     })
@@ -127,10 +124,7 @@ export async function deleteUserCommentApi(userId, commentId) {
 }
 
 export async function getUserLikedArticlesApi(userId) {
-  const { data, error } = await supabase
-    .from('UserLikedArticles')
-    .select()
-    .eq('user_id', userId)
+  const { data, error } = await supabase.from('UserLikedArticles').select().eq('user_id', userId);
   return data ? data : error;
 }
 
@@ -156,10 +150,7 @@ export async function deleteUserLikedArticlesApi(userId, articleId) {
 }
 
 export async function getAllUserArticlesApi(userId) {
-  const { data, error } = await supabase
-    .from('UserArticles')
-    .select()
-    .eq('user_id', userId)
+  const { data, error } = await supabase.from('UserArticles').select().eq('user_id', userId);
   return data ? data : error;
 }
 
