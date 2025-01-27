@@ -12,8 +12,8 @@ const PlanCard = ({ plan, dayNumber, totalDates }) => {
   }
 
   return (
-    <button onClick={handleClick} className="w-290 h-52 flex p-12 items-center bg-white rounded-3 shadow-[21px_33px_11px_0px_rgba(184,183,183,0.00)] border-[1px] border-solid border-gray-4">
-      <div className="text-sub-accent-3 text-12 font-medium">{plan.time.slice(0,plan.time.length-3)}</div>
+    <button onClick={handleClick} className="group hover:bg-primary-5 hover:first:text-primary-0 hover:border-primary-0 w-290 h-52 flex p-12 items-center bg-white rounded-3 shadow-[21px_33px_11px_0px_rgba(184,183,183,0.00)] border-[1px] border-solid border-gray-4">
+      <div className="group-hover:text-primary-0 text-sub-accent-3 text-12 font-medium">{plan.time.slice(0,plan.time.length-3)}</div>
       <div className="grid justify-items-start content-center gap-7 m-20">
         <div className="text-center text-gray-8 text-15 font-medium">{plan.place_name}</div>
         <div className="text-center text-gray-6 text-13 font-medium">{plan.category}</div>
