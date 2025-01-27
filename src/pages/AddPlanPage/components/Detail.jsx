@@ -1,13 +1,10 @@
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getPlaceByExplanationApi } from '../../../apis/visitJejuApi';
 import makePlaceObject from '../utils/makePlaceObject';
+import { useFetchPlace } from '@/hooks/react-query';
+
 const Detail = ({ onNext, contentId }) => {
   // 컨텐츠 id로 데이터 가져오기
-  const { data, isLoading } = useQuery({
-    queryFn: () => getPlaceByExplanationApi(contentId),
-    queryKey: ['jejuplace', contentId],
-  });
+  const { placeData, isLoading } = useFetchPlace(contentId);
+
   if (isLoading) {
     return <div>여행지 상세정보 로딩중</div>;
   }
@@ -19,7 +16,7 @@ const Detail = ({ onNext, contentId }) => {
       <button className="text-gray-8 text-14" onClick={() => onNext(makePlaceObject(data))}>
         일정 추가
       </button>
-      <div>{data.title}</div>
+      <div>{placeData.title}</div>
     </div>
   );
 };

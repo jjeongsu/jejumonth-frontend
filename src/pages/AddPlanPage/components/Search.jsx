@@ -2,29 +2,31 @@ import { Button, Modal, ConfigProvider, Empty, Select } from 'antd';
 import { getPlaceBySearchApi } from '../../../apis/visitJejuApi.js';
 import PlaceTagButton from './PlaceTag.jsx';
 import PlaceCard from './PlaceCard.jsx';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import categoryCode from '../../../constants/category.js'; //TODO 절대경로로 변경
 import tagData from '../../../constants/tagData.js';
+import useFetchSearchedPlaceList from '../../../hooks/react-query/useFetchSearchedPlaceList.js';
 
 const Search = ({ onBackClick, onNext, onSkipDetail }) => {
-  const [searchData, setSearchData] = useState([]);
-  const [searchWord, setSearchWord] = useState('');
+  const searchWord = useRef('');
   const [submittedSearchWord, setSubmittedSearchWord] = useState('');
   const [category, setCategory] = useState('all');
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
   const [isBeforeSearch, setIsBeforeSearch] = useState(true);
 
+  const { placeList, refetch } = useFetchSearchedPlaceList(
+    searchWord.current.value ? searchWord.current.value.trim() : '',
+    category,
+  );
+
   const handleSearchClick = async () => {
-    if (searchWord.length < 1) {
+    if (searchWord.current.value.length < 1) {
       setIsAlertModalOpen(true);
       return;
     }
     setIsBeforeSearch(false);
-    const result = await getPlaceBySearchApi(searchWord.trim(), category);
-    const data = result.data;
-    //console.log(data);
-    setSearchData(data.items);
-    setSubmittedSearchWord(searchWord.trim());
+    setSubmittedSearchWord(searchWord.current.value.trim());
+    refetch();
   };
 
   const handleSelectBoxChange = value => {
@@ -39,10 +41,6 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
     setIsAlertModalOpen(false);
   };
 
-  const handleInputChange = event => {
-    const newValue = event.target.value;
-    setSearchWord(newValue);
-  };
   return (
     <div>
       {/* 뒤로가기버튼 */}
@@ -73,7 +71,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
           type="text"
           placeholder="일정에 추가할 장소를 검색해보세요!"
           className="border-0 outline-none p-0 m-0 bg-transparent h-46 w-400 font-medium text-gray-7"
-          onChange={event => handleInputChange(event)}
+          ref={searchWord}
         />
         <button className="w-16 h-16 z-10" onClick={handleSearchClick}>
           <img src="/icons/search-icon.svg" alt="search-icon" className="h-16 w-16" />
@@ -82,10 +80,10 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
 
       {/* 추천 명소 태그 */}
       <div className="m-15 h-16 w-auto flex">
-        {searchData.length > 0 && (
+        {placeList && placeList.data.items.length < 0 && (
           <div className="font-semibold flex">
             <div>{submittedSearchWord}에 대한 검색결과</div>
-            <div className="text-sub-accent-1">&nbsp;{searchData.length}</div>
+            <div className="text-sub-accent-1">&nbsp;{placeList && placeList.length}</div>
             <div>건</div>
           </div>
         )}
@@ -112,8 +110,8 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
             ))}
           </div>
         )}
-        {searchData.length > 0
-          ? searchData.map((item, index) => (
+        {!isBeforeSearch && placeList && placeList.data.items.length > 0
+          ? placeList.data.items.map((item, index) => (
               <PlaceCard key={index} item={item} onNext={onNext} onSkipDetail={onSkipDetail} />
             ))
           : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
