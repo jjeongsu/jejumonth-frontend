@@ -2,29 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchChannels } from '../../apis/channelApi';
 import ChannelTabs from './components/ChannelList';
-import leftArray from '../../../public/icons/left-array.svg';
+import leftArray from '/icons/left-array.svg';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 import PostForm from './components/PostForm';
 import TabPosts from './components/DetailedPosts';
 import PostRender from './components/PostRender';
 
-
 const CommunityPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const initialTab = searchParams.get('tab') || '베스트';
+  const initialQuery = searchParams.get('search') || '';
+  const initialFilter = searchParams.get('filter') || '작성자';
 
   const [activeTab, setActiveTab] = useState(initialTab);
   const [channels, setChannels] = useState([]);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState('전체');
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
+  const [filter, setFilter] = useState(initialFilter);
   const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    setSearchParams({ tab: activeTab });
-  }, [activeTab, setSearchParams]);
+  const [filteredPosts, setFilteredPosts] = useState(posts);
 
   useEffect(() => {
     const getChannels = async () => {
@@ -39,16 +37,39 @@ const CommunityPage = () => {
     getChannels();
   }, []);
 
-  const handleTabChange = tab => {
+  useEffect(() => {
+    setFilteredPosts(posts);
+  }, [posts]);
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      setFilteredPosts(posts);
+    } else {
+      const lowercasedQuery = searchQuery.toLowerCase();
+      const newFilteredPosts = posts.filter((post) => {
+        if (filter === '작성자') {
+          return post.author?.fullName?.toLowerCase().includes(lowercasedQuery);
+        } else if (filter === '내용') {
+          return post.title?.toLowerCase().includes(lowercasedQuery);
+        }
+        return false;
+      });
+
+      setFilteredPosts(newFilteredPosts);
+    }
+
+    setSearchParams({ tab: activeTab, search: searchQuery, filter });
+  };
+
+  const handleTabChange = (tab) => {
     setActiveTab(tab);
     navigate(`/community?tab=${tab}`);
   };
 
-  const handleSearch = e => {
-    e.preventDefault();
-    console.log('검색어:', searchQuery);
-  };
-
+  const handlePostSubmit = (newPost) => {
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  }
+  
   return (
     <div className="container mx-auto px-10 py-10">
       <div className="flex items-center mb-4">
@@ -62,22 +83,23 @@ const CommunityPage = () => {
         <p className="text-red-500">{error}</p>
       ) : (
         <div className="mt-20">
-          {' '}
           <ChannelTabs channels={channels} activeTab={activeTab} setActiveTab={handleTabChange} />
         </div>
       )}
 
       <div className="flex items-center justify-end space-x-4 mt-6 mb-8">
-        {' '}
         <Dropdown
           options={['작성자', '내용']}
-          onSelect={selected => console.log('Selected:', selected)}
+          onSelect={(selected) => setFilter(selected)}
         />
-        <SearchBar onSearch={setSearchQuery} />
+        <SearchBar
+          onSearch={(query) => setSearchQuery(query)} 
+          onSearchSubmit={handleSearch} 
+        />
       </div>
 
       <div className="mb-30 p-4">
-        <PostForm />
+        <PostForm onSubmit={handlePostSubmit} />
       </div>
 
       <div>
@@ -87,7 +109,7 @@ const CommunityPage = () => {
           setPosts={setPosts}
           setError={setError}
         />
-        <PostRender posts={posts} className="" />
+        <PostRender posts={filteredPosts} className="" /> 
       </div>
     </div>
   );
