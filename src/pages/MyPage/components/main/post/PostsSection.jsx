@@ -15,7 +15,12 @@ const PostsSection = () => {
   //   },
   // });
 
-  const { data, isLoading, isError, error } = useQuery({
+  const {
+    data = {},
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ['userData'],
     queryFn: async () => {
       const response = await getUserData(userId);
@@ -45,9 +50,7 @@ const PostsSection = () => {
         )}
         {isLoading && <p className="py-32">로딩 중 ...</p>}
         {!data.posts && <p className="py-32">아직 작성한 게시글이 없습니다!</p>}
-        {data.posts?.map(post => (
-          <Post key={post._id} postData={post}></Post>
-        ))}
+        {data.posts && data.posts.map(post => <Post key={post._id} postData={post}></Post>)}
       </div>
     </>
   );

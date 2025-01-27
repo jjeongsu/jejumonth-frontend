@@ -5,7 +5,7 @@ import Comment from './Comment';
 const CommentSection = () => {
   const userId = '67908daee8a1e4349ed76ec2'; // 더미 데이터
 
-  const { data } = useQuery({
+  const { data = {} } = useQuery({
     queryKey: ['userData'],
     queryFn: async () => {
       const response = await getUserData(userId);

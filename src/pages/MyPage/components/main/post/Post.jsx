@@ -54,9 +54,7 @@ export default Post;
 Post.propTypes = {
   postData: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    channel: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+    channel: PropTypes.string,
     likes: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
     createdAt: PropTypes.string.isRequired,
