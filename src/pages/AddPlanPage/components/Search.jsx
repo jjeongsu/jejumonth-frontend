@@ -97,7 +97,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
         )}
       </div>
       <div
-        className="overflow-auto h-400"
+        className="overflow-auto max-h-600"
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',

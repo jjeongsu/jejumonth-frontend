@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
 import Search from './components/Search.jsx';
-import Detail from './components/Detail.jsx';
+import Details from './components/Details.jsx';
 import { useFetchTrip, usePostPlan } from '@/hooks/react-query';
 import useQueryString from '@/hooks/useQueryString.js';
 
@@ -70,7 +70,7 @@ const AddPlanPage = () => {
       )}
 
       {step === 'DETAIL' && (
-        <Detail
+        <Details
           onBackClick={() => {
             setStep('SEARCH');
             setDetail('');
