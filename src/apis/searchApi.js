@@ -12,10 +12,10 @@ const visitApi = axios.create({
 
 // api 정보를 가져오기
 
-export async function getList() {
+export async function getList(query) {
   try {
     const response = await visitApi.get('', {
-      params: { title: '성산일출봉(UNESCO 세계자연유산)' },
+      params: query,
     });
     if (response.status !== 200) {
       throw 'state' + response.status;
