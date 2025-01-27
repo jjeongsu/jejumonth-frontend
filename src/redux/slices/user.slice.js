@@ -4,7 +4,7 @@ const initialState = {
   userId: '',
   userEmail: '',
   userFullName: '',
-  // isLoggedIn: false, 로그인 테스트용 지우셔도 됩니다.
+  isLoggedIn: false, 
 };
 
 export const userSlice = createSlice({
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
       state.userId = userData.userId;
       state.userEmail = userData.userEmail;
       state.userFullName = userData.userFullName;
-      // state.isLoggedIn = true; 로그인 테스트용입니다 지우셔도 됩니다.
+      state.isLoggedIn = true;
     },
   },
 });
