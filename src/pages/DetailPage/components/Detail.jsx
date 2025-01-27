@@ -25,7 +25,7 @@ const Detail = ({ data }) => {
       <section>
         <div className="flex items-center justify-between mt-11">
           <h2 className="text-2xl font-bold text-neutral-800">🔎 Info</h2>
-          <WishlistButton contentId={data.contentsid}/>
+          <WishlistButton contentId={data}/>
         </div>
         <div className="p-20">
           <p className="text-lg font-bold text-neutral-800 mt-6">{data.introduction || "설명이 없습니다."}</p>

@@ -9,7 +9,7 @@ import fullHeart from '/icons/fullHeart.svg';
 import emptyHeart from '/icons/emptyHeart.svg';
 import { setUser } from '../../../redux/slices/user.slice'
 
-const WishListButton = ({ contentId }) => {
+const WishListButton = ({ placeInfo }) => {
   const dispatch = useDispatch();
   const { likedPlaces } = useSelector((state) => state.wishlist);
   const { isLoggedIn } = useSelector((state) => state.user);
@@ -33,14 +33,14 @@ const WishListButton = ({ contentId }) => {
     }
   }, [isLoggedIn, dispatch]);
 
-  const isLiked = likedPlaces.includes(contentId);
+  const isLiked = likedPlaces.includes(placeInfo);
 
   const handleWishlistClick = () => {
     // 찜한 상태라면
     if (isLiked) {
-      dispatch(removeUserLikedPlace(contentId));
+      dispatch(removeUserLikedPlace(placeInfo));
     } else {
-      dispatch(addUserLikedPlace(contentId));
+      dispatch(addUserLikedPlace(placeInfo));
     }
   };
 

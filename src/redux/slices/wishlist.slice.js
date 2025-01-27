@@ -64,11 +64,9 @@ const wishlistSlice = createSlice({
       state.loading = false;
       state.error = action.error.message;
     });
-
     builder.addCase(addUserLikedPlace.fulfilled, (state, action) => {
       state.likedPlaces.push(action.payload);
     });
-
     builder.addCase(removeUserLikedPlace.fulfilled, (state, action) => {
       state.likedPlaces = state.likedPlaces.filter(
         (id) => id !== action.payload
