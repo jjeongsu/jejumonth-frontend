@@ -16,10 +16,6 @@ export default function KaKaoMap({ latitude, longitude }) {
     });
 
     marker.setMap(map);
-
-
-    console.log("Latitude:", latitude, "Longitude:", longitude),
-    console.log("kakao.maps.LatLng:", new window.kakao.maps.LatLng(latitude, longitude));
   }, [latitude, longitude]);
 
   return <div id="map" className="w-full h-[215px]"></div>;

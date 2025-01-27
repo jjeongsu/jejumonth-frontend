@@ -1,6 +1,6 @@
 import React from 'react';
-import likes from '../../../../public/icons/likes.svg';
-import comment from '../../../../public/icons/comment.svg';
+import likes from '/icons/likes.svg';
+import comment from '/icons/comment.svg';
 
 const PostRender = ({ posts }) => {
   if (!posts || posts.length === 0) {
