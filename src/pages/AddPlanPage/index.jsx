@@ -3,18 +3,21 @@ import { getPlaceBySearchApi } from '../../apis/visitJejuApi.js';
 import { useState } from 'react';
 import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
 import { useSelector } from 'react-redux';
-import { useQuery } from '@tanstack/react-query';
-import { getTripApi } from '../../apis/supabaseApi.js';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { getTripApi, postPlanApi } from '../../apis/supabaseApi.js';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Modal, ConfigProvider, Empty, Select, Space } from 'antd';
 import PlaceTagButton from './components/PlaceTag.jsx';
-
 const tagData = [
   { title: '#광치기 해변🌊', id: 'beach', contentId: 'CNTS_000000000018413' },
   { title: '#카페코지🍵', id: 'cafe', contentId: 'CNTS_000000000019338' },
   { title: '#카멜리아힐🌺', id: 'hill', contentId: 'CNTS_000000000001195' },
   { title: '#휴즐리 제주🍧', id: 'husley', contentId: 'CNTS_300000000015965' },
-  { title: '#제4회 제주비엔날레 : 물과 바람과 별의 길🌟', id: 'vienna', contentId: 'CNTS_300000000013355' },
+  {
+    title: '#제4회 제주비엔날레 : 물과 바람과 별의 길🌟',
+    id: 'vienna',
+    contentId: 'CNTS_300000000013355',
+  },
   { title: '#파더스가든🐰', id: 'garden', contentId: 'CNTS_200000000014189' },
   { title: '#비자림🌳', id: 'beejalim', contentId: 'CONT_000000000500270' },
 ];
@@ -36,18 +39,36 @@ const AddPlanPage = () => {
   const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
 
   // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
-  const { data: tripData } = useQuery({
+  const { data: tripData, isLoading } = useQuery({
     queryKey: ['trip', tripId],
     //queryFn: () => getTripApi(userId, tripId), 실제로 동작해야하는 코드
     queryFn: () => getTripApi('test', 30), // 테스트용
   });
 
-  // 시간 등록 컴포넌트에게 줘야 할 정보 : startDate, endDate, targetDate, 📌사용자가 등록할 장소 정보
+  // 최종 plan data를 서버에 등록
+  const uploadPlanMutation = useMutation({
+    mutationFn: postPlanApi,
+    onSuccess: () => {
+      console.log('성공적으로 plan 데이터를 보냈습니다.');
+      queryClient.invalidateQueries({
+        queryKey: ['plans', tripId],
+      });
+    },
+    onError: error => {
+      console.log('plan데이터를 보내는데 실패하였습니다.', error);
+    },
+  });
 
   // 최종 일정 생성 "확인"버튼을 눌렀을 때 작동하는 핸들러
-  const onRegister = data => {
-    console.log('시간등록 컴포넌트에서 전달받는 데이터', data);
-    alert(`일정이 등록되었습니다. ${data.time}`);
+  const onRegister = async data => {
+    console.log('시간등록 컴포넌트에서 전달받는 데이터', data); // day, time 전달
+    const planData = {
+      trip_id: tripId,
+      date: data.day,
+      time: data.time,
+      // TODO place에 관한 정보 등록
+    };
+    await uploadPlanMutation.mutate({ ...planData });
   };
 
   const handleSelectBoxChange = value => {
@@ -91,8 +112,19 @@ const AddPlanPage = () => {
   const handleBackClick = () => {
     navigate(`/trip/my?trip_id=${tripId}`); // TODO 이렇게 하면 다시 돌아갈때마다 API가 호출되는 문제가 존재
   };
-  const startDate = '2025-01-20';
-  const endDate = '2025-02-12';
+
+  // ! 리턴문 바로 직전. 위치변경 금지
+  if (isLoading) {
+    return <>trip 정보를 불러오는 중입니다..!</>; // TODO suspense로 fallback ui 처리
+  }
+  const { start_date: startDate, end_date: endDate } = tripData[0];
+  const RegisterTimeProps = {
+    startDate,
+    endDate,
+    initialTargetDate,
+    onRegister,
+    place: ' 미띠뽀 티하우스',
+  };
   return (
     <div>
       <button onClick={handleBackClick}>
@@ -205,17 +237,10 @@ const AddPlanPage = () => {
           ]}
         />
       </ConfigProvider>
-      <div className="h-full">
-        <div className=" h-full">
-          {/* TODO : Prop객체로 묶기 */}
-          <RegisterDayAndTime
-            startDate={startDate}
-            endDate={endDate}
-            initialTargetDate={initialTargetDate}
-            place="미띠뽀 티하우스"
-            onRegister={onRegister}
-          />
-        </div>
+
+      {/* step4 시간 등록 컴포넌트 */}
+      <div className=" h-full">
+        <RegisterDayAndTime {...RegisterTimeProps} />
       </div>
     </div>
   );

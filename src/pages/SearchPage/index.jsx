@@ -1,70 +1,15 @@
 // import React from 'react';
 
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import DetailCard from './components/index';
 import { ConfigProvider, Pagination } from 'antd';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { getList } from '../../apis/searchApi';
+import { Dummy } from './dummy';
+// import axios from 'axios';
 // import { useState } from 'react';
 
-// export async function getPlaceBySearchApi(targetWord, category) {
-//   const updatedCategory = category === 'all' ? '' : category;
-//   const result = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchList', {
-//     params: {
-//       apiKey: import.meta.env.VITE_VISITJEJU_KEY,
-//       locale: 'kr',
-//       title: targetWord,
-//       category: updatedCategory,
-//     },
-//   });
-//   return result;
-// }
-
-// src="/icons/search-icon.svg"  //이미지들만 이렇게 써도된다 . 왜냐면 자동으로 컴파일로 해서 찾아가준다 (폴더를 안에다 안넣어도됨)
-// 테스트 절대 필요!!
 const SearchPage = () => {
-  const URL = 'https://api.visitjeju.net/vsjApi/contents/searchlist';
-
-  // const [detailList, setDetailList] = useState([
-  const detailList = [
-    {
-      id: 1,
-      category: 'c1',
-      title: '성산일출봉',
-      area: '제주 시> 조천',
-      description:
-        '사려니숲은 제주 숨은 비경 31곳 중 하나로, 비자림로를 시작으로 물찻오름과 사려니 오름을 거쳐가는 삼나무가 우거진 숲길이다.',
-      img: '../../../public/images/test.jpg',
-    },
-    {
-      id: 2,
-      title: '성산일출봉',
-      category: 'c2',
-      area: '제주 시> 조천',
-      description:
-        '사려니숲은 제주 숨은 비경 31곳 중 하나로, 비자림로를 시작으로 물찻오름과 사려니 오름을 거쳐가는 삼나무가 우거진 숲길이다.',
-      img: '../../../public/images/test.jpg',
-    },
-    {
-      id: 3,
-      title: '성산일출봉',
-      category: 'c1',
-      area: '제주 시> 조천',
-      description:
-        '사려니숲은 제주 숨은 비경 31곳 중 하나로, 비자림로를 시작으로 물찻오름과 사려니 오름을 거쳐가는 삼나무가 우거진 숲길이다.',
-      img: '../../../public/images/test.jpg',
-    },
-    {
-      id: 4,
-      title: '성산일출봉',
-      category: 'c3',
-      area: '제주 시> 조천',
-      description:
-        '사려니숲은 제주 숨은 비경 31곳 중 하나로, 비자림로를 시작으로 물찻오름과 사려니 오름을 거쳐가는 삼나무가 우거진 숲길이다.',
-      img: '../../../public/images/test.jpg',
-    },
-  ];
-
   // 카테고리를 배열로 빼야할지... api 할때 고민해봐야할것같다.... 페이지 네이션도 같이해야할듯
   // 1. api 가지고오기
   // 2. 다 가져오면 페이지네이션 하기
@@ -74,29 +19,29 @@ const SearchPage = () => {
 
   /// APi 불러와보기
 
-  const [detailData, setDetailData] = useState();
+  // const [searchData, setSearchData] = useState();
+  // const [message, setMessage] = useState();
 
-  // const apiKey = '16c8cf73146b4019b20575829761d771';
+  // const searchParams = useSearchParams();
+  const location = useLocation();
+
+  console.log(location);
 
   useEffect(() => {
     (async () => {
       try {
-        // const response = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchlist', {
-        const response = await axios.get(URL, {
-          params: {
-            apikey: import.meta.env.VITE_SUPABASE_SERVICE_KEY,
-            local: 'kr',
-          },
-        });
-        const result = response.json();
-        setDetailData(result);
+        const data = await getList();
+        if (data !== null) {
+          setSearchData(data);
+          setMessage('데이터가 들어왔습진다');
+        } else {
+          setMessage('실패');
+        }
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
-
-  // console.log(setDetailData);
 
   return (
     <div>
@@ -163,16 +108,17 @@ const SearchPage = () => {
         </div>
       </nav>
       <main className="mt-22">
-        {detailList &&
-          detailList.map(item => (
+        {Dummy &&
+          Object.entries(Dummy.items).map(([key, value]) => (
             <DetailCard
-              key={item.id}
-              title={item.title}
-              area={item.area}
-              description={item.description}
-              img={item.img}
+              key={key}
+              title={value?.title || '타이틀이 없습니다'}
+              city={value?.region1cd?.label || '지역'}
+              street={value?.region2cd?.label || '동'}
+              description={value?.introduction || '소개 글이 없습니다'}
+              img={value?.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
             />
-          ))}{' '}
+          ))}
         <ConfigProvider
           theme={{
             token: {
@@ -195,7 +141,63 @@ const SearchPage = () => {
           <Pagination total={5} pageSize={2} className="justify-center mt-55" />
         </ConfigProvider>
       </main>
-      {detailData && detailData}
+      {/* {searchData &&
+        Object.entries(searchData).map(([key, value]) => (
+          <li key={key}>
+            <b>{key}</b> : {value}
+          </li>
+        ))}
+      {message && message} */}
+      {/* {searchData && } */}
+      {/* {searchData && (
+        <>
+          <div>result : {searchData.result}</div>
+          <div>resultMessage : {searchData.resultMessage}</div>
+          <div>totalCount : {searchData.totalCount}</div>
+          <div>resultCount : {searchData.resultCount}</div>
+          <div>pageSize : {searchData.pageSize}</div>
+          <div>pageCount : {searchData.pageCount}</div>
+          <div>currentPage : {searchData.currentPage}</div>
+          <div>title : {searchData.title}</div>
+        </>
+      )} */}
+      {/* <div>
+        {searchData &&
+          Object.entries(searchData).map(([key, value]) => (
+            <div key={key}>
+              <strong>{key}:</strong> {JSON.stringify(value)}
+            </div>
+          ))}
+      </div> */}
+      {/* {searchData &&
+        Object.entries(searchData.items).map(([key, value]) => (
+          <div key={key}>
+            <div>
+              <strong>contentsid:</strong> {value?.contentsid}
+            </div>
+            <div>
+              <strong>label:</strong> {value?.contentscd.label}
+            </div>
+            <div>
+              <strong>title:</strong> {value?.title}
+            </div>
+            <div>
+              <strong>region2cd:</strong> {value?.region2cd.label}
+            </div>
+            <div>
+              <strong>region1cd:</strong> {value?.region1cd.label}
+            </div>
+            <div>
+              <strong>roadaddress:</strong> {value?.roadaddress}
+            </div>
+            <div>
+              <strong>introduction:</strong> {value?.introduction}
+            </div>
+            <div>
+              <strong>thumbnailpath:</strong> {value?.repPhoto.photoid.thumbnailpath}
+            </div>
+          </div>
+        ))} */}
     </div>
   );
 };

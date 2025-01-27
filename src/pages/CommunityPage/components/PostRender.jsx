@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import likes from '../../../../public/icons/likes.svg';
-import comment from '../../../../public/icons/comment.svg';
+import likes from '/icons/likes.svg';
+import comment from '/icons/comment.svg';
 
 const PostRender = ({ posts }) => {
   const [currentPage, setCurrentPage] = useState(1); 

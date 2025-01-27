@@ -20,16 +20,16 @@ const DetailPage = () => {
         }
         const result = await getPlaceByExplanationApi(contentsid);
 
-        if (!result.items || result.items.length === 0) {
+        if (!result) {
           navigate('/search'); 
           return;
         }
 
-        setData(result.items[0]);
+        setData(result);
       } catch (error) {
         console.error("api 호출 중 오류 :", error);
         setError(error.message);
-        navigate('/search'); // 에러시 리다이렉트
+        navigate('/search'); // 에러 시 리다이렉트
       } finally {
         setLoading(false);
       }
@@ -44,7 +44,7 @@ const DetailPage = () => {
 
   if (!data) return <div className="text-center mt-20">데이터가 없습니다.</div>;
 
-  console.log('DetailPage loaded');
+  // console.log('DetailPage loaded');
   return (
     <div>
       <Detail data={data} />

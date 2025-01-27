@@ -34,6 +34,7 @@ export async function postPlanApi(placeInfo, tripId, date) {
     .insert({
       trip_id: tripId,
       date: date,
+      content_id : placeInfo.contentId,
       place_name: placeInfo.name,
       description: placeInfo.description,
       category: placeInfo.category,
@@ -53,6 +54,7 @@ export async function getPlanApi(userId, tripId) {
   return data ? data : error;
 }
 
+// 찜하기한 장소 저장용 API 4개
 export async function getAllUserLikedPlacesApi(userId) {
   const { data, error } = await supabase
     .from('UserLikedPlaces')
@@ -96,6 +98,7 @@ export async function deleteUserLikedPlaceApi(userId, contentId) {
   return data ? data : error;
 }
 
+// 아래 부터 커뮤니티 관련 API
 export async function getAllUserCommentsApi(userId) {
   const { data, error } = await supabase
     .from('UserComments')
