@@ -12,6 +12,12 @@ const AddPlanPage = () => {
   const [step, setStep] = useState('SEARCH'); // * SEARCH | DETAIL | TIME
   const [registerData, setRegisterData] = useState({});
   const [detail, setDetail] = useState();
+
+  const [search, setSearch] = useState({
+    category: 'all',
+    submitKeyword: '',
+  });
+
   const { trip, isLoading } = useFetchTrip(tripId);
   const { postPlanMutation } = usePostPlan(tripId);
 
@@ -43,13 +49,12 @@ const AddPlanPage = () => {
     place: registerData.place_name,
   };
 
-  console.log('current step', step);
-  console.log('current registerdata', registerData);
-  console.log('detail', detail);
   return (
     <div>
       {step === 'SEARCH' && (
         <Search
+          search={search}
+          setSearch={setSearch}
           onBackClick={handleBackClick}
           onNext={data => {
             // "장소 이미지 "클릭시
@@ -66,6 +71,10 @@ const AddPlanPage = () => {
 
       {step === 'DETAIL' && (
         <Detail
+          onBackClick={() => {
+            setStep('SEARCH');
+            setDetail('');
+          }}
           contentId={detail}
           onNext={data => {
             // 일정 생성 클릭시

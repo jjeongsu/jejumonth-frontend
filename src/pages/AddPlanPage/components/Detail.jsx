@@ -1,7 +1,7 @@
 import makePlaceObject from '../utils/makePlaceObject';
 import { useFetchPlace } from '@/hooks/react-query';
 
-const Detail = ({ onNext, contentId }) => {
+const Detail = ({ onNext, contentId, onBackClick }) => {
   // 컨텐츠 id로 데이터 가져오기
   const { placeData, isLoading } = useFetchPlace(contentId);
 
@@ -13,6 +13,7 @@ const Detail = ({ onNext, contentId }) => {
   return (
     <div>
       Detail
+      <button onClick={onBackClick}> 뒤로 가기 </button>
       <button className="text-gray-8 text-14" onClick={() => onNext(makePlaceObject(data))}>
         일정 추가
       </button>

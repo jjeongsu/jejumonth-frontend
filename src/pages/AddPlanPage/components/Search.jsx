@@ -1,36 +1,28 @@
 import { Button, Modal, ConfigProvider, Empty, Select } from 'antd';
-import { getPlaceBySearchApi } from '../../../apis/visitJejuApi.js';
 import PlaceTagButton from './PlaceTag.jsx';
 import PlaceCard from './PlaceCard.jsx';
-import { useState, useRef } from 'react';
-import categoryCode from '../../../constants/category.js'; //TODO 절대경로로 변경
-import tagData from '../../../constants/tagData.js';
-import useFetchSearchedPlaceList from '../../../hooks/react-query/useFetchSearchedPlaceList.js';
+import { useState, useRef, useEffect } from 'react';
+import categoryCode from '@/constants/category.js'; //TODO 절대경로로 변경
+import tagData from '@/constants/tagData.js';
+import useFetchSearchedPlaceList from '@/hooks/react-query/useFetchSearchedPlaceList.js';
 
-const Search = ({ onBackClick, onNext, onSkipDetail }) => {
-  const searchWord = useRef('');
-  const [submittedSearchWord, setSubmittedSearchWord] = useState('');
-  const [category, setCategory] = useState('all');
+const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
+  const searchInputRef = useRef('');
   const [isAlertModalOpen, setIsAlertModalOpen] = useState(false);
-  const [isBeforeSearch, setIsBeforeSearch] = useState(true);
 
-  const { placeList, refetch } = useFetchSearchedPlaceList(
-    searchWord.current.value ? searchWord.current.value.trim() : '',
-    category,
-  );
+  const { placeList, refetch } = useFetchSearchedPlaceList(search.submitKeyword, search.category);
 
   const handleSearchClick = async () => {
-    if (searchWord.current.value.length < 1) {
+    if (searchInputRef.current.value.length < 1) {
       setIsAlertModalOpen(true);
       return;
     }
-    setIsBeforeSearch(false);
-    setSubmittedSearchWord(searchWord.current.value.trim());
+    setSearch(prev => ({ ...prev, submitKeyword: searchInputRef.current.value.trim() }));
     refetch();
   };
 
   const handleSelectBoxChange = value => {
-    setCategory(value);
+    setSearch(prev => ({ ...prev, category: value }));
   };
 
   const handleAlertModalOk = () => {
@@ -41,6 +33,14 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
     setIsAlertModalOpen(false);
   };
 
+  console.log('현재 검색어, 카테고리 상태', search.submitKeyword, search.category);
+
+  useEffect(() => {
+    // 다시 마운트 될때, searchKeyword를 가지고 있다면
+    if (search.submitKeyword !== '') {
+      searchInputRef.current.value = search.submitKeyword;
+    }
+  }, []);
   return (
     <div>
       {/* 뒤로가기버튼 */}
@@ -71,7 +71,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
           type="text"
           placeholder="일정에 추가할 장소를 검색해보세요!"
           className="border-0 outline-none p-0 m-0 bg-transparent h-46 w-400 font-medium text-gray-7"
-          ref={searchWord}
+          ref={searchInputRef}
         />
         <button className="w-16 h-16 z-10" onClick={handleSearchClick}>
           <img src="/icons/search-icon.svg" alt="search-icon" className="h-16 w-16" />
@@ -82,12 +82,12 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
       <div className="m-15 h-16 w-auto flex">
         {placeList && placeList.data.items.length < 0 && (
           <div className="font-semibold flex">
-            <div>{submittedSearchWord}에 대한 검색결과</div>
+            <div>{search.submitKeyword}에 대한 검색결과</div>
             <div className="text-sub-accent-1">&nbsp;{placeList && placeList.length}</div>
             <div>건</div>
           </div>
         )}
-        {isBeforeSearch && (
+        {!search.submitKeyword && (
           <div className="flex">
             <div className="text-primary-0 font-bold">🍊 제주도청</div>
             <div className="text-gray-7 font-semibold">에서 추천하는&nbsp;</div>
@@ -103,18 +103,20 @@ const Search = ({ onBackClick, onNext, onSkipDetail }) => {
           msOverflowStyle: 'none',
         }}
       >
-        {isBeforeSearch && (
+        {!search.submitKeyword && (
           <div className="w-560 flex flex-wrap justify-between gap-8">
             {tagData.map(tag => (
               <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
             ))}
           </div>
         )}
-        {!isBeforeSearch && placeList && placeList.data.items.length > 0
-          ? placeList.data.items.map((item, index) => (
-              <PlaceCard key={index} item={item} onNext={onNext} onSkipDetail={onSkipDetail} />
-            ))
-          : submittedSearchWord.length > 0 && <Empty description={<>검색 결과가 없습니다</>} />}
+        {search.submitKeyword !== '' &&
+          placeList &&
+          (placeList.data.items.length > 0
+            ? placeList.data.items.map((item, index) => (
+                <PlaceCard key={index} item={item} onNext={onNext} onSkipDetail={onSkipDetail} />
+              ))
+            : search.submitKeyword && <Empty description={<>검색 결과가 없습니다</>} />)}
       </div>
 
       {/* 검색어 길이 경고모달 */}
