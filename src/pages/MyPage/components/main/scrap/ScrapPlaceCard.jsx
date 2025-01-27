@@ -4,7 +4,6 @@ import formatAddress from '../../../../../utils/addressFormat';
 const ScrapPlaceCard = ({ scrapData }) => {
   return (
     <>
-      {!scrapData && <p>아직 스크랩한 데이터가 없습니다!</p>}
       {scrapData && (
         <div className="w-150 h-140 bg-blue-50 rounded-8">
           <div className="w-full h-[75%]">

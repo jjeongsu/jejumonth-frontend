@@ -8,6 +8,8 @@ const Post = ({ postData }) => {
     console.log('삭제 및 수정 구현 예정');
   };
 
+  console.log(postData);
+
   return (
     <>
       {!postData && <p>데이터가없습니다</p>}
