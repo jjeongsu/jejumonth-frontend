@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PostFormModal from "./PostFormModal";
-import pencil from "../../../../public/icons/pencil.svg";
+import pencil from "/icons/pencil.svg";
 
 const PostForm = () => {
   const [isModalOpen, setModalOpen] = useState(false);

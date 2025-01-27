@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { userSlice } from './slices/user.slice';
+import wishlistReducer from './slices/wishlist.slice'; 
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage/session'; // 세션 스토리지에 저장
 
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const reducers = combineReducers({
   user: userSlice.reducer,
+  wishlist: wishlistReducer, // 테스트 용
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

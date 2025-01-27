@@ -1,16 +1,20 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import DayCard from './components/DayCard.jsx';
 import PlanCard from './components/PlanCard.jsx';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getPlanApi, getTripApi } from '../../apis/supabaseApi.js';
+import PopUpCard from './components/PopUpCard.jsx';
 
 const { kakao } = window;
+
+export const CurrentPopUpPlanContext = createContext(null);
 
 const MyTripPage = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tripId = queryParams.get('trip_id');
   const [datesData, setDatesData] = useState([]);
+  const [planForPopUp, setPlanForPopUp] = useState({});
 
   const getDates = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -45,9 +49,11 @@ const MyTripPage = () => {
     }
   };
 
+  // 디버깅 용
   useEffect(() => {
     console.log(datesData);
-  }, [datesData]);
+    console.log(planForPopUp);
+  }, [datesData,planForPopUp]);
 
   useEffect(() => {
     const container = document.getElementById('map');
@@ -62,23 +68,37 @@ const MyTripPage = () => {
   return (
     <>
       <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
-      <div className="flex mt-30">
-        <div
-          className="grid h-632 w-397 overflow-auto"
-          style={{
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
+      <div className="flex relative mt-30">
+        {/* TODO useContext를 일부분에만 감싸서 렌더링 감소 효과를 볼 수 있을듯?*/}
+        <CurrentPopUpPlanContext.Provider
+          value={{
+            planForPopUp,
+            setPlanForPopUp,
           }}
         >
-          {Object.keys(datesData).map((date, i) => (
-            <DayCard key={i} number={i} date={date}>
-              {datesData[date].map((plan, i) => (
-                <PlanCard key={plan.id} />
-              ))}
-            </DayCard>
-          ))}
-        </div>
-        <div id="map" className="w-813 h-632 ml-24"></div>
+          <div
+            className="grid h-632 w-397 overflow-auto"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            {Object.keys(datesData).map((date, i) => (
+              <DayCard key={i} dayNumber={i+1} date={date} count={datesData[date].length}>
+                {datesData[date].map((plan) => (
+                  <PlanCard key={plan.id} plan={plan} dayNumber={i+1} totalDates={Object.keys(datesData).length}/>
+                ))}
+              </DayCard>
+            ))}
+          </div>
+          <div id="map" className="w-813 h-632 ml-24"></div>
+          {Object.hasOwn(planForPopUp,'content_id') && (
+            <PopUpCard
+              className={"flex bg-primary-0 bottom-0 right-300 absolute z-10"}
+              plan={planForPopUp}
+            />
+          )}
+        </CurrentPopUpPlanContext.Provider>
       </div>
     </>
   );
