@@ -1,41 +1,25 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getTripApi, postPlanApi } from '../../apis/supabaseApi.js';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useState } from 'react';
 import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
 import Search from './components/Search.jsx';
-import Detail from './components/Detail.jsx';
+import Details from './components/Details.jsx';
+import { useFetchTrip, usePostPlan } from '@/hooks/react-query';
+import useQueryString from '@/hooks/useQueryString.js';
 
 const AddPlanPage = () => {
-  const location = useLocation();
-  const queryClient = useQueryClient();
-  const queryParams = new URLSearchParams(location.search);
-  const initialTargetDate = queryParams.get('date'); // 사용자가 새로운 plan을 만드려는 date
-  const tripId = queryParams.get('trip_id');
+  const navigate = useNavigate();
+  const [tripId, initialTargetDate] = useQueryString(['trip_id', 'date']);
   const [step, setStep] = useState('SEARCH'); // * SEARCH | DETAIL | TIME
   const [registerData, setRegisterData] = useState({});
   const [detail, setDetail] = useState();
-  // tripId를 기반으로 현재 여행 시작일, 종료일을 가져오기
-  const { data: tripData, isLoading } = useQuery({
-    queryKey: ['trip', tripId],
-    //queryFn: () => getTripApi(userId, tripId), 실제로 동작해야하는 코드
-    queryFn: () => getTripApi('test', 30), // 테스트용
+
+  const [search, setSearch] = useState({
+    category: 'all',
+    submitKeyword: '',
   });
 
-  // 최종 plan data를 서버에 등록
-  // 내부 인자 객체로 분리
-  const uploadPlanMutation = useMutation({
-    mutationFn: postPlanApi,
-    onSuccess: async () => {
-      console.log('성공적으로 plan 데이터를 보냈습니다.');
-      await queryClient.invalidateQueries({
-        queryKey: ['plans', tripId],
-      });
-    },
-    onError: error => {
-      console.log('plan데이터를 보내는데 실패하였습니다.', error);
-    },
-  });
+  const { trip, isLoading } = useFetchTrip(tripId);
+  const { postPlanMutation } = usePostPlan(tripId);
 
   // 최종 일정 생성 "확인"버튼을 눌렀을 때 작동하는 핸들러
   const onRegister = async data => {
@@ -46,18 +30,17 @@ const AddPlanPage = () => {
       time: data.time,
       ...registerData,
     };
-    await uploadPlanMutation.mutate({ ...planData });
+    await postPlanMutation.mutate({ ...planData });
   };
 
   const handleBackClick = () => {
-    //navigate(`/trip/my?trip_id=${tripId}`); // TODO 이렇게 하면 다시 돌아갈때마다 API가 호출되는 문제가 존재
-    console.log('뒤로가기 버튼 클릭');
+    navigate(`/trip/my?trip_id=${tripId}`); // TODO 이렇게 하면 다시 돌아갈때마다 API가 호출되는 문제가 존재
   };
 
   if (isLoading) {
     return;
   }
-  const { start_date: startDate, end_date: endDate } = tripData[0];
+  const { start_date: startDate, end_date: endDate } = trip[0];
   const RegisterTimeProps = {
     startDate,
     endDate,
@@ -66,13 +49,12 @@ const AddPlanPage = () => {
     place: registerData.place_name,
   };
 
-  console.log('current step', step);
-  console.log('current registerdata', registerData);
-  console.log('detail', detail);
   return (
     <div>
       {step === 'SEARCH' && (
         <Search
+          search={search}
+          setSearch={setSearch}
           onBackClick={handleBackClick}
           onNext={data => {
             // "장소 이미지 "클릭시
@@ -88,7 +70,11 @@ const AddPlanPage = () => {
       )}
 
       {step === 'DETAIL' && (
-        <Detail
+        <Details
+          onBackClick={() => {
+            setStep('SEARCH');
+            setDetail('');
+          }}
           contentId={detail}
           onNext={data => {
             // 일정 생성 클릭시
