@@ -19,12 +19,10 @@ const DetailPage = () => {
           return;
         }
         const result = await getPlaceByExplanationApi(contentsid);
-
         if (!result) {
           navigate('/search'); 
           return;
         }
-
         setData(result);
       } catch (error) {
         console.error("api 호출 중 오류 :", error);
@@ -34,7 +32,6 @@ const DetailPage = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [contentsid]);
 

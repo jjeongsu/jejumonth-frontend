@@ -49,11 +49,38 @@ const MyTripPage = () => {
     }
   };
 
+  const handleDelete = () => {
+    console.log('delete');
+  }
+
+  const handleUpdate = () => {
+
+  }
+
   // 디버깅 용
   useEffect(() => {
     console.log(datesData);
     console.log(planForPopUp);
   }, [datesData,planForPopUp]);
+
+  useEffect(() => {
+    if(Object.hasOwn(planForPopUp, 'lat')) {
+      const container = document.getElementById('map');
+      const options = {
+        center: new kakao.maps.LatLng(planForPopUp.lat,planForPopUp.lng),
+        level: 3,
+      };
+      const map = new kakao.maps.Map(container, options);
+
+      const markerPosition  = new kakao.maps.LatLng(planForPopUp.lat,planForPopUp.lng);
+
+      const marker = new kakao.maps.Marker({
+        position: markerPosition
+      });
+
+      marker.setMap(map);
+    }
+  }, [planForPopUp]);
 
   useEffect(() => {
     const container = document.getElementById('map');
@@ -94,8 +121,9 @@ const MyTripPage = () => {
           <div id="map" className="w-813 h-632 ml-24"></div>
           {Object.hasOwn(planForPopUp,'content_id') && (
             <PopUpCard
-              className={"flex bg-primary-0 bottom-0 right-300 absolute z-10"}
               plan={planForPopUp}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
             />
           )}
         </CurrentPopUpPlanContext.Provider>

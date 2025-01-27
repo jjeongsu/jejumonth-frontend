@@ -8,3 +8,4 @@ export { default as AddPlanPage } from './AddPlanPage';
 export { default as CommunityPage } from './CommunityPage';
 export { default as MyPage } from './MyPage';
 export { default as SearchPage } from './SearchPage';
+export { default as CommunityDetailPage } from './CommunityDetailPage';

@@ -5,9 +5,13 @@ const supabaseUrl = 'https://pyoennlhqeomsqgypozz.supabase.co';
 const supabaseKey = import.meta.env.VITE_SUPABASE_SERVICE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+
 export async function postTripApi(userId, dateInfo) {
   const startDate = formatDate(dateInfo[0].startDate);
   const endDate = formatDate(dateInfo[0].endDate);
+  console.log('Supabase Key:', supabaseKey); // Supabase 키 확인
+  console.log('Fetching liked places for user:', userId); // 요청 정보 확인
+
   const { data, error } = await supabase
     .from('Trips')
     .insert({
@@ -24,6 +28,14 @@ export async function getTripApi(userId, tripId) {
     .from('Trips')
     .select()
     .eq('trip_id', tripId)
+    .eq('user_id', userId);
+  return data ? data : error;
+}
+
+export async function getAllTripsApi(userId) {
+  const { data, error } = await supabase
+    .from('Trips')
+    .select()
     .eq('user_id', userId);
   return data ? data : error;
 }
@@ -58,7 +70,10 @@ export async function getPlanApi(userId, tripId) {
 
 // 찜하기한 장소 저장용 API 4개
 export async function getAllUserLikedPlacesApi(userId) {
-  const { data, error } = await supabase.from('UserLikedPlaces').select().eq('user_id', userId);
+  const { data, error } = await supabase
+  .from('UserLikedPlaces')
+  .select()
+  .eq('user_id', userId);
   return data ? data : error;
 }
 
@@ -72,18 +87,24 @@ export async function getUserLikedPlaceApi(userId, contentId) {
 }
 
 export async function postUserLikedPlaceApi(userId, placeInfo) {
+  console.log('Adding liked place for user:', userId, 'Place Info:', placeInfo); // 요청 데이터 출력
   const { data, error } = await supabase
     .from('UserLikedPlaces')
     .insert({
       user_id: userId,
-      content_id: placeInfo.contentId,
+      content_id: placeInfo.contentsid,
       title: placeInfo.title,
-      category: placeInfo.category,
-      address: placeInfo.address,
-      img_full_url: placeInfo.imagePath,
-      img_thumbnail_url: placeInfo.imageThumbnailPath,
+      category: placeInfo.contentscd.label,
+      address: placeInfo.roadaddress,
+      img_full_url: placeInfo.repPhoto.photoid.imgpath,
+      img_thumbnail_url: placeInfo.repPhoto.photoid.thumbnailpath,
     })
     .select();
+  if (error) {
+    console.error('Error adding liked place:', error); // 에러 출력
+  } else {
+    console.log('Liked place added successfully:', data); // 응답 데이터 출력
+  }
   return data ? data : error;
 }
 
