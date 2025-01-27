@@ -28,6 +28,11 @@ export async function getTripApi(userId, tripId) {
   return data ? data : error;
 }
 
+export async function getAllTripsApi(userId) {
+  const { data, error } = await supabase.from('Trips').select().eq('user_id', userId);
+  return data ? data : error;
+}
+
 export async function postPlanApi(planData) {
   const { data, error } = await supabase
     .from('Plans')
