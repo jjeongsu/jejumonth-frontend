@@ -1,11 +1,17 @@
 // import React from 'react';
-
-import { Link, useLocation } from 'react-router';
+// import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
+// import { Link, useLocation, useNavigate, useSearchParams } from 'react-router';
+import { Link, useSearchParams, useNavigate, useLocation } from 'react-router';
 import DetailCard from './components/index';
 import { ConfigProvider, Pagination } from 'antd';
-import { useEffect } from 'react';
+// import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getList } from '../../apis/searchApi';
 import { Dummy } from './dummy';
+import { calcPage } from '../../utils/pagination';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+// import { calcPage } from '../../utils/pagination';
 // import axios from 'axios';
 // import { useState } from 'react';
 
@@ -17,38 +23,140 @@ const SearchPage = () => {
   // 4. 검색 결과 만들기
   // 5. 레이아웃 에 따라 정보 바뀌기
 
+  // document.addEventListener('keydown', function (e) {
+  //   if (e.key == 'F5') {
+  //     e.preventDefault();
+  //     navigate('/search');
+  //   }
+  // });
+
   /// APi 불러와보기
 
-  // const [searchData, setSearchData] = useState();
-  // const [message, setMessage] = useState();
-
-  // const searchParams = useSearchParams();
+  const [searchData, setSearchData] = useState(Dummy.items);
+  // // const [message, setMessage] = useState();
+  const [searchTitle, setSearchTitle] = useState();
+  const [isFirstLaod, setIsFirshLoad] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
-  console.log(location);
+  const [query, setQuery] = useState({});
+  const itemListLength = 5;
+  const pagesLength = 5;
+  const [inputQuery, setInputQuery] = useState({}); // 검색할때 나오는 거
+  const [searchText, setSearchText] = useState('');
+  // const [Loading, setLoding] = useState();
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['search1', query],
+    queryFn: () => getList(query),
+  });
+
+  if (isLoading) {
+    console.log('데이터 로딩 중...');
+  } else if (error) {
+    console.log('데이터 요청 오류:', error);
+  }
 
   useEffect(() => {
-    (async () => {
-      try {
-        const data = await getList();
-        if (data !== null) {
-          setSearchData(data);
-          setMessage('데이터가 들어왔습진다');
-        } else {
-          setMessage('실패');
-        }
-      } catch (error) {
-        console.log(error);
+    if (data && data.items) {
+      console.log(data.items);
+      setSearchData(data.items);
+    } else {
+      console.log('data 또는 items가 존재하지 않습니다.');
+    }
+  }, [data]);
+
+  const updatePageInfo = calcPage(query.page || 0, searchData.length, itemListLength, pagesLength);
+  const currentPageList = searchData.slice(
+    updatePageInfo.startItemIndex,
+    updatePageInfo.endItemIndex,
+  );
+
+  useEffect(() => {
+    const updatedQuery = {
+      page: parseInt(searchParams.get('page') || '1'),
+      limit: itemListLength,
+      title: searchParams.get('title') || '',
+    };
+    setQuery(updatedQuery);
+    setSearchText(updatedQuery.title);
+  }, [searchParams]);
+
+  const handleChange = e => {
+    const { value, type } = e.target;
+    let nextInputQuery = { ...inputQuery };
+
+    if (type === 'text') {
+      setSearchText(value);
+      nextInputQuery = { ...inputQuery, title: value };
+    }
+    setInputQuery(nextInputQuery);
+  };
+
+  const handleChangeBtnClick = page => {
+    console.log('searchData', searchData);
+    // console.log('Dummy.items', Dummy.items);
+    const nextInputQuery = { ...inputQuery, page };
+    console.log('nextInputQuery', nextInputQuery);
+    setInputQuery(nextInputQuery);
+    setQuery(nextInputQuery);
+    let params = '?';
+    Object.entries(nextInputQuery).forEach(([key, value]) => {
+      if (value) {
+        params += `${key}=${value}&`;
       }
-    })();
-  }, []);
+    });
+
+    params = params.slice(0, -1);
+    navigate(`${location.pathname}` + params);
+  };
+
+  // useEffect(() => {
+  //   // 데이터가 로딩 중일 때 searchData가 변경되면 추가적인 작업을 할 수 있음
+  //   if (searchData.length > 0) {
+  //     console.log('데이터가 업데이트되었습니다:', searchData);
+  //   }
+  // }, [searchData]); // searchData가 변경될 때마다 실행
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const data = await getList();
+  //       if (data !== null) {
+  //         setSearchData(data);
+  //         setMessage('데이터가 들어왔습진다');
+  //       } else {
+  //         setMessage('실패');
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <div>
       <div className="w-512 h-52 rounded-20  shadow-2md p-16 box-border flex mx-auto mb-50">
-        <input type="text" className="w-full w-full inline-block focus:outline-none" />
+        <input
+          type="text"
+          onChange={handleChange}
+          onKeyDown={e => {
+            if (e.key == 'Enter') {
+              e.preventDefault();
+              handleChangeBtnClick(query.page || 1);
+            }
+          }}
+          className="w-full w-full inline-block focus:outline-none"
+        />
         <button>
-          <img src="/icons/search.svg" alt="search-icon" />
+          <img
+            src="/icons/search.svg"
+            alt="search-icon"
+            onClick={() => {
+              handleChangeBtnClick(query.page || 1);
+            }}
+          />
         </button>
       </div>
       <nav className="flex justify-between">
@@ -108,8 +216,8 @@ const SearchPage = () => {
         </div>
       </nav>
       <main className="mt-22">
-        {Dummy &&
-          Object.entries(Dummy.items).map(([key, value]) => (
+        {currentPageList &&
+          Object.entries(currentPageList).map(([key, value]) => (
             <DetailCard
               key={key}
               title={value?.title || '타이틀이 없습니다'}
@@ -138,7 +246,18 @@ const SearchPage = () => {
             },
           }}
         >
-          <Pagination total={5} pageSize={2} className="justify-center mt-55" />
+          <Pagination
+            total={searchData.length}
+            pageSize={itemListLength}
+            className="justify-center mt-55"
+            current={query.page}
+            // onChange={() => {
+            //   handleChangeBtnClick(query.page || 1);
+            // }}
+            onChange={value => {
+              handleChangeBtnClick(value);
+            }}
+          />
         </ConfigProvider>
       </main>
       {/* {searchData &&
