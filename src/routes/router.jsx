@@ -8,7 +8,7 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
-  CommunityDetailPage,
+  // CommunityDetailPage,
   MyPage,
   DetailPage,
   SearchPage,
@@ -19,7 +19,7 @@ import PlanLayout from '../layouts/PlanLayout.jsx';
 import ScrapSection from '../pages/MyPage/components/main/scrap/ScrapSection.jsx';
 import PostsSection from '../pages/MyPage/components/main/post/PostsSection.jsx';
 import CommentSection from '../pages/MyPage/components/main/comment/CommentSection.jsx';
-import LikedSection from '../pages/MyPage/components/main/LikedSection.jsx';
+import LikedSection from '../pages/MyPage/components/main/liked/LikedSection.jsx';
 import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
 import UpdateUserSection from '../pages/MyPage/components/main/updateUserProfile/UpdateUserSection.jsx';
 
@@ -44,10 +44,10 @@ const router = createBrowserRouter([
         path: 'community',
         element: <CommunityPage />,
       },
-      {
-        path: 'community/post/:postId',
-        element: <CommunityDetailPage />, 
-      },
+      // {
+      //   path: 'community/post/:postId',
+      //   element: <CommunityDetailPage />,
+      // },
       {
         path: '/detail/:contentsid', // 도메인/detail/3
         element: <DetailPage />,
