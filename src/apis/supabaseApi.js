@@ -28,6 +28,14 @@ export async function getTripApi(userId, tripId) {
   return data ? data : error;
 }
 
+export async function getAllTripsApi(userId) {
+  const { data, error } = await supabase
+    .from('Trips')
+    .select()
+    .eq('user_id', userId);
+  return data ? data : error;
+}
+
 export async function postPlanApi(planData) {
   const { data, error } = await supabase
     .from('Plans')
@@ -76,12 +84,12 @@ export async function postUserLikedPlaceApi(userId, placeInfo) {
     .from('UserLikedPlaces')
     .insert({
       user_id: userId,
-      content_id: placeInfo.contentId,
+      content_id: placeInfo.contentsid,
       title: placeInfo.title,
-      category: placeInfo.category,
-      address: placeInfo.address,
-      img_full_url: placeInfo.imagePath,
-      img_thumbnail_url: placeInfo.imageThumbnailPath,
+      category: placeInfo.contentscd.label,
+      address: placeInfo.roadaddress,
+      img_full_url: placeInfo.repPhoto.photoid.imgpath,
+      img_thumbnail_url: placeInfo.repPhoto.photoid.thumbnailpath,
     })
     .select();
   return data ? data : error;
