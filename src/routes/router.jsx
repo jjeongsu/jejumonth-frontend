@@ -15,7 +15,7 @@ import {
 import AuthLayout from '../layouts/AuthLayout';
 import TripLayout from '../layouts/TripLayout.jsx';
 import PlanLayout from '../layouts/PlanLayout.jsx';
-import ScrapSection from '../pages/MyPage/components/main/ScrapSection.jsx';
+import ScrapSection from '../pages/MyPage/components/main/scrap/ScrapSection.jsx';
 import PostsSection from '../pages/MyPage/components/main/post/PostsSection.jsx';
 import CommentSection from '../pages/MyPage/components/main/comment/CommentSection.jsx';
 import LikedSection from '../pages/MyPage/components/main/LikedSection.jsx';
