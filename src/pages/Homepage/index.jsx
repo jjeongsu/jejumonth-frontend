@@ -1,13 +1,16 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import useMySelector from '@/hooks/useMySelector';
+import { useSelector, shallowEqual } from 'react-redux';
 
 const HomePage = () => {
-  const user = useSelector(state => state.user);
-  console.log('user-redux', user);
+  const [userId, userFullName] = useMySelector(state => [
+    state.user.userId,
+    state.user.userFullName,
+  ]);
+  console.log(userId, userFullName);
   return (
     <div>
       HomePage
-      <p>user가 있습니까? {user !== '' ? 'yes' : 'no'}</p>
+      <p>{userId && '유저 있어여 '}</p>
     </div>
   );
 };
