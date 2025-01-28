@@ -1,8 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from '@components/common/Header';
-const DefaultLayout = () => {
-  console.log('hello');
 
+const DefaultLayout = () => {
   return (
     <div className="w-full max-w-962 mx-auto h-full">
       <div className="h-70">

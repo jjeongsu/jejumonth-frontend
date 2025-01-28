@@ -27,7 +27,7 @@ const Header = () => {
         </NavLink>
       </div>
 
-      <div className="flex gap-120 items-center">
+      <div className="flex gap-80 items-center">
         <div className={`flex gap-29 ${TextColorVariation[headerType]} `}>
           <NavLink
             to="/community"
