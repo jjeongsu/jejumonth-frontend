@@ -1,16 +1,10 @@
-import useMySelector from '@/hooks/useMySelector';
-import { useSelector, shallowEqual } from 'react-redux';
+import { Hero } from './components';
 
 const HomePage = () => {
-  const [userId, userFullName] = useMySelector(state => [
-    state.user.userId,
-    state.user.userFullName,
-  ]);
-  console.log(userId, userFullName);
   return (
     <div>
-      HomePage
-      <p>{userId && '유저 있어여 '}</p>
+      <Hero />
+      <div>다음 컴포넌트</div>
     </div>
   );
 };
