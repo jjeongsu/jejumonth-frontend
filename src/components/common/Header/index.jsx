@@ -48,7 +48,7 @@ const Header = () => {
               <ConfigProvider theme={{ token: { colorPrimary: '#f78f07' } }}>
                 <Button
                   variant="text"
-                  className={`font-bold w-100 h-34 rounded-full ${ButtonVariation[headerType]} `}
+                  className={`font-bold w-100 h-34 rounded-4 ${ButtonVariation[headerType]} `}
                 >
                   mypage
                 </Button>
@@ -59,7 +59,7 @@ const Header = () => {
               <ConfigProvider theme={{ token: { colorPrimary: '#f78f07' } }}>
                 <Button
                   variant="text"
-                  className={`font-bold w-100 h-34 rounded-full ${ButtonVariation[headerType]} `}
+                  className={`font-bold w-100 h-34 rounded-4 ${ButtonVariation[headerType]} `}
                 >
                   login
                 </Button>
