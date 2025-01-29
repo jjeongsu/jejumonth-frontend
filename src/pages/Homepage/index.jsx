@@ -1,10 +1,10 @@
-import { Hero, Carousel } from './components';
+import { Hero, CarouselWrapper } from './components';
 
 const HomePage = () => {
   return (
     <div>
       <Hero />
-      <Carousel />
+      <CarouselWrapper />
       <div>다음 컴포넌트</div>
     </div>
   );
