@@ -5,7 +5,6 @@ const supabaseUrl = 'https://pyoennlhqeomsqgypozz.supabase.co';
 const supabaseKey = import.meta.env.VITE_SUPABASE_SERVICE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-
 export async function postTripApi(userId, dateInfo) {
   const startDate = formatDate(dateInfo[0].startDate);
   const endDate = formatDate(dateInfo[0].endDate);
@@ -33,10 +32,7 @@ export async function getTripApi(userId, tripId) {
 }
 
 export async function getAllTripsApi(userId) {
-  const { data, error } = await supabase
-    .from('Trips')
-    .select()
-    .eq('user_id', userId);
+  const { data, error } = await supabase.from('Trips').select().eq('user_id', userId);
   return data ? data : error;
 }
 
@@ -64,16 +60,13 @@ export async function postPlanApi(planData) {
 }
 
 export async function getPlanApi(userId, tripId) {
-  const { data, error } = await supabase.from('Plans').select();
+  const { data, error } = await supabase.from('Plans').select().eq('trip_id', tripId);
   return data ? data : error;
 }
 
 // 찜하기한 장소 저장용 API 4개
 export async function getAllUserLikedPlacesApi(userId) {
-  const { data, error } = await supabase
-  .from('UserLikedPlaces')
-  .select()
-  .eq('user_id', userId);
+  const { data, error } = await supabase.from('UserLikedPlaces').select().eq('user_id', userId);
   return data ? data : error;
 }
 
