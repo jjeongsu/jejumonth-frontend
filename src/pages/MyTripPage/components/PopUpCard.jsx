@@ -1,11 +1,14 @@
 import PropTypes from 'prop-types';
+import DayButton from './DayButton.jsx';
 
 const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
   return (
     <div className="grid w-700 h-200 bg-gray-1 bottom-0 right-58 absolute z-10">
       <div className="flex justify-between m-8 px-10">
-        <div>day{plan.dayNumber}</div>
-        <div className="text-sub-accent-1">더보기</div>
+        <DayButton dayNumber={plan.dayNumber} />
+        <a href={`/detail/${plan.content_id}`} target="_blank">
+          <div className="text-sub-accent-1">더보기</div>
+        </a>
       </div>
       <div className="flex mb-10 mx-20">
         <img
@@ -25,15 +28,25 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
         </div>
       </div>
       <div className="flex border-t-[1px] border-solid border-gray-200 justify-around items-center">
-        <button className="flex items-center" onClick={handleDelete}>
-          <img src="/icons/delete-icon.svg" height="21" width="21" alt="쓰레기통"/>
-          일정 삭제
-        </button>
-        <div className="w-[1px] bg-gray-200 h-[70%] mx-4"></div>
-        <button className="flex items-center" onClick={handleUpdate}>
-          <img src="/icons/timer.svg" height="21" width="21" alt="시계"/>
-          시간 변경
-        </button>
+        <div className="w-349 flex items-center justify-center">
+          <button className="flex items-center text-gray-7" onClick={handleDelete}>
+            <img
+              src="/icons/delete-icon.svg"
+              height="17"
+              width="17"
+              alt="쓰레기통"
+              className="mx-10"
+            />
+            일정 삭제
+          </button>
+        </div>
+        <div className="w-1 bg-gray-200 h-[70%] mx-4"></div>
+        <div className="w-349 flex items-center justify-center">
+          <button className="flex items-center text-gray-7" onClick={handleUpdate}>
+            <img src="/icons/timer.svg" height="17" width="17" alt="시계" className="mx-10" />
+            시간 변경
+          </button>
+        </div>
       </div>
     </div>
   );
