@@ -6,5 +6,6 @@ const PNG_IMAGES = Object.freeze({
   carousel_1: new URL('./carousel_1.jpg', import.meta.url).href,
   carousel_2: new URL('./carousel_2.jpg', import.meta.url).href,
   carousel_3: new URL('./carousel_3.jpeg', import.meta.url).href,
+  defaultCard: new URL('./defaultJejuImage.jpg', import.meta.url).href,
 });
 export default PNG_IMAGES;

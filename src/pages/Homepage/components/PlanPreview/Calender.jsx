@@ -20,7 +20,6 @@ const Calender = ({ selectedDate, setSelectedDate, plans }) => {
   };
 
   const isSameMonth = (date1, date2) => {
-    //console.log('date2', date2);
     return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth();
   };
 
