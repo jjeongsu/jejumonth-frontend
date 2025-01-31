@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Header from '@components/common/Header';
+import Footer from '@components/common/Footer';
 
 const DefaultLayout = () => {
   return (
@@ -10,7 +11,9 @@ const DefaultLayout = () => {
 
       <Outlet />
 
-      <div className="text-red-600 bg-red-200 h-70">푸터가 이곳에 표시됩니다.</div>
+      <div className="h-70">
+        <Footer />
+      </div>
     </div>
   );
 };
