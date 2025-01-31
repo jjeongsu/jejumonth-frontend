@@ -41,21 +41,8 @@ export async function postPlanApi(planData) {
     .from('Plans')
     .insert({
       ...planData,
-      // trip_id: tripId,
-      // date: date,
-      // time: placeInfo.time,
-      // place_name: placeInfo.name,
-      // description: placeInfo.description,
-      // category: placeInfo.category,
-      // road_address: placeInfo.address,
-      // lat: placeInfo.latitude,
-      // lng: placeInfo.longitude,
     })
     .select();
-  console.log('post plan api, res data', data);
-  if (error) {
-    console.log(error);
-  }
   return data ? data : error;
 }
 
@@ -65,11 +52,7 @@ export async function getPlanApi(userId, tripId) {
 }
 
 export async function deletePlanApi(planId) {
-  const { data, error } = await supabase
-    .from('Plans')
-    .delete()
-    .eq('id', planId)
-    .select();
+  const { data, error } = await supabase.from('Plans').delete().eq('id', planId).select();
   return data ? data : error;
 }
 
@@ -177,11 +160,11 @@ export async function postUserLikedArticlesApi(userId, articleInfo) {
       user_id: userId,
       article_id: articleInfo.articleId,
       title: articleInfo.title,
-      author_profile_url : articleInfo.profileUrl,
-      count_likes : articleInfo.likes,
-      count_comments : articleInfo.comments,
-      wrote_at : articleInfo.time,
-      channel : articleInfo.channel,
+      author_profile_url: articleInfo.profileUrl,
+      count_likes: articleInfo.likes,
+      count_comments: articleInfo.comments,
+      wrote_at: articleInfo.time,
+      channel: articleInfo.channel,
     })
     .select();
   return data ? data : error;

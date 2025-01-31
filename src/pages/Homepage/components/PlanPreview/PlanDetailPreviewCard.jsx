@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import PNG_IMAGES from '@public/images/image';
+import { Link } from 'react-router';
 
 const PlanDetailPreviewCard = ({ plan }) => {
   const defaultImageURL = PNG_IMAGES.defaultCard;
   return (
     <div className="w-full rounded-4 border-2 border-solid border-gray-4 bg-gray-2">
       <div className="w-full h-150 bg-red-200 rounded-4 relative">
-        {/* // TODO : DEFAULT IMAGE 만들어서 넣어두기 */}
-        <img src={plan.imgpath ?? defaultImageURL} />
+        <img
+          src={plan.imgpath ?? defaultImageURL}
+          className="w-full h-150 object-fill rounded-t-4"
+        />
         <div className="absolute inset-0 bg-black opacity-50 rounded-4"></div>
-        <span className="absolute bottom-25 font-bold text-20 px-12 text-white">
+        <span className="absolute bottom-15 font-bold text-20 px-12 text-white">
           {plan.place_name}
         </span>
       </div>
@@ -22,9 +25,15 @@ const PlanDetailPreviewCard = ({ plan }) => {
         <span className="font-regular text-13 leading-4 text-gray-8 block mt-13">
           {plan.road_address && `📍 ${plan.road_address}`}
         </span>
-        <span className="font-regular text-13 leading-4 text-gray-8 block mt-10 pb-15">
+        <span className="font-regular text-13 leading-4 text-gray-8 block mt-10 pb-10">
           {`🍊 ${plan.description}`}
         </span>
+        <Link
+          className="text-primary-2 font-bold text-10 w-full block text-end pb-15"
+          to={`/detail/${plan.content_id}`}
+        >
+          더보기
+        </Link>
       </div>
     </div>
   );
