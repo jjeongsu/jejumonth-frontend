@@ -11,7 +11,13 @@ const Detail = ({ data }) => {
 
   return (
     <div className="max-w-962 mx-auto p-4 mb-100">
-      <div className="relative rounded-lg overflow-hidden shadow-md mb-8">
+      <div className="mb-10 text-m text-gray-7">
+        {data.region1cd?.label || "제주"} &gt; {" "}
+        <span className="text-lg text-gray-10">
+        {data.region2cd?.label || "제주시"}
+        </span>
+      </div>
+      <div className="relative rounded-lg overflow-hidden shadow-md mb-30">
         <img
           src={data.repPhoto.photoid.imgpath}
           alt={data.repPhoto.descseo}
