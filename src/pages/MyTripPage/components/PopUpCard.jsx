@@ -23,7 +23,11 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
           <div className="text-gray-6">{plan.category}</div>
           <div className="text-gray-7 row-start-3">📍 info</div>
           <div className="text-gray-7 row-span-2 col-start-2 flex items-center">
-            {plan.description}
+            {plan.description.length > 40 ? (
+              plan.description.slice(0,50) + '...'
+            ) : (
+              plan.description
+            )}
           </div>
         </div>
       </div>
