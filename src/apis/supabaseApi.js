@@ -64,6 +64,26 @@ export async function getPlanApi(userId, tripId) {
   return data ? data : error;
 }
 
+export async function deletePlanApi(planId) {
+  const { data, error } = await supabase
+    .from('Plans')
+    .delete()
+    .eq('id', planId)
+    .select();
+  return data ? data : error;
+}
+
+export async function updatePlanApi(planId, time) {
+  const { data, error } = await supabase
+    .from('Plans')
+    .update({
+      time: time,
+    })
+    .eq('id', planId)
+    .select();
+  return data ? data : error;
+}
+
 // 찜하기한 장소 저장용 API 4개
 export async function getAllUserLikedPlacesApi(userId) {
   const { data, error } = await supabase.from('UserLikedPlaces').select().eq('user_id', userId);
@@ -144,12 +164,19 @@ export async function getUserLikedArticlesApi(userId) {
   return data ? data : error;
 }
 
-export async function postUserLikedArticlesApi(userId, articleId) {
+// articleInfo 는 객체 형식으로 와야합니다
+export async function postUserLikedArticlesApi(userId, articleInfo) {
   const { data, error } = await supabase
     .from('UserLikedArticles')
     .insert({
       user_id: userId,
-      article_id: articleId,
+      article_id: articleInfo.articleId,
+      title: articleInfo.title,
+      author_profile_url : articleInfo.profileUrl,
+      count_likes : articleInfo.likes,
+      count_comments : articleInfo.comments,
+      wrote_at : articleInfo.time,
+      channel : articleInfo.channel,
     })
     .select();
   return data ? data : error;

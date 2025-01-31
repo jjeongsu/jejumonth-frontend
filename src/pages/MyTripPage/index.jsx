@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from 'react';
 import DayCard from './components/DayCard.jsx';
 import PlanCard from './components/PlanCard.jsx';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { getPlanApi, getTripApi } from '../../apis/supabaseApi.js';
+import { useLocation } from 'react-router-dom';
+import { deletePlanApi, getPlanApi, getTripApi, updatePlanApi } from '../../apis/supabaseApi.js';
 import PopUpCard from './components/PopUpCard.jsx';
-
+import { Modal } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import ChangeTimeModal from './components/ChangeTimeModal.jsx';
 const { kakao } = window;
 
 export const CurrentPopUpPlanContext = createContext(null);
@@ -15,6 +17,8 @@ const MyTripPage = () => {
   const tripId = queryParams.get('trip_id');
   const [datesData, setDatesData] = useState([]);
   const [planForPopUp, setPlanForPopUp] = useState({});
+  const [isOpenChangeModal, setIsOpenChangeModal] = useState(false);
+  const [changedTime, setChangedTime] = useState(null);
 
   const getDates = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -50,36 +54,109 @@ const MyTripPage = () => {
   };
 
   const handleDelete = () => {
-    console.log('delete');
+    Modal.confirm({
+      title: '일정을 삭제할까요?',
+      icon: <ExclamationCircleFilled />,
+      content: `${planForPopUp.date} 날짜에 대한 일정을 삭제하려고 해요`,
+      okText: '예',
+      okType: 'danger',
+      cancelText: '아니요',
+      async onOk() {
+        try{
+          const result = await deletePlanApi(planForPopUp.id);
+          if (result.length > 0) {
+            const newDatesData = [];
+            Object.keys(datesData).forEach((date) => {
+              if (date === result[0].date) {
+                 newDatesData[date] = datesData[date].filter(item => item.id !== result[0].id)
+              } else {
+                newDatesData[date] = datesData[date];
+              }
+            })
+            setDatesData(newDatesData);
+            setPlanForPopUp({});
+          }
+          // const newDatesData = datesData.filter((item) => )
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+      cancelButtonProps : {
+        style: {
+          textDecoration : '#FDBA74',
+        }
+      }
+    });
   }
 
   const handleUpdate = () => {
+    setIsOpenChangeModal(true);
+  };
 
+  const updateConfirm = async () => {
+    try{
+      const result = await updatePlanApi(planForPopUp.id,changedTime);
+      if (result.length > 0) {
+        const newDatesData = [];
+        Object.keys(datesData).forEach((date) => {
+          if (date === result[0].date) {
+            const tempArray = [];
+            for (const plan of datesData[date]) {
+              if (plan.id === result[0].id) {
+                const newPlan = {...plan, time : result[0].time}
+                tempArray.push(newPlan);
+              } else {
+                tempArray.push(plan)
+              }
+            }
+            newDatesData[date] = tempArray;
+          } else {
+            newDatesData[date] = datesData[date];
+          }
+        })
+        setIsOpenChangeModal(false);
+        setDatesData(newDatesData);
+        setPlanForPopUp({...planForPopUp, time : changedTime});
+      }
+    } catch (error) {
+      alert(error)
+      console.error(error);
+    }
   }
 
   // 디버깅 용
   useEffect(() => {
     console.log(datesData);
     console.log(planForPopUp);
-  }, [datesData,planForPopUp]);
+  }, [datesData, planForPopUp]);
 
   useEffect(() => {
-    if(Object.hasOwn(planForPopUp, 'lat')) {
-      const container = document.getElementById('map');
-      const options = {
-        center: new kakao.maps.LatLng(planForPopUp.lat,planForPopUp.lng),
-        level: 3,
-      };
-      const map = new kakao.maps.Map(container, options);
-
-      const markerPosition  = new kakao.maps.LatLng(planForPopUp.lat,planForPopUp.lng);
-
-      const marker = new kakao.maps.Marker({
-        position: markerPosition
-      });
-
-      marker.setMap(map);
+    let latitude = 33.39;
+    let longitude = 126.55;
+    let level = 10;
+    if (Object.hasOwn(planForPopUp, 'lat')) {
+      latitude = planForPopUp.lat;
+      longitude = planForPopUp.lng;
+      level = 3;
     }
+
+    const container = document.getElementById('map');
+    const options = {
+      center: new kakao.maps.LatLng(latitude,longitude),
+      level: level,
+    };
+    const map = new kakao.maps.Map(container, options);
+
+    const markerPosition  = new kakao.maps.LatLng(latitude,longitude);
+
+    const marker = new kakao.maps.Marker({
+      position: markerPosition
+    });
+
+    marker.setMap(map);
   }, [planForPopUp]);
 
   useEffect(() => {
@@ -111,15 +188,32 @@ const MyTripPage = () => {
             }}
           >
             {Object.keys(datesData).map((date, i) => (
-              <DayCard key={i} dayNumber={i+1} date={date} count={datesData[date].length}>
-                {datesData[date].map((plan) => (
-                  <PlanCard key={plan.id} plan={plan} dayNumber={i+1} totalDates={Object.keys(datesData).length}/>
+              <DayCard key={i} dayNumber={i + 1} date={date} count={datesData[date].length}>
+                {datesData[date].map((plan, index) => (
+                  <div key={plan.id} className="flex group relative">
+                    <div>
+                      <img src="/icons/line-icon.svg" alt="라인" height="54" width="3"
+                           className="-mt-12 w-3 h-70 ml-50 mr-30 object-cover" />
+                      <div
+                        className={`absolute top-18 left-44 w-16 h-16 text-white text-center font-bold rounded-full flex items-center justify-center ${
+                          planForPopUp.id === plan.id ? "bg-primary-0" : "bg-sub-accent-2 peer-hover:bg-primary-0"
+                        }`}>
+                        {index + 1}
+                      </div>
+                    </div>
+                    <PlanCard
+                      key={plan.id}
+                      plan={plan}
+                      dayNumber={i + 1}
+                      totalDates={Object.keys(datesData).length}
+                    />
+                  </div>
                 ))}
               </DayCard>
             ))}
           </div>
           <div id="map" className="w-813 h-632 ml-24"></div>
-          {Object.hasOwn(planForPopUp,'content_id') && (
+          {Object.hasOwn(planForPopUp, 'content_id') && (
             <PopUpCard
               plan={planForPopUp}
               handleDelete={handleDelete}
@@ -128,6 +222,13 @@ const MyTripPage = () => {
           )}
         </CurrentPopUpPlanContext.Provider>
       </div>
+      {isOpenChangeModal && (
+        <ChangeTimeModal
+          setTime={setChangedTime}
+          setIsOpenModal={setIsOpenChangeModal}
+          onClick={updateConfirm}
+        />
+      )}
     </>
   );
 };
