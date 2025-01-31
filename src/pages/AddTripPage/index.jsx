@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 const AddTripPage = () => {
   const userId = useSelector(state => state.user.userId);
   const navigate = useNavigate();
-  const [state, setState] = useState([
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 7),
@@ -23,7 +23,7 @@ const AddTripPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const result = await postTripApi(userId, state);
+      const result = await postTripApi(userId, dates);
       const message =
         result[0].start_date + ' 부터 ' + result[0].end_date + ' 까지의 일정이 생성됐습니다.';
       const tripId = result[0].trip_id;
@@ -62,13 +62,13 @@ const AddTripPage = () => {
       <div className="grid place-items-center">
         <div className="h-412 border-solid border-gray-200 border-[1px] mb-25">
           <DateRangePicker
-            onChange={item => setState([item.selection])}
+            onChange={item => setDates([item.selection])}
             showSelectionPreview={true}
             moveRangeOnFirstSelection={false}
             months={2}
             color="#FF7900"
             locale={ko}
-            ranges={state}
+            ranges={dates}
             direction="horizontal"
             preventSnapRefocus={true}
             calendarFocus="backwards"
