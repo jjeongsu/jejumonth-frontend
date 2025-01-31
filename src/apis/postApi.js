@@ -31,14 +31,15 @@ export const getChannelNameByIdApi = async channelId => {
 };
 
 export const deletePostApi = async contentID => {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9';
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY3OTA4ZGFlZThhMWU0MzQ5ZWQ3NmVjMiIsImVtYWlsIjoidGVzdCJ9LCJpYXQiOjE3Mzc2OTk2ODF9.RCuyIwJ-9wIuR_gYYQc4gaLwjsmletQQMiWqKL9h5ug';
   try {
     const response = await axios.delete(`${serverURL}/posts/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      data: { contentID },
+      data: { id: contentID },
     });
 
     return response.data;

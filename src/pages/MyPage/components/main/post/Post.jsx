@@ -3,6 +3,7 @@ import CommentIcon from '../../icon/CommentIcon';
 import LikesIcon from '../../icon/LikesIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 import { useState } from 'react';
+import { deletePostApi } from '../../../../../apis/postApi';
 
 const Post = ({ postData }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,8 +12,19 @@ const Post = ({ postData }) => {
     setMenuOpen(prev => !prev);
   };
 
-  const deletePostHandler = () => {
+  const deletePostHandler = async () => {
     console.log(`ID: ${postData._id}의 삭제 버튼을 눌렀습니다.`);
+
+    const isChecked = window.confirm('정말로 삭제하시겠습니까?');
+
+    if (isChecked) {
+      try {
+        await deletePostApi(postData._id);
+      } catch (error) {
+        console.error('게시글 삭제에 실패했습니다.', error);
+        alert('게시글 삭제에 실패했습니다.');
+      }
+    }
   };
 
   const upDatePostHandler = () => {
