@@ -112,22 +112,57 @@ export const putUserFullname = async data => {
   }
 };
 
+export const deleteUserApi = async userId => {
+  const url = `${serverURL}/users/delete-user`;
+  const jwt = getCookie('jwt');
+  try {
+    const response = await axios.delete(
+      url,
+      {
+        id: userId,
+      },
+      {
+        headers: {
+          Authorization: `bearer ${jwt}`,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const postLogoutUserApi = async () => {
+  const url = `${serverURL}/logout`;
+  const jwt = getCookie('jwt');
+
+  try {
+    const response = await axios.post(url, {
+      headers: {
+        Authorization: `bearer ${jwt}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getUserFullNameApi = async () => {
   try {
-    const token =
-      localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     if (!token) {
       throw new Error('토큰이 없습니다. 로그인이 필요합니다.');
     }
-
 
     const decodedToken = decodeToken(token);
     const userId = decodedToken?.user?._id;
     if (!userId) {
       throw new Error('토큰에 사용자 ID가 포함되어 있지 않습니다.');
     }
-
 
     const response = await axios.get(`${serverURL}/users/${userId}`, {
       headers: {
@@ -136,21 +171,20 @@ export const getUserFullNameApi = async () => {
       },
     });
 
-    return response.data.fullName || 'Guest'; 
+    return response.data.fullName || 'Guest';
   } catch (error) {
     console.error('사용자 이름 가져오기 실패:', error);
     throw new Error('사용자 이름을 가져오는 데 실패했습니다.');
   }
 };
 
-
-const decodeToken = (token) => {
+const decodeToken = token => {
   try {
-    const payloadBase64 = token.split('.')[1]; 
-    const decodedPayload = atob(payloadBase64); 
+    const payloadBase64 = token.split('.')[1];
+    const decodedPayload = atob(payloadBase64);
     return JSON.parse(decodedPayload);
   } catch (error) {
     console.error('JWT 디코딩 실패:', error);
-    return null; 
+    return null;
   }
 };

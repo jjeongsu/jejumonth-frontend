@@ -9,5 +9,6 @@ const PNG_IMAGES = Object.freeze({
   defaultCard: new URL('./defaultJejuImage.jpg', import.meta.url).href,
   dummyUser: new URL('./dummy-user-img.png', import.meta.url).href,
   harbang: new URL('./harbang.png', import.meta.url).href,
+  mandarine: new URL('./mandarine.png', import.meta.url).href,
 });
 export default PNG_IMAGES;
