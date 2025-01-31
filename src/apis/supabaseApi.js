@@ -41,21 +41,8 @@ export async function postPlanApi(planData) {
     .from('Plans')
     .insert({
       ...planData,
-      // trip_id: tripId,
-      // date: date,
-      // time: placeInfo.time,
-      // place_name: placeInfo.name,
-      // description: placeInfo.description,
-      // category: placeInfo.category,
-      // road_address: placeInfo.address,
-      // lat: placeInfo.latitude,
-      // lng: placeInfo.longitude,
     })
     .select();
-  console.log('post plan api, res data', data);
-  if (error) {
-    console.log(error);
-  }
   return data ? data : error;
 }
 
@@ -65,11 +52,7 @@ export async function getPlanApi(userId, tripId) {
 }
 
 export async function deletePlanApi(planId) {
-  const { data, error } = await supabase
-    .from('Plans')
-    .delete()
-    .eq('id', planId)
-    .select();
+  const { data, error } = await supabase.from('Plans').delete().eq('id', planId).select();
   return data ? data : error;
 }
 
@@ -122,13 +105,18 @@ export async function postUserLikedPlaceApi(userId, placeInfo) {
 }
 
 export async function deleteUserLikedPlaceApi(userId, contentId) {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('UserLikedPlaces')
     .delete()
     .eq('user_id', userId)
-    .eq('content_id', contentId)
-    .select();
-  return data ? data : error;
+    .eq('content_id', contentId);
+
+  if (error) {
+    console.error('Supabase 삭제 오류:', error);
+    return null;
+  }
+  console.log(`찜 삭제 성공: userId=${userId}, contentId=${contentId}`);
+  return contentId;
 }
 
 // 아래 부터 커뮤니티 관련 API
@@ -172,11 +160,11 @@ export async function postUserLikedArticlesApi(userId, articleInfo) {
       user_id: userId,
       article_id: articleInfo.articleId,
       title: articleInfo.title,
-      author_profile_url : articleInfo.profileUrl,
-      count_likes : articleInfo.likes,
-      count_comments : articleInfo.comments,
-      wrote_at : articleInfo.time,
-      channel : articleInfo.channel,
+      author_profile_url: articleInfo.profileUrl,
+      count_likes: articleInfo.likes,
+      count_comments: articleInfo.comments,
+      wrote_at: articleInfo.time,
+      channel: articleInfo.channel,
     })
     .select();
   return data ? data : error;

@@ -51,19 +51,35 @@ const Calender = ({ selectedDate, setSelectedDate, plans }) => {
     <div className="w-350 h-350">
       <div className="flex flex-col gap-10">
         <div className="flex items-center justify-between px-3">
-          <div className="flex gap-1 caption1">
-            <span className="text-sub-accent-1 font-semibold">
-              {format(selectedDate, 'MMM yyyy')}
-            </span>
-          </div>
-          <div className="flex gap-2">
-            <button type="button" onClick={prevMonth}>
-              {/* <CaretLeftIcon className="w-4 h-4 fill-grey-400" /> */}
-              이전
+          <div className="w-full flex place-content-between items-center">
+            <button
+              type="button"
+              onClick={prevMonth}
+              className="w-30 h-30 flex justify-center items-center"
+            >
+              <svg className="embla__button__svg" viewBox="0 0 532 532">
+                <path
+                  fill="currentColor"
+                  d="M355.66 11.354c13.793-13.805 36.208-13.805 50.001 0 13.785 13.804 13.785 36.238 0 50.034L201.22 266l204.442 204.61c13.785 13.805 13.785 36.239 0 50.044-13.793 13.796-36.208 13.796-50.002 0a5994246.277 5994246.277 0 0 0-229.332-229.454 35.065 35.065 0 0 1-10.326-25.126c0-9.2 3.393-18.26 10.326-25.2C172.192 194.973 332.731 34.31 355.66 11.354Z"
+                />
+              </svg>
             </button>
-            <button type="button" onClick={nextMonth}>
-              이후
-              {/* <CaretRightIcon className="w-4 h-4 fill-grey-400" /> */}
+            <div className="flex gap-1">
+              <span className="text-sub-accent-1 font-semibold">
+                {format(selectedDate, 'MMM yyyy')}
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={nextMonth}
+              className="w-30 h-30 flex justify-center items-center"
+            >
+              <svg className="embla__button__svg" viewBox="0 0 532 532">
+                <path
+                  fill="currentColor"
+                  d="M176.34 520.646c-13.793 13.805-36.208 13.805-50.001 0-13.785-13.804-13.785-36.238 0-50.034L330.78 266 126.34 61.391c-13.785-13.805-13.785-36.239 0-50.044 13.793-13.796 36.208-13.796 50.002 0 22.928 22.947 206.395 206.507 229.332 229.454a35.065 35.065 0 0 1 10.326 25.126c0 9.2-3.393 18.26-10.326 25.2-45.865 45.901-206.404 206.564-229.332 229.52Z"
+                />
+              </svg>
             </button>
           </div>
         </div>

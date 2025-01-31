@@ -12,7 +12,7 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
       </div>
       <div className="flex mb-10 mx-20">
         <img
-          src={plan.thumbnailpath}
+          src={plan.thumbnailpath || "/images/no_image.svg"}
           alt="장소사진"
           width="127"
           height="77"
@@ -23,7 +23,11 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
           <div className="text-gray-6">{plan.category}</div>
           <div className="text-gray-7 row-start-3">📍 info</div>
           <div className="text-gray-7 row-span-2 col-start-2 flex items-center">
-            {plan.description}
+            {plan.description.length > 40 ? (
+              plan.description.slice(0,50) + '...'
+            ) : (
+              plan.description
+            )}
           </div>
         </div>
       </div>

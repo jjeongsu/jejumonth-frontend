@@ -7,11 +7,13 @@ import PopUpCard from './components/PopUpCard.jsx';
 import { Modal } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import ChangeTimeModal from './components/ChangeTimeModal.jsx';
+import { useSelector } from 'react-redux';
 const { kakao } = window;
 
 export const CurrentPopUpPlanContext = createContext(null);
 
 const MyTripPage = () => {
+  const userId = useSelector(state => state.user.userId);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tripId = queryParams.get('trip_id');
@@ -20,6 +22,7 @@ const MyTripPage = () => {
   const [isOpenChangeModal, setIsOpenChangeModal] = useState(false);
   const [changedTime, setChangedTime] = useState(null);
 
+  // 밑에 두 함수는 util 함수
   const getDates = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -33,20 +36,29 @@ const MyTripPage = () => {
     return dates;
   };
 
+  const sortDatesData = (data) => {
+    const sortedDatesData = [];
+    Object.keys(data).forEach(date => {
+      sortedDatesData[date] = datesData[date].sort((a, b) => a.time.localeCompare(b.time));
+    })
+    return sortedDatesData;
+  }
+
   const getTripAndPlanInfo = async () => {
     try {
-      const tripResult = await getTripApi('test', tripId);
+      const tripResult = await getTripApi(userId, tripId);
       const allDates = getDates(tripResult[0].start_date, tripResult[0].end_date);
-      const tempDatesData = [];
+      const tempDatesData = {};
       for (const date of allDates) {
         tempDatesData[date] = [];
       }
-      const planResult = await getPlanApi('test', tripId);
+      const planResult = await getPlanApi(userId, tripId);
       for (const planInfo of planResult) {
         if (tempDatesData[planInfo.date]) {
           tempDatesData[planInfo.date].push(planInfo);
         }
       }
+      // setDatesData(sortDatesData(tempDatesData));
       setDatesData(tempDatesData);
     } catch (error) {
       console.error(error);
@@ -62,21 +74,20 @@ const MyTripPage = () => {
       okType: 'danger',
       cancelText: '아니요',
       async onOk() {
-        try{
+        try {
           const result = await deletePlanApi(planForPopUp.id);
           if (result.length > 0) {
-            const newDatesData = [];
-            Object.keys(datesData).forEach((date) => {
+            const newDatesData = {};
+            Object.keys(datesData).forEach(date => {
               if (date === result[0].date) {
-                 newDatesData[date] = datesData[date].filter(item => item.id !== result[0].id)
+                newDatesData[date] = datesData[date].filter(item => item.id !== result[0].id);
               } else {
                 newDatesData[date] = datesData[date];
               }
-            })
+            });
             setDatesData(newDatesData);
             setPlanForPopUp({});
           }
-          // const newDatesData = datesData.filter((item) => )
         } catch (error) {
           console.error(error);
         }
@@ -84,45 +95,45 @@ const MyTripPage = () => {
       onCancel() {
         console.log('Cancel');
       },
-      cancelButtonProps : {
+      cancelButtonProps: {
         style: {
-          textDecoration : '#FDBA74',
-        }
-      }
+          textDecoration: '#FDBA74',
+        },
+      },
     });
-  }
+  };
 
   const handleUpdate = () => {
     setIsOpenChangeModal(true);
   };
 
   const updateConfirm = async () => {
-    try{
-      const result = await updatePlanApi(planForPopUp.id,changedTime);
+    try {
+      const result = await updatePlanApi(planForPopUp.id, changedTime);
       if (result.length > 0) {
-        const newDatesData = [];
-        Object.keys(datesData).forEach((date) => {
+        const newDatesData = {};
+        Object.keys(datesData).forEach(date => {
           if (date === result[0].date) {
             const tempArray = [];
             for (const plan of datesData[date]) {
               if (plan.id === result[0].id) {
-                const newPlan = {...plan, time : result[0].time}
+                const newPlan = { ...plan, time: result[0].time };
                 tempArray.push(newPlan);
               } else {
-                tempArray.push(plan)
+                tempArray.push(plan);
               }
             }
             newDatesData[date] = tempArray;
           } else {
             newDatesData[date] = datesData[date];
           }
-        })
+        });
         setIsOpenChangeModal(false);
-        setDatesData(newDatesData);
-        setPlanForPopUp({...planForPopUp, time : changedTime});
+        setDatesData(sortDatesData(newDatesData));
+        setPlanForPopUp({ ...planForPopUp, time: changedTime });
       }
     } catch (error) {
-      alert(error)
+      alert(error);
       console.error(error);
     }
   }
@@ -145,15 +156,15 @@ const MyTripPage = () => {
 
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(latitude,longitude),
+      center: new kakao.maps.LatLng(latitude, longitude),
       level: level,
     };
     const map = new kakao.maps.Map(container, options);
 
-    const markerPosition  = new kakao.maps.LatLng(latitude,longitude);
+    const markerPosition = new kakao.maps.LatLng(latitude, longitude);
 
     const marker = new kakao.maps.Marker({
-      position: markerPosition
+      position: markerPosition,
     });
 
     marker.setMap(map);
@@ -171,7 +182,19 @@ const MyTripPage = () => {
 
   return (
     <>
-      <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
+      <div className="flex items-center">
+        <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
+        <div className="text-48 font-extrabold text-sub-accent-2 mx-30">·</div>
+        <div className="grid place-items-center">
+          <div className="text-gray-5 font-semibold">시작일</div>
+          <div className="text-gray-6 font-semibold">{Object.keys(datesData)[0]}</div>
+        </div>
+        <div className="text-20 font-semibold text-gray-5 mx-15">~</div>
+        <div className="grid place-items-center">
+          <div className="text-gray-5 font-semibold">종료일</div>
+          <div className="text-gray-6 font-semibold">{Object.keys(datesData).pop()}</div>
+        </div>
+      </div>
       <div className="flex relative mt-30">
         {/* TODO useContext를 일부분에만 감싸서 렌더링 감소 효과를 볼 수 있을듯?*/}
         <CurrentPopUpPlanContext.Provider
@@ -192,12 +215,20 @@ const MyTripPage = () => {
                 {datesData[date].map((plan, index) => (
                   <div key={plan.id} className="flex group relative">
                     <div>
-                      <img src="/icons/line-icon.svg" alt="라인" height="54" width="3"
-                           className="-mt-12 w-3 h-70 ml-50 mr-30 object-cover" />
+                      <img
+                        src="/icons/line-icon.svg"
+                        alt="라인"
+                        height="54"
+                        width="3"
+                        className="-mt-12 w-3 h-70 ml-50 mr-30 object-cover"
+                      />
                       <div
-                        className={`absolute top-18 left-44 w-16 h-16 text-white text-center font-bold rounded-full flex items-center justify-center ${
-                          planForPopUp.id === plan.id ? "bg-primary-0" : "bg-sub-accent-2 peer-hover:bg-primary-0"
-                        }`}>
+                        className={`absolute top-18 left-44 w-16 h-16 text-13 text-white text-center font-bold rounded-full flex items-center justify-center ${
+                          planForPopUp.id === plan.id
+                            ? 'bg-primary-0'
+                            : 'bg-sub-accent-2 peer-hover:bg-primary-0'
+                        }`}
+                      >
                         {index + 1}
                       </div>
                     </div>

@@ -22,7 +22,13 @@ const PlanCard = ({ plan, dayNumber, totalDates }) => {
         plan.time.slice(0,plan.time.length-3)}
       </div>
       <div className="grid justify-items-start content-center gap-7 m-20">
-        <div className="text-center text-gray-8 text-15 font-medium">{plan.place_name}</div>
+        <div className="text-center text-gray-8 text-15 font-medium">
+          {plan.place_name.length > 16 ? (
+            plan.place_name.slice(0,16) + '...'
+          ) : (
+            plan.place_name
+          )}
+        </div>
         <div className="text-center text-gray-6 text-13 font-medium">{plan.category}</div>
       </div>
     </button>

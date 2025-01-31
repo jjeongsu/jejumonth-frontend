@@ -1,9 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Calender from './Calender';
 import useMySelector from '@/hooks/useMySelector';
 import useFetchAllUserPlans from '@/hooks/react-query/useFetchAllUserPlans';
 import PlanPreviewCard from './PlanPreviewCard';
 import PlanDetailPreviewCard from './PlanDetailPreviewCard';
+import LoginCard from './LoginCard';
+import EmptyPlanCard from './EmptyPlanCard';
+import { Link } from 'react-router';
 
 const PlanPreview = () => {
   // 선택된 날짜, 선택된 일정
@@ -19,8 +22,7 @@ const PlanPreview = () => {
   }, [selectedDate]);
 
   // user가 가진 모든 trip과 trips별 plans를 조회
-  // TODO 날짜 선택될때마다 리패치되지 않도록 변경
-  const { trips, plans, isLoadingPlans } = useFetchAllUserPlans(userId);
+  const { plans, isLoadingPlans } = useFetchAllUserPlans(userId);
 
   if (isLoadingPlans) {
     return <div> 여행 계획 정보를 불러오는 중.. 호잇</div>; //TODO skeleton UI로 대체하기
@@ -38,8 +40,6 @@ const PlanPreview = () => {
     return date1.getTime() === date2.getTime();
   });
 
-  console.log(newSelectedPlans);
-
   return (
     <div className="w-full flex gap-20 my-100 ">
       {/* 캘린더 컴포넌트 */}
@@ -54,26 +54,51 @@ const PlanPreview = () => {
 
       {/* 날짜별 일정 보여주는 컴포넌트 */}
       {selectedDate && (
-        <div className="w-250 border-r-2 border-gray-900 last:border-r-0 flex justify-center ">
-          <div className="w-250">
-            <div className="font-semibold text-15 text-gray-9 mb-20">
+        <div className="w-300 h-410 border-solid  border-r-2 border-l-2 border-gray-4  flex justify-center px-20">
+          <div className="w-300">
+            <div className="font-semibold text-15 text-gray-9 mb-20 pl-20">
               ✍️ {selectedDate.getMonth() + 1}월 {selectedDate.getDate()}일의 예상 일정
             </div>
 
-            {userId === null ? <div>로그인하고 여행계획 만들기를 시작해 볼까요? `</div> : ''}
-
-            {newSelectedPlans.length === 0 ? (
-              <div>이날에 생성한 여행계획이 없어요..</div>
+            {userId === null ? (
+              <LoginCard />
+            ) : newSelectedPlans.length === 0 ? (
+              <EmptyPlanCard />
             ) : (
-              newSelectedPlans.map((plan, index) => (
-                <PlanPreviewCard
-                  key={index}
-                  plan={plan}
-                  handleClick={() => {
-                    setSelectedPlan(plan);
-                  }}
-                />
-              ))
+              <div className="pl-20 max-h-350 overflow-y-scroll">
+                <div className="flex ">
+                  <div className="mr-15">
+                    <div className="w-2 h-full bg-gray-5 relative ">
+                      <div className="w-10 h-10 rounded-full  bg-sub-accent-2 absolute top-0 -left-4"></div>
+                    </div>
+                  </div>
+                  <div className="w-255 h-25 flex items-center mb-15 font-semibold text-15 text-gray-8 ">
+                    📍 이날의 제주도 여행{' '}
+                  </div>
+                </div>
+
+                {newSelectedPlans.map((plan, index) => (
+                  <div key={index} className="flex">
+                    <div className="mr-15">
+                      <div className="w-2 h-full bg-gray-5 relative ">
+                        <div className="w-15 h-15 rounded-full border-4 border-solid border-sub-accent-2 bg-white absolute top-17 -left-7"></div>
+                      </div>
+                    </div>
+                    <PlanPreviewCard
+                      plan={plan}
+                      handleClick={() => {
+                        setSelectedPlan(plan);
+                      }}
+                    />
+                  </div>
+                ))}
+                <Link
+                  className="w-214 h-30 flex items-center justify-center rounded-full border-solid border-2 border-sub-accent-2 mx-auto mt-30 text-gray-9 hover:bg-sub-accent-1/10"
+                  to="/mypage/scheduleSection"
+                >
+                  새로운 일정 추가
+                </Link>
+              </div>
             )}
           </div>
         </div>

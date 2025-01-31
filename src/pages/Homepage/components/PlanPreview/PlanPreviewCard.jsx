@@ -3,7 +3,7 @@ const PlanPreviewCard = ({ plan, handleClick }) => {
   return (
     <button
       onClick={handleClick}
-      className="group hover:bg-primary-5 hover:first:text-primary-0 hover:border-primary-0 w-250 h-52 flex p-12 items-center bg-white rounded-3 shadow-[21px_33px_11px_0px_rgba(184,183,183,0.00)] border-[1px] border-solid border-gray-4"
+      className="group hover:bg-primary-5 hover:first:text-primary-0 hover:border-primary-0 w-240 h-52 flex p-12 mb-15 items-center bg-white rounded-3 shadow-[21px_33px_11px_0px_rgba(184,183,183,0.00)] border-[1px] border-solid border-gray-4"
       style={{
         boxShadow:
           '0px 41px 11px 0 rgba(188,185,185,0), 0px 26px 10px 0 rgba(188,185,185,0.01), 0px 15px 9px 0 rgba(188,185,185,0.05), 0px 7px 7px 0 rgba(188,185,185,0.09), 0px 2px 4px 0 rgba(188,185,185,0.1)',
