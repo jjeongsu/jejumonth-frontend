@@ -23,7 +23,11 @@ const LikedSection = () => {
       </div>
 
       <div className="mt-24">
-        {!likedPostsData && <p className="py-32">아직 작성한 게시글이 없습니다!</p>}
+        {likedPostsData.length === 0 && (
+          <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
+            <p className="text-gray-7">아직 좋아요를 누른 게시글이 없습니다!</p>
+          </div>
+        )}
         {likedPostsData &&
           likedPostsData.map(post => <LikedPost key={post.article_id} postData={post}></LikedPost>)}
       </div>
