@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 
-const Category = ({ title, category }) => {
+const Category = ({ title, category, searchTitle }) => {
   //   const location = useLocation();
 
   //   const isCategoryActive = location.search === category;
@@ -14,38 +14,34 @@ const Category = ({ title, category }) => {
 
   const isActivePath = path === '/search' && !queryParams.has('category');
   const isCategoryActive = queryParams.has('category') && queryParams.get('category') === category;
-  console.log('isCategoryActive', isActivePath);
+  // const isTitle = queryParams.has('title') && queryParams.get('title') === title;
+  // const currentTitle = searchTitle;
+  console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!currentTitle', searchTitle);
 
   const activeStyle = 'text-black';
-  // const defaultStayle =
-
-  // const getNavLinkClass = ()=>{
-  //   if(isActivePath && category === ""){
-  //     return `text-base font-semibold text-left px-13  ${activeStyle}`
-  //   }
-
-  //   return `text-base font-semibold text-left px-13  ${isCategoryActive ? activeStyle : 'text=gray-6' }
-  // }
 
   const getNavLinkClass = () => {
     if (isActivePath && category === '') {
-      return `text-base font-semibold text-left px-13  ${activeStyle}`; // "전체" 카테고리 활성화 스타일
+      return `text-base font-semibold text-left px-13  ${activeStyle}`;
     }
     return `text-base font-semibold text-left px-13  ${isCategoryActive ? activeStyle : 'text-gray-6'}`;
   };
 
-  console.log('콘솔isActivePath', isActivePath);
+  const url = (category, searchTitle) => {
+    let addparams = category === '' ? '' : `?category=${category}`;
+
+    if (searchTitle != null) {
+      addparams += addparams ? `&title=${searchTitle}` : `?title=${searchTitle}`;
+    }
+
+    return addparams;
+  };
 
   return (
     <>
-      <NavLink
-        // to={category}
-        to={category == '' ? '' : `?category=${category}`}
-        className={getNavLinkClass}
-      >
+      <NavLink to={url(category, searchTitle)} className={getNavLinkClass}>
         {title}
       </NavLink>
-      {/* isCategoryActive && <div className="w-full h-4 bg-primary-0"></div> */}
       {isActivePath && category === '' ? (
         <div className="w-full h-4 bg-primary-0"></div>
       ) : (
@@ -60,6 +56,7 @@ export default Category;
 Category.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  searchTitle: PropTypes.string.isRequired,
 };
 
 // const Category = ({ title, category }) => {
