@@ -7,9 +7,12 @@ const PlanDetailPreviewCard = ({ plan }) => {
     <div className="w-full rounded-4 border-2 border-solid border-gray-4 bg-gray-2">
       <div className="w-full h-150 bg-red-200 rounded-4 relative">
         {/* // TODO : DEFAULT IMAGE 만들어서 넣어두기 */}
-        <img src={plan.imgpath ?? defaultImageURL} />
+        <img
+          src={plan.imgpath ?? defaultImageURL}
+          className="w-full h-150 object-fill rounded-t-4"
+        />
         <div className="absolute inset-0 bg-black opacity-50 rounded-4"></div>
-        <span className="absolute bottom-25 font-bold text-20 px-12 text-white">
+        <span className="absolute bottom-15 font-bold text-20 px-12 text-white">
           {plan.place_name}
         </span>
       </div>
