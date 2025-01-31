@@ -21,6 +21,17 @@ const ScrapSection = () => {
     getData('test');
   }, []);
 
+  const handleDeleteScrap = async (userId, contentId) => {
+    // const result = await deleteUserLikedPlaceApi(userId, contentId);
+
+    // if (result && !result.error) {
+    //   setScrapData(prevData => prevData.filter(scrap => scrap.content_id !== contentId));
+    // } else {
+    //   console.error('스크렙 삭제 실패', result.error);
+    // }
+    console.log('삭제 버튼 누름');
+  };
+
   return (
     <>
       {categoryData.map(category => {
@@ -35,7 +46,11 @@ const ScrapSection = () => {
             {filteredData.length > 0 ? (
               <div className="grid grid-cols-4 gap-10 w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
                 {filteredData.map(scrapData => (
-                  <ScrapPlaceCard key={scrapData.content_id} scrapData={scrapData} />
+                  <ScrapPlaceCard
+                    key={scrapData.content_id}
+                    scrapData={scrapData}
+                    onDelete={handleDeleteScrap}
+                  />
                 ))}
               </div>
             ) : (
@@ -47,24 +62,6 @@ const ScrapSection = () => {
         );
       })}
     </>
-
-    // <div key={scrapData.title} className="mb-40">
-    //   <h2 className="text-16">
-    //     {scrapData.title} <strong className="text-sub-accent-1">3</strong>
-    //   </h2>
-
-    //   <div className="grid grid-cols-4 gap-10 w-full p-10 mt-16 border border-gray-6 border-dashed">
-    //     <div className="w-150 h-140 bg-blue-50 rounded-8">
-    //       <div className="w-full h-[75%]">
-    //         <img src={dummyImg} alt="더미이미지" className="rounded-t-8 w-full h-full" />
-    //       </div>
-    //       <div className="h-[25%] p-4 flex flex-col justify-between">
-    //         <h3 className="text-12">샤려니길</h3>
-    //         <p className="text-10 text-gray-7">제주시 &gt; 조천</p>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
