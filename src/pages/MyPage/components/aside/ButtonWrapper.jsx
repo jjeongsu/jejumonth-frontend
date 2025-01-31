@@ -1,10 +1,12 @@
 import Button from './Button';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removeCookie } from '@/utils/cookie';
 import { deleteUser } from '@/redux/slices/user.slice';
 import { useNavigate } from 'react-router';
+import { deleteUserApi } from '@/apis/user';
 
 const ButtonWrapper = () => {
+  const userId = useSelector(state => state.user.userId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -24,7 +26,9 @@ const ButtonWrapper = () => {
     borderColor: 'gray-5',
     textColor: 'gray-5',
     label: '회원 탈퇴',
-    onClick: () => {},
+    onClick: async () => {
+      alert('관리자만 삭제가 가능합니다.');
+    },
   };
 
   return (

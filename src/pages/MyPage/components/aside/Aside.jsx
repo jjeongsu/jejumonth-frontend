@@ -38,9 +38,12 @@ const Aside = () => {
               </p>
             </div>
           </div>
-          <button className="mt-10 p-[14px_40px] border border-[gray-5] rounded-15 text-12">
+          <NavLink
+            to="/mypage/update"
+            className="block mt-10 p-[14px_40px] border border-solid border-gray-5 rounded-15 text-12 hover:bg-gray-3"
+          >
             프로필 수정
-          </button>
+          </NavLink>
         </div>
       </div>
 
