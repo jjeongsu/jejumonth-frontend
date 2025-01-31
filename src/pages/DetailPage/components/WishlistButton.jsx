@@ -19,8 +19,8 @@ const WishListButton = ({ placeInfo }) => {
   // console.log('Redux userId:', userId, 'isLoggedIn:', isLoggedIn);
 
   const isLiked = Array.isArray(likedPlaces) && likedPlaces.some((place) => {
-    console.log('Comparing place.content_id:', place.content_id, 'with placeInfo.contentId:', placeInfo.contentId);
-    return place.content_id === placeInfo.contentsId;
+    console.log('Comparing place.content_id:', place.content_id, 'with placeInfo.contentId:', placeInfo.contentsid);
+    return place.content_id === placeInfo.contentsid;
   });
   console.log('Full likedPlaces from Redux:', likedPlaces);
   console.log('Current placeInfo:', placeInfo);
@@ -53,8 +53,8 @@ const WishListButton = ({ placeInfo }) => {
 
   const handleWishlistClick = () => {
     if (isLiked) {
-      console.log('Removing from wishlist:', placeInfo.contentsId);
-      dispatch(removeUserLikedPlace({ userId, contentId: placeInfo.contentsId }));
+      console.log('Removing from wishlist:', placeInfo.contentsid);
+      dispatch(removeUserLikedPlace({ userId, contentId: placeInfo.contentsid }));
     } else {
       console.log('Adding to wishlist:', placeInfo);
       dispatch(addUserLikedPlace({ userId, placeInfo }));

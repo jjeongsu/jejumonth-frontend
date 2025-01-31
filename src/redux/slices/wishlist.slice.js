@@ -46,6 +46,7 @@ export const removeUserLikedPlace = createAsyncThunk(
       await deleteUserLikedPlaceApi(userId, contentId);
       return contentId;
     } catch (error) {
+      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
