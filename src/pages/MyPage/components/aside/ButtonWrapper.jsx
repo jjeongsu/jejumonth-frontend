@@ -1,15 +1,15 @@
 import Button from './Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeCookie } from '@/utils/cookie';
 import { deleteUser } from '@/redux/slices/user.slice';
 import { useNavigate } from 'react-router';
-import { deleteUserApi } from '@/apis/user';
+import { postLogoutUserApi } from '../../../../apis/user';
 
 const ButtonWrapper = () => {
-  const userId = useSelector(state => state.user.userId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const response = await postLogoutUserApi();
     dispatch(deleteUser()); // 리덕스의 유저정보 삭제
     removeCookie('jwt'); // 토큰 삭제
     navigate('/');

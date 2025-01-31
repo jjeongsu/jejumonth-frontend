@@ -134,6 +134,22 @@ export const deleteUserApi = async userId => {
   }
 };
 
+export const postLogoutUserApi = async () => {
+  const url = `${serverURL}/logout`;
+  const jwt = getCookie('jwt');
+
+  try {
+    const response = await axios.post(url, {
+      headers: {
+        Authorization: `bearer ${jwt}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getUserFullNameApi = async () => {
   try {
     const token = localStorage.getItem('token');
