@@ -1,22 +1,30 @@
 import Button from './Button';
+import { useDispatch } from 'react-redux';
+import { removeCookie } from '@/utils/cookie';
+import { deleteUser } from '@/redux/slices/user.slice';
+import { useNavigate } from 'react-router';
 
 const ButtonWrapper = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    dispatch(deleteUser()); // 리덕스의 유저정보 삭제
+    removeCookie('jwt'); // 토큰 삭제
+    navigate('/');
+  };
+
   const logoutProps = {
     borderColor: 'gray-5',
     textColor: 'red-500',
     label: '로그아웃',
-    onClick: () => {
-      console.log('logout 클릭');
-    },
+    onClick: handleLogout,
   };
 
   const withdrawalProps = {
     borderColor: 'gray-5',
     textColor: 'gray-5',
     label: '회원 탈퇴',
-    onClick: () => {
-      console.log('탈퇴 클릭');
-    },
+    onClick: () => {},
   };
 
   return (
