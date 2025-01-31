@@ -7,13 +7,8 @@ const CommentSection = () => {
 
   const { data } = useQuery({
     queryKey: ['userData'],
-    queryFn: async () => {
-      const response = await getUserData(userId);
-
-      return response;
-    },
+    queryFn: async () => await getUserData(userId),
   });
-
   return (
     <>
       <article className="w-full">
@@ -23,9 +18,13 @@ const CommentSection = () => {
           </h2>
         </div>
 
-        {!data && <p>데이터가 없습니다.</p>}
+        {data.comments && (
+          <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
+            <p className="text-gray-7">아직 작성한 댓글이 없습니다!</p>
+          </div>
+        )}
 
-        {data && (
+        {data.comments && (
           <div className="mt-24">
             {data &&
               data.comments.map((comment, index) => (
