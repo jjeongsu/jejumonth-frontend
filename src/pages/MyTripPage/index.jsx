@@ -22,6 +22,7 @@ const MyTripPage = () => {
   const [isOpenChangeModal, setIsOpenChangeModal] = useState(false);
   const [changedTime, setChangedTime] = useState(null);
 
+  // 밑에 두 함수는 util 함수
   const getDates = (startDate, endDate) => {
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -35,11 +36,19 @@ const MyTripPage = () => {
     return dates;
   };
 
+  const sortDatesData = (data) => {
+    const sortedDatesData = [];
+    Object.keys(data).forEach(date => {
+      sortedDatesData[date] = datesData[date].sort((a, b) => a.time.localeCompare(b.time));
+    })
+    return sortedDatesData;
+  }
+
   const getTripAndPlanInfo = async () => {
     try {
       const tripResult = await getTripApi(userId, tripId);
       const allDates = getDates(tripResult[0].start_date, tripResult[0].end_date);
-      const tempDatesData = [];
+      const tempDatesData = {};
       for (const date of allDates) {
         tempDatesData[date] = [];
       }
@@ -49,6 +58,7 @@ const MyTripPage = () => {
           tempDatesData[planInfo.date].push(planInfo);
         }
       }
+      // setDatesData(sortDatesData(tempDatesData));
       setDatesData(tempDatesData);
     } catch (error) {
       console.error(error);
@@ -64,17 +74,17 @@ const MyTripPage = () => {
       okType: 'danger',
       cancelText: '아니요',
       async onOk() {
-        try{
+        try {
           const result = await deletePlanApi(planForPopUp.id);
           if (result.length > 0) {
-            const newDatesData = [];
-            Object.keys(datesData).forEach((date) => {
+            const newDatesData = {};
+            Object.keys(datesData).forEach(date => {
               if (date === result[0].date) {
-                 newDatesData[date] = datesData[date].filter(item => item.id !== result[0].id)
+                newDatesData[date] = datesData[date].filter(item => item.id !== result[0].id);
               } else {
                 newDatesData[date] = datesData[date];
               }
-            })
+            });
             setDatesData(newDatesData);
             setPlanForPopUp({});
           }
@@ -85,45 +95,45 @@ const MyTripPage = () => {
       onCancel() {
         console.log('Cancel');
       },
-      cancelButtonProps : {
+      cancelButtonProps: {
         style: {
-          textDecoration : '#FDBA74',
-        }
-      }
+          textDecoration: '#FDBA74',
+        },
+      },
     });
-  }
+  };
 
   const handleUpdate = () => {
     setIsOpenChangeModal(true);
   };
 
   const updateConfirm = async () => {
-    try{
-      const result = await updatePlanApi(planForPopUp.id,changedTime);
+    try {
+      const result = await updatePlanApi(planForPopUp.id, changedTime);
       if (result.length > 0) {
-        const newDatesData = [];
-        Object.keys(datesData).forEach((date) => {
+        const newDatesData = {};
+        Object.keys(datesData).forEach(date => {
           if (date === result[0].date) {
             const tempArray = [];
             for (const plan of datesData[date]) {
               if (plan.id === result[0].id) {
-                const newPlan = {...plan, time : result[0].time}
+                const newPlan = { ...plan, time: result[0].time };
                 tempArray.push(newPlan);
               } else {
-                tempArray.push(plan)
+                tempArray.push(plan);
               }
             }
             newDatesData[date] = tempArray;
           } else {
             newDatesData[date] = datesData[date];
           }
-        })
+        });
         setIsOpenChangeModal(false);
-        setDatesData(newDatesData);
-        setPlanForPopUp({...planForPopUp, time : changedTime});
+        setDatesData(sortDatesData(newDatesData));
+        setPlanForPopUp({ ...planForPopUp, time: changedTime });
       }
     } catch (error) {
-      alert(error)
+      alert(error);
       console.error(error);
     }
   }
@@ -146,15 +156,15 @@ const MyTripPage = () => {
 
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(latitude,longitude),
+      center: new kakao.maps.LatLng(latitude, longitude),
       level: level,
     };
     const map = new kakao.maps.Map(container, options);
 
-    const markerPosition  = new kakao.maps.LatLng(latitude,longitude);
+    const markerPosition = new kakao.maps.LatLng(latitude, longitude);
 
     const marker = new kakao.maps.Marker({
-      position: markerPosition
+      position: markerPosition,
     });
 
     marker.setMap(map);
