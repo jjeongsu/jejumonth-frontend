@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllUserLikedPlacesApi } from '../../../../../apis/supabaseApi';
+import { deleteUserLikedPlaceApi, getAllUserLikedPlacesApi } from '../../../../../apis/supabaseApi';
 import ScrapPlaceCard from './ScrapPlaceCard';
 
 const ScrapSection = () => {
@@ -21,6 +21,25 @@ const ScrapSection = () => {
     getData('test');
   }, []);
 
+  const handleDeleteScrap = async (userId, contentId) => {
+    console.log(`ID: ${contentId._id}의 스크랩 취소 버튼을 눌렀습니다.`);
+
+    const isChecked = window.confirm('정말로 스크랩을 취소하시겠습니까?');
+
+    if (isChecked) {
+      try {
+        await deleteUserLikedPlaceApi(userId, contentId);
+
+        setScrapData(prevData => prevData.filter(scrapData => scrapData.content_id !== contentId));
+
+        console.log(`스크랩 삭제 성공: userId=${userId}, contentId=${contentId}`);
+      } catch (error) {
+        console.error('스크렙 취소하기를 실패했습니다.');
+        throw new Error(error);
+      }
+    }
+  };
+
   return (
     <>
       {categoryData.map(category => {
@@ -35,7 +54,11 @@ const ScrapSection = () => {
             {filteredData.length > 0 ? (
               <div className="grid grid-cols-4 gap-10 w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
                 {filteredData.map(scrapData => (
-                  <ScrapPlaceCard key={scrapData.content_id} scrapData={scrapData} />
+                  <ScrapPlaceCard
+                    key={scrapData.content_id}
+                    scrapData={scrapData}
+                    onDelete={handleDeleteScrap}
+                  />
                 ))}
               </div>
             ) : (
@@ -47,24 +70,6 @@ const ScrapSection = () => {
         );
       })}
     </>
-
-    // <div key={scrapData.title} className="mb-40">
-    //   <h2 className="text-16">
-    //     {scrapData.title} <strong className="text-sub-accent-1">3</strong>
-    //   </h2>
-
-    //   <div className="grid grid-cols-4 gap-10 w-full p-10 mt-16 border border-gray-6 border-dashed">
-    //     <div className="w-150 h-140 bg-blue-50 rounded-8">
-    //       <div className="w-full h-[75%]">
-    //         <img src={dummyImg} alt="더미이미지" className="rounded-t-8 w-full h-full" />
-    //       </div>
-    //       <div className="h-[25%] p-4 flex flex-col justify-between">
-    //         <h3 className="text-12">샤려니길</h3>
-    //         <p className="text-10 text-gray-7">제주시 &gt; 조천</p>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 

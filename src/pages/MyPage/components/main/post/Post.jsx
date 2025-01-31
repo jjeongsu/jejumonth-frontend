@@ -2,13 +2,34 @@ import PropTypes from 'prop-types';
 import CommentIcon from '../../icon/CommentIcon';
 import LikesIcon from '../../icon/LikesIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
+import { useState } from 'react';
+import { deletePostApi } from '../../../../../apis/postApi';
 
 const Post = ({ postData }) => {
-  const userPostHandler = () => {
-    console.log('삭제 및 수정 구현 예정');
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
   };
 
-  console.log(postData);
+  const deletePostHandler = async () => {
+    console.log(`ID: ${postData._id}의 삭제 버튼을 눌렀습니다.`);
+
+    const isChecked = window.confirm('정말로 삭제하시겠습니까?');
+
+    if (isChecked) {
+      try {
+        await deletePostApi(postData._id);
+      } catch (error) {
+        console.error('게시글 삭제에 실패했습니다.', error);
+        alert('게시글 삭제에 실패했습니다.');
+      }
+    }
+  };
+
+  const upDatePostHandler = () => {
+    console.log(`ID: ${postData._id}의 수정 버튼을 눌렀습니다.`);
+  };
 
   return (
     <>
@@ -40,8 +61,25 @@ const Post = ({ postData }) => {
               <CommentIcon size={14} baseColor="#BFBFBF"></CommentIcon>
               <span className="text-gray-6 text-14">{postData.comments.length}</span>
             </div>
-            <div onClick={userPostHandler} className="cursor-pointer">
+            <div onClick={toggleMenu} className="cursor-pointer relative">
               <img className="w-16 h-16" src="/icons/more.svg" alt="더보기 아이콘" />
+
+              {menuOpen && (
+                <div className="absolute left-0 top-full mt-2 w-120 bg-white rounded-lg text-gray-11 flex flex-col py-2 z-[10000] shadow-md">
+                  <button
+                    className="text-center hover:bg-gray-100 py-8"
+                    onClick={deletePostHandler}
+                  >
+                    삭제하기
+                  </button>
+                  <button
+                    className="text-center hover:bg-gray-100 py-8"
+                    onClick={upDatePostHandler}
+                  >
+                    수정하기
+                  </button>
+                </div>
+              )}
             </div>
           </div>
           {/* right conetnt */}
@@ -56,9 +94,10 @@ export default Post;
 Post.propTypes = {
   postData: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    channel: PropTypes.string,
+    channel: PropTypes.object,
     likes: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
     createdAt: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
   }),
 };
