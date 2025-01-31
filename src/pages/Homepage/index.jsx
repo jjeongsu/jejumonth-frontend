@@ -1,4 +1,4 @@
-import { Hero, CarouselWrapper, PlanPreview } from './components';
+import { Hero, CarouselWrapper, PlanPreview, CommunityPreview } from './components';
 
 const HomePage = () => {
   return (
@@ -7,6 +7,7 @@ const HomePage = () => {
       <CarouselWrapper />
       <PlanPreview />
       <div>다음 컴포넌트</div>
+      <CommunityPreview />
     </div>
   );
 };
