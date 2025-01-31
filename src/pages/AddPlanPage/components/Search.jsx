@@ -106,7 +106,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
         {!search.submitKeyword && (
           <div className="w-560 flex flex-wrap justify-between gap-8">
             {tagData.map(tag => (
-              <PlaceTagButton key={tag.id} title={tag.title} contentId={tag.contentId} />
+              <PlaceTagButton key={tag.id} onNext={onNext} title={tag.title} contentId={tag.contentId} />
             ))}
           </div>
         )}
