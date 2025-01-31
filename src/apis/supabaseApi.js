@@ -60,7 +60,7 @@ export async function postPlanApi(planData) {
 }
 
 export async function getPlanApi(userId, tripId) {
-  const { data, error } = await supabase.from('Plans').select();
+  const { data, error } = await supabase.from('Plans').select().eq('trip_id', tripId);
   return data ? data : error;
 }
 

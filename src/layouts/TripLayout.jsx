@@ -1,11 +1,15 @@
 import { Outlet } from 'react-router-dom';
+import Header from '@components/common/Header';
 
 const TripLayout = () => {
   return (
     <div className="w-full max-w-1234 mx-auto flex flex-col h-full">
-      <div className="text-red-600 h-70">헤더가 이곳에 표시됩니다.</div>
-      <Outlet />
-      <div className="text-red-600 h-70 ">푸터가 이곳에 표시됩니다.</div>
+      <div className="h-70">
+        <Header />
+      </div>
+      <div className="flex-1 h-full mt-50">
+        <Outlet />
+      </div>
     </div>
   );
 };

@@ -1,13 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import { Hero, CarouselWrapper, PlanPreview } from './components';
 
 const HomePage = () => {
-  const user = useSelector(state => state.user);
-  console.log('user-redux', user);
   return (
     <div>
-      HomePage
-      <p>user가 있습니까? {user !== '' ? 'yes' : 'no'}</p>
+      <Hero />
+      <CarouselWrapper />
+      <PlanPreview />
+      <div>다음 컴포넌트</div>
     </div>
   );
 };
