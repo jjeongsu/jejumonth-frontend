@@ -25,12 +25,14 @@ const CommentSection = () => {
 
         {!data && <p>데이터가 없습니다.</p>}
 
-        <div className="mt-24">
-          {data &&
-            data.comments.map((comment, index) => (
-              <Comment key={index} commentData={comment}></Comment>
-            ))}
-        </div>
+        {data && (
+          <div className="mt-24">
+            {data &&
+              data.comments.map((comment, index) => (
+                <Comment key={index} commentData={comment}></Comment>
+              ))}
+          </div>
+        )}
       </article>
     </>
   );
