@@ -4,7 +4,7 @@ const PlaceTagButton = ({ title, contentId }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/detailpage?content_id=${contentId}`);
+    navigate(`/detail/${contentId}`);
   };
 
   return (
