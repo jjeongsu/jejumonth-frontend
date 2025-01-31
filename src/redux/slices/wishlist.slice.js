@@ -43,10 +43,11 @@ export const removeUserLikedPlace = createAsyncThunk(
   'wishlist/removeUserLikedPlace',
   async ({ userId, contentId }, thunkAPI) => {
     try {
-      await deleteUserLikedPlaceApi(userId, contentId);
+      const response = await deleteUserLikedPlaceApi(userId, contentId);
+      console.log('삭제된 데이터:', response);
       return contentId;
     } catch (error) {
-      console.log(error);
+      console.log('찜 삭제 에러:', error);
       return thunkAPI.rejectWithValue(error);
     }
   }

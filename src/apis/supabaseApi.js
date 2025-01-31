@@ -122,13 +122,18 @@ export async function postUserLikedPlaceApi(userId, placeInfo) {
 }
 
 export async function deleteUserLikedPlaceApi(userId, contentId) {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('UserLikedPlaces')
     .delete()
     .eq('user_id', userId)
-    .eq('content_id', contentId)
-    .select();
-  return data ? data : error;
+    .eq('content_id', contentId);
+
+  if (error) {
+    console.error('Supabase 삭제 오류:', error);
+    return null;
+  }
+  console.log(`찜 삭제 성공: userId=${userId}, contentId=${contentId}`);
+  return contentId;
 }
 
 // 아래 부터 커뮤니티 관련 API

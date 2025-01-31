@@ -54,10 +54,17 @@ const WishListButton = ({ placeInfo }) => {
   const handleWishlistClick = () => {
     if (isLiked) {
       console.log('Removing from wishlist:', placeInfo.contentsid);
-      dispatch(removeUserLikedPlace({ userId, contentId: placeInfo.contentsid }));
+      dispatch(removeUserLikedPlace({ userId, contentId: placeInfo.contentsid }))
+        .then(() => {
+          console.log('찜 삭제 후 최신 데이터 다시 가져오기');
+          dispatch(fetchUserLikedPlaces({ userId }));
+        });
     } else {
       console.log('Adding to wishlist:', placeInfo);
-      dispatch(addUserLikedPlace({ userId, placeInfo }));
+      dispatch(addUserLikedPlace({ userId, placeInfo }))
+        .then(() => {
+          dispatch(fetchUserLikedPlaces({ userId }));
+        });
     }
   };
 
