@@ -12,7 +12,7 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
       </div>
       <div className="flex mb-10 mx-20">
         <img
-          src={plan.thumbnailpath}
+          src={plan.thumbnailpath || "/images/no_image.svg"}
           alt="장소사진"
           width="127"
           height="77"
