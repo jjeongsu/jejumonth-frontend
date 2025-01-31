@@ -8,6 +8,8 @@ const Post = ({ postData }) => {
     console.log('삭제 및 수정 구현 예정');
   };
 
+  console.log(postData);
+
   return (
     <>
       {!postData && <p>데이터가없습니다</p>}
@@ -54,9 +56,7 @@ export default Post;
 Post.propTypes = {
   postData: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    channel: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+    channel: PropTypes.string,
     likes: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
     createdAt: PropTypes.string.isRequired,

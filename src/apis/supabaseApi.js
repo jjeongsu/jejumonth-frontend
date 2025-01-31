@@ -8,6 +8,9 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 export async function postTripApi(userId, dateInfo) {
   const startDate = formatDate(dateInfo[0].startDate);
   const endDate = formatDate(dateInfo[0].endDate);
+  console.log('Supabase Key:', supabaseKey); // Supabase 키 확인
+  console.log('Fetching liked places for user:', userId); // 요청 정보 확인
+
   const { data, error } = await supabase
     .from('Trips')
     .insert({
@@ -28,31 +31,39 @@ export async function getTripApi(userId, tripId) {
   return data ? data : error;
 }
 
+export async function getAllTripsApi(userId) {
+  const { data, error } = await supabase.from('Trips').select().eq('user_id', userId);
+  return data ? data : error;
+}
+
 export async function postPlanApi(planData) {
   const { data, error } = await supabase
     .from('Plans')
     .insert({
       ...planData,
-      // trip_id: tripId,
-      // date: date,
-      // time: placeInfo.time,
-      // place_name: placeInfo.name,
-      // description: placeInfo.description,
-      // category: placeInfo.category,
-      // road_address: placeInfo.address,
-      // lat: placeInfo.latitude,
-      // lng: placeInfo.longitude,
     })
     .select();
-  console.log('post plan api, res data', data);
-  if (error) {
-    console.log(error);
-  }
   return data ? data : error;
 }
 
 export async function getPlanApi(userId, tripId) {
-  const { data, error } = await supabase.from('Plans').select();
+  const { data, error } = await supabase.from('Plans').select().eq('trip_id', tripId);
+  return data ? data : error;
+}
+
+export async function deletePlanApi(planId) {
+  const { data, error } = await supabase.from('Plans').delete().eq('id', planId).select();
+  return data ? data : error;
+}
+
+export async function updatePlanApi(planId, time) {
+  const { data, error } = await supabase
+    .from('Plans')
+    .update({
+      time: time,
+    })
+    .eq('id', planId)
+    .select();
   return data ? data : error;
 }
 
@@ -72,29 +83,40 @@ export async function getUserLikedPlaceApi(userId, contentId) {
 }
 
 export async function postUserLikedPlaceApi(userId, placeInfo) {
+  console.log('Adding liked place for user:', userId, 'Place Info:', placeInfo); // 요청 데이터 출력
   const { data, error } = await supabase
     .from('UserLikedPlaces')
     .insert({
       user_id: userId,
-      content_id: placeInfo.contentId,
+      content_id: placeInfo.contentsid,
       title: placeInfo.title,
-      category: placeInfo.category,
-      address: placeInfo.address,
-      img_full_url: placeInfo.imagePath,
-      img_thumbnail_url: placeInfo.imageThumbnailPath,
+      category: placeInfo.contentscd.label,
+      address: placeInfo.roadaddress,
+      img_full_url: placeInfo.repPhoto.photoid.imgpath,
+      img_thumbnail_url: placeInfo.repPhoto.photoid.thumbnailpath,
     })
     .select();
+  if (error) {
+    console.error('Error adding liked place:', error); // 에러 출력
+  } else {
+    console.log('Liked place added successfully:', data); // 응답 데이터 출력
+  }
   return data ? data : error;
 }
 
 export async function deleteUserLikedPlaceApi(userId, contentId) {
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from('UserLikedPlaces')
     .delete()
     .eq('user_id', userId)
-    .eq('content_id', contentId)
-    .select();
-  return data ? data : error;
+    .eq('content_id', contentId);
+
+  if (error) {
+    console.error('Supabase 삭제 오류:', error);
+    return null;
+  }
+  console.log(`찜 삭제 성공: userId=${userId}, contentId=${contentId}`);
+  return contentId;
 }
 
 // 아래 부터 커뮤니티 관련 API
@@ -130,12 +152,19 @@ export async function getUserLikedArticlesApi(userId) {
   return data ? data : error;
 }
 
-export async function postUserLikedArticlesApi(userId, articleId) {
+// articleInfo 는 객체 형식으로 와야합니다
+export async function postUserLikedArticlesApi(userId, articleInfo) {
   const { data, error } = await supabase
     .from('UserLikedArticles')
     .insert({
       user_id: userId,
-      article_id: articleId,
+      article_id: articleInfo.articleId,
+      title: articleInfo.title,
+      author_profile_url: articleInfo.profileUrl,
+      count_likes: articleInfo.likes,
+      count_comments: articleInfo.comments,
+      wrote_at: articleInfo.time,
+      channel: articleInfo.channel,
     })
     .select();
   return data ? data : error;

@@ -6,5 +6,8 @@ const makePlaceObject = item => ({
   lat: item?.latitude,
   lng: item?.longitude,
   content_id: item?.contentsid,
+  imgpath: item?.repPhoto?.photoid?.imgpath,
+  thumbnailpath: item?.repPhoto?.photoid?.thumbnailpath,
+  // supabase에 저장될 column 명 : visitjeju JSON 데이터
 });
 export default makePlaceObject;

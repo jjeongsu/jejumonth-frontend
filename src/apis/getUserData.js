@@ -18,6 +18,7 @@ export const getUserData = async userId => {
     const response = await axios.get(`${serverURL}/users/${userId}`);
 
     const resopnseData = await response.data;
+    console.log('로드되었습니다.');
     return resopnseData;
   } catch (error) {
     console.error('유저의 데이터를 불러오지 못했습니다.', error);

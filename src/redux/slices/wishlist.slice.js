@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { 
-  getUserLikedPlaceApi, 
+  getAllUserLikedPlacesApi, 
   postUserLikedPlaceApi, 
   deleteUserLikedPlaceApi 
 } from '../../apis/supabaseApi';
@@ -13,15 +13,19 @@ const initialState = {
 
 export const fetchUserLikedPlaces = createAsyncThunk(
   'wishlist/fetchUserLikedPlaces',
-  async ({ userId, contentId }, thunkAPI) => {
+  async ({ userId }, thunkAPI) => {
     try {
-      const response = await getUserLikedPlaceApi(userId, contentId);
+      console.log('Fetching liked places for user:', userId); // 요청 정보 출력
+      const response = await getAllUserLikedPlacesApi(userId);
+      console.log('Fetched liked places response:', response); // 응답 정보 출력
       return response; 
     } catch (error) {
+      console.error('Error fetching liked places:', error); // 에러 출력
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
+
 
 export const addUserLikedPlace = createAsyncThunk(
   'wishlist/addUserLikedPlace',
@@ -39,9 +43,11 @@ export const removeUserLikedPlace = createAsyncThunk(
   'wishlist/removeUserLikedPlace',
   async ({ userId, contentId }, thunkAPI) => {
     try {
-      await deleteUserLikedPlaceApi(userId, contentId);
+      const response = await deleteUserLikedPlaceApi(userId, contentId);
+      console.log('삭제된 데이터:', response);
       return contentId;
     } catch (error) {
+      console.log('찜 삭제 에러:', error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -57,21 +63,23 @@ const wishlistSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchUserLikedPlaces.fulfilled, (state, action) => {
+      console.log('Fetched places from API:', action.payload); // 디버깅
       state.loading = false;
-      state.likedPlaces = action.payload;
+      state.likedPlaces = Array.isArray(action.payload) ? action.payload : [];
     });
+    
     builder.addCase(fetchUserLikedPlaces.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
-
     builder.addCase(addUserLikedPlace.fulfilled, (state, action) => {
-      state.likedPlaces.push(action.payload);
+      if (Array.isArray(state.likedPlaces)) {
+        state.likedPlaces.push(action.payload);
+      }
     });
-
     builder.addCase(removeUserLikedPlace.fulfilled, (state, action) => {
       state.likedPlaces = state.likedPlaces.filter(
-        (id) => id !== action.payload
+        (place) => place.content_id !== action.payload
       );
     });
   },

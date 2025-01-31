@@ -1,10 +1,13 @@
 import { Outlet } from 'react-router-dom';
+import Header from '@components/common/Header';
 
 const PlanLayout = () => {
   return (
     <div className="w-full max-w-560 mx-auto flex flex-col h-screen">
-      <div className="text-red-600 h-70">헤더가 이곳에 표시됩니다.</div>
-      <div className="flex-1 h-full">
+      <div className="h-70">
+        <Header />
+      </div>
+      <div className="flex-1 h-full mt-50">
         <Outlet />
       </div>
     </div>

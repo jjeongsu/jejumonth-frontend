@@ -8,10 +8,12 @@ import 'react-date-range/dist/theme/default.css';
 import { postTripApi } from '../../apis/supabaseApi.js';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button/index.jsx';
+import { useSelector } from 'react-redux';
 
 const AddTripPage = () => {
+  const userId = useSelector(state => state.user.userId);
   const navigate = useNavigate();
-  const [state, setState] = useState([
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 7),
@@ -21,31 +23,32 @@ const AddTripPage = () => {
 
   const handleSubmit = async () => {
     try {
-      const result = await postTripApi('test', state);
-      const message = result[0].start_date + ' 부터 ' + result[0].end_date + ' 까지의 일정이 생성됐습니다.';
+      const result = await postTripApi(userId, dates);
+      const message =
+        result[0].start_date + ' 부터 ' + result[0].end_date + ' 까지의 일정이 생성됐습니다.';
       const tripId = result[0].trip_id;
       Modal.success({
         title: 'Success',
         content: message,
         onOk() {
-          navigate(`/trip/my?trip_id=${tripId}`)
+          navigate(`/trip/my?trip_id=${tripId}`);
         },
-        okButtonProps : {
+        okButtonProps: {
           style: {
             backgroundColor: '#FDBA74',
-          }
-        }
+          },
+        },
       });
     } catch (error) {
       console.error(error);
       Modal.error({
         title: '일정 생성에 문제가 생겼어요',
         content: '같은 문제가 반복된다면 브라우저를 껐다 켜주세요.',
-        okButtonProps : {
+        okButtonProps: {
           style: {
             backgroundColor: '#FDBA74',
-          }
-        }
+          },
+        },
       });
     }
   };
@@ -59,13 +62,13 @@ const AddTripPage = () => {
       <div className="grid place-items-center">
         <div className="h-412 border-solid border-gray-200 border-[1px] mb-25">
           <DateRangePicker
-            onChange={item => setState([item.selection])}
+            onChange={item => setDates([item.selection])}
             showSelectionPreview={true}
             moveRangeOnFirstSelection={false}
             months={2}
             color="#FF7900"
             locale={ko}
-            ranges={state}
+            ranges={dates}
             direction="horizontal"
             preventSnapRefocus={true}
             calendarFocus="backwards"
