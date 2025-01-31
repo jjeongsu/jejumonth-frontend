@@ -7,11 +7,13 @@ import PopUpCard from './components/PopUpCard.jsx';
 import { Modal } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import ChangeTimeModal from './components/ChangeTimeModal.jsx';
+import { useSelector } from 'react-redux';
 const { kakao } = window;
 
 export const CurrentPopUpPlanContext = createContext(null);
 
 const MyTripPage = () => {
+  const userId = useSelector(state => state.user.userId);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tripId = queryParams.get('trip_id');
@@ -35,13 +37,13 @@ const MyTripPage = () => {
 
   const getTripAndPlanInfo = async () => {
     try {
-      const tripResult = await getTripApi('test', tripId);
+      const tripResult = await getTripApi(userId, tripId);
       const allDates = getDates(tripResult[0].start_date, tripResult[0].end_date);
       const tempDatesData = [];
       for (const date of allDates) {
         tempDatesData[date] = [];
       }
-      const planResult = await getPlanApi('test', tripId);
+      const planResult = await getPlanApi(userId, tripId);
       for (const planInfo of planResult) {
         if (tempDatesData[planInfo.date]) {
           tempDatesData[planInfo.date].push(planInfo);
@@ -76,7 +78,6 @@ const MyTripPage = () => {
             setDatesData(newDatesData);
             setPlanForPopUp({});
           }
-          // const newDatesData = datesData.filter((item) => )
         } catch (error) {
           console.error(error);
         }
@@ -171,7 +172,19 @@ const MyTripPage = () => {
 
   return (
     <>
-      <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
+      <div className="flex items-center">
+        <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
+        <div className="text-48 font-extrabold text-sub-accent-2 mx-30">·</div>
+        <div className="grid place-items-center">
+          <div className="text-gray-5 font-semibold">시작일</div>
+          <div className="text-gray-6 font-semibold">{Object.keys(datesData)[0]}</div>
+        </div>
+        <div className="text-20 font-semibold text-gray-5 mx-15">~</div>
+        <div className="grid place-items-center">
+          <div className="text-gray-5 font-semibold">종료일</div>
+          <div className="text-gray-6 font-semibold">{Object.keys(datesData).pop()}</div>
+        </div>
+      </div>
       <div className="flex relative mt-30">
         {/* TODO useContext를 일부분에만 감싸서 렌더링 감소 효과를 볼 수 있을듯?*/}
         <CurrentPopUpPlanContext.Provider
@@ -192,12 +205,20 @@ const MyTripPage = () => {
                 {datesData[date].map((plan, index) => (
                   <div key={plan.id} className="flex group relative">
                     <div>
-                      <img src="/icons/line-icon.svg" alt="라인" height="54" width="3"
-                           className="-mt-12 w-3 h-70 ml-50 mr-30 object-cover" />
+                      <img
+                        src="/icons/line-icon.svg"
+                        alt="라인"
+                        height="54"
+                        width="3"
+                        className="-mt-12 w-3 h-70 ml-50 mr-30 object-cover"
+                      />
                       <div
-                        className={`absolute top-18 left-44 w-16 h-16 text-white text-center font-bold rounded-full flex items-center justify-center ${
-                          planForPopUp.id === plan.id ? "bg-primary-0" : "bg-sub-accent-2 peer-hover:bg-primary-0"
-                        }`}>
+                        className={`absolute top-18 left-44 w-16 h-16 text-13 text-white text-center font-bold rounded-full flex items-center justify-center ${
+                          planForPopUp.id === plan.id
+                            ? 'bg-primary-0'
+                            : 'bg-sub-accent-2 peer-hover:bg-primary-0'
+                        }`}
+                      >
                         {index + 1}
                       </div>
                     </div>
