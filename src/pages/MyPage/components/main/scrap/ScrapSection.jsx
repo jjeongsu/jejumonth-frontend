@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getAllUserLikedPlacesApi } from '../../../../../apis/supabaseApi';
+import { deleteUserLikedPlaceApi, getAllUserLikedPlacesApi } from '../../../../../apis/supabaseApi';
 import ScrapPlaceCard from './ScrapPlaceCard';
 
 const ScrapSection = () => {
@@ -22,14 +22,22 @@ const ScrapSection = () => {
   }, []);
 
   const handleDeleteScrap = async (userId, contentId) => {
-    // const result = await deleteUserLikedPlaceApi(userId, contentId);
+    console.log(`ID: ${contentId._id}의 스크랩 취소 버튼을 눌렀습니다.`);
 
-    // if (result && !result.error) {
-    //   setScrapData(prevData => prevData.filter(scrap => scrap.content_id !== contentId));
-    // } else {
-    //   console.error('스크렙 삭제 실패', result.error);
-    // }
-    console.log('삭제 버튼 누름');
+    const isChecked = window.confirm('정말로 스크랩을 취소하시겠습니까?');
+
+    if (isChecked) {
+      try {
+        await deleteUserLikedPlaceApi(userId, contentId);
+
+        setScrapData(prevData => prevData.filter(scrapData => scrapData.content_id !== contentId));
+
+        console.log(`스크랩 삭제 성공: userId=${userId}, contentId=${contentId}`);
+      } catch (error) {
+        console.error('스크렙 취소하기를 실패했습니다.');
+        throw new Error(error);
+      }
+    }
   };
 
   return (
