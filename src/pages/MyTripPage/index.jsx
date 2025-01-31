@@ -39,7 +39,7 @@ const MyTripPage = () => {
   const sortDatesData = (data) => {
     const sortedDatesData = [];
     Object.keys(data).forEach(date => {
-      sortedDatesData[date] = datesData[date].sort((a, b) => a.time.localeCompare(b.time));
+      sortedDatesData[date] = data[date].sort((a, b) => a.time.localeCompare(b.time));
     })
     return sortedDatesData;
   }
@@ -58,8 +58,7 @@ const MyTripPage = () => {
           tempDatesData[planInfo.date].push(planInfo);
         }
       }
-      // setDatesData(sortDatesData(tempDatesData));
-      setDatesData(tempDatesData);
+      setDatesData(sortDatesData(tempDatesData));
     } catch (error) {
       console.error(error);
     }
