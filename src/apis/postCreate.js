@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { serverURL } from './endpoints';
+import { getCookie } from '../utils/cookie';
 
 export const createPost = async formData => {
-  const token = localStorage.getItem('token');
+  const token = getCookie('jwt');
 
   if (!token) {
     throw new Error('로그인이 필요합니다.');
