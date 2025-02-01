@@ -8,7 +8,7 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
-  // CommunityDetailPage,
+  CommunityDetailPage,
   MyPage,
   DetailPage,
   SearchPage,
@@ -44,10 +44,10 @@ const router = createBrowserRouter([
         path: 'community',
         element: <CommunityPage />,
       },
-      // {
-      //   path: 'community/post/:postId',
-      //   element: <CommunityDetailPage />,
-      // },
+      {
+        path: 'community/post/:postId',
+        element: <CommunityDetailPage />,
+      },
       {
         path: '/detail/:contentsid', // 도메인/detail/3
         element: <DetailPage />,
