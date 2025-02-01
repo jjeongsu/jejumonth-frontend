@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrowButtons';
 import { Link } from 'react-router';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -11,8 +11,7 @@ const numberWithinRange = (number, min, max) => Math.min(Math.max(number, min), 
 const Carousel = ({ options, items }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
   const tweenFactor = useRef(0);
-  const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
-    usePrevNextButtons(emblaApi);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   const setTweenFactor = useCallback(emblaApi => {
     tweenFactor.current = TWEEN_FACTOR_BASE * emblaApi.scrollSnapList().length;
@@ -20,6 +19,7 @@ const Carousel = ({ options, items }) => {
 
   const tweenOpacity = useCallback((emblaApi, eventName) => {
     const engine = emblaApi.internalEngine();
+
     const scrollProgress = emblaApi.scrollProgress();
     const slidesInView = emblaApi.slidesInView();
     const isScrollEvent = eventName === 'scroll';
@@ -60,22 +60,29 @@ const Carousel = ({ options, items }) => {
       });
     });
   }, []);
-
+  const onScroll = useCallback(emblaApi => {
+    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()));
+    setScrollProgress(progress * 100);
+  }, []);
   useEffect(() => {
     if (!emblaApi) return;
-
+    onScroll(emblaApi);
     setTweenFactor(emblaApi);
     tweenOpacity(emblaApi);
     emblaApi
       .on('reInit', setTweenFactor)
       .on('reInit', tweenOpacity)
       .on('scroll', tweenOpacity)
-      .on('slideFocus', tweenOpacity);
-  }, [emblaApi, tweenOpacity]);
+      .on('slideFocus', tweenOpacity)
+      .on('reInit', onScroll)
+      .on('scroll', onScroll)
+      .on('slideFocus', onScroll);
+  }, [emblaApi, tweenOpacity, onScroll]);
 
+  console.log('scrollProgress', scrollProgress);
   return (
-    <div className="my-30 h-400 relative">
-      <div className="embla">
+    <div className="my-30 relative">
+      <div className="embla h-400">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container">
             {items.map((item, index) => (
@@ -98,16 +105,14 @@ const Carousel = ({ options, items }) => {
         </div>
       </div>
 
-      {/* <div className=" h-63 flex place-content-between absolute bottom-0 w-full">
-        <div className="w-200 h-62 bg-white"></div>
-        <div className="w-200 h-62 bg-white"></div>
-      </div> */}
-      {/* <div className="embla__controls">
-        <div className="embla__buttons">
-          <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-          <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+      <div className="w-full  flex justify-center items-center">
+        <div className="embla__progress bg-gray-5">
+          <div
+            className="embla__progress__bar bg-primary-1"
+            style={{ transform: `translate3d(${scrollProgress}%,0px,0px)` }}
+          />
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
