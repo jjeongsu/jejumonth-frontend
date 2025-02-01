@@ -50,7 +50,13 @@ const Carousel = ({ options, items }) => {
 
         const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
         const opacity = numberWithinRange(tweenValue, 0, 1).toString();
-        emblaApi.slideNodes()[slideIndex].style.opacity = opacity;
+        const brightness = numberWithinRange(tweenValue, 0.5, 1).toString();
+        const height = numberWithinRange(tweenValue, 0.9, 1).toString();
+        emblaApi.slideNodes()[slideIndex].style.filter = `brightness(${brightness})`;
+        emblaApi.slideNodes()[slideIndex].querySelector('a').querySelector('img').style.height =
+          `${19 * height}em`;
+        emblaApi.slideNodes()[slideIndex].querySelector('div').style.opacity =
+          `${opacity < 0.2 ? 0 : opacity}`;
       });
     });
   }, []);
@@ -68,7 +74,7 @@ const Carousel = ({ options, items }) => {
   }, [emblaApi, tweenOpacity]);
 
   return (
-    <div className="my-30 relative">
+    <div className="my-30 h-400 relative">
       <div className="embla">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container">
@@ -92,12 +98,16 @@ const Carousel = ({ options, items }) => {
         </div>
       </div>
 
-      <div className="embla__controls">
+      {/* <div className=" h-63 flex place-content-between absolute bottom-0 w-full">
+        <div className="w-200 h-62 bg-white"></div>
+        <div className="w-200 h-62 bg-white"></div>
+      </div> */}
+      {/* <div className="embla__controls">
         <div className="embla__buttons">
           <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
