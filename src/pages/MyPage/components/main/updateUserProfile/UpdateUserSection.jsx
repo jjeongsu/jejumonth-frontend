@@ -11,7 +11,6 @@ const UpdateUserSection = () => {
 
   // password, image, nickname
   const onSubmit = async data => {
-    console.log('data', data);
     const { nickname, password, image } = data;
     // 데이터에 값이 있냐에 따라 다르게 요청
     if (nickname) {

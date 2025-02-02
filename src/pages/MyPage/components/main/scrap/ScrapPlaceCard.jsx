@@ -1,11 +1,21 @@
 import PropTypes from 'prop-types';
 import formatAddress from '../../../../../utils/addressFormat';
+import ScrapIcon from '../../icon/ScrapIcon';
 
-const ScrapPlaceCard = ({ scrapData }) => {
+const ScrapPlaceCard = ({ scrapData, onDelete }) => {
+  const handleDeleteClick = () => {
+    onDelete(scrapData.user_id, scrapData.content_id);
+  };
+
   return (
     <>
       {scrapData && (
-        <div className="w-150 h-140 bg-blue-50 rounded-8">
+        <div className="w-150 h-140 bg-blue-50 rounded-8 relative">
+          <div className="scrap-icon absolute top-[5%] right-[5%]">
+            <div onClick={handleDeleteClick} className="cursor-pointer">
+              <ScrapIcon size={18} scrapped={true}></ScrapIcon>
+            </div>
+          </div>
           <div className="w-full h-[75%]">
             <img
               src={scrapData.img_thumbnail_url}
@@ -37,4 +47,5 @@ ScrapPlaceCard.propTypes = {
     title: PropTypes.string,
     user_id: PropTypes.string,
   }),
+  onDelete: PropTypes.func,
 };

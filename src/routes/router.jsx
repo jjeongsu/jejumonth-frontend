@@ -8,7 +8,7 @@ import {
   AddTripPage,
   AddPlanPage,
   CommunityPage,
-  // CommunityDetailPage,
+  CommunityDetailPage,
   MyPage,
   DetailPage,
   SearchPage,
@@ -44,13 +44,47 @@ const router = createBrowserRouter([
         path: 'community',
         element: <CommunityPage />,
       },
-      // {
-      //   path: 'community/post/:postId',
-      //   element: <CommunityDetailPage />,
-      // },
+      {
+        path: 'community/post/:postId',
+        element: <CommunityDetailPage />,
+      },
       {
         path: '/detail/:contentsid', // 도메인/detail/3
         element: <DetailPage />,
+      },
+      {
+        path: '/mypage',
+        element: <MyPage />,
+        children: [
+          {
+            path: 'scrapsection',
+            element: <ScrapSection />,
+          },
+          {
+            path: 'postssection',
+            element: <PostsSection />,
+          },
+          {
+            path: 'commentsection',
+            element: <CommentSection />,
+          },
+          {
+            path: 'likedSection',
+            element: <LikedSection />,
+          },
+          {
+            path: 'scheduleSection',
+            element: <ScheduleSection />,
+          },
+          {
+            path: 'update',
+            element: <UpdateUserSection />,
+          },
+          {
+            path: '',
+            element: <Navigate to="scrapsection" replace />,
+          },
+        ],
       },
     ],
   },
@@ -93,40 +127,6 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <AddPlanPage />,
-      },
-    ],
-  },
-  {
-    path: '/mypage',
-    element: <MyPage />,
-    children: [
-      {
-        path: 'scrapsection',
-        element: <ScrapSection />,
-      },
-      {
-        path: 'postssection',
-        element: <PostsSection />,
-      },
-      {
-        path: 'commentsection',
-        element: <CommentSection />,
-      },
-      {
-        path: 'likedSection',
-        element: <LikedSection />,
-      },
-      {
-        path: 'scheduleSection',
-        element: <ScheduleSection />,
-      },
-      {
-        path: 'update',
-        element: <UpdateUserSection />,
-      },
-      {
-        path: '',
-        element: <Navigate to="scrapsection" replace />,
       },
     ],
   },

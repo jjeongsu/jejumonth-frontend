@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
-import likes from '/icons/likes.svg';
-import comment from '/icons/comment.svg';
+import React from 'react';
+import likes from '../../../../public/icons/likes.svg';
+import comment from '../../../../public/icons/comment.svg';
+import Pagination from './Pagination';
 
-const PostRender = ({ posts }) => {
-  const [currentPage, setCurrentPage] = useState(1); 
-  const postsPerPage = 6; 
+const PostRender = ({ posts, onPostClick, currentPage, onPageChange }) => {
+  const postsPerPage = 6;
+
   if (!posts || posts.length === 0) {
     return <p className="text-gray-500">게시글이 없습니다.</p>;
   }
+
+  const totalPages = Math.ceil(posts.length / postsPerPage);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
   const calculateTimeAgo = (createdAt) => {
     const now = new Date();
@@ -30,10 +36,6 @@ const PostRender = ({ posts }) => {
     }
   };
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
   return (
     <div>
       <ul className="space-y-55">
@@ -42,6 +44,7 @@ const PostRender = ({ posts }) => {
             key={post._id}
             className="flex items-center p-6"
             style={{ borderBottom: '1px solid #ddd', paddingBottom: '30px' }}
+            onClick={() => onPostClick(post)}
           >
             <div className="w-40 h-40 rounded-full flex-shrink-0">
               <img
@@ -60,11 +63,11 @@ const PostRender = ({ posts }) => {
                 <span>{calculateTimeAgo(post.createdAt)}</span>
               </div>
 
-              <h3 className="text-lg font-bold text-gray-800 mb-4">
+              <p className="text-lg font-bold text-gray-800 mb-4 cursor-pointer hover:underline">
                 {post.title.length > 25
                   ? `${post.title.slice(0, 25)}...`
                   : post.title}
-              </h3>
+              </p>
 
               <div
                 className="flex items-center justify-end m-5 relative mr-100"
@@ -87,7 +90,12 @@ const PostRender = ({ posts }) => {
           </li>
         ))}
       </ul>
-      {/* 페이지네이션 컴포넌트 위치 할 예정 */}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

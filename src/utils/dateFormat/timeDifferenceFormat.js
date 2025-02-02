@@ -10,18 +10,15 @@ const timeFormatter = postTime => {
   const currentTime = new Date();
   const postData = new Date(postTime);
   const timeDifference = currentTime - postData;
+  const minuteDifference = Math.floor(timeDifference / (1000 * 60));
   const hourDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+  const dayDifference = Math.floor(hourDifference / 24);
 
-  const formatterText =
-    hourDifference < 1
-      ? '방금 전'
-      : hourDifference < 24
-        ? `${hourDifference}시간 전`
-        : `${Math.floor(hourDifference / 24) === 1}`
-          ? `하루 전`
-          : `${Math.floor(hourDifference / 24)}일 전`;
-
-  return formatterText;
+  if (minuteDifference < 1) return '방금 전';
+  if (minuteDifference < 60) return `${minuteDifference}분 전`;
+  if (hourDifference < 24) return `${hourDifference}시간 전`;
+  if (dayDifference === 1) return '하루 전';
+  return `${dayDifference}일 전`;
 };
 
 export default timeFormatter;

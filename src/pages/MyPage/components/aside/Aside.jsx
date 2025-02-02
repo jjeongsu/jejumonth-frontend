@@ -3,9 +3,9 @@ import PostsIcon from '../icon/PostsIcon ';
 import MessageIcon from '../icon/MessageIcon';
 import LikesIcon from '../icon/LikesIcon';
 import ScheduleIcon from '../icon/ScheduleIcon';
-
 import dummyImg from '../dummy-img.png';
 import { NavLink } from 'react-router';
+import ButtonWrapper from './ButtonWrapper';
 
 const Aside = () => {
   const navData = [
@@ -17,7 +17,7 @@ const Aside = () => {
   ];
 
   return (
-    <aside className="w-234 h-auto top-[120px] fixed">
+    <aside className="w-234 h-auto">
       <div className="w-234 border border-[#F0F0F0] rounded-21 shadow-[0px_0px_9px_0px_#dbdbdb] h-240">
         <div className="pt-20 w-full h-full rounded-96 flex flex-col items-center">
           <div
@@ -38,9 +38,12 @@ const Aside = () => {
               </p>
             </div>
           </div>
-          <button className="mt-10 p-[14px_40px] border border-[gray-5] rounded-15 text-12">
+          <NavLink
+            to="/mypage/update"
+            className="block mt-10 p-[14px_40px] border border-solid border-gray-5 rounded-15 text-12 hover:bg-gray-3"
+          >
             프로필 수정
-          </button>
+          </NavLink>
         </div>
       </div>
 
@@ -70,14 +73,7 @@ const Aside = () => {
             </li>
           ))}
         </ul>
-        <div className="flex gap-6 items-center justify-center mt-14 pt-16 border-t border-solid border-t-gray-5">
-          <div className="py-12 px-30 border border-solid border-gray-5 rounded-12">
-            <span className="text-[#FF5959] text-14 font-semi">로그아웃</span>
-          </div>
-          <div className="py-12 px-30 border border-solid border-gray-5 rounded-12">
-            <span className="text-gray-5 text-14 font-semi">회원 탈퇴</span>
-          </div>
-        </div>
+        <ButtonWrapper />
       </nav>
     </aside>
   );
