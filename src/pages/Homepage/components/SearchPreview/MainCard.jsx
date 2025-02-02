@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const MainCard = ({ title, city, street, img }) => {
+const MainCard = ({ title, city, street, img, contentId }) => {
   return (
     <div className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg w-313 overflow-hidden [&:nth-child(3n)]:mr-0">
       <img className="h-209 w-full" src={img} alt="상세 사진" />
@@ -26,4 +26,5 @@ MainCard.propTypes = {
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  contentId: PropTypes.string.isRequired,
 };
