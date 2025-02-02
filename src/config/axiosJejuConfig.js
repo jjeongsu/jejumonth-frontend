@@ -11,10 +11,4 @@ const jejuAPI = axios.create({
   },
 });
 
-// api 요청시 새로운 params를 추가하려면
-// params: {
-//   ...jejuAPI.defaults.params, // ✅ 기존 params를 복사
-//   title: targetWord,
-//   category: updatedCategory,
-// },
 export default jejuAPI;
