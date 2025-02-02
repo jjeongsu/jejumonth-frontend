@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { removeCookie } from '@/utils/cookie';
 import { deleteUser } from '@/redux/slices/user.slice';
 import { useNavigate } from 'react-router';
-import { postLogoutUserApi } from '../../../../apis/user';
+import { postLogoutUserApi } from '../../../../apis/userApi';
 
 const ButtonWrapper = () => {
   const dispatch = useDispatch();
