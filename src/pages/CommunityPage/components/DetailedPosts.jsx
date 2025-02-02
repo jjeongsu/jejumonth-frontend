@@ -52,3 +52,5 @@ const TabPosts = ({ activeTab, channels, setPosts, setError }) => {
 };
 
 export default TabPosts;
+
+

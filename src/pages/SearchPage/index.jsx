@@ -17,6 +17,8 @@ import DetailSmallCard from './components/DetailSmallCard';
 // import axios from 'axios';
 // import { useState } from 'react';
 
+//TODO :
+
 //TODO : F5를 눌렀을시 초기 렌더링 값으로 돌아옴.
 const SearchPage = () => {
   // 카테고리를 배열로 빼야할지... api 할때 고민해봐야할것같다.... 페이지 네이션도 같이해야할듯
@@ -56,29 +58,7 @@ const SearchPage = () => {
   // const itemListLength = 5;
   // const pagesLength = 5;
 
-  // useEffect(() => {
-  //   // 현재 URL에서 쿼리 파라미터를 읽어옵니다.
-  //   const queryParams = new URLSearchParams(location.search);
-
-  //   // 'category' 파라미터가 없다면 기본값 추가
-  //   if (!queryParams.has('category')) {
-  //     queryParams.set('category', 'c0'); // 기본값 설정
-  //   }
-
-  //   // 새로운 URL로 리디렉션 (현재 경로에 쿼리 파라미터를 추가)
-  //   navigate({
-  //     pathname: location.pathname, // 현재 경로 유지
-  //     search: queryParams.toString(), // 변경된 쿼리 파라미터 적용
-  //   });
-  // }, []); // location이 변경될 때마다 실행
-
   const categoryType = [
-    // { id: 1, title: '전체', category: '?category' },
-    // { id: 2, title: '쇼핑', category: '?category=c1' },
-    // { id: 3, title: '숙박', category: '?category=c2' },
-    // { id: 4, title: '음식점', category: '?category=c3' },
-    // { id: 5, title: '축제와 행사', category: '?category=c4' },
-    // { id: 6, title: '테마 여행', category: '?category=c5' },
     { id: 1, title: '전체', category: '' },
     { id: 2, title: '관광지', category: 'c1' },
     { id: 3, title: '쇼핑', category: 'c2' },
@@ -115,7 +95,7 @@ const SearchPage = () => {
     updatePageInfo.endItemIndex,
   );
 
-  console.log('살려주세요2222222222222222', currentPageList);
+  console.log('살려주세요2222222222222222', searchData);
 
   useEffect(() => {
     const updatedQuery = {
@@ -132,12 +112,21 @@ const SearchPage = () => {
   useEffect(() => {
     if (!isLoading && data && data?.items) {
       console.log(data.items);
-      console.log('data', data);
+      console.log('data', data.items.length);
       // console.log(
       //   '카테고리... 나와야합니다',
       //   data.items.forEach(item => console.log(item.contentscd.value.length)),
       // );
-      setSearchData(data.items);
+
+      const putdata = data.items.slice(0, 100);
+
+      console.log('아 힘듭니다', data.items.slice(0, 10));
+
+      // let ddd = [];
+      // if (data.items.length >= 100) {
+      //   ddd = data.items.slice(0, 100);
+      // }
+      setSearchData(putdata);
     } else {
       console.log('data 또는 items가 존재하지 않습니다.');
     }
@@ -215,6 +204,9 @@ const SearchPage = () => {
   const handleLayoutChange = e => {
     console.log('레이아웃 안돌아간다.. ,', itemListLength, pagesLength);
 
+    // if (query.title) {
+    //   navigate(`${location.pathname}` + `?title=${title}`);
+    // }
     //TODO 조건 처리
     const { layoutIcon } = e.target.dataset;
     console.log(layoutIcon);
@@ -230,6 +222,8 @@ const SearchPage = () => {
   };
 
   console.log(layout);
+
+  // console.log('!!!!!!!!!!!!!!!!!!!!!!!!', inputQuery.title);
 
   const renderCard = item => {
     switch (layout) {
@@ -306,6 +300,7 @@ const SearchPage = () => {
               <Category
                 title={item.title}
                 category={item.category}
+                searchTitle={inputQuery.title}
                 // onClick={() => handleChangeBtnClick(query.category || '')}
               />
             </li>
@@ -362,9 +357,14 @@ const SearchPage = () => {
           </button>
         </div>
       </nav>
-      <main className="mt-22">
-        {data == undefined && <div className="text-50">LOADING...</div>}
-        {/* {!isLoading &&
+      <main className="mt-22 ">
+        <div className="min-h-658">
+          {data == undefined && (
+            <div className="text-50 text-gray-6 flex items-center justify-center min-h-658">
+              LOADING...
+            </div>
+          )}
+          {/* {!isLoading &&
           currentPageList &&
           Object.entries(currentPageList).map(([key, value]) => (
             <DetailCard
@@ -376,17 +376,18 @@ const SearchPage = () => {
               img={value?.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
             />
           ))} */}
-        {
-          <div className={layout == 'medium-layout' ? 'flex flex-wrap justify-between' : ''}>
-            {searchData.length > 0 ? (
-              !isLoading && currentPageList.map(item => renderCard(item))
-            ) : (
-              <div className="w-full h-500 flex justify-center">
-                <img src="/icons/no_search_results.svg" className="w-200" />
-              </div>
-            )}
-          </div>
-        }
+          {
+            <div className={layout == 'medium-layout' ? 'flex flex-wrap' : ''}>
+              {searchData.length > 0 ? (
+                !isLoading && currentPageList.map(item => renderCard(item))
+              ) : (
+                <div className="w-full h-500 flex justify-center">
+                  <img src="/icons/no_search_results.svg" className="w-200" />
+                </div>
+              )}
+            </div>
+          }
+        </div>
         <ConfigProvider
           theme={{
             token: {

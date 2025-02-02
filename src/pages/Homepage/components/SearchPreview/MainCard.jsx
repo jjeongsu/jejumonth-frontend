@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-const DetailMediumCard = ({ title, city, street, img }) => {
+const MainCard = ({ title, city, street, img }) => {
   return (
-    <div className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg mb-32 w-313 mr-10 overflow-hidden [&:nth-child(3n)]:mr-0">
+    <div className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg w-313 overflow-hidden [&:nth-child(3n)]:mr-0">
       <img className="h-209 w-full" src={img} alt="상세 사진" />
       <div className="p-20">
         <div className="flex justify-between mb-13">
@@ -17,9 +17,9 @@ const DetailMediumCard = ({ title, city, street, img }) => {
   );
 };
 
-export default DetailMediumCard;
+export default MainCard;
 
-DetailMediumCard.propTypes = {
+MainCard.propTypes = {
   title: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   street: PropTypes.string.isRequired,

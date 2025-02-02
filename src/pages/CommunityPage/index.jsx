@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchChannels } from '../../apis/channelApi';
 import ChannelTabs from './components/ChannelList';
-import leftArray from '/icons/left-array.svg';
+import leftArray from '../../../public/icons/left-array.svg';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 import PostForm from './components/PostForm';
@@ -15,6 +15,7 @@ const CommunityPage = () => {
   const initialTab = searchParams.get('tab') || '베스트';
   const initialQuery = searchParams.get('search') || '';
   const initialFilter = searchParams.get('filter') || '작성자';
+  const initialPage = parseInt(searchParams.get('page'), 10) || 1;
 
   const [activeTab, setActiveTab] = useState(initialTab);
   const [channels, setChannels] = useState([]);
@@ -63,13 +64,23 @@ const CommunityPage = () => {
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
-    navigate(`/community?tab=${tab}`);
+    setSearchParams({ tab, page: 1 }); 
+    navigate(`/community?tab=${tab}&page=1`);
+  };
+
+  const handlePageChange = (page) => {
+    setSearchParams({ tab: activeTab, page });
+    navigate(`/community?tab=${activeTab}&page=${page}`);
   };
 
   const handlePostSubmit = (newPost) => {
     setPosts((prevPosts) => [newPost, ...prevPosts]);
-  }
-  
+  };
+
+  const handlePostClick = (post) => {
+    navigate(`/community/post/${post._id}`, { state: { post } });
+  };
+
   return (
     <div className="container mx-auto px-10 py-10">
       <div className="flex items-center mb-4">
@@ -93,8 +104,8 @@ const CommunityPage = () => {
           onSelect={(selected) => setFilter(selected)}
         />
         <SearchBar
-          onSearch={(query) => setSearchQuery(query)} 
-          onSearchSubmit={handleSearch} 
+          onSearch={(query) => setSearchQuery(query)}
+          onSearchSubmit={handleSearch}
         />
       </div>
 
@@ -109,7 +120,12 @@ const CommunityPage = () => {
           setPosts={setPosts}
           setError={setError}
         />
-        <PostRender posts={filteredPosts} className="" /> 
+        <PostRender
+          posts={filteredPosts}
+          onPostClick={handlePostClick}
+          currentPage={initialPage}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

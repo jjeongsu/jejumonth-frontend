@@ -18,9 +18,15 @@ export const userSlice = createSlice({
       state.userFullName = userData.userFullName;
       state.isLoggedIn = true;
     },
+    deleteUser: (state, action) => {
+      state.userId = null;
+      state.userEmail = null;
+      state.userFullName = null;
+      state.isLoggedIn = false;
+    },
   },
 });
 
 export const userReducer = userSlice.reducer;
 
-export const { setUser } = userSlice.actions;
+export const { setUser, deleteUser } = userSlice.actions;

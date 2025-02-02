@@ -3,19 +3,18 @@ import { Link } from 'react-router';
 
 const LoginCard = () => {
   return (
-    <div className="flex flex-col  items-center h-full gap-10 pt-80">
-      <span className="font-medium text-16 text-gray-7">
-        <span className="text-12 block mb-3">일정이 존재하지 않아요...😢</span>
-        <br />
-        로그인 후 <span className="font-bold text-primary-0 text-18">JEJUMONTH</span> 의
-        <br />더 많은 기능을 사용해보세요!{' '}
-      </span>
+    <div className="flex flex-col  items-center  gap-10 py-40 bg-gray-2 rounded-10">
+      <div>
+        <img src={PNG_IMAGES.mandarine} className="w-150 h-150 mb-20" />
+      </div>
+      <span className="font-medium text-12 text-gray-7">계획한 여행이 있나요?</span>
+      <span className="font-medium text-12 text-gray-7">로그인 후 여행을 시작해보세요</span>
       <Link
         to="/auth"
-        className="w-full border border-solid border-gray-5 flex justify-center items-center gap-20 px-10 py-15 rounded-5 hover:bg-gray-3 mt-10 "
+        className="border border-solid border-gray-5 w-[80%] px-20 py-15 rounded-5 flex justify-center items-center text-15 font-semibold text-gray-7 hover:bg-gray-3 gap-10"
       >
         <img src={PNG_IMAGES.dummyUser} className="w-30 h-30" />
-        <span className="text-gray-7 font-semibold hover:font-extrabold"> login JEJUMONTH</span>
+        <span className="text-gray-7 text-12 font-semibold">jejumonth 시작하기</span>
       </Link>
     </div>
   );

@@ -25,7 +25,6 @@ const useFetchAllUserPlans = userId => {
     plans = planData.flat();
   }
 
-  console.log('plandata', planData, 'flat 된 Plans', plans);
   return { trips, plans, isLoadingTrips, isLoadingPlans };
 };
 export default useFetchAllUserPlans;
