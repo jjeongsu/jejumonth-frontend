@@ -15,20 +15,6 @@ const PostsSection = () => {
     },
   });
 
-  // const {
-  //   data = {},
-  //   isLoading,
-  //   isError,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ['userData'],
-  //   queryFn: async () => {
-  //     const response = await getUserData(userId);
-
-  //     return response;
-  //   },
-  // });
-
   if (isError) {
     console.error('post 데이터를 받아오는 데 실패했습니다. 잠시 후 다시 시도해주세요', error);
     throw new Error('post 데이터를 받아오는 데 실패했습니다. 잠시 후 다시 시도해주세요', error);
