@@ -11,20 +11,21 @@ import { setUser } from '../../../redux/slices/user.slice';
 
 const WishListButton = ({ placeInfo }) => {
   const dispatch = useDispatch();
-  const { likedPlaces } = useSelector((state) => state.wishlist);
-  const { isLoggedIn, userId } = useSelector((state) => state.user);
+  const { likedPlaces } = useSelector(state => state.wishlist);
+  const { isLoggedIn, userId } = useSelector(state => state.user);
 
   // 디버깅: Redux 상태 확인
   // console.log('Redux likedPlaces:', likedPlaces);
   // console.log('Redux userId:', userId, 'isLoggedIn:', isLoggedIn);
 
-  const isLiked = Array.isArray(likedPlaces) && likedPlaces.some((place) => {
-    // console.log('Comparing place.content_id:', place.content_id, 'with placeInfo.contentId:', placeInfo.contentsid);
-    return place.content_id === placeInfo.contentsid;
-  });
+  const isLiked =
+    Array.isArray(likedPlaces) &&
+    likedPlaces.some(place => {
+      // console.log('Comparing place.content_id:', place.content_id, 'with placeInfo.contentId:', placeInfo.contentsid);
+      return place.content_id === placeInfo.contentsid;
+    });
   // console.log('Full likedPlaces from Redux:', likedPlaces);
   // console.log('Current placeInfo:', placeInfo);
-
   // 디버깅: 버튼 상태 확인
   // console.log('PlaceInfo:', placeInfo, 'Is Liked:', isLiked);
 
@@ -54,17 +55,15 @@ const WishListButton = ({ placeInfo }) => {
   const handleWishlistClick = () => {
     if (isLiked) {
       // console.log('Removing from wishlist:', placeInfo.contentsid);
-      dispatch(removeUserLikedPlace({ userId, contentId: placeInfo.contentsid }))
-        .then(() => {
-          // console.log('찜 삭제 후 최신 데이터 다시 가져오기');
-          dispatch(fetchUserLikedPlaces({ userId }));
-        });
+      dispatch(removeUserLikedPlace({ userId, contentId: placeInfo.contentsid })).then(() => {
+        // console.log('찜 삭제 후 최신 데이터 다시 가져오기');
+        dispatch(fetchUserLikedPlaces({ userId }));
+      });
     } else {
       // console.log('Adding to wishlist:', placeInfo);
-      dispatch(addUserLikedPlace({ userId, placeInfo }))
-        .then(() => {
-          dispatch(fetchUserLikedPlaces({ userId }));
-        });
+      dispatch(addUserLikedPlace({ userId, placeInfo })).then(() => {
+        dispatch(fetchUserLikedPlaces({ userId }));
+      });
     }
   };
 

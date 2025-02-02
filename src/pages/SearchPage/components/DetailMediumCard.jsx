@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
+import WishListButton from './WishListButton';
+import { Link } from 'react-router';
 
-const DetailMediumCard = ({ title, city, street, img }) => {
+const DetailMediumCard = ({ title, city, street, img, contentid }) => {
+  const handleLinkClick = e => {
+    e.preventDefault(); // Link의 기본 동작(페이지 이동)을 막음
+  };
   return (
-    <div className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg mb-32 w-313 mr-10 overflow-hidden [&:nth-child(3n)]:mr-0">
+    <Link
+      to={`/detail/${contentid.contentsid}`}
+      className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg mb-32 w-313 mr-10 overflow-hidden [&:nth-child(3n)]:mr-0"
+      onClick={handleLinkClick}
+    >
       <img className="h-209 w-full" src={img} alt="상세 사진" />
       <div className="p-20">
         <div className="flex justify-between mb-13">
-          <div className="text-18 font-semibold line-clamp-1">{title}</div>
-          <button>
-            <img src="/icons/scrap-icon.svg" className="w-21 h-19" alt="스크랩 아이콘" />
-          </button>
+          <div className="text-18 font-semibold w-220 line-clamp-1">{title}</div>
+          <WishListButton placeInfo={contentid} />
         </div>
         <div className="text-14 text-gray-5">{`${city} > ${street}`}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 
@@ -26,4 +33,5 @@ DetailMediumCard.propTypes = {
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  contentid: PropTypes.string.isRequired,
 };
