@@ -4,8 +4,8 @@ const PATH = {
   // general
   search: '/search',
   community: '/community',
-  communityPost: postId => `/community/post/${postId}`,
-  detail: contentsId => `/detail/${contentsId}`,
+  communityPost: '/community/post/:postId',
+  detail: '/detail/:contentsid',
 
   // auth
   auth: '/auth',
