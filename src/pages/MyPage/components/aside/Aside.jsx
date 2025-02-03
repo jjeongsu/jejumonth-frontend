@@ -8,9 +8,14 @@ import { NavLink } from 'react-router';
 import ButtonWrapper from './ButtonWrapper';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
+import { getUserData } from '../../../../apis/getUserData';
+
+import { useState } from 'react';
+import UserFollow from '../userfollower/userFollow';
 
 const Aside = () => {
   const { userId, userFullName } = useSelector(state => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const navData = [
     { icon: ScrapIcon, title: '내 스크랩', link: '/mypage/scrapsection' },
@@ -24,69 +29,84 @@ const Aside = () => {
     queryKey: ['userData', userId],
     queryFn: async () => await getUserData(userId),
   });
-
   console.log(data);
+  const showFollow = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
-    <aside className="w-234 h-auto">
-      <div className="w-234 border border-[#F0F0F0] rounded-21 shadow-[0px_0px_9px_0px_#dbdbdb] h-240">
-        <div className="pt-20 w-full h-full rounded-96 flex flex-col items-center">
-          <div
-            className="w-96 h-96 bg-cover bg-center rounded-[50%]"
-            style={{ backgroundImage: `url(${dummyImg})` }}
-            alt="테스트 이미지"
-          ></div>
-          <p className="text-16 mt-8 font-semibold text-center">{userFullName}</p>
-          <div className="flex justify-around w-[55%] mt-8 ">
-            <div>
-              <p className="text-gray-6 text-10">
-                팔로잉 <span className="text-sub-accent-2 text-10">{data.following.length}</span>
-              </p>
-            </div>
-            <div>
-              <p className="text-gray-6 text-10">
-                팔로우 <span className="text-sub-accent-2 text-10">{data.followers.length}</span>
-              </p>
-            </div>
-          </div>
-          <NavLink
-            to="/mypage/update"
-            className="block mt-10 p-[14px_40px] border border-solid border-gray-5 rounded-15 text-12 hover:bg-gray-3"
-          >
-            프로필 수정
-          </NavLink>
-        </div>
-      </div>
+    <>
+      <UserFollow
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        userData={data}
+        userName={userFullName}
+      ></UserFollow>
 
-      <nav className="w-full pt-20">
-        <ul className="w-full flex flex-col items-center gap-14">
-          {navData.map((item, index) => (
-            <li
-              key={item.title}
-              className={`${index === 1 ? 'border-b border-solid border-b-gray-5' : ''}  w-full py-10`}
+      <aside className="w-234 h-auto">
+        <div className="w-234 border border-[#3b3232] rounded-21 shadow-[0px_0px_9px_0px_#dbdbdb] h-240">
+          <div className="pt-20 w-full h-full rounded-96 flex flex-col items-center gap-5">
+            <div
+              className="w-96 h-96 bg-cover bg-center rounded-[50%]"
+              style={{ backgroundImage: `url(${dummyImg})` }}
+              alt="테스트 이미지"
+            ></div>
+            <p className="text-16 mt-8 font-semibold text-center">{userFullName}</p>
+            <div className="flex justify-around w-[55%] mt-8 cursor-pointer" onClick={showFollow}>
+              <div>
+                <p className="text-gray-6 text-10">
+                  팔로우 <span className="text-sub-accent-2 text-10">{data?.followers.length}</span>
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-6 text-10">
+                  팔로잉 <span className="text-sub-accent-2 text-10">{data?.following.length}</span>
+                </p>
+              </div>
+            </div>
+            <NavLink
+              to="/mypage/update"
+              className="block mt-10 p-[14px_40px] border border-solid border-gray-5 rounded-15 text-12 hover:bg-gray-3"
             >
-              <NavLink
-                to={item.link}
-                className={({ isActive }) =>
-                  `w-[80%] m-auto text-center flex justify-evenly items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <item.icon active={isActive} />
+              프로필 수정
+            </NavLink>
+          </div>
+        </div>
 
-                    <p className={`text-14 ${isActive ? 'text-sub-accent-1' : 'text-gray-10'}`}>
-                      {item.title}
-                    </p>
-                  </>
-                )}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-        <ButtonWrapper />
-      </nav>
-    </aside>
+        <nav className="w-full pt-20">
+          <ul className="w-full flex flex-col items-center gap-14">
+            {navData.map((item, index) => (
+              <li
+                key={item.title}
+                className={`${index === 1 ? 'border-b border-solid border-b-gray-5' : ''}  w-full py-10`}
+              >
+                <NavLink
+                  to={item.link}
+                  className={({ isActive }) =>
+                    `w-[80%] m-auto text-center flex justify-evenly items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <item.icon active={isActive} />
+
+                      <p className={`text-14 ${isActive ? 'text-sub-accent-1' : 'text-gray-10'}`}>
+                        {item.title}
+                      </p>
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <ButtonWrapper />
+        </nav>
+      </aside>
+    </>
   );
 };
 
