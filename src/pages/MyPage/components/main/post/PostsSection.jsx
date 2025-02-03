@@ -2,9 +2,10 @@
 import { useQuery } from '@tanstack/react-query';
 import Post from './Post';
 import { getUserPost } from '../../../../../apis/getUserData';
+import { useSelector } from 'react-redux';
 
 const PostsSection = () => {
-  const userId = '67908daee8a1e4349ed76ec2'; // 더미 데이터
+  const { userId } = useSelector(state => state.user);
 
   const { data, isLoading, isError, error } = useQuery({
     queryKey: [userId],
@@ -14,20 +15,6 @@ const PostsSection = () => {
       return response;
     },
   });
-
-  // const {
-  //   data = {},
-  //   isLoading,
-  //   isError,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ['userData'],
-  //   queryFn: async () => {
-  //     const response = await getUserData(userId);
-
-  //     return response;
-  //   },
-  // });
 
   if (isError) {
     console.error('post 데이터를 받아오는 데 실패했습니다. 잠시 후 다시 시도해주세요', error);
