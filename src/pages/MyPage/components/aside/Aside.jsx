@@ -7,9 +7,10 @@ import dummyImg from '../dummy-img.png';
 import { NavLink } from 'react-router';
 import ButtonWrapper from './ButtonWrapper';
 import { useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
 
 const Aside = () => {
-  const { userFullName } = useSelector(state => state.user);
+  const { userId, userFullName } = useSelector(state => state.user);
 
   const navData = [
     { icon: ScrapIcon, title: '내 스크랩', link: '/mypage/scrapsection' },
@@ -18,6 +19,13 @@ const Aside = () => {
     { icon: PostsIcon, title: '작성한 게시글', link: '/mypage/postssection' },
     { icon: MessageIcon, title: '작성한 댓글', link: '/mypage/commentsection' },
   ];
+
+  const { data } = useQuery({
+    queryKey: ['userData', userId],
+    queryFn: async () => await getUserData(userId),
+  });
+
+  console.log(data);
 
   return (
     <aside className="w-234 h-auto">
@@ -32,12 +40,12 @@ const Aside = () => {
           <div className="flex justify-around w-[55%] mt-8 ">
             <div>
               <p className="text-gray-6 text-10">
-                팔로잉 <span className="text-sub-accent-2 text-10">3</span>
+                팔로잉 <span className="text-sub-accent-2 text-10">{data.following.length}</span>
               </p>
             </div>
             <div>
               <p className="text-gray-6 text-10">
-                팔로우 <span className="text-sub-accent-2 text-10">2</span>
+                팔로우 <span className="text-sub-accent-2 text-10">{data.followers.length}</span>
               </p>
             </div>
           </div>
