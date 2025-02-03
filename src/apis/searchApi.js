@@ -13,6 +13,7 @@ const visitApi = axios.create({
 // api 정보를 가져오기
 
 export async function getList(query) {
+  console.log('query', query);
   try {
     const response = await visitApi.get('', {
       params: query,

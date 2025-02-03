@@ -58,28 +58,6 @@ const SearchPage = () => {
   console.log('로그인을 했냐?', isLoggedIn, 'userId', userId);
   console.log('좋아하는 장소', likesPlaces);
 
-  // const isliked = Array.isArray(likesPlaces) && likesPlaces.some(place=>{
-  //   return place.content_id === placeInfo.contentsid
-  // })
-
-  // const handleWishListClick = ()=>{
-  //   if()
-  // }
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      console.log('Setting test user...');
-      dispatch(
-        setUser({
-          isLoggedIn: true,
-          userId: 'testUser123',
-          userEmail: 'test@example.com',
-          userFullName: 'Test User',
-        }),
-      );
-    }
-  }, [isLoggedIn, dispatch]);
-
   const categoryType = [
     { id: 1, title: '전체', category: '' },
     { id: 2, title: '관광지', category: 'c1' },
@@ -100,24 +78,26 @@ const SearchPage = () => {
   });
 
   console.log('쿼리', query);
+  console.log('data', data);
+  console.log('isLoading', isLoading);
+  console.log('error', error);
 
   if (isLoading) {
     console.log('데이터 로딩 중...');
-    // return Loading...
   } else if (error) {
     console.log('데이터 요청 오류:', error);
   }
 
   const updatePageInfo = calcPage(query.page || 0, searchData.length, itemListLength, pagesLength);
 
-  console.log('살려주세요', updatePageInfo);
+  // console.log('살려주세요', updatePageInfo);
 
   const currentPageList = searchData.slice(
     updatePageInfo.startItemIndex,
     updatePageInfo.endItemIndex,
   );
 
-  console.log('살려주세요2222222222222222', searchData);
+  // console.log('살려주세요2222222222222222', searchData);
 
   useEffect(() => {
     const updatedQuery = {
@@ -136,19 +116,10 @@ const SearchPage = () => {
     if (!isLoading && data && data?.items) {
       console.log(data.items);
       console.log('data', data.items.length);
-      // console.log(
-      //   '카테고리... 나와야합니다',
-      //   data.items.forEach(item => console.log(item.contentscd.value.length)),
-      // );
-
       const putdata = data.items.slice(0, 100);
 
       console.log('아 힘듭니다', data.items.slice(0, 10));
 
-      // let ddd = [];
-      // if (data.items.length >= 100) {
-      //   ddd = data.items.slice(0, 100);
-      // }
       setSearchData(putdata);
     } else {
       console.log('data 또는 items가 존재하지 않습니다.');
@@ -182,17 +153,17 @@ const SearchPage = () => {
   const handleChangeBtnClick = (page, category) => {
     // if(...inputQuery.title == inputQuery){}
     // console.log(prevInput);
-    setPrevInput(inputQuery.title);
-    console.log('PrevinputQuery.title', prevInput, 'inputQuery.title', inputQuery.title);
+    // setPrevInput(inputQuery.title);
+    // console.log('PrevinputQuery.title', prevInput, 'inputQuery.title', inputQuery.title);
 
-    if (prevInput !== inputQuery.title) {
-      page = 1;
-    }
+    // if (prevInput !== inputQuery.title) {
+    //   page = 1;
+    // }
     const nextInputQuery = { ...inputQuery, page, category };
     console.log('nextInputQuery', nextInputQuery);
     setInputQuery(nextInputQuery);
     setQuery(nextInputQuery);
-    console.log('QQUERy', nextInputQuery);
+    // console.log('QQUERy', nextInputQuery);
     let params = '?';
     Object.entries(nextInputQuery).forEach(([key, value]) => {
       if (value) {
@@ -242,9 +213,12 @@ const SearchPage = () => {
     });
 
     params = params.slice(0, -1);
-
-    navigate(`${location.pathname}` + params);
-  }, [layout, searchData, itemListLength]); // it
+    if (params) {
+      navigate(`${location.pathname}${params}`);
+    } else {
+      navigate(location.pathname);
+    }
+  }, [layout, itemListLength]); // it
 
   useEffect(() => {
     console.log('ItemListLength 변경됨:', itemListLength);
@@ -270,7 +244,7 @@ const SearchPage = () => {
     setLayout(layoutIcon);
   };
 
-  console.log(layout);
+  // console.log(layout);
 
   // console.log('!!!!!!!!!!!!!!!!!!!!!!!!', inputQuery.title);
 
@@ -321,6 +295,10 @@ const SearchPage = () => {
     }
   };
 
+  // if (isLoading) {
+  //   return <></>;
+  // }
+
   return (
     <div>
       <div className="w-512 h-52 rounded-20  shadow-2md p-16 box-border flex mx-auto mb-50">
@@ -349,12 +327,13 @@ const SearchPage = () => {
         <ul className="flex">
           {categoryType.map(item => (
             <li key={item.id} className="mx-6">
-              <Category
-                title={item.title}
-                category={item.category}
-                searchTitle={inputQuery.title}
-                // onClick={() => handleChangeBtnClick(query.category || '')}
-              />
+              <button onClick={() => handleChangeBtnClick(1, item.category)}>
+                <Category
+                  title={item.title}
+                  category={item.category}
+                  searchTitle={inputQuery.title}
+                />
+              </button>
             </li>
           ))}
         </ul>
@@ -417,10 +396,10 @@ const SearchPage = () => {
       </nav>
       <main className="mt-22 ">
         <div className="min-h-658">
-          {data == undefined && <SkeletonLayout layout={layout} itemList={itemListLength} />}
+          {/* {data == undefined && <SkeletonLayout layout={layout} itemList={itemListLength} />}
           {
             <div className={layout == 'medium-layout' ? 'flex flex-wrap' : ''}>
-              {!isLoading && searchData.length === 0 ? (
+              {isLoading && searchData.length === 0 ? (
                 //  !isLoading &&currentPageList.map(item => renderCard(item))
                 <div className="w-full h-500 flex justify-center">
                   <img src="/icons/no_search_results.svg" className="w-200" />
@@ -432,7 +411,26 @@ const SearchPage = () => {
                 !isLoading && currentPageList.map(item => renderCard(item))
               )}
             </div>
-          }
+          } */}
+          {isLoading ? (
+            <SkeletonLayout layout={layout} itemList={itemListLength} />
+          ) : (
+            <div className={layout === 'medium-layout' ? 'flex flex-wrap' : ''}>
+              {searchData.length === 0 ? (
+                // 검색 결과가 없을 때
+                <div className="w-full h-500 flex justify-center">
+                  <img
+                    src="/icons/no_search_results.svg"
+                    className="w-200"
+                    alt="No search results"
+                  />
+                </div>
+              ) : (
+                // 검색 결과가 있을 때
+                !isLoading && data.items.map(item => renderCard(item))
+              )}
+            </div>
+          )}
         </div>
         <ConfigProvider
           theme={{
