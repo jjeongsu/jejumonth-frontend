@@ -25,6 +25,25 @@ export const commentCreateApi = async (postId, comment, token) => {
   }
 };
 
+export const deleteCommentApi = async (commentId) => {
+  try {
+    const token = getCookie('jwt');
+    const response = await axios.delete(`${serverURL}/comments/delete`, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        id: commentId
+      }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('댓글 삭제 실패:', error.response?.data || error.message);
+  }
+}
+
 export const commentDeleteApi = async commentID => {
   const token = getCookie('jwt');
 

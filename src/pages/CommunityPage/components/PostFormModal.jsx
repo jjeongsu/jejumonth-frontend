@@ -12,7 +12,7 @@ const PostFormModal = ({ isOpen, onClose }) => {
   });
   const [channels, setChannels] = useState([]);
   const [error, setError] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false); 
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fullName = useSelector(state => state.user?.userFullName);
 
@@ -20,7 +20,9 @@ const PostFormModal = ({ isOpen, onClose }) => {
     const loadChannels = async () => {
       try {
         const channelsData = await fetchChannels();
-        const filteredChannels = channelsData.filter(channel => channel.name !== '베스트' && channel.name !== '전체');
+        const filteredChannels = channelsData.filter(
+          channel => channel.name !== '베스트' && channel.name !== '전체',
+        );
         setChannels(filteredChannels);
       } catch (err) {
         setError(err.message);
@@ -40,7 +42,7 @@ const PostFormModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    if (isSubmitting) return; 
+    if (isSubmitting) return;
 
     if (!formData.channelId) {
       alert('게시판을 선택해주세요.');
@@ -59,12 +61,12 @@ const PostFormModal = ({ isOpen, onClose }) => {
       await createPost(formDataToSend);
       alert('게시글이 성공적으로 업로드되었습니다!');
       onClose();
-      window.location.reload(); 
+      window.location.reload();
     } catch (error) {
       console.error('게시글 업로드 실패:', error);
       alert('게시글 업로드에 실패했습니다.');
     } finally {
-      setIsSubmitting(false); 
+      setIsSubmitting(false);
     }
   };
 
@@ -120,7 +122,6 @@ const PostFormModal = ({ isOpen, onClose }) => {
           )}
         </div>
 
-        {/* 버튼 영역 */}
         <div className="flex justify-end gap-4 absolute bottom-2 right-5">
           <button
             type="button"

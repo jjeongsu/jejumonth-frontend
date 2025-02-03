@@ -47,3 +47,22 @@ export const deletePostApi = async contentID => {
     throw new Error('게시글 삭제에 실패했습니다');
   }
 };
+
+
+export const updatePostApi = async (formData) => {
+  const token = getCookie('jwt');
+  try {
+    const response = await axios.put(`${serverURL}/posts/update`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+        'Content-Type': 'multipart/form-data', 
+      },
+    });
+
+    console.log('게시글 업데이트 성공:', response.data);
+    return response.data; 
+  } catch (error) {
+    console.error('게시글 업데이트 실패:', error);
+    throw new Error('게시글 업데이트에 실패했습니다.');
+  }
+};
