@@ -18,7 +18,6 @@ const ScrapSection = () => {
   async function getData(userId) {
     const data = await getAllUserLikedPlacesApi(userId);
     setScrapData(data);
-    console.log(data);
   }
   useEffect(() => {
     getData(userId);
