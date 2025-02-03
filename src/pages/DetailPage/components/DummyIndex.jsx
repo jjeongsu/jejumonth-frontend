@@ -1,6 +1,6 @@
 import React from "react";
 
-const Dummyindex = () => {
+const DummyIndex = () => {
     return (
         <div className="space-y-6 mt-20">
           <p className="text-base text-black leading-7">
@@ -32,4 +32,4 @@ const Dummyindex = () => {
     )
 }
 
-export default Dummyindex;
+export default DummyIndex;
