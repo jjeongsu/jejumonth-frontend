@@ -72,7 +72,7 @@ const DetailContent = ({ data }) => {
             <KaKaoMap latitude={data?.latitude || 37.5665} longitude={data?.longitude || 126.9780} />
           </div>
         </div>
-        <div className="grid grid-cols-2 grid-rows-3 gap-x-2 gap-y-3 p-10 items-center">
+        <div className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-3 p-10 items-center ml-10">
         <div className="flex items-center gap-4">
           <img src={Position} alt="position" className="w-20 h-20 mr-10" />
           <p className="text-[17px] font-bold text-[#8c8c8c]">주소</p>
