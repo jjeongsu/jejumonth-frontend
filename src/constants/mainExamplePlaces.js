@@ -111,3 +111,225 @@ export const shoppingPlaces = [
     category: "쇼핑"
   }
 ];
+
+export const accommodations = [
+  {
+    contentsid: "CNTS_000000000019160",
+    title: "해변여행",
+    city: "제주시",
+    street: "애월읍 가문동길 41-2",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/06faaf9d-5219-4a0a-b63a-e48761c334ca.jpg",
+    description: "깔끔한 인테리어의 준비된 펜션",
+    category: "숙박"
+  },
+  {
+    contentsid: "CNTS_000000000021638",
+    title: "환상의민박",
+    city: "섬 속의 섬 (마라도)",
+    street: "대정읍 마라로 45",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/7f8bc033-23aa-42a0-8ce5-8c197bb23b4c.jpg",
+    description: "환상의 짜장 식당과 함께 운영하는 민박집",
+    category: "숙박"
+  },
+  {
+    contentsid: "CNTS_000000000021044",
+    title: "더쉼팡스파&풀빌라",
+    city: "서귀포시",
+    street: "표선면 세성로 67-2",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/87703798-19b8-4678-863e-292e4b7cfb29.jpg",
+    description: "조경의 아름다움을 뽐내는 공간",
+    category: "숙박"
+  },
+  {
+    contentsid: "CNTS_000000000021484",
+    title: "종달스토리",
+    city: "제주시",
+    street: "구좌읍 종달논길 61-7",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/6362af92-d946-4570-bcce-b73c0e75ac1d.jpg",
+    description: "즐거움과 휴식이 있는 게스트 하우스",
+    category: "숙박"
+  },
+  {
+    contentsid: "CNTS_000000000021172",
+    title: "더블루제주호텔",
+    city: "서귀포시",
+    street: "칠십리로 479",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/ba1ee939-e529-4afa-bf62-b7b1ce0d15b2.png",
+    description: "서귀포 보목동에 위치한 호텔",
+    category: "숙박"
+  },
+  {
+    contentsid: "CNTS_300000000012962",
+    title: "제주구도",
+    city: "제주시",
+    street: "조천읍 중산간동로 648 (대흘리)",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202402/21/39ae95b0-555c-48e8-906f-fe5a870d990a.jpg",
+    description: "창 너머 제주의 사계절을 간직한 프라이빗한 풀빌라",
+    category: "숙박"
+  }
+];
+
+export const restaurants = [
+  {
+    contentsid: "CNTS_000000000021501",
+    title: "신스버거",
+    city: "제주시",
+    street: "한림읍 월령2길 2",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/accfa926-15da-4331-b8d1-d6608dc8ffe9.jpg",
+    description: "제주도 흑돼지로 만든 수제버거 전문점 신스버거",
+    category: "음식점"
+  },
+  {
+    contentsid: "CNTS_200000000009091",
+    title: "한밭식당",
+    city: "섬 속의 섬 (추차도)",
+    street: "추자면 대서3길 21",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201908/20/c07a4b4c-e273-4a03-94eb-3a0b1c89705e.JPG",
+    description: "추자에서 맛볼 수 있는 녹두 삼계탕",
+    category: "음식점"
+  },
+  {
+    contentsid: "CNTS_000000000022577",
+    title: "바라나시 책골목",
+    city: "제주시",
+    street: "동한두기길 35-2",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/518853d0-1d4e-485a-94b9-0573cec3a933.jpg",
+    description: "낯선 곳에서 만나는 인도의 향기, 바라나시 책골목",
+    category: "음식점"
+  },
+  {
+    contentsid: "CNTS_000000000022580",
+    title: "에이팩토리 커피앤북스",
+    city: "제주시",
+    street: "탑동로 11",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/dc917a98-23fe-47e1-96ee-d73a03c3dd01.jpg",
+    description: "매일 구운 빵, 커피, 책이 있는 원도심 휴식공간",
+    category: "음식점"
+  },
+  {
+    contentsid: "CNTS_200000000009123",
+    title: "유심이감성찜닭",
+    city: "섬 속의 섬 (추차도)",
+    street: "추자면 추자로 78",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201908/20/b1a8100a-ef60-454a-8428-ed96c09ea800.jpg",
+    description: "추자바다 바라보며 먹는 감성 찜닭",
+    category: "음식점"
+  },
+  {
+    contentsid: "CNTS_200000000014823",
+    title: "더헤이븐",
+    city: "제주시",
+    street: "제원4길 10-1",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202305/22/9c7c4b8b-7be7-467e-8054-d6e057282726.jpg",
+    description: "삭막한 도심 속 쉼터같은 카페",
+    category: "음식점"
+  }
+];
+
+export const festivals = [
+  {
+    contentsid: "CNTS_300000000012825",
+    title: "2023 제주성주풀이 : 새집지어오람구나",
+    city: "제주시",
+    street: "신산로 82 제주영상문화진흥원 1층",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202311/14/3dda82ab-63dc-477e-8008-eb304054ea43.JPG",
+    description: "제주성주풀이굿을 해체하고 재구성한 전통창작 음악굿 공연",
+    category: "축제/행사"
+  },
+  {
+    contentsid: "CNTS_300000000013058",
+    title: "2024 영천동 해바라기 축제",
+    city: "서귀포시",
+    street: "솔오름로105번길 24",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202406/24/fcb9caec-c074-427c-a5c1-be9513ed5355.jpeg",
+    description: "백록담을 품은 영천동, 때 묻지 않은 아름다운 제주를 고스란히 간직한 곳",
+    category: "축제/행사"
+  },
+  {
+    contentsid: "CNTS_200000000013547",
+    title: "휴애리 유럽 수국축제",
+    city: "서귀포시",
+    street: "남원읍 신례동로 256",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202308/02/03d2c212-b9bf-4f62-8549-2178eebcec70.jpg",
+    description: "제주에서 가장 먼저 수국을 볼 수 있는 휴애리",
+    category: "축제/행사"
+  },
+  {
+    contentsid: "CNTS_300000000013155",
+    title: "제33회 전국무용제 사전축제 <명작무 극장>",
+    city: "제주시",
+    street: "동광로 69",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/20/efbd5bbf-c107-48ec-9979-fa1ffb15617f.jpg",
+    description: "대한민국의 무용 명인 초청공연",
+    category: "축제/행사"
+  },
+  {
+    contentsid: "CNTS_000000000022053",
+    title: "제20회 쇠소깍 축제",
+    city: "서귀포시",
+    street: "쇠소깍로 128",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201808/16/aa69aec5-592e-4ac7-b1b7-f264400a09f4.jpg",
+    description: "천혜의 자연경관을 지닌 쇠소깍 일대에서 다채로운 체험을 할 수 있는 축제",
+    category: "축제/행사"
+  },
+  {
+    contentsid: "CNTS_200000000013948",
+    title: "2024 제주레저힐링축제",
+    city: "제주시",
+    street: "조천읍 조함해안로 525",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/30/855f6ebe-4737-480d-b53b-48d06df2354d.jpg",
+    description: "체험형 레저스포츠와 감성문화 예술이 만나는 축제",
+    category: "축제/행사"
+  }
+];
+
+export const themeTours = [
+  {
+    contentsid: "CNTS_200000000007340",
+    title: "제주의 시원한 여름을 닮은 독보적인 감성 <라탄의 매력 속으로>",
+    city: "제주",
+    description: "여름을 맞아 시원한 느낌의 라탄 소재 소품들이 인기를 끌고 있다. 제주 라탄의 특별함을 함께 구경해보자.",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201808/07/b401d087-a1fe-4f48-969e-0bffa96cf4bf.jpg",
+    category: "테마여행"
+  },
+  {
+    contentsid: "CNTS_200000000011914",
+    title: "제주의 마을에서 즐기는 힐링투어 <제주로 로캉스 떠나요 2021>",
+    city: "제주",
+    description: "제주관광공사가 운영하는 마을여행 프로그램 '제주로 로캉스 떠나요'를 통해 숨겨진 제주의 매력을 발견할 수 있다.",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202108/31/31027bf7-0a38-4516-8374-aff551deff43.jpg",
+    category: "테마여행"
+  },
+  {
+    contentsid: "CNTS_200000000010946",
+    title: "따뜻하게 제주의 바다를 비추는 등대",
+    city: "제주",
+    description: "제주의 등대는 역사적 가치가 높으며, 관광자원으로 발전했다. 대표적인 등대들을 소개한다.",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202012/10/1a040c10-c388-415a-b0eb-b588c8815990.JPG",
+    category: "테마여행"
+  },
+  {
+    contentsid: "CNTS_000000000021802",
+    title: "지질마을에서 체험하는 진짜 제주의 삶 <지오하우스>",
+    city: "제주",
+    description: "세계지질공원 제주도의 지질마을 지오하우스에서는 지질자원과 문화를 모티브로 한 체험을 할 수 있다.",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/5dee1907-bbce-4ceb-ab8e-a6de1a304133.jpg",
+    category: "테마여행"
+  },
+  {
+    contentsid: "CNTS_200000000008992",
+    title: "로컬투어 마을참견 6 <해남 겸 서퍼 이훈탁 삼촌과 걷는 요망진 마을 사계리>",
+    city: "제주",
+    description: "제주 서남쪽에 위치한 사계리 마을에서 자연경관을 감상하며 해남 겸 서퍼 이훈탁 삼촌과의 마을 탐방을 경험해보자.",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201907/29/6e5fbc5e-8992-40d2-af78-337f82bc5525.jpg",
+    category: "테마여행"
+  },
+  {
+    contentsid: "CNTS_200000000010476",
+    title: "나홀로 떠나는 제주여행 <제주 서부 혼행 강추 POINT 5>",
+    city: "제주",
+    description: "자연과 문화가 함께하는 서부권 지역에서 자유로운 일정의 혼행을 경험해보자.",
+    img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202010/30/50d7e417-56c0-455a-ad0f-83f0a750e149.JPG",
+    category: "테마여행"
+  }
+];
