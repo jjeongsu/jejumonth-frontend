@@ -20,14 +20,14 @@ const Header = () => {
     etc: 'text-gray-7 ',
   };
 
-  const handleTripClick = (event) => {
+  const handleTripClick = event => {
     if (!userId) {
       event.preventDefault();
       Modal.warning({
         title: '로그인이 필요합니다.',
         content: '로그인하고 JejuMonth의 다양한 기능을 이용해 보세요.',
         onOk() {
-          navigate("/auth");
+          navigate('/auth');
         },
         okButtonProps: {
           style: {
