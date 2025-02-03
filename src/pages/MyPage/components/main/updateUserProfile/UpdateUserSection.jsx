@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import Form from '@components/common/Form';
 import userUpdateInputs from './userUpdateInputs';
-import { putUserFullname, putUserPassword, postProfileImage } from '@/apis/user';
+import { putUserFullname, putUserPassword, postProfileImage } from '@/apis/userApi';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/slices/user.slice';
 
