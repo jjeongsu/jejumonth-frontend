@@ -1,4 +1,10 @@
-import { tourPlaces, shoppingPlaces } from '../../../../constants/mainExamplePlaces.js';
+import {
+  tourPlaces,
+  shoppingPlaces,
+  accommodations,
+  restaurants,
+  festivals, themeTours,
+} from '../../../../constants/mainExamplePlaces.js';
 import MainCard from './MainCard.jsx';
 import catetoryCode from '../../../../constants/category.js';
 import { useState } from 'react';
@@ -6,16 +12,19 @@ import CategoryButton from './CategoryButton.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const SearchPreview = () => {
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState('관광지');
   const [places, setPlaces] = useState(tourPlaces);
   const navigate = useNavigate();
 
   const handleCategoryClick = (categoryName) => {
     setCategory(categoryName);
-    if (categoryName === '쇼핑') {
-      setPlaces(shoppingPlaces);
-    } else {
-      setPlaces(tourPlaces);
+    switch (categoryName) {
+      case '관광지' : setPlaces(tourPlaces); break;
+      case '쇼핑' : setPlaces(shoppingPlaces); break;
+      case '숙박' : setPlaces(accommodations); break;
+      case '음식' : setPlaces(restaurants); break;
+      case '축제/행사' : setPlaces(festivals); break;
+      case '테마여행' : setPlaces(themeTours); break;
     }
   }
 
@@ -43,9 +52,16 @@ const SearchPreview = () => {
           여기를 클릭해 제주도 장소를 검색해보세요!
         </button>
       </div>
-      <div className="flex w-582 justify-between">
-        {catetoryCode.map((item, index) => (
-          <CategoryButton key={index} category={item.label} isClicked={category === item.label} onClick={() => handleCategoryClick(item.label)} />
+      <div className="flex w-500 justify-between">
+        {catetoryCode
+          .filter(item => item.value !== "all")
+          .map((item, index) => (
+            <CategoryButton
+              key={index}
+              category={item.label}
+              isClicked={category === item.label}
+              onClick={() => handleCategoryClick(item.label)}
+            />
         ))}
       </div>
       <div className="flex w-940 justify-between mx-13">
