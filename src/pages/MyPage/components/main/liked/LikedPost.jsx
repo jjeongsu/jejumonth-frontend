@@ -2,16 +2,19 @@ import PropTypes from 'prop-types';
 import LikesIcon from '../../icon/LikesIcon';
 import CommentIcon from '../../icon/CommentIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
-import { deleteUserLikedArticlesApi } from '../../../../../apis/supabaseApi';
+import { deleteUserLikedArticleApi } from '../../../../../apis/supabaseApi';
+import { useSelector } from 'react-redux';
 
 const LikedPost = ({ postData }) => {
+  const userId = useSelector(state => state.user.userId);
+
   const deleteLikedPostHandler = async articleId => {
     const isChecked = window.confirm('정말로 스크랩을 취소하시겠습니까?');
 
     if (isChecked) {
       try {
         console.log(`${articleId}가 클릭되었습니다.`);
-        await deleteUserLikedArticlesApi('test', articleId);
+        await deleteUserLikedArticleApi(userId, articleId);
       } catch (error) {
         throw new Error(error);
       }
