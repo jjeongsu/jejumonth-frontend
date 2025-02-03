@@ -2,6 +2,7 @@ import React from 'react';
 import likes from '../../../../public/icons/likes.svg';
 import comment from '../../../../public/icons/comment.svg';
 import Pagination from './Pagination';
+import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
 
 const PostRender = ({ posts, onPostClick, currentPage, onPageChange }) => {
   const postsPerPage = 6;
@@ -42,21 +43,21 @@ const PostRender = ({ posts, onPostClick, currentPage, onPageChange }) => {
         {currentPosts.map((post) => (
           <li
             key={post._id}
-            className="flex items-center p-6"
-            style={{ borderBottom: '1px solid #ddd', paddingBottom: '30px' }}
+            className="flex items-center p-6 hover:underline"
+            style={{ borderBottom: '1px solid #ddd', paddingBottom: '30px',  }}
             onClick={() => onPostClick(post)}
           >
-            <div className="w-40 h-40 rounded-full flex-shrink-0">
-              <img
-                src={post.author?.profileImage || 'default-avatar.png'}
+            <div className="w-40 h-40 rounded-full flex-shrink-0 mb-30">
+              <ProfileImage
+                src={post.author?.profileImage}
                 alt="프로필"
                 className="w-full h-full rounded-full object-cover"
               />
             </div>
 
             <div className="ml-30 flex-1">
-              <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2">
-                <span className="font-medium text-gray-700">
+              <div className="flex items-center space-x-2 text-sm text-gray-500 mb-2 ">
+                <span className="font-medium text-gray-700 ">
                   {post.channel?.name || '알 수 없음'}
                 </span>
                 <span>·</span>
@@ -77,7 +78,7 @@ const PostRender = ({ posts, onPostClick, currentPage, onPageChange }) => {
                   className="flex items-center space-x-1 text-gray-500"
                   style={{ marginRight: '42px' }}
                 >
-                  <img src={likes} alt="좋아요" className="w-25 h-23" />
+                  <img src={likes} alt="좋아요" className="w-25 h-23 " />
                   <span>{post.likes?.length || 0}</span>
                 </div>
 

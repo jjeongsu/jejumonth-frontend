@@ -1,11 +1,10 @@
-import axios from 'axios';
+import jejuAPI from '../config/axiosJejuConfig';
 
 export async function getPlaceBySearchApi(targetWord, category) {
   const updatedCategory = category === 'all' ? '' : category;
-  const result = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchList', {
+  const result = await jejuAPI.get('', {
     params: {
-      apiKey: import.meta.env.VITE_VISITJEJU_KEY,
-      locale: 'kr',
+      ...jejuAPI.defaults.params,
       title: targetWord,
       category: updatedCategory,
     },
@@ -14,17 +13,14 @@ export async function getPlaceBySearchApi(targetWord, category) {
 }
 
 export async function getPlaceByExplanationApi(targetWord) {
-  if (!import.meta.env.VITE_VISITJEJU_KEY) {
-    throw new Error('API 키가 설정되어 있지 않습니다.');
-  }
   try {
-    const response = await axios.get('https://api.visitjeju.net/vsjApi/contents/searchList', {
+    const response = await jejuAPI.get('', {
       params: {
-        apiKey: import.meta.env.VITE_VISITJEJU_KEY,
-        locale: 'kr',
+        ...jejuAPI.defaults.params,
         cid: targetWord,
       },
     });
+
     return response.data.items[0];
   } catch (error) {
     console.error('API 호출 중 오류가 발생했습니다:', error);

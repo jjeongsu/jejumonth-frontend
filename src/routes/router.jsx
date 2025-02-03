@@ -1,132 +1,62 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
-import DefaultLayout from '../layouts/DefaultLayout';
+import { createBrowserRouter } from 'react-router-dom';
+import { MyPage } from '../pages';
+import { DefaultLayout, AuthLayout, TripLayout, PlanLayout } from '../layouts';
 import {
-  HomePage,
-  SigninPage,
-  SignupPage,
-  MyTripPage,
-  AddTripPage,
-  AddPlanPage,
-  CommunityPage,
-  CommunityDetailPage,
-  MyPage,
-  DetailPage,
-  SearchPage,
-} from '../pages';
-import AuthLayout from '../layouts/AuthLayout';
-import TripLayout from '../layouts/TripLayout.jsx';
-import PlanLayout from '../layouts/PlanLayout.jsx';
-import ScrapSection from '../pages/MyPage/components/main/scrap/ScrapSection.jsx';
-import PostsSection from '../pages/MyPage/components/main/post/PostsSection.jsx';
-import CommentSection from '../pages/MyPage/components/main/comment/CommentSection.jsx';
-import LikedSection from '../pages/MyPage/components/main/liked/LikedSection.jsx';
-import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
-import UpdateUserSection from '../pages/MyPage/components/main/updateUserProfile/UpdateUserSection.jsx';
+  PrivateRoute,
+  PublicRoute,
+  MYPAGE_ROUTES,
+  COMMUNITY_ROUTES,
+  SEARCH_ROUTES,
+  DETAIL_ROUTES,
+  HOME_ROUTES,
+  AUTH_ROUTES,
+  TRIP_ROUTES,
+  PLAN_ROUTES,
+} from './route';
 
 // TODO  Error element 추가하기
-// TODO Path 상수처리하기
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: <DefaultLayout />,
+    children: [...HOME_ROUTES, ...SEARCH_ROUTES, ...COMMUNITY_ROUTES, ...DETAIL_ROUTES],
+  },
+  {
+    path: '',
+    element: <PublicRoute />,
     children: [
       {
         path: '',
-        element: <HomePage />,
+        element: <AuthLayout />,
+        children: [...AUTH_ROUTES],
       },
-      { path: 'search', element: <SearchPage /> },
+    ],
+  },
+  {
+    path: '',
+    element: <PrivateRoute />,
+    children: [
       {
-        path: 'user',
-        element: <MyPage />,
-      },
-      {
-        path: 'community',
-        element: <CommunityPage />,
-      },
-      {
-        path: 'community/post/:postId',
-        element: <CommunityDetailPage />,
-      },
-      {
-        path: '/detail/:contentsid', // 도메인/detail/3
-        element: <DetailPage />,
+        path: '',
+        element: <TripLayout />,
+        children: [...TRIP_ROUTES],
       },
       {
-        path: '/mypage',
-        element: <MyPage />,
+        path: '',
+        element: <PlanLayout />,
+        children: [...PLAN_ROUTES],
+      },
+      {
+        path: '',
+        element: <DefaultLayout />,
         children: [
           {
-            path: 'scrapsection',
-            element: <ScrapSection />,
-          },
-          {
-            path: 'postssection',
-            element: <PostsSection />,
-          },
-          {
-            path: 'commentsection',
-            element: <CommentSection />,
-          },
-          {
-            path: 'likedSection',
-            element: <LikedSection />,
-          },
-          {
-            path: 'scheduleSection',
-            element: <ScheduleSection />,
-          },
-          {
-            path: 'update',
-            element: <UpdateUserSection />,
-          },
-          {
             path: '',
-            element: <Navigate to="scrapsection" replace />,
+            element: <MyPage />,
+            children: [...MYPAGE_ROUTES],
           },
         ],
-      },
-    ],
-  },
-  {
-    path: '/auth',
-    element: <AuthLayout />,
-    children: [
-      {
-        path: '',
-        element: <SigninPage />,
-      },
-      {
-        path: 'signup',
-        element: <SignupPage />,
-      },
-      {
-        path: '*',
-        element: <Navigate to="/auth" replace />,
-      },
-    ],
-  },
-  {
-    path: '/trip',
-    element: <TripLayout />,
-    children: [
-      {
-        path: 'add-trip',
-        element: <AddTripPage />,
-      },
-      {
-        path: 'my',
-        element: <MyTripPage />,
-      },
-    ],
-  },
-  {
-    path: '/plan',
-    element: <PlanLayout />,
-    children: [
-      {
-        path: '',
-        element: <AddPlanPage />,
       },
     ],
   },

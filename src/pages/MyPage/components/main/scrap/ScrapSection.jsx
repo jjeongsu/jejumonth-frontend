@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { deleteUserLikedPlaceApi, getAllUserLikedPlacesApi } from '../../../../../apis/supabaseApi';
 import ScrapPlaceCard from './ScrapPlaceCard';
+import { useSelector } from 'react-redux';
 
 const ScrapSection = () => {
   const [scrapsData, setScrapData] = useState([]);
+
+  const { userId } = useSelector(state => state.user);
 
   const categoryData = [
     { title: '관광지' },
@@ -15,11 +18,10 @@ const ScrapSection = () => {
   async function getData(userId) {
     const data = await getAllUserLikedPlacesApi(userId);
     setScrapData(data);
-    console.log(data);
   }
   useEffect(() => {
-    getData('test');
-  }, []);
+    getData(userId);
+  }, [userId]);
 
   const handleDeleteScrap = async (userId, contentId) => {
     console.log(`ID: ${contentId._id}의 스크랩 취소 버튼을 눌렀습니다.`);
@@ -42,11 +44,17 @@ const ScrapSection = () => {
 
   return (
     <>
+      <div>
+        <h2 className="text-24 text-gray-13 font-semibold">
+          <strong className="text-primary-0">username</strong> 님의 스크랩
+        </h2>
+      </div>
+
       {categoryData.map(category => {
         const filteredData = scrapsData.filter(item => item.category === category.title);
 
         return (
-          <div key={category.title} className="mb-40">
+          <div key={category.title} className="mb-40 mt-24">
             <h2 className="text-16">
               {category.title} <strong className="text-sub-accent-1">{filteredData.length}</strong>
             </h2>

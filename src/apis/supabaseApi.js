@@ -1,15 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import { formatDate } from '../utils/dateFormat';
 
-const supabaseUrl = 'https://pyoennlhqeomsqgypozz.supabase.co';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_BASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_SERVICE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function postTripApi(userId, dateInfo) {
   const startDate = formatDate(dateInfo[0].startDate);
   const endDate = formatDate(dateInfo[0].endDate);
-  console.log('Supabase Key:', supabaseKey); // Supabase 키 확인
-  console.log('Fetching liked places for user:', userId); // 요청 정보 확인
 
   const { data, error } = await supabase
     .from('Trips')
@@ -53,6 +51,16 @@ export async function getPlanApi(userId, tripId) {
 
 export async function deletePlanApi(planId) {
   const { data, error } = await supabase.from('Plans').delete().eq('id', planId).select();
+  return data ? data : error;
+}
+
+export async function deleteTripApi(userId, tripId) {
+  const { data, error } = await supabase
+    .from('Trips')
+    .delete()
+    .eq('trip_id', tripId)
+    .eq('user_id', userId)
+    .select();
   return data ? data : error;
 }
 

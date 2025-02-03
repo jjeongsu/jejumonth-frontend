@@ -2,31 +2,27 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { commentCreateApi } from '../../../apis/commentCreateApi';
-import { getCookie } from '../../../utils/cookie'; // 쿠키에서 토큰 가져오기
+import { getCookie } from '../../../utils/cookie'; 
 
 const CommentForm = ({ postId, onCommentCreated }) => {
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  // Redux에서 유저 정보 확인
   const user = useSelector((state) => state.user);
   const userId = user?.userId;
 
-  // 쿠키에서 JWT 토큰 가져오기
   const token = getCookie('jwt');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 로그인 확인
     if (!token || !userId) {
       alert('로그인이 필요합니다.');
-      navigate('/auth'); // 로그인 페이지로 이동
+      navigate('/auth'); 
       return;
     }
 
-    // 댓글 내용 확인
     if (!comment.trim()) {
       alert('댓글 내용을 입력해주세요.');
       return;
@@ -34,15 +30,13 @@ const CommentForm = ({ postId, onCommentCreated }) => {
 
     setIsSubmitting(true);
     try {
-      // 댓글 생성 API 호출
       const newComment = await commentCreateApi(postId, comment.trim(), token);
 
-      // 부모 컴포넌트로 새 댓글 전달
       if (onCommentCreated) {
         onCommentCreated(newComment);
       }
 
-      setComment(''); // 댓글 작성 후 초기화
+      setComment(''); 
     } catch (error) {
       console.error('댓글 생성 실패:', error.response?.data || error.message);
       alert(

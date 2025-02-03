@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import Header from '@components/common/Header';
-import Footer from '@components/common/Footer';
 
 const PlanLayout = () => {
   return (
@@ -13,12 +12,11 @@ const PlanLayout = () => {
           <Outlet />
         </div>
       </div>
-        <div className='w-full h-70'>
-            <Footer />
-        </div>
     </div>
 
   );
 };
 
 export default PlanLayout;
+
+          

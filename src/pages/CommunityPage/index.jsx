@@ -29,6 +29,7 @@ const CommunityPage = () => {
     const getChannels = async () => {
       try {
         const data = await fetchChannels();
+        console.log('게시글 데이터 업로드 : ', data);
         setChannels(data);
       } catch (error) {
         setError(error.message);
