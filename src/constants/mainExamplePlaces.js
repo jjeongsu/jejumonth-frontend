@@ -286,48 +286,48 @@ export const festivals = [
 export const themeTours = [
   {
     contentsid: "CNTS_200000000007340",
-    title: "제주의 시원한 여름을 닮은 독보적인 감성 <라탄의 매력 속으로>",
-    city: "제주",
+    title: "제주의 시원한 여름을 닮은 감성",
+    city: "제주특별자치도",
     description: "여름을 맞아 시원한 느낌의 라탄 소재 소품들이 인기를 끌고 있다. 제주 라탄의 특별함을 함께 구경해보자.",
     img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201808/07/b401d087-a1fe-4f48-969e-0bffa96cf4bf.jpg",
     category: "테마여행"
   },
   {
     contentsid: "CNTS_200000000011914",
-    title: "제주의 마을에서 즐기는 힐링투어 <제주로 로캉스 떠나요 2021>",
-    city: "제주",
+    title: "제주의 마을에서 즐기는 힐링투어",
+    city: "제주특별자치도",
     description: "제주관광공사가 운영하는 마을여행 프로그램 '제주로 로캉스 떠나요'를 통해 숨겨진 제주의 매력을 발견할 수 있다.",
     img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202108/31/31027bf7-0a38-4516-8374-aff551deff43.jpg",
     category: "테마여행"
   },
   {
     contentsid: "CNTS_200000000010946",
-    title: "따뜻하게 제주의 바다를 비추는 등대",
-    city: "제주",
+    title: "제주의 바다를 비추는 등대",
+    city: "제주특별자치도",
     description: "제주의 등대는 역사적 가치가 높으며, 관광자원으로 발전했다. 대표적인 등대들을 소개한다.",
     img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202012/10/1a040c10-c388-415a-b0eb-b588c8815990.JPG",
     category: "테마여행"
   },
   {
     contentsid: "CNTS_000000000021802",
-    title: "지질마을에서 체험하는 진짜 제주의 삶 <지오하우스>",
-    city: "제주",
+    title: "마을에서 체험하는 진짜 제주의 삶",
+    city: "제주특별자치도",
     description: "세계지질공원 제주도의 지질마을 지오하우스에서는 지질자원과 문화를 모티브로 한 체험을 할 수 있다.",
     img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/5dee1907-bbce-4ceb-ab8e-a6de1a304133.jpg",
     category: "테마여행"
   },
   {
     contentsid: "CNTS_200000000008992",
-    title: "로컬투어 마을참견 6 <해남 겸 서퍼 이훈탁 삼촌과 걷는 요망진 마을 사계리>",
-    city: "제주",
+    title: "로컬투어 마을참견",
+    city: "제주특별자치도",
     description: "제주 서남쪽에 위치한 사계리 마을에서 자연경관을 감상하며 해남 겸 서퍼 이훈탁 삼촌과의 마을 탐방을 경험해보자.",
     img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/201907/29/6e5fbc5e-8992-40d2-af78-337f82bc5525.jpg",
     category: "테마여행"
   },
   {
     contentsid: "CNTS_200000000010476",
-    title: "나홀로 떠나는 제주여행 <제주 서부 혼행 강추 POINT 5>",
-    city: "제주",
+    title: "나홀로 떠나는 제주여행",
+    city: "제주특별자치도",
     description: "자연과 문화가 함께하는 서부권 지역에서 자유로운 일정의 혼행을 경험해보자.",
     img: "https://api.cdn.visitjeju.net/photomng/thumbnailpath/202010/30/50d7e417-56c0-455a-ad0f-83f0a750e149.JPG",
     category: "테마여행"
