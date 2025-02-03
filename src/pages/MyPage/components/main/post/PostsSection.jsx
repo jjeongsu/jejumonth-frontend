@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import Post from './Post';
 import { getUserPost } from '../../../../../apis/getUserData';
 import { useSelector } from 'react-redux';
+import MyPageHeader from '../common/myPageHeader';
 
 const PostsSection = () => {
   const { userId } = useSelector(state => state.user);
@@ -23,11 +24,7 @@ const PostsSection = () => {
 
   return (
     <>
-      <div>
-        <h2 className="text-24 text-gray-13 font-semibold">
-          <strong className="text-primary-0">username</strong> 님이 작성한 게시글
-        </h2>
-      </div>
+      <MyPageHeader title={'작성한 게시글'}></MyPageHeader>
 
       <div className="mt-24">
         {isError && (

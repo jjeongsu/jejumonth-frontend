@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { deleteTripApi, getAllTripsApi } from '../../../../../apis/supabaseApi';
 import { Link } from 'react-router';
+import MyPageHeader from '../common/myPageHeader';
 
 const ScheduleSection = () => {
   const [scheduleData, setScheduleData] = useState([]);
@@ -47,12 +48,7 @@ const ScheduleSection = () => {
 
   return (
     <>
-      <div>
-        <h2 className="text-24 text-gray-13 font-semibold">
-          <strong className="text-primary-0">username</strong> 님이 여행 일정
-        </h2>
-      </div>
-
+      <MyPageHeader title={'여행 일정'}></MyPageHeader>
       <div className="mt-24">
         {scheduleData.length === 0 ? (
           <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">

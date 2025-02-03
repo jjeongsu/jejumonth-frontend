@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getUserLikedArticlesApi } from '../../../../../apis/supabaseApi';
 import LikedPost from './LikedPost';
 import { useSelector } from 'react-redux';
+import MyPageHeader from '../common/myPageHeader';
 
 const LikedSection = () => {
   const [likedPostsData, setLikePostsData] = useState([]);
@@ -19,11 +20,7 @@ const LikedSection = () => {
 
   return (
     <>
-      <div>
-        <h2 className="text-24 text-gray-13 font-semibold">
-          <strong className="text-primary-0">username</strong> 님이 좋아하는 게시글
-        </h2>
-      </div>
+      <MyPageHeader title={'좋아하는 게시글'}></MyPageHeader>
 
       <div className="mt-24">
         {likedPostsData.length === 0 && (

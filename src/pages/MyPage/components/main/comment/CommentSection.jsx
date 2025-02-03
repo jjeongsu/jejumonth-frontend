@@ -3,6 +3,7 @@ import { getUserData } from '../../../../../apis/getUserData';
 import Comment from './Comment';
 import { useSelector } from 'react-redux';
 import { commentDeleteApi } from '../../../../../apis/commentCreateApi';
+import MyPageHeader from '../common/myPageHeader';
 
 const CommentSection = () => {
   const { userId } = useSelector(state => state.user);
@@ -29,11 +30,7 @@ const CommentSection = () => {
   return (
     <>
       <article className="w-full">
-        <div>
-          <h2 className="text-24 text-gray-13 font-semibold">
-            <strong className="text-primary-0">username</strong> 님이 작성한 댓글
-          </h2>
-        </div>
+        <MyPageHeader title={'작성한 게시글'}></MyPageHeader>
 
         <div className="mt-24">
           {data?.comments?.length === 0 && (
