@@ -1,13 +1,14 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router';
-import { Button, ConfigProvider } from 'antd';
+import { Button, ConfigProvider, Modal } from 'antd';
 import Logo from '@public/icons/jejumonth-logo';
 
 const Header = () => {
   const { pathname } = useLocation();
   const userId = useSelector(state => state.user.userId);
   const headerType = pathname.split('/').at(1) === '' ? 'main' : 'etc';
+  const navigate = useNavigate();
 
   const TextColorVariation = {
     main: 'text-white',
@@ -17,6 +18,24 @@ const Header = () => {
   const ButtonVariation = {
     main: 'text-white bg-transparent ',
     etc: 'text-gray-7 ',
+  };
+
+  const handleTripClick = (event) => {
+    if (!userId) {
+      event.preventDefault();
+      Modal.warning({
+        title: '로그인이 필요합니다.',
+        content: '로그인하고 JejuMonth의 다양한 기능을 이용해 보세요.',
+        onOk() {
+          navigate("/auth");
+        },
+        okButtonProps: {
+          style: {
+            backgroundColor: '#FDBA74',
+          },
+        },
+      });
+    }
   };
 
   return (
@@ -37,6 +56,7 @@ const Header = () => {
           </NavLink>
           <NavLink
             to="/trip/add-trip"
+            onClick={handleTripClick}
             className="font-semibold text-15 hover:text-primary-2 transition duration-300 ease-in-out"
           >
             여행계획
