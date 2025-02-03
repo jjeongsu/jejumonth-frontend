@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import Form from '../../components/common/Form';
-import { postSignupApi } from '../../apis/user';
+import { postSignupApi } from '../../apis/userApi';
 import { setUser } from '../../redux/slices/user.slice';
 import { setCookie } from '../../utils/cookie';
 

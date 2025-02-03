@@ -9,6 +9,9 @@ import likesIcon from '../../../public/icons/likes.svg';
 import commentIcon from '../../../public/icons/comment.svg';
 
 const CommunityDetailPage = ({ posts }) => {
+  // 디버깅
+  console.log('커뮤니티 디테일에서 받는 posts', posts);
+
   const { postId } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -20,7 +23,7 @@ const CommunityDetailPage = ({ posts }) => {
 
   useEffect(() => {
     if (!post) {
-      const foundPost = posts.find((p) => p._id === postId);
+      const foundPost = posts.find(p => p._id === postId);
       if (foundPost) {
         setPost(foundPost);
         setComments(foundPost.comments || []);
@@ -39,7 +42,7 @@ const CommunityDetailPage = ({ posts }) => {
         setChannels(channelData);
 
         if (post && post.channel?._id) {
-          const foundChannel = channelData.find((c) => c._id === post.channel._id);
+          const foundChannel = channelData.find(c => c._id === post.channel._id);
           setChannel(foundChannel);
           setActiveTab(foundChannel?.name || '베스트');
         }
@@ -51,7 +54,7 @@ const CommunityDetailPage = ({ posts }) => {
     loadChannels();
   }, [post]);
 
-  const calculateTimeAgo = (date) => {
+  const calculateTimeAgo = date => {
     const now = new Date();
     const postTime = new Date(date);
     const diff = Math.floor((now - postTime) / (1000 * 60));
@@ -62,8 +65,8 @@ const CommunityDetailPage = ({ posts }) => {
     return `${days}일 전`;
   };
 
-  const handleCommentCreated = (newComment) => {
-    setComments((prevComments) => [...prevComments, newComment]);
+  const handleCommentCreated = newComment => {
+    setComments(prevComments => [...prevComments, newComment]);
   };
 
   if (!post) {
@@ -95,7 +98,7 @@ const CommunityDetailPage = ({ posts }) => {
       <ChannelTabs
         channels={channels}
         activeTab={activeTab}
-        setActiveTab={(tab) => {
+        setActiveTab={tab => {
           setActiveTab(tab);
           navigate(`/community?tab=${tab}`);
         }}

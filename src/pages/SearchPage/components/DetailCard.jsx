@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types';
+import WishListButton from './WishListButton';
+import { Link } from 'react-router';
 
-const DetailCard = ({ title, city, street, description, img, category }) => {
+const DetailCard = ({ title, city, street, description, img, category, contentid }) => {
+  const handleLinkClick = e => {
+    e.preventDefault();
+  };
   return (
-    <div className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13">
+    <Link
+      to={`/detail/${contentid.contentsid}`}
+      className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13"
+      onClick={handleLinkClick}
+    >
       <div className="flex-1 content-center">
         <div className="flex justify-between">
           <div>
@@ -11,10 +20,7 @@ const DetailCard = ({ title, city, street, description, img, category }) => {
             </span>
             <span className="text-gray-7 text-14">{`${city}  >  ${street}`}</span>
           </div>
-
-          <button>
-            <img src="/icons/scrap-icon.svg" className="w-21 h-19" alt="스크랩 아이콘" />
-          </button>
+          <WishListButton placeInfo={contentid} />
         </div>
         <h4 className="">{category}</h4>
         <p className="text-[#333333] mt-35 leading-[140%] text-14 font-normal line-clamp-2">
@@ -22,8 +28,7 @@ const DetailCard = ({ title, city, street, description, img, category }) => {
         </p>
       </div>
       <img src={img} alt="상세사진" className="rounded-10 w-344 h-171 ml-40" />
-      <button onClick={e => e}></button>
-    </div>
+    </Link>
   );
 };
 
@@ -36,4 +41,5 @@ DetailCard.propTypes = {
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  contentid: PropTypes.string.isRequired,
 };

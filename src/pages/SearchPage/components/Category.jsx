@@ -22,9 +22,9 @@ const Category = ({ title, category, searchTitle }) => {
 
   const getNavLinkClass = () => {
     if (isActivePath && category === '') {
-      return `text-base font-semibold text-left px-13  ${activeStyle}`;
+      return `text-base font-semibold text-left px-7 ${activeStyle}`;
     }
-    return `text-base font-semibold text-left px-13  ${isCategoryActive ? activeStyle : 'text-gray-6'}`;
+    return `text-base font-semibold text-left px-7  ${isCategoryActive ? activeStyle : 'text-gray-6'}`;
   };
 
   const url = (category, searchTitle) => {
@@ -33,6 +33,10 @@ const Category = ({ title, category, searchTitle }) => {
     if (searchTitle != null) {
       addparams += addparams ? `&title=${searchTitle}` : `?title=${searchTitle}`;
     }
+
+    // if(page !==null){
+    //   addparams += addparams ? `&page=${searchTitle}` : `?title=${searchTitle}`;
+    // }
 
     return addparams;
   };
@@ -57,6 +61,7 @@ Category.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   searchTitle: PropTypes.string.isRequired,
+  page: PropTypes.string.isRequired,
 };
 
 // const Category = ({ title, category }) => {
