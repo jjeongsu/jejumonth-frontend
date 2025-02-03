@@ -13,8 +13,7 @@ const UpdateUserSection = () => {
     state.user.userId,
   ]);
 
-  const { putUserFullNameMutation, putUserPasswordMutation, putUserImageMutation } =
-    useMutateUser(userId);
+  const { putUserPasswordMutation, putUserImageMutation } = useMutateUser(userId);
   // password, image, nickname
   const onSubmit = async data => {
     const { nickname, password, image } = data;

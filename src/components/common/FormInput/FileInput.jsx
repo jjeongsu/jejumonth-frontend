@@ -22,7 +22,7 @@ const FileInput = ({ props, watch, options }) => {
         <div className="w-79 h-79 rounded-full border-solid border-gray-7 border">
           <img
             src={imageSrc}
-            className="object-contain w-full h-full"
+            className="object-cover w-79 h-79 rounded-full"
             alt="profile-image-preview"
           ></img>
         </div>
