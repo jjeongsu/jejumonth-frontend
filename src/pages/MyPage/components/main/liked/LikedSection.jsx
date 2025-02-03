@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { getUserLikedArticlesApi } from '../../../../../apis/supabaseApi';
+import { getAllUserLikedArticlesApi } from '../../../../../apis/supabaseApi';
 import LikedPost from './LikedPost';
 import { useSelector } from 'react-redux';
 
 const LikedSection = () => {
   const [likedPostsData, setLikePostsData] = useState([]);
 
-  const { userId } = useSelector(state => state.user);
+  const userId = useSelector(state => state.user.userId);
 
   async function getData(userId) {
-    const data = await getUserLikedArticlesApi(userId);
+    const data = await getAllUserLikedArticlesApi(userId);
     setLikePostsData(data);
     console.log(data);
   }
