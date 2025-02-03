@@ -6,7 +6,7 @@ const FileInput = ({ props, watch, options }) => {
   const [imageSrc, setImageSrc] = useState(PNG_IMAGES.defaultProfile);
   const { name } = props;
   const File = watch(name);
-  console.log('file', File);
+
   useEffect(() => {
     if (File) {
       if (File[0]) {
