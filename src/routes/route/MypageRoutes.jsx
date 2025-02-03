@@ -17,7 +17,7 @@ const MYPAGE_ROUTES = [
     element: <PostsSection />,
   },
   {
-    path: PATH.myComent,
+    path: PATH.myComment,
     element: <CommentSection />,
   },
   {

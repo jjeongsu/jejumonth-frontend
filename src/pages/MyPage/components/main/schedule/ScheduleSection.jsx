@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { deleteTripApi, getAllTripsApi } from '../../../../../apis/supabaseApi';
+import { Link } from 'react-router';
 
 const ScheduleSection = () => {
   const [scheduleData, setScheduleData] = useState([]);
@@ -63,24 +64,26 @@ const ScheduleSection = () => {
               className="w-full pt-40 px-20 pb-50 border-t border-t-gray-5 border-solid"
               key={schedule.trip_id}
             >
-              <div className="w-full flex justify-between">
-                <div>
-                  <p className="text-gray-7">
-                    {schedule.start_date} ~ {schedule.end_date} 총 (
-                    {totalDay(schedule.start_date, schedule.end_date)}일)
-                  </p>
+              <Link to={`/trip/my?trip_id=${schedule.trip_id}`}>
+                <div className="w-full flex justify-between">
+                  <div>
+                    <p className="text-gray-7">
+                      {schedule.start_date} ~ {schedule.end_date} 총 (
+                      {totalDay(schedule.start_date, schedule.end_date)}일)
+                    </p>
+                  </div>
+                  <div
+                    className="cursor-pointer"
+                    onClick={() => deleteScheduleHandler(schedule.trip_id)}
+                  >
+                    <img src="/icons/delete.svg" alt="삭제 아이콘" />
+                  </div>
                 </div>
-                <div
-                  className="cursor-pointer"
-                  onClick={() => deleteScheduleHandler(schedule.trip_id)}
-                >
-                  <img src="/icons/delete.svg" alt="삭제 아이콘" />
-                </div>
-              </div>
 
-              <div>
-                <h3 className="text-24 text-gary-8 mt-16">{index + 1}번째 여행</h3>
-              </div>
+                <div>
+                  <h3 className="text-24 text-gary-8 mt-16">{index + 1}번째 여행</h3>
+                </div>
+              </Link>
             </div>
           ))
         )}

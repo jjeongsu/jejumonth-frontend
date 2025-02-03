@@ -43,3 +43,21 @@ export const deleteCommentApi = async (commentId) => {
     console.error('댓글 삭제 실패:', error.response?.data || error.message);
   }
 }
+
+export const commentDeleteApi = async commentID => {
+  const token = getCookie('jwt');
+
+  try {
+    const response = await axios.delete(`${serverURL}/comments/delete`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: { id: commentID },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('댓글 삭제 중 오류 발생:', error.response?.data || error.message);
+    throw error;
+  }
+};
