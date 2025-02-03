@@ -4,9 +4,16 @@ import LikesIcon from '../../icon/LikesIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 import { useState } from 'react';
 import { deletePostApi } from '../../../../../apis/postApi';
+import { useNavigate } from 'react-router';
 
 const Post = ({ postData }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const goToPostDetail = () => {
+    navigate(`/community/post/${postData._id}`, { state: { post: postData } });
+  };
 
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
