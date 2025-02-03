@@ -47,7 +47,7 @@ const CommunityPage = () => {
       setFilteredPosts(posts);
     } else {
       const lowercasedQuery = searchQuery.toLowerCase();
-      const newFilteredPosts = posts.filter((post) => {
+      const newFilteredPosts = posts.filter(post => {
         if (filter === '작성자') {
           return post.author?.fullName?.toLowerCase().includes(lowercasedQuery);
         } else if (filter === '내용') {
@@ -62,22 +62,23 @@ const CommunityPage = () => {
     setSearchParams({ tab: activeTab, search: searchQuery, filter });
   };
 
-  const handleTabChange = (tab) => {
+  const handleTabChange = tab => {
     setActiveTab(tab);
-    setSearchParams({ tab, page: 1 }); 
+    setSearchParams({ tab, page: 1 });
     navigate(`/community?tab=${tab}&page=1`);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = page => {
     setSearchParams({ tab: activeTab, page });
     navigate(`/community?tab=${activeTab}&page=${page}`);
   };
 
-  const handlePostSubmit = (newPost) => {
-    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  const handlePostSubmit = newPost => {
+    setPosts(prevPosts => [newPost, ...prevPosts]);
   };
 
-  const handlePostClick = (post) => {
+  const handlePostClick = post => {
+    console.log('클릭시 post', post);
     navigate(`/community/post/${post._id}`, { state: { post } });
   };
 
@@ -99,14 +100,8 @@ const CommunityPage = () => {
       )}
 
       <div className="flex items-center justify-end space-x-4 mt-6 mb-8">
-        <Dropdown
-          options={['작성자', '내용']}
-          onSelect={(selected) => setFilter(selected)}
-        />
-        <SearchBar
-          onSearch={(query) => setSearchQuery(query)}
-          onSearchSubmit={handleSearch}
-        />
+        <Dropdown options={['작성자', '내용']} onSelect={selected => setFilter(selected)} />
+        <SearchBar onSearch={query => setSearchQuery(query)} onSearchSubmit={handleSearch} />
       </div>
 
       <div className="mb-30 p-4">
