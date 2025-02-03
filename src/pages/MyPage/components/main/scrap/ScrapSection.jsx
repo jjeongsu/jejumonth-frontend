@@ -3,6 +3,7 @@ import { deleteUserLikedPlaceApi, getAllUserLikedPlacesApi } from '../../../../.
 import ScrapPlaceCard from './ScrapPlaceCard';
 import { useSelector } from 'react-redux';
 import MyPageHeader from '../common/myPageHeader';
+import NoContent from '../common/NoContent';
 
 const ScrapSection = () => {
   const [scrapsData, setScrapData] = useState([]);
@@ -67,9 +68,7 @@ const ScrapSection = () => {
                 ))}
               </div>
             ) : (
-              <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
-                <p className="text-gray-7">아직 스크랩한 컨텐츠가 없습니다!</p>
-              </div>
+              <NoContent>아직 스크랩한 컨텐츠가 없습니다!</NoContent>
             )}
           </div>
         );

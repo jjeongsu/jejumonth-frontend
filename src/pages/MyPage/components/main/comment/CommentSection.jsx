@@ -4,6 +4,7 @@ import Comment from './Comment';
 import { useSelector } from 'react-redux';
 import { commentDeleteApi } from '../../../../../apis/commentCreateApi';
 import MyPageHeader from '../common/myPageHeader';
+import NoContent from '../common/NoContent';
 
 const CommentSection = () => {
   const { userId } = useSelector(state => state.user);
@@ -33,19 +34,17 @@ const CommentSection = () => {
         <MyPageHeader title={'작성한 게시글'}></MyPageHeader>
 
         <div className="mt-24">
-          {data?.comments?.length === 0 && (
-            <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
-              <p className="text-gray-7">아직 작성한 댓글이 없습니다!</p>
-            </div>
-          )}
-          {data?.comments &&
+          {data?.comments.length > 0 ? (
             data.comments.map((comment, index) => (
               <Comment
                 key={index}
                 commentData={comment}
                 deleteEvent={() => mutate(comment._id)}
               ></Comment>
-            ))}
+            ))
+          ) : (
+            <NoContent>아직 작성한 댓글이 없습니다!</NoContent>
+          )}
         </div>
       </article>
     </>

@@ -4,6 +4,7 @@ import Post from './Post';
 import { getUserPost } from '../../../../../apis/getUserData';
 import { useSelector } from 'react-redux';
 import MyPageHeader from '../common/myPageHeader';
+import NoContent from '../common/NoContent';
 
 const PostsSection = () => {
   const { userId } = useSelector(state => state.user);
@@ -33,8 +34,11 @@ const PostsSection = () => {
           </p>
         )}
         {isLoading && <p className="py-32">로딩 중 ...</p>}
-        {!data && <p className="py-32">아직 작성한 게시글이 없습니다!</p>}
-        {data && data.map(post => <Post key={post._id} postData={post}></Post>)}
+        {data.length > 0 ? (
+          data && data.map(post => <Post key={post._id} postData={post}></Post>)
+        ) : (
+          <NoContent>아직 작성한 게시글이 없습니다!</NoContent>
+        )}
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { deleteTripApi, getAllTripsApi } from '../../../../../apis/supabaseApi';
 import { Link } from 'react-router';
 import MyPageHeader from '../common/myPageHeader';
+import NoContent from '../common/NoContent';
 
 const ScheduleSection = () => {
   const [scheduleData, setScheduleData] = useState([]);
@@ -50,11 +51,7 @@ const ScheduleSection = () => {
     <>
       <MyPageHeader title={'여행 일정'}></MyPageHeader>
       <div className="mt-24">
-        {scheduleData.length === 0 ? (
-          <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
-            <p className="text-gray-7">일정을 등록해주세요!</p>
-          </div>
-        ) : (
+        {scheduleData.length > 0 ? (
           scheduleData.map((schedule, index) => (
             <div
               className="w-full pt-40 px-20 pb-50 border-t border-t-gray-5 border-solid"
@@ -82,6 +79,8 @@ const ScheduleSection = () => {
               </Link>
             </div>
           ))
+        ) : (
+          <NoContent>일정을 등록해주세요!</NoContent>
         )}
       </div>
     </>
