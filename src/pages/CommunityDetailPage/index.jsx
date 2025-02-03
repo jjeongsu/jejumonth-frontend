@@ -11,14 +11,15 @@ import ChannelTabs from '../CommunityPage/components/ChannelList';
 import CommentList from './components/CommentList';
 import CommentForm from './components/CommentForm';
 import PostDelete from './components/PostDelete';
-import LikeButton from './components/LikeButton'; 
+import LikeButton from './components/LikeButton';
+import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '../../apis/supabaseApi.js';
 
 const CommunityDetailPage = () => {
   const { postId } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-
+  const userId = useSelector(state => state.user.userId);
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState(state?.post || null);
   const [channels, setChannels] = useState([]);
@@ -80,6 +81,40 @@ const CommunityDetailPage = () => {
       comments: [...(prevPost.comments || []), newComment],
     }));
   };
+
+  // 수파베이스 좋아요 기능
+  const handlePostLike = async () => {
+    if (post === null) {
+      alert('에러')
+      return;
+    }
+    const articleInfo = {
+      articleId : post._id,
+      title : post.title,
+      profileUrl : post.profileUrl, // TODO 사용자 프로필에 대한 데이터는 어디에?
+      likes : post.likes.length,
+      comments : post.comments.length,
+      time : post.createdAt,
+      channel : post.channel.name,
+    }
+    try {
+      const response = await postUserLikedArticleApi(userId, articleInfo);
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  // 수파베이스 좋아요 취소 기능
+  const handleDeleteLike = async () => {
+    const articleId = post._id;
+    try {
+      const response = await deleteUserLikedArticleApi(userId, articleId);
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
 
   if (!post) {
     return (
@@ -183,6 +218,8 @@ const CommunityDetailPage = () => {
             initialLikeCount={initialLikeCount}
             initialLiked={initialLiked}
             initialLikeId={initialLikeId}
+            handlePostLike={handlePostLike}
+            handleDeleteLike={handleDeleteLike}
           />
           <div className="flex items-center space-x-2">
             <img src={commentIcon} alt="댓글" className="w-25 h-23" />

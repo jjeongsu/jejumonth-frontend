@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 
 const MainCard = ({ title, city, street, img, onClick }) => {
+  const locationText = street ? `${city} > ${street}` : `${city}`;
+
   return (
     <div
       className="border-solid border border-[#E9E9E9] rounded-8 shadow-lg w-313 overflow-hidden [&:nth-child(3n)]:mr-0 cursor-pointer"
@@ -14,7 +16,7 @@ const MainCard = ({ title, city, street, img, onClick }) => {
             <img src="/icons/scrap-icon.svg" className="w-21 h-19" alt="스크랩 아이콘" />
           </button>
         </div>
-        <div className="text-14 text-gray-5">{`${city} > ${street}`}</div>
+        <div className="text-14 text-gray-5">{locationText}</div>
       </div>
     </div>
   );
