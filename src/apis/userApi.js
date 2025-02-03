@@ -1,4 +1,7 @@
 import devAPI from '../config/axiosDevConfig';
+import { serverURL } from './endpoints';
+import { getCookie } from '@/utils/cookie';
+import axios from 'axios';
 
 export const postSignupApi = async data => {
   const { email, password, nickname } = data;
@@ -30,9 +33,16 @@ export const postSigninApi = async data => {
 };
 
 export const postProfileImage = async data => {
-  try {
-    const response = await devAPI.post('/users/upload-photo', data);
+  const url = `${serverURL}/users/upload-photo`;
 
+  const jwt = getCookie('jwt');
+  try {
+    // 헤더 추가
+    const response = await axios.post(url, data, {
+      headers: {
+        Authorization: `bearer ${jwt}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error(error);
@@ -83,6 +93,17 @@ export const postLogoutUserApi = async () => {
     return response.data;
   } catch (error) {
     console.error(error);
+  }
+};
+
+// 유저정보 가져오기
+export const getUserApi = async userId => {
+  try {
+    const response = await devAPI.get(`/users/${userId}`);
+
+    return response.data;
+  } catch (error) {
+    console.error('유저의 데이터를 불러오지 못했습니다.', error);
   }
 };
 
