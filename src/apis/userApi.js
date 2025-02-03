@@ -87,3 +87,16 @@ export const postLogoutUserApi = async () => {
     console.error(error);
   }
 };
+
+// 팔로우 정보 가져오기
+export const getUserFollowersApi = async (userId) => {
+  try {
+    const response = await axios.get(`${serverURL}/users/${userId}`);
+    return {
+      followers: response.data.followers || [],
+      following: response.data.following || [],
+    }
+  } catch (error) {
+    console.error('사용자 팔로워 정보 가져오기 실패:', error);
+  }
+}
