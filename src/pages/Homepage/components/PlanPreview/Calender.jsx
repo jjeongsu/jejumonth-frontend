@@ -48,14 +48,14 @@ const Calender = ({ selectedDate, setSelectedDate, plans }) => {
   };
 
   return (
-    <div className="w-350 h-350">
+    <div className="w-350 h-350 mt-20">
       <div className="flex flex-col gap-10">
         <div className="flex items-center justify-between px-3">
           <div className="w-full flex place-content-between items-center">
             <button
               type="button"
               onClick={prevMonth}
-              className="w-30 h-30 flex justify-center items-center"
+              className="w-15 h-15 flex justify-center items-center"
             >
               <svg className="embla__button__svg" viewBox="0 0 532 532">
                 <path
@@ -72,7 +72,7 @@ const Calender = ({ selectedDate, setSelectedDate, plans }) => {
             <button
               type="button"
               onClick={nextMonth}
-              className="w-30 h-30 flex justify-center items-center"
+              className="w-15 h-15 flex justify-center items-center"
             >
               <svg className="embla__button__svg" viewBox="0 0 532 532">
                 <path

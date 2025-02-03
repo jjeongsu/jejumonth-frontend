@@ -7,6 +7,9 @@ import PlanDetailPreviewCard from './PlanDetailPreviewCard';
 import LoginCard from './LoginCard';
 import EmptyPlanCard from './EmptyPlanCard';
 import { Link } from 'react-router';
+import RECOMMAND_PLACE from './recommend';
+import RecommandDetailCard from './RecommandDetailCard';
+import getRandomNumber from '@/utils/randomNumber';
 
 const PlanPreview = () => {
   // 선택된 날짜, 선택된 일정
@@ -39,7 +42,7 @@ const PlanPreview = () => {
 
     return date1.getTime() === date2.getTime();
   });
-
+  console.log('selectedPaln', selectedPlan);
   return (
     <div className="w-full flex gap-20 my-100 ">
       {/* 캘린더 컴포넌트 */}
@@ -105,7 +108,7 @@ const PlanPreview = () => {
       )}
 
       {/* 세부일정 카드 컴포넌트 */}
-      {selectedPlan && (
+      {selectedPlan ? (
         <div className="max-w-270 flex justify-center border-l-4 ">
           <div className="px-15">
             <div className="font-semibold text-15 text-gray-9 mb-20">✅ 상세일정 확인하기</div>
@@ -113,6 +116,16 @@ const PlanPreview = () => {
               날짜, 시간, 장소를 한 번 더 체크해요!
             </span>
             <PlanDetailPreviewCard plan={selectedPlan} />
+          </div>
+        </div>
+      ) : (
+        <div className="max-w-270 flex justify-center border-l-4 ">
+          <div className="px-15">
+            <div className="font-semibold text-15 text-gray-9 mb-20">🍧 이런 메뉴는 어때요?</div>
+            <span className="font-regular text-12 text-gray-8 block mb-17 ">
+              추천하는 여행맛집을 일정에 추가해보세요
+            </span>
+            <RecommandDetailCard place={RECOMMAND_PLACE[getRandomNumber(RECOMMAND_PLACE.length)]} />
           </div>
         </div>
       )}

@@ -7,7 +7,6 @@ const HomePage = () => {
       <CarouselWrapper />
       <PlanPreview />
       <SearchPreview />
-      <div>다음 컴포넌트</div>
       <CommunityPreview />
     </div>
   );

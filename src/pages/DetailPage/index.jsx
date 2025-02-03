@@ -20,12 +20,12 @@ const DetailPage = () => {
         }
         const result = await getPlaceByExplanationApi(contentsid);
         if (!result) {
-          navigate('/search'); 
+          navigate('/search');
           return;
         }
         setData(result);
       } catch (error) {
-        console.error("api 호출 중 오류 :", error);
+        console.error('api 호출 중 오류 :', error);
         setError(error.message);
         navigate('/search'); // 에러 시 리다이렉트
       } finally {
@@ -42,6 +42,7 @@ const DetailPage = () => {
   if (!data) return <div className="text-center mt-20">데이터가 없습니다.</div>;
 
   // console.log('DetailPage loaded');
+
   return (
     <div>
       <Detail data={data} />

@@ -1,15 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 import { formatDate } from '../utils/dateFormat';
 
-const supabaseUrl = 'https://pyoennlhqeomsqgypozz.supabase.co';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_BASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_SERVICE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export async function postTripApi(userId, dateInfo) {
   const startDate = formatDate(dateInfo[0].startDate);
   const endDate = formatDate(dateInfo[0].endDate);
-  console.log('Supabase Key:', supabaseKey); // Supabase 키 확인
-  console.log('Fetching liked places for user:', userId); // 요청 정보 확인
 
   const { data, error } = await supabase
     .from('Trips')

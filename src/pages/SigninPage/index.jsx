@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import Form from '../../components/common/Form';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
-import { postSigninApi } from '../../apis/user';
+import { postSigninApi } from '../../apis/userApi';
 import { setUser } from '../../redux/slices/user.slice';
 import { setCookie } from '../../utils/cookie';
 // 로그인
