@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getAllTripsApi } from '../../../../apis/supabaseApi';
+import { deleteTripApi, getAllTripsApi } from '../../../../apis/supabaseApi';
 import { useState } from 'react';
 
 const ScheduleSection = () => {
@@ -9,9 +9,9 @@ const ScheduleSection = () => {
     const fetchScheduleData = async () => {
       try {
         const response = await getAllTripsApi('test');
+        console.log(response);
 
         setScheduleData(response);
-        console.log(response);
       } catch (error) {
         throw new Error(error);
       }
@@ -20,8 +20,16 @@ const ScheduleSection = () => {
     fetchScheduleData();
   }, []);
 
-  const deleteScheduleHandler = tripID => {
-    console.log(tripID);
+  const deleteScheduleHandler = async tripID => {
+    try {
+      console.log(tripID);
+      const response = await deleteTripApi('test', tripID);
+      setScheduleData(prevList => prevList.filter(schedule => schedule.trip_id !== tripID));
+
+      console.log(response);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const totalDay = (startDay, endDay) => {
