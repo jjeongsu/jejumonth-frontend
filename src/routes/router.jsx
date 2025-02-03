@@ -22,111 +22,127 @@ import CommentSection from '../pages/MyPage/components/main/comment/CommentSecti
 import LikedSection from '../pages/MyPage/components/main/liked/LikedSection.jsx';
 import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
 import UpdateUserSection from '../pages/MyPage/components/main/updateUserProfile/UpdateUserSection.jsx';
+import PrivateRoute from './route/PrivateRoute';
+import PublicRoute from './route/PublicRoute';
 
 // TODO  Error element 추가하기
 // TODO Path 상수처리하기
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '',
     element: <DefaultLayout />,
     children: [
       {
-        path: '',
+        path: '/',
         element: <HomePage />,
       },
-      { path: 'search', element: <SearchPage /> },
+      { path: '/search', element: <SearchPage /> },
       {
-        path: 'user',
-        element: <MyPage />,
-      },
-      {
-        path: 'community',
+        path: '/community',
         element: <CommunityPage />,
       },
       {
-        path: 'community/post/:postId',
+        path: '/community/post/:postId',
         element: <CommunityDetailPage />,
       },
       {
-        path: '/detail/:contentsid', // 도메인/detail/3
+        path: '/detail/:contentsid',
         element: <DetailPage />,
       },
+    ],
+  },
+  {
+    path: '',
+    element: <PublicRoute />,
+    children: [
       {
-        path: '/mypage',
-        element: <MyPage />,
+        path: '',
+        element: <AuthLayout />,
         children: [
           {
-            path: 'scrapsection',
-            element: <ScrapSection />,
+            path: '/auth',
+            element: <SigninPage />,
           },
           {
-            path: 'postssection',
-            element: <PostsSection />,
+            path: '/auth/signup',
+            element: <SignupPage />,
           },
           {
-            path: 'commentsection',
-            element: <CommentSection />,
-          },
-          {
-            path: 'likedSection',
-            element: <LikedSection />,
-          },
-          {
-            path: 'scheduleSection',
-            element: <ScheduleSection />,
-          },
-          {
-            path: 'update',
-            element: <UpdateUserSection />,
-          },
-          {
-            path: '',
-            element: <Navigate to="scrapsection" replace />,
+            path: '/auth/*',
+            element: <Navigate to="/auth" replace />,
           },
         ],
       },
     ],
   },
   {
-    path: '/auth',
-    element: <AuthLayout />,
+    path: '',
+    element: <PrivateRoute />,
     children: [
       {
         path: '',
-        element: <SigninPage />,
+        element: <TripLayout />,
+        children: [
+          {
+            path: '/trip/add-trip',
+            element: <AddTripPage />,
+          },
+          {
+            path: '/trip/my',
+            element: <MyTripPage />,
+          },
+        ],
       },
-      {
-        path: 'signup',
-        element: <SignupPage />,
-      },
-      {
-        path: '*',
-        element: <Navigate to="/auth" replace />,
-      },
-    ],
-  },
-  {
-    path: '/trip',
-    element: <TripLayout />,
-    children: [
-      {
-        path: 'add-trip',
-        element: <AddTripPage />,
-      },
-      {
-        path: 'my',
-        element: <MyTripPage />,
-      },
-    ],
-  },
-  {
-    path: '/plan',
-    element: <PlanLayout />,
-    children: [
       {
         path: '',
-        element: <AddPlanPage />,
+        element: <PlanLayout />,
+        children: [
+          {
+            path: '/plan',
+            element: <AddPlanPage />,
+          },
+        ],
+      },
+      {
+        path: '',
+        element: <DefaultLayout />,
+        children: [
+          {
+            path: '',
+            element: <MyPage />,
+            children: [
+              {
+                path: '/mypage/scrapsection',
+                element: <ScrapSection />,
+              },
+              {
+                path: '/mypage/postssection',
+                element: <PostsSection />,
+              },
+              {
+                path: '/mypage/commentsection',
+                element: <CommentSection />,
+              },
+              {
+                path: '/mypage/likedSection',
+                element: <LikedSection />,
+              },
+              {
+                path: '/mypage/scheduleSection',
+                element: <ScheduleSection />,
+              },
+              {
+                path: '/mypage/update',
+                element: <UpdateUserSection />,
+              },
+              {
+                path: '/mypage/*',
+                element: <Navigate to="/mypage/scrapsection" replace />,
+              },
+            ],
+          },
+        ],
       },
     ],
   },
