@@ -35,7 +35,7 @@ const DetailPage = () => {
     fetchData();
   }, [contentsid]);
 
-  if (loading) return <div className="text-center mt-20">로딩 중...</div>;
+  if (loading) return <div className="w-[962px] h-[1266px]"></div>;
 
   if (error) return <div className="text-center mt-20">에러 발생: {error}</div>;
 

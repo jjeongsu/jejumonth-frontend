@@ -18,5 +18,5 @@ export default function KaKaoMap({ latitude, longitude }) {
     marker.setMap(map);
   }, [latitude, longitude]);
 
-  return <div id="map" className="w-full h-[215px]"></div>;
+  return <div id="map" className="w-[474px] h-[215px]"></div>;
 }
