@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import WishListButton from './WishListButton';
+import { useNavigate } from 'react-router';
 
-const DetailSmallCard = ({ title, city, street, description, category }) => {
+const DetailSmallCard = ({ title, city, street, description, category, contentid }) => {
   const [color, setColor] = useState('');
   const [categoryName, setCategoryName] = useState('');
+  const navigate = useNavigate();
 
   const categoryMap = {
     c1: { color: 'bg-[#2481EC]', name: '관광지' },
@@ -18,7 +21,16 @@ const DetailSmallCard = ({ title, city, street, description, category }) => {
     const { color, name } = categoryMap[category] || { color: '', name: '' };
     setColor(color);
     setCategoryName(name);
-  }, [category]); // category가 변경될 때마다 실행
+  }, [category]);
+
+  const handleLinkClick = e => {
+    e.preventDefault();
+    navigate(`/detail/${contentid.contentsid}`);
+  };
+
+  // const handleLinkClick = e => {
+  //   e.preventDefault();
+  // };
   return (
     <>
       <table className="w-full ">
@@ -29,7 +41,10 @@ const DetailSmallCard = ({ title, city, street, description, category }) => {
           <col style={{ width: '55%' }}></col>
           <col style={{ width: '5%' }}></col>
         </colgroup>
-        <tr className="border-b  border-solid border-[#EEEEEE]">
+        <tr
+          onClick={handleLinkClick}
+          className="border-b  border-solid border-[#EEEEEE] cursor-pointer"
+        >
           <td className="py-14 px-8">
             <div
               className={`rounded-6 flex justify-center items-center  w-48 h-22 text-12 text-white line-clamp-1 ${color}`}
@@ -42,9 +57,7 @@ const DetailSmallCard = ({ title, city, street, description, category }) => {
           <td className=" px-8 line-clamp-1">{description}</td>
           <td className="py-14 px-8">
             {' '}
-            <button>
-              <img src="/icons/scrap-icon.svg" className="w-21 h-19" alt="스크랩 아이콘" />
-            </button>
+            <WishListButton placeInfo={contentid} />
           </td>
         </tr>
       </table>
@@ -61,4 +74,5 @@ DetailSmallCard.propTypes = {
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  contentid: PropTypes.string.isRequired,
 };

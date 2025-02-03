@@ -13,21 +13,16 @@ import { useQuery } from '@tanstack/react-query';
 import Category from './components/Category';
 import DetailMediumCard from './components/DetailMediumCard';
 import DetailSmallCard from './components/DetailSmallCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../redux/slices/user.slice';
+import SkeletonLayout from './components/skeletonLayout';
+// import Loading from './components/Loading';
 // import { calcPage } from '../../utils/pagination';
 // import axios from 'axios';
 // import { useState } from 'react';
 
-//TODO :
-
 //TODO : F5를 눌렀을시 초기 렌더링 값으로 돌아옴.
 const SearchPage = () => {
-  // 카테고리를 배열로 빼야할지... api 할때 고민해봐야할것같다.... 페이지 네이션도 같이해야할듯
-  // 1. api 가지고오기
-  // 2. 다 가져오면 페이지네이션 하기
-  // 3. click 버튼 만들기 (클릭에 따라 아이콘 바뀌기)
-  // 4. 검색 결과 만들기
-  // 5. 레이아웃 에 따라 정보 바뀌기
-
   // document.addEventListener('keydown', function (e) {
   //   if (e.key == 'F5') {
   //     e.preventDefault();
@@ -57,6 +52,33 @@ const SearchPage = () => {
 
   // const itemListLength = 5;
   // const pagesLength = 5;
+  const dispatch = useDispatch();
+  const { likesPlaces } = useSelector(state => state.wishlist);
+  const { isLoggedIn, userId } = useSelector(state => state.user);
+  console.log('로그인을 했냐?', isLoggedIn, 'userId', userId);
+  console.log('좋아하는 장소', likesPlaces);
+
+  // const isliked = Array.isArray(likesPlaces) && likesPlaces.some(place=>{
+  //   return place.content_id === placeInfo.contentsid
+  // })
+
+  // const handleWishListClick = ()=>{
+  //   if()
+  // }
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      console.log('Setting test user...');
+      dispatch(
+        setUser({
+          isLoggedIn: true,
+          userId: 'testUser123',
+          userEmail: 'test@example.com',
+          userFullName: 'Test User',
+        }),
+      );
+    }
+  }, [isLoggedIn, dispatch]);
 
   const categoryType = [
     { id: 1, title: '전체', category: '' },
@@ -103,6 +125,7 @@ const SearchPage = () => {
       limit: itemListLength,
       title: searchParams.get('title') || '',
       category: searchParams.get('category') || '', // 모든 정보를 뽑아 오려면 여기에다가 설정해두면 안될듯
+      cid: searchParams.get('cid') || '',
     };
     setQuery(updatedQuery);
     setSearchText(updatedQuery.title);
@@ -179,12 +202,7 @@ const SearchPage = () => {
 
     params = params.slice(0, -1);
     navigate(`${location.pathname}` + params);
-    console.log('!data.items', !data.items.length);
-
-    console.log('카테고리 얼만큼 길이가 잇느냐 ', data.items.contentscd?.value.length);
   };
-
-  console.log('이건 나와야해 ', searchData);
 
   useEffect(() => {
     if (layout === 'large-layout') {
@@ -197,18 +215,49 @@ const SearchPage = () => {
       setItemListLength(12);
       setPagesLength(12);
     }
+
+    const totalItems = searchData.length;
+    const totalPages = Math.ceil(totalItems / itemListLength);
+    if (query.page > totalPages) {
+      setQuery(prevQuery => ({
+        ...prevQuery,
+        page: totalPages,
+      }));
+    }
+
+    const nextInputQuery = { ...query };
+
+    const filteredQuery = {};
+    ['page', 'category', 'title'].forEach(key => {
+      if (nextInputQuery[key]) {
+        filteredQuery[key] = nextInputQuery[key];
+      }
+    });
+
+    let params = '?';
+    Object.entries(filteredQuery).forEach(([key, value]) => {
+      if (value) {
+        params += `${key}=${value}&`;
+      }
+    });
+
+    params = params.slice(0, -1);
+
+    navigate(`${location.pathname}` + params);
+  }, [layout, searchData, itemListLength]); // it
+
+  useEffect(() => {
     console.log('ItemListLength 변경됨:', itemListLength);
     console.log('PagesLength 변경됨:', pagesLength);
-  }, [layout]); // it
+
+    console.log('페이지 입니다~~~~~~~~~~~~', searchData.length / itemListLength);
+  }, [itemListLength, pagesLength]); // itemListLength, pagesLength가 바뀔 때마다 실행
 
   const handleLayoutChange = e => {
     console.log('레이아웃 안돌아간다.. ,', itemListLength, pagesLength);
 
-    // if (query.title) {
-    //   navigate(`${location.pathname}` + `?title=${title}`);
-    // }
     //TODO 조건 처리
-    const { layoutIcon } = e.target.dataset;
+    const { layoutIcon } = e.currentTarget.dataset;
     console.log(layoutIcon);
 
     const svgs = document.querySelectorAll('[data-layoutIcon]');
@@ -237,6 +286,7 @@ const SearchPage = () => {
             description={item.introduction || 'No description'}
             img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
             category={item.contentscd?.value}
+            contentid={item}
           />
         );
       case 'medium-layout':
@@ -249,6 +299,7 @@ const SearchPage = () => {
             street={item.region2cd?.label || 'No street'}
             img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
             category={item.contentscd?.value}
+            contentid={item}
           />
           // </div>
         );
@@ -262,6 +313,7 @@ const SearchPage = () => {
             description={item.introduction || 'No description'}
             img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
             category={item.contentscd?.value}
+            contentid={item}
           />
         );
       default:
@@ -296,7 +348,7 @@ const SearchPage = () => {
       <nav className="flex justify-between">
         <ul className="flex">
           {categoryType.map(item => (
-            <li key={item.id}>
+            <li key={item.id} className="mx-6">
               <Category
                 title={item.title}
                 category={item.category}
@@ -316,7 +368,9 @@ const SearchPage = () => {
               xmlns="http://www.w3.org/2000/svg"
               data-layoutIcon="large-layout"
               className="fill-gray-6  fill-gray-8"
-              onClick={handleLayoutChange}
+              onClick={event => {
+                handleLayoutChange(event, query.page);
+              }}
             >
               <path d="M15.8333 10.833H4.16667C3.25 10.833 2.5 11.583 2.5 12.4997V15.833C2.5 16.7497 3.25 17.4997 4.16667 17.4997H15.8333C16.75 17.4997 17.5 16.7497 17.5 15.833V12.4997C17.5 11.583 16.75 10.833 15.8333 10.833ZM15.8333 15.833H4.16667V12.4997H15.8333V15.833Z" />
               <path d="M15.8333 2.5H4.16667C3.25 2.5 2.5 3.25 2.5 4.16667V7.5C2.5 8.41667 3.25 9.16667 4.16667 9.16667H15.8333C16.75 9.16667 17.5 8.41667 17.5 7.5V4.16667C17.5 3.25 16.75 2.5 15.8333 2.5ZM15.8333 7.5H4.16667V4.16667H15.8333V7.5Z" />
@@ -331,7 +385,9 @@ const SearchPage = () => {
               xmlns="http://www.w3.org/2000/svg"
               data-layoutIcon="medium-layout"
               className="fill-gray-6"
-              onClick={handleLayoutChange}
+              onClick={event => {
+                handleLayoutChange(event, query.page);
+              }}
             >
               <path
                 d="M2.5 2.5V9.16667H9.16667V2.5H2.5ZM7.5 7.5H4.16667V4.16667H7.5V7.5ZM2.5 10.8333V17.5H9.16667V10.8333H2.5ZM7.5 15.8333H4.16667V12.5H7.5V15.8333ZM10.8333 2.5V9.16667H17.5V2.5H10.8333ZM15.8333 7.5H12.5V4.16667H15.8333V7.5ZM10.8333 10.8333V17.5H17.5V10.8333H10.8333ZM15.8333 15.8333H12.5V12.5H15.8333V15.8333Z"
@@ -348,7 +404,9 @@ const SearchPage = () => {
               xmlns="http://www.w3.org/2000/svg"
               data-layoutIcon="small-layout"
               className="fill-gray-6"
-              onClick={handleLayoutChange}
+              onClick={event => {
+                handleLayoutChange(event, query.page);
+              }}
             >
               <path d="M15 0H0V1.6667H15V0Z" />
               <path d="M15 13.333H0V14.9997H15V13.333Z" />
@@ -359,31 +417,19 @@ const SearchPage = () => {
       </nav>
       <main className="mt-22 ">
         <div className="min-h-658">
-          {data == undefined && (
-            <div className="text-50 text-gray-6 flex items-center justify-center min-h-658">
-              LOADING...
-            </div>
-          )}
-          {/* {!isLoading &&
-          currentPageList &&
-          Object.entries(currentPageList).map(([key, value]) => (
-            <DetailCard
-              key={key}
-              title={value?.title || '타이틀이 없습니다'}
-              city={value?.region1cd?.label || '지역'}
-              street={value?.region2cd?.label || '동'}
-              description={value?.introduction || '소개 글이 없습니다'}
-              img={value?.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
-            />
-          ))} */}
+          {data == undefined && <SkeletonLayout layout={layout} itemList={itemListLength} />}
           {
             <div className={layout == 'medium-layout' ? 'flex flex-wrap' : ''}>
-              {searchData.length > 0 ? (
-                !isLoading && currentPageList.map(item => renderCard(item))
-              ) : (
+              {!isLoading && searchData.length === 0 ? (
+                //  !isLoading &&currentPageList.map(item => renderCard(item))
                 <div className="w-full h-500 flex justify-center">
                   <img src="/icons/no_search_results.svg" className="w-200" />
                 </div>
+              ) : (
+                // <div className="w-full h-500 flex justify-center">
+                //   <img src="/icons/no_search_results.svg" className="w-200" />
+                // </div>
+                !isLoading && currentPageList.map(item => renderCard(item))
               )}
             </div>
           }
