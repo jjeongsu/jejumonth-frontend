@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getUserLikedArticlesApi } from '../../../../../apis/supabaseApi';
 import LikedPost from './LikedPost';
+import { useSelector } from 'react-redux';
 
 const LikedSection = () => {
   const [likedPostsData, setLikePostsData] = useState([]);
+
+  const { userId } = useSelector(state => state.user);
 
   async function getData(userId) {
     const data = await getUserLikedArticlesApi(userId);
@@ -11,8 +14,8 @@ const LikedSection = () => {
     console.log(data);
   }
   useEffect(() => {
-    getData('test');
-  }, []);
+    getData(userId);
+  }, [userId]);
 
   return (
     <>
@@ -28,7 +31,7 @@ const LikedSection = () => {
             <p className="text-gray-7">아직 좋아요를 누른 게시글이 없습니다!</p>
           </div>
         )}
-        {likedPostsData &&
+        {likedPostsData.length > 0 &&
           likedPostsData.map(post => <LikedPost key={post.article_id} postData={post}></LikedPost>)}
       </div>
     </>

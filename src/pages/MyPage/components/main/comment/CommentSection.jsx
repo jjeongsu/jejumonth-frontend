@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { getUserData } from '../../../../../apis/getUserData';
 import Comment from './Comment';
+import { useSelector } from 'react-redux';
 
 const CommentSection = () => {
-  const userId = '67908daee8a1e4349ed76ec2'; // 더미 데이터
+  const { userId } = useSelector(state => state.user);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['userData'],

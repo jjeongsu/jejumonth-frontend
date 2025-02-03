@@ -20,7 +20,7 @@ import ScrapSection from '../pages/MyPage/components/main/scrap/ScrapSection.jsx
 import PostsSection from '../pages/MyPage/components/main/post/PostsSection.jsx';
 import CommentSection from '../pages/MyPage/components/main/comment/CommentSection.jsx';
 import LikedSection from '../pages/MyPage/components/main/liked/LikedSection.jsx';
-import ScheduleSection from '../pages/MyPage/components/main/ScheduleSection.jsx';
+import ScheduleSection from '../pages/MyPage/components/main/schedule/ScheduleSection.jsx';
 import UpdateUserSection from '../pages/MyPage/components/main/updateUserProfile/UpdateUserSection.jsx';
 
 // TODO  Error element 추가하기
