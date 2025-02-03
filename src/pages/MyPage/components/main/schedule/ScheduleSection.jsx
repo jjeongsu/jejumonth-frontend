@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { deleteTripApi, getAllTripsApi } from '../../../../../apis/supabaseApi';
-import { Link } from 'react-router';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
+import Schedule from './Schedule';
 
 const ScheduleSection = () => {
   const [scheduleData, setScheduleData] = useState([]);
@@ -27,24 +27,18 @@ const ScheduleSection = () => {
   }, [userId]);
 
   const deleteScheduleHandler = async tripID => {
-    try {
-      console.log(tripID);
-      const response = await deleteTripApi(userId, tripID);
-      setScheduleData(prevList => prevList.filter(schedule => schedule.trip_id !== tripID));
+    const isChecked = window.confirm('정말로 여행 일정을 삭제하시겠습니까?');
 
-      console.log(response);
-    } catch (error) {
-      throw new Error(error);
+    if (isChecked) {
+      try {
+        await deleteTripApi(userId, tripID);
+        setScheduleData(prevList => prevList.filter(schedule => schedule.trip_id !== tripID));
+      } catch (error) {
+        throw new Error(error);
+      }
+    } else {
+      return;
     }
-  };
-
-  const totalDay = (startDay, endDay) => {
-    const startDate = new Date(startDay);
-    const endDate = new Date(endDay);
-
-    const totalDay = endDate.getTime() - startDate.getTime();
-
-    return totalDay / (1000 * 60 * 60 * 24) + 1;
   };
 
   return (
@@ -53,31 +47,12 @@ const ScheduleSection = () => {
       <div className="mt-24">
         {scheduleData.length > 0 ? (
           scheduleData.map((schedule, index) => (
-            <div
-              className="w-full pt-40 px-20 pb-50 border-t border-t-gray-5 border-solid"
+            <Schedule
               key={schedule.trip_id}
-            >
-              <Link to={`/trip/my?trip_id=${schedule.trip_id}`}>
-                <div className="w-full flex justify-between">
-                  <div>
-                    <p className="text-gray-7">
-                      {schedule.start_date} ~ {schedule.end_date} 총 (
-                      {totalDay(schedule.start_date, schedule.end_date)}일)
-                    </p>
-                  </div>
-                  <div
-                    className="cursor-pointer"
-                    onClick={() => deleteScheduleHandler(schedule.trip_id)}
-                  >
-                    <img src="/icons/delete.svg" alt="삭제 아이콘" />
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="text-24 text-gary-8 mt-16">{index + 1}번째 여행</h3>
-                </div>
-              </Link>
-            </div>
+              scheduleData={schedule}
+              index={index + 1}
+              tripDeleteEvent={deleteScheduleHandler}
+            ></Schedule>
           ))
         ) : (
           <NoContent>일정을 등록해주세요!</NoContent>

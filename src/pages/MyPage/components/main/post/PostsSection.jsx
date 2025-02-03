@@ -1,15 +1,17 @@
 // import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Post from './Post';
 import { getUserPost } from '../../../../../apis/getUserData';
 import { useSelector } from 'react-redux';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
+import { deletePostApi } from '../../../../../apis/postApi';
 
 const PostsSection = () => {
   const { userId } = useSelector(state => state.user);
+  const queryClient = useQueryClient();
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data } = useQuery({
     queryKey: [userId],
     queryFn: async ({ queryKey }) => {
       const [userId] = queryKey;
@@ -18,24 +20,37 @@ const PostsSection = () => {
     },
   });
 
-  if (isError) {
-    console.error('post 데이터를 받아오는 데 실패했습니다. 잠시 후 다시 시도해주세요', error);
-    throw new Error('post 데이터를 받아오는 데 실패했습니다. 잠시 후 다시 시도해주세요', error);
-  }
+  const deletePostMutation = useMutation({
+    mutationFn: async postId => {
+      await deletePostApi(postId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries([userId]);
+    },
+    onError: error => {
+      console.error('게시글 삭제에 실패했습니다.', error);
+      alert('게시글 삭제에 실패했습니다.');
+    },
+  });
+
+  const deletePostHandler = postId => {
+    const isChecked = window.confirm('정말로 삭제하시겠습니까?');
+
+    if (isChecked) {
+      deletePostMutation.mutate(postId);
+    }
+  };
 
   return (
     <>
       <MyPageHeader title={'작성한 게시글'}></MyPageHeader>
 
       <div className="mt-24">
-        {isError && (
-          <p className="py-32 text-red-500">
-            오류가 발생했습니다. 잠시 후 다시 시도해주세요. {error}
-          </p>
-        )}
-        {isLoading && <p className="py-32">로딩 중 ...</p>}
-        {data.length > 0 ? (
-          data && data.map(post => <Post key={post._id} postData={post}></Post>)
+        {data?.length > 0 ? (
+          data &&
+          data.map(post => (
+            <Post key={post._id} postData={post} postDeleteEvent={deletePostHandler}></Post>
+          ))
         ) : (
           <NoContent>아직 작성한 게시글이 없습니다!</NoContent>
         )}
