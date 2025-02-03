@@ -79,9 +79,7 @@ export const deleteUserApi = async userId => {
 export const postLogoutUserApi = async () => {
   try {
     const response = await devAPI.post('/logout');
-    if (response.error) {
-      return;
-    }
+
     return response.data;
   } catch (error) {
     console.error(error);
@@ -89,14 +87,14 @@ export const postLogoutUserApi = async () => {
 };
 
 // 팔로우 정보 가져오기
-export const getUserFollowersApi = async (userId) => {
+export const getUserFollowersApi = async userId => {
   try {
-    const response = await axios.get(`${serverURL}/users/${userId}`);
+    const response = await devAPI.get(`/users/${userId}`);
     return {
       followers: response.data.followers || [],
       following: response.data.following || [],
-    }
+    };
   } catch (error) {
     console.error('사용자 팔로워 정보 가져오기 실패:', error);
   }
-}
+};
