@@ -56,6 +56,16 @@ export async function deletePlanApi(planId) {
   return data ? data : error;
 }
 
+export async function deleteTripApi(userId, tripId) {
+  const { data, error } = await supabase
+    .from('Trips')
+    .delete()
+    .eq('trip_id', tripId)
+    .eq('user_id', userId)
+    .select();
+  return data ? data : error;
+}
+
 export async function updatePlanApi(planId, time) {
   const { data, error } = await supabase
     .from('Plans')
