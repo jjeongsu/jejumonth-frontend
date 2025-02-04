@@ -81,6 +81,40 @@ const CommunityDetailPage = () => {
     }));
   };
 
+  // 수파베이스 좋아요 기능
+  const handlePostLike = async () => {
+    if (post === null) {
+      alert('에러')
+      return;
+    }
+    const articleInfo = {
+      articleId : post._id,
+      title : post.title,
+      profileUrl : post.author.image,
+      likes : post.likes.length + 1,
+      comments : post.comments.length,
+      time : post.createdAt,
+      channel : post.channel.name,
+    }
+    try {
+      const response = await postUserLikedArticleApi(userId, articleInfo);
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
+  // 수파베이스 좋아요 취소 기능
+  const handleDeleteLike = async () => {
+    const articleId = post._id;
+    try {
+      const response = await deleteUserLikedArticleApi(userId, articleId);
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
   if (!post) {
     return (
       <div className="container mx-auto px-10 py-10">

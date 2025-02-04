@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { deleteUserLikedPlaceApi, getAllUserLikedPlacesApi } from '../../../../../apis/supabaseApi';
 import ScrapPlaceCard from './ScrapPlaceCard';
 import { useSelector } from 'react-redux';
+import MyPageHeader from '../common/myPageHeader';
+import NoContent from '../common/NoContent';
 
 const ScrapSection = () => {
   const [scrapsData, setScrapData] = useState([]);
@@ -44,11 +46,7 @@ const ScrapSection = () => {
 
   return (
     <>
-      <div>
-        <h2 className="text-24 text-gray-13 font-semibold">
-          <strong className="text-primary-0">username</strong> 님의 스크랩
-        </h2>
-      </div>
+      <MyPageHeader title={'스크랩'}></MyPageHeader>
 
       {categoryData.map(category => {
         const filteredData = scrapsData.filter(item => item.category === category.title);
@@ -70,9 +68,7 @@ const ScrapSection = () => {
                 ))}
               </div>
             ) : (
-              <div className="flex justify-center items-center w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
-                <p className="text-gray-7">아직 스크랩한 컨텐츠가 없습니다!</p>
-              </div>
+              <NoContent>아직 스크랩한 컨텐츠가 없습니다!</NoContent>
             )}
           </div>
         );
