@@ -14,10 +14,10 @@ const Hero = () => {
   };
   return (
     <div className="after:block after:h-350">
-      <div className="absolute top-0 w-962 h-546 -z-10">
-        <div className="relative w-full">
-          <img src={PNG_IMAGES.hero} className="w-full object-cover" />
-        </div>
+      <div className="absolute top-0 left-0 right-0 h-546 -z-10">
+        {/* <div className="relative w-full"> */}
+        <img src={PNG_IMAGES.hero} className="w-full h-[25rem] object-cover" />
+        {/* </div> */}
       </div>
       <div className="relative">
         <div className="absolute top-90 left-50  w-850">

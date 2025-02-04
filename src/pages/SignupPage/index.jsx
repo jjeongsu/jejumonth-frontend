@@ -150,7 +150,9 @@ const SignupPage = () => {
       <div className="w-full">
         <Form {...formProps}>
           <Button className="w-full">
-            <Link to="/">이전으로 돌아가기</Link>
+            <Link to="/" className="w-full h-full flex justify-center items-center">
+              이전으로 돌아가기
+            </Link>
           </Button>
         </Form>
       </div>
