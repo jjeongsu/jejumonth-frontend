@@ -3,7 +3,7 @@ import Logo from "@public/icons/jejumonth-logo"
 
 const Footer = () => {
   return (
-    <footer className=" w-full bg-gray-3 py-10 fixed bottom-0 left-0">
+    <footer className=" w-full bg-gray-3 py-10">
       <div className="container mx-auto flex flex-wrap justify-between px-6 p-30">
         <div className="w-full md:w-1/4 flex flex-col items-start justify-center">
           <Logo width={153} height={44} className="flex justify-center"/>

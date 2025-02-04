@@ -71,7 +71,7 @@ const DetailContent = ({ data }) => {
           <DummyIndex />
         </div>
       </section>
-      <div className="w-963 h-2 border-t-2 bg-gray-7 mt-10 mb-30"></div>
+      <div className="w-963 h-2 border-t-2 bg-gray-3 mt-10 mb-30"></div>
       <h2 className="text-30 font-bold text-neutral-800 mb-20">📍 About</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
@@ -79,19 +79,22 @@ const DetailContent = ({ data }) => {
             <KaKaoMap latitude={data?.latitude || 33.4896} longitude={data?.longitude || 126.5006} />
           </div>
         </div>
-        <div className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-3 p-10 items-center ml-10">
-        <div className="flex items-center gap-4">
-          <img src={Position} alt="position" className="w-20 h-20 mr-10" />
-          <p className="text-[17px] font-bold text-[#8c8c8c]">주소</p>
+        <div className="grid grid-cols-[0.5fr,1fr] gap-x-3 gap-y-3 p-10 items-center ml-10">
+          {/* 주소 정보 */}
+          <div className="flex items-center gap-4">
+            <img src={Position} alt="position" className="w-20 h-20 mr-8" />
+            <p className="text-[17px] font-bold text-[#8c8c8c]">주소</p>
+          </div>
+          <p className="text-[14px] text-[#434343] leading-6">{data.roadaddress}</p>
+
+          {/* 전화번호 정보 */}
+          <div className="flex items-center gap-4">
+            <img src={Phone} alt="phone" className="w-20 h-20 mr-8" />
+            <p className="text-[17px] font-bold text-[#8c8c8c]">전화번호</p>
+          </div>
+          <p className="text-[14px] text-[#434343] leading-6">{data.phoneno}</p>
         </div>
-        <p className="flex items-center text-[14px] text-[#434343] leading-6">{data.roadaddress}</p>
-        <div className="flex items-center gap-4">
-          <img src={Phone} alt="phone" className="w-20 h-20 mr-10" />
-          <p className="text-[17px] font-bold text-[#8c8c8c]">전화번호</p>
-        </div>
-        <p className="flex items-center text-[14px] text-[#434343] leading-6">{data.phoneno}</p>
       </div>
-    </div>
     </div>
   );
 };
