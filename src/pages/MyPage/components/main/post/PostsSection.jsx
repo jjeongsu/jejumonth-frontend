@@ -45,7 +45,7 @@ const PostsSection = () => {
     <>
       <MyPageHeader title={'작성한 게시글'}></MyPageHeader>
 
-      <div className="mt-24">
+      <div className="mt-24 [&>*:not(:first-child)]:border-t [&>*:not(:first-child)]:border-solid [&>*:not(:first-child)]:border-t-gray-5">
         {data?.length > 0 ? (
           data &&
           data.map(post => (

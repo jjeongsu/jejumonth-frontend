@@ -18,7 +18,7 @@ const Schedule = ({ scheduleData, index, tripDeleteEvent }) => {
   };
 
   return (
-    <div className="w-full pt-40 px-20 pb-50 border-b border-gray-5 border-solid">
+    <div className="w-full pt-40 px-20 pb-50 ">
       <Link to={`/trip/my?trip_id=${scheduleData.trip_id}`}>
         <div className="w-full flex justify-between">
           <div>
@@ -28,7 +28,7 @@ const Schedule = ({ scheduleData, index, tripDeleteEvent }) => {
             </p>
           </div>
           <div
-            className="cursor-pointer w-16"
+            className="cursor-pointer w-14"
             onClick={e => handleDeleteClick(e, scheduleData.trip_id)}
           >
             <img src="/icons/delete.svg" alt="삭제 아이콘" className="w-full" />
