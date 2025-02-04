@@ -2,7 +2,6 @@ import jejuAPI from '../config/axiosJejuConfig';
 import { calcPage } from '../utils/pagination';
 
 export async function getList(query, itemListLength, pagesLength) {
-  console.log('query', query);
   try {
     const response = await jejuAPI.get('', {
       params: {

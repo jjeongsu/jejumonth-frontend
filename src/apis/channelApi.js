@@ -1,14 +1,8 @@
-import axios from 'axios';
-import { serverURL } from './endpoints';
-
+import devAPI from '../config/axiosDevConfig';
 
 export const fetchChannels = async () => {
   try {
-    const response = await axios.get(`${serverURL}/channels`, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
+    const response = await devAPI.get('/channels');
     return response.data;
   } catch (error) {
     console.error('Failed to fetch channels:', error);
