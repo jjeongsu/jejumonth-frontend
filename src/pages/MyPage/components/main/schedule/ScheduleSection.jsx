@@ -44,7 +44,7 @@ const ScheduleSection = () => {
   return (
     <>
       <MyPageHeader title={'여행 일정'}></MyPageHeader>
-      <div className="mt-24">
+      <div className="mt-24 flex flex-col divide-y-1 divide-y ">
         {scheduleData.length > 0 ? (
           scheduleData.map((schedule, index) => (
             <Schedule
