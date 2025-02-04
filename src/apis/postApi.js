@@ -1,12 +1,8 @@
-import axios from 'axios';
-import { serverURL } from './endpoints';
-import { getCookie } from '../utils/cookie';
+import devAPI from '../config/axiosDevConfig';
 
 export const getPostByChannelApi = async channelId => {
   try {
-    const response = await axios.get(`${serverURL}/posts/channel/${channelId}`, {
-      headers: { Accept: 'application/json' },
-    });
+    const response = await devAPI.get(`/posts/channel/${channelId}`);
     return response.data;
   } catch (error) {
     console.error('채널 게시글 가져오기 실패:', error);
@@ -16,9 +12,7 @@ export const getPostByChannelApi = async channelId => {
 
 export const getChannelNameByIdApi = async channelId => {
   try {
-    const response = await axios.get(`${serverURL}/posts/channel/${channelId}`, {
-      headers: { Accept: 'application/json' },
-    });
+    const response = await devAPI.get(`/posts/channel/${channelId}`);
 
     if (response.data.name) {
       return response.data.name;
@@ -32,15 +26,8 @@ export const getChannelNameByIdApi = async channelId => {
 };
 
 export const deletePostApi = async contentID => {
-  const token = getCookie('jwt');
   try {
-    const response = await axios.delete(`${serverURL}/posts/delete`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      data: { id: contentID },
-    });
+    const response = await devAPI.delete(`/posts/delete`, { id: contentID });
     return response.data;
   } catch (error) {
     console.error('게시글 삭제에 실패했습니다.', error);
@@ -48,19 +35,18 @@ export const deletePostApi = async contentID => {
   }
 };
 
-
-export const updatePostApi = async (formData) => {
+export const updatePostApi = async formData => {
   const token = getCookie('jwt');
   try {
     const response = await axios.put(`${serverURL}/posts/update`, formData, {
       headers: {
-        Authorization: `Bearer ${token}`, 
-        'Content-Type': 'multipart/form-data', 
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
       },
     });
 
     console.log('게시글 업데이트 성공:', response.data);
-    return response.data; 
+    return response.data;
   } catch (error) {
     console.error('게시글 업데이트 실패:', error);
     throw new Error('게시글 업데이트에 실패했습니다.');

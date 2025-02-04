@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { serverURL } from './endpoints';
 import { getCookie } from '../utils/cookie';
 import devAPI from '../config/axiosDevConfig';
