@@ -80,7 +80,7 @@ const DetailContent = ({ data }) => {
           <div></div>
         </div>
       </section>
-      <div className="w-963 h-2 border-t-2 bg-gray-3 mt-10 mb-30"></div>
+      <div className="flex items-center w-963 h-2 border-t-2 bg-gray-3 mt-10 mb-30"></div>
       <h2 className="text-30 font-bold text-neutral-800 mb-20 flex items-center align-middle leading-none">📍 About</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
