@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { serverURL } from './endpoints';
 import { getCookie } from '../utils/cookie';
-
+import devAPI from '../config/axiosDevConfig';
 export const createPost = async formData => {
   const token = getCookie('jwt');
 
@@ -10,7 +9,7 @@ export const createPost = async formData => {
   }
 
   try {
-    const response = await axios.post(`${serverURL}/posts/create`, formData, {
+    const response = await devAPI.post(`${serverURL}/posts/create`, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',

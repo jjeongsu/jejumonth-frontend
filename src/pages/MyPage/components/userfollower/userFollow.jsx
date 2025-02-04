@@ -26,7 +26,7 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
 
   const followerSection = (
     <>
-      {followerData.length > 0 ? (
+      {followerData?.length > 0 ? (
         followerData.map((followerData, index) => (
           <div className="w-full" key={index}>
             <div className="flex items-center justify-between mt-28">
@@ -57,7 +57,7 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
 
   const followingSection = (
     <>
-      {followingData.length > 0 ? (
+      {followingData?.length > 0 ? (
         followingData.map((followingData, index) => (
           <div className="w-full" key={index}>
             <div className="flex items-center justify-between mt-28">

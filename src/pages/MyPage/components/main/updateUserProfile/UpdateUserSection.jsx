@@ -1,14 +1,19 @@
-import { useSelector } from 'react-redux';
 import Form from '@components/common/Form';
 import userUpdateInputs from './userUpdateInputs';
 import { putUserFullname, putUserPassword, postProfileImage } from '@/apis/userApi';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/slices/user.slice';
+import useMySelector from '@/hooks/useMySelector';
+import { useMutateUser } from '@/hooks/react-query/useMutateUser';
 
 const UpdateUserSection = () => {
-  const fullName = useSelector(state => state.user.userFullName);
   const dispatch = useDispatch();
+  const [userFullName, userId] = useMySelector(state => [
+    state.user.userFullName,
+    state.user.userId,
+  ]);
 
+  const { putUserPasswordMutation, putUserImageMutation } = useMutateUser(userId);
   // password, image, nickname
   const onSubmit = async data => {
     const { nickname, password, image } = data;
@@ -28,14 +33,13 @@ const UpdateUserSection = () => {
       );
     }
     if (password) {
-      const result = await putUserPassword({ password: password });
-      //console.log('비밀번호 수정 응답', result);
+      await putUserPasswordMutation.mutate({ password: password });
     }
-    if (image) {
+    if (image.length > 0) {
       const formData = new FormData();
       formData.append('isCover', false);
       formData.append('image', image[0]);
-      const result = await postProfileImage(formData);
+      await putUserImageMutation.mutate(formData);
       //console.log('image 보내기 응답', result);
     }
   };
@@ -49,7 +53,7 @@ const UpdateUserSection = () => {
 
   return (
     <div className=" w-full">
-      <h1 className="text-24 font-semibold">{fullName || '유저'}님의 회원정보</h1>
+      <h1 className="text-24 font-semibold">{userFullName || '유저'}님의 회원정보</h1>
       <div className="w-316">
         <Form {...formProps}></Form>
       </div>

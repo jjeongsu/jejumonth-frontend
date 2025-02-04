@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import WishListButton from './WishListButton';
-import { useNavigate } from 'react-router';
 
 const DetailSmallCard = ({ title, city, street, description, category, contentid }) => {
   const [color, setColor] = useState('');
   const [categoryName, setCategoryName] = useState('');
-  const navigate = useNavigate();
 
   const categoryMap = {
     c1: { color: 'bg-[#2481EC]', name: '관광지' },
@@ -23,14 +21,6 @@ const DetailSmallCard = ({ title, city, street, description, category, contentid
     setCategoryName(name);
   }, [category]);
 
-  const handleLinkClick = e => {
-    e.preventDefault();
-    navigate(`/detail/${contentid.contentsid}`);
-  };
-
-  // const handleLinkClick = e => {
-  //   e.preventDefault();
-  // };
   return (
     <>
       <table className="w-full ">
@@ -41,10 +31,7 @@ const DetailSmallCard = ({ title, city, street, description, category, contentid
           <col style={{ width: '55%' }}></col>
           <col style={{ width: '5%' }}></col>
         </colgroup>
-        <tr
-          onClick={handleLinkClick}
-          className="border-b  border-solid border-[#EEEEEE] cursor-pointer"
-        >
+        <tr className="border-b  border-solid border-[#EEEEEE] cursor-pointer">
           <td className="py-14 px-8">
             <div
               className={`rounded-6 flex justify-center items-center  w-48 h-22 text-12 text-white line-clamp-1 ${color}`}
@@ -52,9 +39,9 @@ const DetailSmallCard = ({ title, city, street, description, category, contentid
               {categoryName}
             </div>
           </td>
-          <td className="text-16 font-medium  px-8 line-clamp-1">{title}</td>
-          <td className="text-14 text-gray-7 py-14 px-8">{`${city} > ${street}`}</td>
-          <td className=" px-8 line-clamp-1">{description}</td>
+          <td className="text-16 font-medium  px-8 line-clamp-1 text-left">{title}</td>
+          <td className="text-14 text-gray-7 py-14 px-8 text-left">{`${city} > ${street}`}</td>
+          <td className=" px-8 line-clamp-1 text-left">{description}</td>
           <td className="py-14 px-8">
             {' '}
             <WishListButton placeInfo={contentid} />
