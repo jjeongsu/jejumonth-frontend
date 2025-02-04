@@ -50,7 +50,15 @@ const DetailContent = ({ data }) => {
           alt={data.repPhoto.descseo}
           className="w-full h-[270px] object-cover"
         />
-        <div className="absolute inset-0 flex items-end justify-start bg-black bg-opacity-40 p-22">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to right, rgba(75,198,222,0.72) -0.93%, rgba(102,102,102,0) 100%)",
+            boxShadow:
+              "-184px 124px 62px 0 rgba(0,0,0,0), -118px 79px 57px 0 rgba(0,0,0,0.01), -66px 45px 48px 0 rgba(0,0,0,0.05), -29px 20px 36px 0 rgba(0,0,0,0.09), -7px 5px 20px 0 rgba(0,0,0,0.1)",
+          }}
+        ></div>
+        <div className="absolute inset-0 flex items-end justify-start p-22">
           <h1 className="text-4xl font-bold text-white">{data.title}</h1>
         </div>
       </div>
