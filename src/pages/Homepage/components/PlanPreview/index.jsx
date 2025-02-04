@@ -14,6 +14,7 @@ import DetailCardWrapper from './DetailCardWrapper';
 import PlanPreviewItem from './PlanPreviewItem';
 import PATH from '@/constants/path';
 import CalenderWrapper from './CalenderWrapper';
+import PinnedItem from './PinnedItem';
 
 const PlanPreview = () => {
   // 선택된 날짜, 선택된 일정
@@ -68,17 +69,7 @@ const PlanPreview = () => {
               <EmptyPlanCard link={trips ? PATH.addTrip : PATH.mySchedule} />
             ) : (
               <div className="pl-20 max-h-350 overflow-y-scroll">
-                <div className="flex ">
-                  <div className="mr-15">
-                    <div className="w-2 h-full bg-gray-5 relative ">
-                      <div className="w-10 h-10 rounded-full  bg-sub-accent-2 absolute top-0 -left-4"></div>
-                    </div>
-                  </div>
-                  <div className="w-255 h-25 flex items-center mb-15 font-semibold text-15 text-gray-8 ">
-                    📍 이날의 제주도 여행{' '}
-                  </div>
-                </div>
-
+                <PinnedItem label="📍 이날의 제주도 여행" />
                 {newSelectedPlans.map((plan, index) => (
                   <PlanPreviewItem key={index}>
                     <PlanPreviewCard
