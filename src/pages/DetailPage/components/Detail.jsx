@@ -38,7 +38,8 @@ const DetailContent = ({ data }) => {
   return (
     <div className="font-sans max-w-963 mx-auto p-4 mb-80">
       <div className="mt-30 mb-20 text-[14px] text-gray-6">
-        {data.region1cd?.label || "제주"} &gt; {" "}
+        {data.region1cd?.label || "제주"}
+        <span className="text-[11px] text-gray-6">{" "}&gt;{" "}</span>
         <span className="text-[18px] text-gray-10">
           {data.region2cd?.label || "제주시"}
         </span>
@@ -55,7 +56,7 @@ const DetailContent = ({ data }) => {
             style={{
               background: "linear-gradient(to right, rgba(75,198,222,0.72) -0.93%, rgba(102,102,102,0) 100%)",
               boxShadow:
-                "-184px 124px 62px 0 rgba(0,0,0,0), -118px 79px 57px 0 rgba(0,0,0,0.01), -66px 45px 48px 0 rgba(0,0,0,0.05), -29px 20px 36px 0 rgba(0,0,0,0.09), -7px 5px 20px 0 rgba(0,0,0,0.1)",
+                '0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,10), 0px 13px 8px 0 rgba(97,97,97,), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)',
             }}
           ></div>
           <div className="absolute inset-0 flex items-end justify-start p-22">
