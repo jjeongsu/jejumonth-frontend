@@ -40,7 +40,7 @@ const SkeletonLayout = ({ layout, itemList }) => {
             ))}
         </div>
       )}
-      {layout == 'small-lauout' && (
+      {layout == 'small-layout' && (
         <div>
           {Array(itemList)
             .fill()
