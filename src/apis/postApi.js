@@ -1,11 +1,11 @@
 import devAPI from '../config/axiosDevConfig';
 import axios from 'axios';
-import { serverURL } from './endpoints';
+import { serverURL, POST } from './endpoints';
 import { getCookie } from '../utils/cookie';
 
 export const getPostByChannelApi = async channelId => {
   try {
-    const response = await devAPI.get(`/posts/channel/${channelId}`);
+    const response = await devAPI.get(POST.getChannelPost(channelId));
     return response.data;
   } catch (error) {
     console.error('채널 게시글 가져오기 실패:', error);
@@ -15,7 +15,7 @@ export const getPostByChannelApi = async channelId => {
 
 export const getChannelNameByIdApi = async channelId => {
   try {
-    const response = await devAPI.get(`/posts/channel/${channelId}`);
+    const response = await devAPI.get(POST.getChannelPost(channelId));
 
     if (response.data.name) {
       return response.data.name;
@@ -30,7 +30,7 @@ export const getChannelNameByIdApi = async channelId => {
 
 export const deletePostApi = async contentID => {
   try {
-    const response = await devAPI.delete(`/posts/delete`, {
+    const response = await devAPI.delete(POST.delete, {
       data: { id: contentID },
     });
     return response.data;
@@ -43,7 +43,7 @@ export const deletePostApi = async contentID => {
 export const updatePostApi = async formData => {
   const token = getCookie('jwt');
   try {
-    const response = await axios.put(`${serverURL}/posts/update`, formData, {
+    const response = await axios.put(POST.update, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
