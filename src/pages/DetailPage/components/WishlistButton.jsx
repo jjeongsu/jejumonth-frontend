@@ -7,7 +7,6 @@ import {
 } from '../../../redux/slices/wishlist.slice';
 import fullHeart from '/icons/fullHeart.svg';
 import emptyHeart from '/icons/emptyHeart.svg';
-import { setUser } from '../../../redux/slices/user.slice';
 
 const WishListButton = ({ placeInfo }) => {
   const dispatch = useDispatch();
