@@ -3,7 +3,6 @@ import KaKaoMap from "./Map";
 import DummyIndex from "./DummyIndex"
 import Phone from "/icons/phone.svg";
 import Position from "/icons/position.svg";
-import Introduction from "/icons/introduction.svg"
 import WishlistButton from "./WishlistButton";
 
 const Placeholder = () => (
@@ -50,7 +49,15 @@ const DetailContent = ({ data }) => {
           alt={data.repPhoto.descseo}
           className="w-full h-[270px] object-cover"
         />
-        <div className="absolute inset-0 flex items-end justify-start bg-black bg-opacity-40 p-22">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to right, rgba(75,198,222,0.72) -0.93%, rgba(102,102,102,0) 100%)",
+            boxShadow:
+              "-184px 124px 62px 0 rgba(0,0,0,0), -118px 79px 57px 0 rgba(0,0,0,0.01), -66px 45px 48px 0 rgba(0,0,0,0.05), -29px 20px 36px 0 rgba(0,0,0,0.09), -7px 5px 20px 0 rgba(0,0,0,0.1)",
+          }}
+        ></div>
+        <div className="absolute inset-0 flex items-end justify-start p-22">
           <h1 className="text-4xl font-bold text-white">{data.title}</h1>
         </div>
       </div>
@@ -69,10 +76,10 @@ const DetailContent = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <div className="w-full h-[215px] mt-10">
-            <KaKaoMap latitude={data?.latitude || 37.5665} longitude={data?.longitude || 126.9780} />
+            <KaKaoMap latitude={data?.latitude || 33.4896} longitude={data?.longitude || 126.5006} />
           </div>
         </div>
-        <div className="grid grid-cols-2 grid-rows-3 gap-x-2 gap-y-3 p-10 items-center">
+        <div className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-3 p-10 items-center ml-10">
         <div className="flex items-center gap-4">
           <img src={Position} alt="position" className="w-20 h-20 mr-10" />
           <p className="text-[17px] font-bold text-[#8c8c8c]">주소</p>
