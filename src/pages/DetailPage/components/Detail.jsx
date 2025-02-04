@@ -45,7 +45,12 @@ const DetailContent = ({ data }) => {
         </span>
       </div>
       <div className="flex justify-center">
-        <div className="relative rounded-15 overflow-hidden shadow-md mb-30 w-[963px]">
+        <div 
+          className="relative rounded-15 overflow-hidden shadow-md mb-30 w-[963px]"
+          style={{
+            boxShadow:
+                '0px 35px 10px 0 rgba(97,97,97,0.2), 0px 22px 9px 0 rgba(97,97,97,0.3), 0px 13px 8px 0 rgba(97,97,97,0.5), 0px 6px 6px 0 rgba(97,97,97,0.6), 0px 1px 3px 0 rgba(97,97,97,0.8)',
+          }}>
           <img
             src={data.repPhoto.photoid.imgpath}
             alt={data.repPhoto.descseo}
@@ -55,8 +60,6 @@ const DetailContent = ({ data }) => {
             className="absolute inset-0"
             style={{
               background: "linear-gradient(to right, rgba(75,198,222,0.72) -0.93%, rgba(102,102,102,0) 100%)",
-              boxShadow:
-                '0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,10), 0px 13px 8px 0 rgba(97,97,97,), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)',
             }}
           ></div>
           <div className="absolute inset-0 flex items-end justify-start p-22">

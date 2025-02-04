@@ -2,7 +2,7 @@ import React from "react";
 
 const DummyIndex = () => {
     return (
-        <div className="space-y-6 mt-20">
+        <div className="font-sans space-y-6 mt-20">
           <p className="text-base text-black leading-7">
             &nbsp;제주도는 대한민국의 대표적인 섬으로, 아름다운 자연 경관과 독특한 문화로 유명합니다.
             제주도는 한라산을 중심으로 다양한 관광 명소를 가지고 있으며, 세계자연유산으로 등재된 지역입니다.
