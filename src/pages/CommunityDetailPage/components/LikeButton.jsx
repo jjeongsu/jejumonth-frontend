@@ -9,6 +9,8 @@ const LikeButton = ({
   initialLikeCount = 0,
   initialLiked = false,
   initialLikeId = null,
+  handlePostLike,
+  handleDeleteLike,
 }) => {
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [liked, setLiked] = useState(initialLiked);
@@ -35,11 +37,13 @@ const LikeButton = ({
         setLikeId(data._id);
         setLikeCount(data.likeCount !== undefined ? data.likeCount : likeCount + 1);
         setLiked(true);
+        handlePostLike();
       } else {
         const data = await deleteLikesApi(likeId, token);
         setLikeCount(data.likeCount !== undefined ? data.likeCount : Math.max(likeCount - 1, 0));
         setLiked(false);
         setLikeId(null);
+        handleDeleteLike();
       }
     } catch (error) {
       console.error('좋아요 처리 실패:', error);
