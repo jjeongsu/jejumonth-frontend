@@ -76,7 +76,7 @@ const DetailContent = ({ data }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <div className="w-full h-[215px] mt-10">
-            <KaKaoMap latitude={data?.latitude || 37.5665} longitude={data?.longitude || 126.9780} />
+            <KaKaoMap latitude={data?.latitude || 33.4896} longitude={data?.longitude || 126.5006} />
           </div>
         </div>
         <div className="grid grid-cols-2 grid-rows-2 gap-x-2 gap-y-3 p-10 items-center ml-10">
