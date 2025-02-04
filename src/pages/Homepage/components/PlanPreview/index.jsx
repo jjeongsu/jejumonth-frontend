@@ -11,7 +11,8 @@ import RECOMMAND_PLACE from './recommend';
 import RecommandDetailCard from './RecommandDetailCard';
 import getRandomNumber from '@/utils/randomNumber';
 import DetailCardWrapper from './DetailCardWrapper';
-
+import PlanPreviewItem from './PlanPreviewItem';
+import PATH from '@/constants/path';
 const PlanPreview = () => {
   // 선택된 날짜, 선택된 일정
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -26,7 +27,7 @@ const PlanPreview = () => {
   }, [selectedDate]);
 
   // user가 가진 모든 trip과 trips별 plans를 조회
-  const { plans, isLoadingPlans } = useFetchAllUserPlans(userId);
+  const { trips, plans, isLoadingPlans } = useFetchAllUserPlans(userId);
 
   if (isLoadingPlans) {
     return <div> 여행 계획 정보를 불러오는 중.. 호잇</div>; //TODO skeleton UI로 대체하기
@@ -67,7 +68,7 @@ const PlanPreview = () => {
             {userId === null ? (
               <LoginCard />
             ) : newSelectedPlans.length === 0 ? (
-              <EmptyPlanCard />
+              <EmptyPlanCard link={trips ? PATH.addTrip : PATH.mySchedule} />
             ) : (
               <div className="pl-20 max-h-350 overflow-y-scroll">
                 <div className="flex ">
@@ -82,19 +83,14 @@ const PlanPreview = () => {
                 </div>
 
                 {newSelectedPlans.map((plan, index) => (
-                  <div key={index} className="flex">
-                    <div className="mr-15">
-                      <div className="w-2 h-full bg-gray-5 relative ">
-                        <div className="w-15 h-15 rounded-full border-4 border-solid border-sub-accent-2 bg-white absolute top-17 -left-7"></div>
-                      </div>
-                    </div>
+                  <PlanPreviewItem key={index}>
                     <PlanPreviewCard
                       plan={plan}
                       handleClick={() => {
                         setSelectedPlan(plan);
                       }}
                     />
-                  </div>
+                  </PlanPreviewItem>
                 ))}
                 <Link
                   className="w-214 h-30 flex items-center justify-center rounded-full border-solid border-2 border-sub-accent-2 mx-auto mt-30 text-gray-9 hover:bg-sub-accent-1/10"
