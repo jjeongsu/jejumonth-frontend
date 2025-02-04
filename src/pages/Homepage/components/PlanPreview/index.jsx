@@ -13,6 +13,8 @@ import getRandomNumber from '@/utils/randomNumber';
 import DetailCardWrapper from './DetailCardWrapper';
 import PlanPreviewItem from './PlanPreviewItem';
 import PATH from '@/constants/path';
+import CalenderWrapper from './CalenderWrapper';
+
 const PlanPreview = () => {
   // 선택된 날짜, 선택된 일정
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -48,14 +50,9 @@ const PlanPreview = () => {
   return (
     <div className="w-full flex gap-20 my-100 ">
       {/* 캘린더 컴포넌트 */}
-      <div className="min-w-380">
-        <div className="flex flex-col justify-center items-center">
-          <div className="font-semibold text-15 w-350 text-gray-9 mb-20 flex justify-start">
-            🗓️ 날짜를 선택해 주세요
-          </div>
-          <Calender selectedDate={selectedDate} setSelectedDate={setSelectedDate} plans={plans} />
-        </div>
-      </div>
+      <CalenderWrapper>
+        <Calender selectedDate={selectedDate} setSelectedDate={setSelectedDate} plans={plans} />
+      </CalenderWrapper>
 
       {/* 날짜별 일정 보여주는 컴포넌트 */}
       {selectedDate && (
