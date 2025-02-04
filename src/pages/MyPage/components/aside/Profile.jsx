@@ -2,8 +2,9 @@ import useMySelector from '@/hooks/useMySelector';
 import useFetchUser from '@/hooks/react-query/useFetchUser';
 import PNG_IMAGES from '@public/images/image';
 import { NavLink } from 'react-router';
+import PropTypes from 'prop-types';
 
-const Profile = () => {
+const Profile = ({ showFollowrModalEvent }) => {
   const [userFullName, userId] = useMySelector(state => [
     state.user.userFullName,
     state.user.userId,
@@ -23,7 +24,10 @@ const Profile = () => {
           alt="사용자 프로필 사진"
         />
         <p className="text-16 mt-8 font-semibold text-center">{userFullName}</p>
-        <div className="flex justify-around w-[55%] mt-8 ">
+        <div
+          className="flex justify-around w-[55%] mt-8 cursor-pointer"
+          onClick={showFollowrModalEvent}
+        >
           <div>
             <p className="text-gray-7 text-10">
               팔로잉 <span className="text-sub-accent-1 text-10">{userData.following.length}</span>
@@ -47,3 +51,7 @@ const Profile = () => {
 };
 
 export default Profile;
+
+Profile.propTypes = {
+  showFollowrModalEvent: PropTypes.func.isRequired,
+};

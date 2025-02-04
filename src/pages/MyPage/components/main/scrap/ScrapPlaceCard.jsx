@@ -13,7 +13,7 @@ const ScrapPlaceCard = ({ scrapData, onDelete }) => {
     <>
       {scrapData && (
         <Link to={`/detail/${scrapData.content_id}`}>
-          <div className="w-150 h-140 bg-blue-50 rounded-8 relative">
+          <div className="w-150 h-140 rounded-8 relative">
             <div className="scrap-icon absolute top-[5%] right-[5%]">
               <div onClick={handleDeleteClick} className="cursor-pointer">
                 <ScrapIcon size={18} scrapped={true}></ScrapIcon>
