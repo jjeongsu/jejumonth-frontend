@@ -3,7 +3,6 @@ import KaKaoMap from "./Map";
 import DummyIndex from "./DummyIndex"
 import Phone from "/icons/phone.svg";
 import Position from "/icons/position.svg";
-import Introduction from "/icons/introduction.svg"
 import WishlistButton from "./WishlistButton";
 
 const Placeholder = () => (
