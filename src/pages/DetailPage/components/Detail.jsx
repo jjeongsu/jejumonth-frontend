@@ -80,19 +80,16 @@ const DetailContent = ({ data }) => {
           </div>
         </div>
         <div className="grid grid-cols-[0.5fr,1fr] gap-x-3 gap-y-3 p-10 items-center ml-10">
-          {/* 주소 정보 */}
           <div className="flex items-center gap-4">
             <img src={Position} alt="position" className="w-20 h-20 mr-8" />
             <p className="text-[17px] font-bold text-[#8c8c8c]">주소</p>
           </div>
-          <p className="text-[14px] text-[#434343] leading-6">{data.roadaddress}</p>
-
-          {/* 전화번호 정보 */}
+          <p className="text-[14px] text-[#434343] leading-6">{data.roadaddress || "제주특별자치도 제주시 문연로 6"}</p>
           <div className="flex items-center gap-4">
             <img src={Phone} alt="phone" className="w-20 h-20 mr-8" />
             <p className="text-[17px] font-bold text-[#8c8c8c]">전화번호</p>
           </div>
-          <p className="text-[14px] text-[#434343] leading-6">{data.phoneno}</p>
+          <p className="text-[14px] text-[#434343] leading-6">{data.phoneno || "064-120"}</p>
         </div>
       </div>
     </div>
