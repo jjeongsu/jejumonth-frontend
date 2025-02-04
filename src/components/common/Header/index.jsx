@@ -70,7 +70,7 @@ const Header = () => {
                   variant="text"
                   className={`font-bold w-100 h-34 rounded-4 ${ButtonVariation[headerType]} `}
                 >
-                  mypage
+                  Mypage
                 </Button>
               </ConfigProvider>
             </NavLink>
@@ -81,7 +81,7 @@ const Header = () => {
                   variant="text"
                   className={`font-bold w-100 h-34 rounded-4 ${ButtonVariation[headerType]} `}
                 >
-                  login
+                  Login
                 </Button>
               </ConfigProvider>
             </NavLink>
