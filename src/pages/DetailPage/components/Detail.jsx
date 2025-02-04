@@ -36,43 +36,52 @@ const DetailContent = ({ data }) => {
   if (!data) return <Placeholder />;
 
   return (
-    <div className="max-w-963 mx-auto p-4 mb-100">
-      <div className="mb-10 text-m text-gray-7">
+    <div className="font-sans max-w-963 mx-auto p-4 mb-80">
+      <div className="mt-30 mb-20 text-[14px] text-gray-6">
         {data.region1cd?.label || "제주"} &gt; {" "}
-        <span className="text-lg text-gray-10">
+        <span className="text-[18px] text-gray-10">
           {data.region2cd?.label || "제주시"}
         </span>
       </div>
-      <div className="relative rounded-15 overflow-hidden shadow-md mb-30">
-        <img
-          src={data.repPhoto.photoid.imgpath}
-          alt={data.repPhoto.descseo}
-          className="w-full h-[270px] object-cover"
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to right, rgba(75,198,222,0.72) -0.93%, rgba(102,102,102,0) 100%)",
-            boxShadow:
-              "-184px 124px 62px 0 rgba(0,0,0,0), -118px 79px 57px 0 rgba(0,0,0,0.01), -66px 45px 48px 0 rgba(0,0,0,0.05), -29px 20px 36px 0 rgba(0,0,0,0.09), -7px 5px 20px 0 rgba(0,0,0,0.1)",
-          }}
-        ></div>
-        <div className="absolute inset-0 flex items-end justify-start p-22">
-          <h1 className="text-4xl font-bold text-white">{data.title}</h1>
+      <div className="flex justify-center">
+        <div className="relative rounded-15 overflow-hidden shadow-md mb-30 w-[963px]">
+          <img
+            src={data.repPhoto.photoid.imgpath}
+            alt={data.repPhoto.descseo}
+            className="w-full h-[270px] object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to right, rgba(75,198,222,0.72) -0.93%, rgba(102,102,102,0) 100%)",
+              boxShadow:
+                "-184px 124px 62px 0 rgba(0,0,0,0), -118px 79px 57px 0 rgba(0,0,0,0.01), -66px 45px 48px 0 rgba(0,0,0,0.05), -29px 20px 36px 0 rgba(0,0,0,0.09), -7px 5px 20px 0 rgba(0,0,0,0.1)",
+            }}
+          ></div>
+          <div className="absolute inset-0 flex items-end justify-start p-22">
+            <h1 className="text-4xl font-bold text-white">{data.title}</h1>
+          </div>
         </div>
       </div>
       <section>
-        <div className="flex items-end justify-between mt-11">
-          <h2 className="text-30 font-bold text-neutral-800">🔎 Info</h2>
-          <WishlistButton placeInfo={data} />
+        <div className="flex items-center justify-between mt-11">
+            <h2 className="text-30 font-bold text-neutral-800 flex items-center align-middle leading-none pt-30">🔎 Info</h2>
+            <div className="flex items-center h-full">
+              <WishlistButton placeInfo={data} />
+            </div>
         </div>
-        <div className="p-20">
-          <p className="text-lg font-bold text-neutral-800 mt-6">{data.introduction || "천혜의 자연과 감성 여행지 🌿🏝️"}</p>
-          <DummyIndex />
+        <div className="p-20 grid grid-cols-[1fr,0.43fr] gap-x-6">
+          <div>
+            <p className="text-lg font-bold text-neutral-800 mt-6">
+              {data.introduction || "천혜의 자연과 감성 여행지 🌿🏝️"}
+            </p>
+            <DummyIndex />
+          </div>
+          <div></div>
         </div>
       </section>
       <div className="w-963 h-2 border-t-2 bg-gray-3 mt-10 mb-30"></div>
-      <h2 className="text-30 font-bold text-neutral-800 mb-20">📍 About</h2>
+      <h2 className="text-30 font-bold text-neutral-800 mb-20 flex items-center align-middle leading-none">📍 About</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
           <div className="w-full h-[215px] mt-10">

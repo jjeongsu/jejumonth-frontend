@@ -72,7 +72,7 @@ const WishListButton = ({ placeInfo }) => {
       {isLoggedIn && (
         <button
           onClick={handleWishlistClick}
-          className="w-[110px] h-[45px] rounded-[25px] bg-neutral-100 flex items-center justify-center gap-2 shadow-md mr-20 mt-30"
+          className="w-[110px] h-[45px] rounded-[25px] bg-neutral-100 flex items-center justify-center gap-4 shadow-md mr-20 mt-30"
           style={{
             boxShadow:
               '0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,0.01), 0px 13px 8px 0 rgba(97,97,97,0.05), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)',
@@ -81,9 +81,9 @@ const WishListButton = ({ placeInfo }) => {
           <img
             src={isLiked ? fullHeart : emptyHeart}
             alt={isLiked ? 'Full Heart' : 'Empty Heart'}
-            className="w-20 h-20"
+            className="w-16 h-16 mr-5"
           />
-          <p className="text-sm text-[#595959]">{isLiked ? '찜제거' : '찜하기'}</p>
+          <p className="text-sm text-[#595959]">{isLiked ? '찜해제' : '찜하기'}</p>
         </button>
       )}
     </>
