@@ -23,7 +23,7 @@ const ProfileCard = ({ user, onClose }) => {
           style={{ width: '70px', height: '70px' }}
         >
           <ProfileImage
-            src={user.author?.profileImage} 
+            src={user.author?.image} 
             alt="프로필 이미지"
             className="w-full h-full object-cover"
           />
@@ -36,11 +36,11 @@ const ProfileCard = ({ user, onClose }) => {
         <div className="flex justify-between mt-10 text-center text-gray-700 w-full px-60">
           <div className="flex flex-col items-center">
             <p className="text-sm">팔로잉</p>
-            <p className="text-sm">{Array.isArray(user.following) ? user.following.length : 0}</p>
+            <p className="text-sm text-sub-accent-1">{Array.isArray(user.following) ? user.following.length : 0}</p>
           </div>
           <div className="flex flex-col items-center">
             <p className="text-sm">팔로워</p>
-            <p className="text-sm">{Array.isArray(user.followers) ? user.followers.length : 0}</p>
+            <p className="text-sm text-sub-accent-1">{Array.isArray(user.followers) ? user.followers.length : 0}</p>
           </div>
         </div>
       </div>
