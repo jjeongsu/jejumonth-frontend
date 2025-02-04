@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProfileCard from "./ProfileCard";
-import { getUserFollowersApi } from "../../../apis/user";
+import { getUserFollowersApi } from "../../../apis/userApi";
 
 const ParentComponent = ({ userId }) => {
   const [userData, setUserData] = useState(null);

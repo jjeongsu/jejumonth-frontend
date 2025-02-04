@@ -6,8 +6,17 @@ import ScheduleIcon from '../icon/ScheduleIcon';
 import { NavLink } from 'react-router';
 import ButtonWrapper from './ButtonWrapper';
 import Profile from './Profile';
+import { useSelector } from 'react-redux';
+import { useQuery } from '@tanstack/react-query';
+import { getUserData } from '../../../../apis/getUserData';
+
+import { useState } from 'react';
+import UserFollow from '../userfollower/userFollow';
 
 const Aside = () => {
+  const { userId, userFullName } = useSelector(state => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navData = [
     { icon: ScrapIcon, title: '내 스크랩', link: '/mypage/scrapsection' },
     { icon: ScheduleIcon, title: '내 여행 일정', link: '/mypage/scheduleSection' },
@@ -16,38 +25,63 @@ const Aside = () => {
     { icon: MessageIcon, title: '작성한 댓글', link: '/mypage/commentsection' },
   ];
 
-  return (
-    <aside className="w-234 h-auto">
-      <Profile />
-      <nav className="w-full pt-20">
-        <ul className="w-full flex flex-col items-center gap-14">
-          {navData.map((item, index) => (
-            <li
-              key={item.title}
-              className={`${index === 1 ? 'border-b border-solid border-b-gray-5' : ''}  w-full py-10`}
-            >
-              <NavLink
-                to={item.link}
-                className={({ isActive }) =>
-                  `w-[80%] m-auto text-center flex justify-evenly items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <item.icon active={isActive} />
+  const { data } = useQuery({
+    queryKey: ['userData', userId],
+    queryFn: async () => await getUserData(userId),
+  });
+  console.log(data);
 
-                    <p className={`text-14 ${isActive ? 'text-sub-accent-1' : 'text-gray-10'}`}>
-                      {item.title}
-                    </p>
-                  </>
-                )}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
-        <ButtonWrapper />
-      </nav>
-    </aside>
+  const showFollow = () => {
+    setTimeout(() => {
+      setIsModalOpen(true);
+    }, 0);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <UserFollow
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        userData={data}
+        userName={userFullName}
+      ></UserFollow>
+
+      <aside className="w-234 h-auto">
+        <Profile showFollowrModalEvent={() => showFollow()} />
+        <nav className="w-full pt-20">
+          <ul className="w-full flex flex-col items-center gap-14">
+            {navData.map((item, index) => (
+              <li
+                key={item.title}
+                className={`${index === 1 ? 'border-b border-solid border-b-gray-5' : ''}  w-full py-10`}
+              >
+                <NavLink
+                  to={item.link}
+                  className={({ isActive }) =>
+                    `w-[80%] m-auto text-center flex justify-evenly items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <item.icon active={isActive} />
+
+                      <p className={`text-14 ${isActive ? 'text-sub-accent-1' : 'text-gray-10'}`}>
+                        {item.title}
+                      </p>
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          <ButtonWrapper />
+        </nav>
+      </aside>
+    </>
   );
 };
 

@@ -3,10 +3,9 @@ import CommentIcon from '../../icon/CommentIcon';
 import LikesIcon from '../../icon/LikesIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 import { useState } from 'react';
-import { deletePostApi } from '../../../../../apis/postApi';
 import { useNavigate } from 'react-router';
 
-const Post = ({ postData }) => {
+const Post = ({ postData, postDeleteEvent }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -17,21 +16,6 @@ const Post = ({ postData }) => {
 
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
-  };
-
-  const deletePostHandler = async () => {
-    console.log(`ID: ${postData._id}의 삭제 버튼을 눌렀습니다.`);
-
-    const isChecked = window.confirm('정말로 삭제하시겠습니까?');
-
-    if (isChecked) {
-      try {
-        await deletePostApi(postData._id);
-      } catch (error) {
-        console.error('게시글 삭제에 실패했습니다.', error);
-        alert('게시글 삭제에 실패했습니다.');
-      }
-    }
   };
 
   const upDatePostHandler = () => {
@@ -76,7 +60,7 @@ const Post = ({ postData }) => {
                 <div className="absolute left-0 top-full mt-2 w-120 bg-white rounded-lg text-gray-11 flex flex-col py-2 z-[10000] shadow-md">
                   <button
                     className="text-center hover:bg-gray-100 py-8"
-                    onClick={deletePostHandler}
+                    onClick={() => postDeleteEvent(postData._id)}
                   >
                     삭제하기
                   </button>
@@ -102,10 +86,11 @@ export default Post;
 Post.propTypes = {
   postData: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    channel: PropTypes.object,
+    channel: PropTypes.object.isRequired,
     likes: PropTypes.array.isRequired,
     comments: PropTypes.array.isRequired,
     createdAt: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
   }),
+  postDeleteEvent: PropTypes.func.isRequired,
 };

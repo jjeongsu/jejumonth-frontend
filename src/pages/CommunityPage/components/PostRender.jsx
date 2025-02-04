@@ -49,7 +49,7 @@ const PostRender = ({ posts, onPostClick, currentPage, onPageChange }) => {
           >
             <div className="w-40 h-40 rounded-full flex-shrink-0 mb-30">
               <ProfileImage
-                src={post.author?.profileImage}
+                src={post.author?.image}
                 alt="프로필"
                 className="w-full h-full rounded-full object-cover"
               />
