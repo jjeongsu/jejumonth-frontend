@@ -10,6 +10,7 @@ import { Link } from 'react-router';
 import RECOMMAND_PLACE from './recommend';
 import RecommandDetailCard from './RecommandDetailCard';
 import getRandomNumber from '@/utils/randomNumber';
+import DetailCardWrapper from './DetailCardWrapper';
 
 const PlanPreview = () => {
   // 선택된 날짜, 선택된 일정
@@ -109,25 +110,19 @@ const PlanPreview = () => {
 
       {/* 세부일정 카드 컴포넌트 */}
       {selectedPlan ? (
-        <div className="max-w-270 flex justify-center border-l-4 ">
-          <div className="px-15">
-            <div className="font-semibold text-15 text-gray-9 mb-20">✅ 상세일정 확인하기</div>
-            <span className="font-regular text-12 text-gray-8 block mb-17 ">
-              날짜, 시간, 장소를 한 번 더 체크해요!
-            </span>
-            <PlanDetailPreviewCard plan={selectedPlan} />
-          </div>
-        </div>
+        <DetailCardWrapper
+          header="✅ 상세일정 확인하기"
+          guide=" 날짜, 시간, 장소를 한 번 더 체크해요!"
+        >
+          <PlanDetailPreviewCard plan={selectedPlan} />
+        </DetailCardWrapper>
       ) : (
-        <div className="max-w-270 flex justify-center border-l-4 ">
-          <div className="px-15">
-            <div className="font-semibold text-15 text-gray-9 mb-20">🍧 이런 메뉴는 어때요?</div>
-            <span className="font-regular text-12 text-gray-8 block mb-17 ">
-              추천하는 여행맛집을 일정에 추가해보세요
-            </span>
-            <RecommandDetailCard place={RECOMMAND_PLACE[getRandomNumber(RECOMMAND_PLACE.length)]} />
-          </div>
-        </div>
+        <DetailCardWrapper
+          header="🍧 이런 메뉴는 어때요?"
+          guide="추천하는 여행맛집을 일정에 추가해보세요"
+        >
+          <RecommandDetailCard place={RECOMMAND_PLACE[getRandomNumber(RECOMMAND_PLACE.length)]} />
+        </DetailCardWrapper>
       )}
     </div>
   );
