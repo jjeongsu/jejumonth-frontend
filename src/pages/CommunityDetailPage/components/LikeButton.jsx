@@ -57,10 +57,10 @@ const LikeButton = ({
     <button
       onClick={handleLikeToggle}
       disabled={loading}
-      className="flex items-center space-x-2 cursor-pointer focus:outline-none"
+      className="flex items-center cursor-pointer focus:outline-none"
     >
       <LikeIcon active={liked}/>
-      <span className={`text-sm ${liked ? 'text-orange-500' : 'text-gray-500'}`}>{likeCount}</span>
+      <span className={`text-sm ml-15 ${liked ? 'text-orange-500' : 'text-gray-500'}`}>{likeCount}</span>
     </button>
   );
 };

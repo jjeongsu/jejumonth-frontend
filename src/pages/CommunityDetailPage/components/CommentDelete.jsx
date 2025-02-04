@@ -24,8 +24,12 @@ const CommentDelete = ({ commentId, userId, authorId, isLoggedIn, onDelete }) =>
   };
 
   return (
-    <button onClick={handleDeleteComment} disabled={loading} className="hover:opacity-75">
-      <img src={deleteIcon} alt="댓글 삭제" className="w-[20px] h-[20px] mr-500" />
+    <button 
+      onClick={handleDeleteComment} 
+      disabled={loading} 
+      className="w-[20px] h-[20px] p-0 hover:opacity-75 mr-128"
+    >
+      <img src={deleteIcon} alt="댓글 삭제" className="w-full h-full " />
     </button>
   );
 };
