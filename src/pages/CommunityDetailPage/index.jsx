@@ -91,7 +91,7 @@ const CommunityDetailPage = () => {
     const articleInfo = {
       articleId : post._id,
       title : post.title,
-      profileUrl : post.profileUrl, // TODO 사용자 프로필에 대한 데이터는 어디에?
+      profileUrl : post.author.image,
       likes : post.likes.length + 1,
       comments : post.comments.length,
       time : post.createdAt,
