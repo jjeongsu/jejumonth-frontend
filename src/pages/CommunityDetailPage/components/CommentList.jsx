@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import CommentDelete from './CommentDelete';
-import ProfileImage from './icon/ProfileImage';
-import ProfileCard from './ProfileCard'; 
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import CommentDelete from "./CommentDelete";
+import ProfileImage from "./icon/ProfileImage";
+import ProfileCard from "./ProfileCard";
+import FollowButton from "./FollowButton"; 
 
-const CommentList = ({ comments, onCommentsUpdate = () => {} }) => {
+const CommentList = ({ comments, onCommentsUpdate }) => {
   const currentUser = useSelector((state) => state.user) || { userId: null, isLoggedIn: false };
   const [showProfile, setShowProfile] = useState(false);
   const [selectedAuthor, setSelectedAuthor] = useState(null);
@@ -15,15 +16,23 @@ const CommentList = ({ comments, onCommentsUpdate = () => {} }) => {
 
   const handleDelete = (deletedCommentId) => {
     onCommentsUpdate((prevComments) =>
-      Array.isArray(prevComments)
-        ? prevComments.filter((comment) => comment._id !== deletedCommentId)
-        : []
+      prevComments.filter((comment) => comment._id !== deletedCommentId)
     );
   };
 
   const handleProfileClick = (author) => {
     setSelectedAuthor(author);
     setShowProfile(true);
+  };
+
+  const handleFollowUpdate = (targetUserId, isFollowing, followId) => {
+    onCommentsUpdate((prevComments) =>
+      prevComments.map((comment) =>
+        comment.author?._id === targetUserId
+          ? { ...comment, author: { ...comment.author, isFollowing, followId } }
+          : comment
+      )
+    );
   };
 
   return (
@@ -36,20 +45,35 @@ const CommentList = ({ comments, onCommentsUpdate = () => {} }) => {
               onClick={() => handleProfileClick(comment.author)}
             >
               <ProfileImage
-                src={comment.author?.profileImage}
+                src={comment.author?.image}
                 alt="작성자 프로필"
                 className="w-full h-full object-cover"
               />
             </div>
+
             <div className="ml-15 flex-1">
-              <h4
-                className="title-md font-bold mb-1 cursor-pointer"
-                onClick={() => handleProfileClick(comment.author)}
-              >
-                {comment.author?.fullName || '익명 사용자'}
-              </h4>
-              <p className="text-sm text-gray-500">{comment.author?.email || '이메일 없음'}</p>
+              <div className="flex items-center">
+                <h4
+                  className="title-md font-bold mb-1 cursor-pointer"
+                  onClick={() => handleProfileClick(comment.author)}
+                >
+                  {comment.author?.fullName || "익명 사용자"}
+                </h4>
+
+                {currentUser.userId !== comment.author?._id && comment.author && (
+                  <div className="ml-10 mb-3">
+                    <FollowButton
+                      targetUserId={comment.author?._id}
+                      isFollowingInitial={comment.author?.isFollowing || false}
+                      followIdInitial={comment.author?.followId || null}
+                      onFollowUpdate={handleFollowUpdate}
+                    />
+                  </div>
+                )}
+              </div>
+              <p className="text-sm text-gray-500">{comment.author?.email || "이메일 없음"}</p>
             </div>
+
             {currentUser.userId &&
               comment.author &&
               String(currentUser.userId) === String(comment.author._id) && (
@@ -62,15 +86,13 @@ const CommentList = ({ comments, onCommentsUpdate = () => {} }) => {
                 />
               )}
           </div>
-          <p className="text-gray-800 ml-55 mb-45 text-sm">{comment.comment || '내용 없음'}</p>
+
+          <p className="text-gray-800 ml-55 mb-45 text-sm">{comment.comment || "내용 없음"}</p>
         </div>
       ))}
 
       {showProfile && selectedAuthor && (
-        <ProfileCard
-          user={selectedAuthor}
-          onClose={() => setShowProfile(false)}
-        />
+        <ProfileCard user={selectedAuthor} onClose={() => setShowProfile(false)} />
       )}
     </div>
   );

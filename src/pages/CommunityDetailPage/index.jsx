@@ -11,15 +11,14 @@ import ChannelTabs from '../CommunityPage/components/ChannelList';
 import CommentList from './components/CommentList';
 import CommentForm from './components/CommentForm';
 import PostDelete from './components/PostDelete';
-import LikeButton from './components/LikeButton';
-import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '../../apis/supabaseApi.js';
+import LikeButton from './components/LikeButton'; 
 
 const CommunityDetailPage = () => {
   const { postId } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
-  const userId = useSelector(state => state.user.userId);
+
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState(state?.post || null);
   const [channels, setChannels] = useState([]);
@@ -186,7 +185,7 @@ const CommunityDetailPage = () => {
         <div className="flex items-center mb-30 ml-12">
           <div className="w-40 h-40 rounded-full overflow-hidden flex-shrink-0">
             <ProfileImage
-              src={post.author?.profileImage}
+              src={post.author?.image}
               alt="작성자 프로필"
               className="w-full h-full object-cover"
             />
@@ -218,8 +217,6 @@ const CommunityDetailPage = () => {
             initialLikeCount={initialLikeCount}
             initialLiked={initialLiked}
             initialLikeId={initialLikeId}
-            handlePostLike={handlePostLike}
-            handleDeleteLike={handleDeleteLike}
           />
           <div className="flex items-center space-x-2">
             <img src={commentIcon} alt="댓글" className="w-25 h-23" />

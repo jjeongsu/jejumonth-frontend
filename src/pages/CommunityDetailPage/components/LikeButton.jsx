@@ -9,8 +9,6 @@ const LikeButton = ({
   initialLikeCount = 0,
   initialLiked = false,
   initialLikeId = null,
-  handlePostLike,
-  handleDeleteLike,
 }) => {
   const [likeCount, setLikeCount] = useState(initialLikeCount);
   const [liked, setLiked] = useState(initialLiked);
@@ -19,7 +17,6 @@ const LikeButton = ({
 
   const { isLoggedIn } = useSelector((state) => state.user);
   const token = getCookie('jwt');
-  console.log('token:', token);
 
   const handleLikeToggle = async () => {
     if (!isLoggedIn) {
@@ -35,19 +32,14 @@ const LikeButton = ({
     try {
       if (!liked) {
         const data = await createLikesApi(postId, token);
-        console.log('create like response: ', data);
         setLikeId(data._id);
         setLikeCount(data.likeCount !== undefined ? data.likeCount : likeCount + 1);
         setLiked(true);
-        handlePostLike();
       } else {
-        console.log('현재 likeId:', likeId);
         const data = await deleteLikesApi(likeId, token);
-        console.log('delete like response: ', data);
         setLikeCount(data.likeCount !== undefined ? data.likeCount : Math.max(likeCount - 1, 0));
         setLiked(false);
         setLikeId(null);
-        handleDeleteLike();
       }
     } catch (error) {
       console.error('좋아요 처리 실패:', error);
