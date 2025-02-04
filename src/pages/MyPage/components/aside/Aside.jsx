@@ -6,8 +6,11 @@ import ScheduleIcon from '../icon/ScheduleIcon';
 import dummyImg from '../dummy-img.png';
 import { NavLink } from 'react-router';
 import ButtonWrapper from './ButtonWrapper';
+import { useSelector } from 'react-redux';
 
 const Aside = () => {
+  const { userFullName } = useSelector(state => state.user);
+
   const navData = [
     { icon: ScrapIcon, title: '내 스크랩', link: '/mypage/scrapsection' },
     { icon: ScheduleIcon, title: '내 여행 일정', link: '/mypage/scheduleSection' },
@@ -25,7 +28,7 @@ const Aside = () => {
             style={{ backgroundImage: `url(${dummyImg})` }}
             alt="테스트 이미지"
           ></div>
-          <p className="text-16 mt-8 font-semibold text-center">UseName</p>
+          <p className="text-16 mt-8 font-semibold text-center">{userFullName}</p>
           <div className="flex justify-around w-[55%] mt-8 ">
             <div>
               <p className="text-gray-6 text-10">

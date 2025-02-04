@@ -54,6 +54,16 @@ export async function deletePlanApi(planId) {
   return data ? data : error;
 }
 
+export async function deleteTripApi(userId, tripId) {
+  const { data, error } = await supabase
+    .from('Trips')
+    .delete()
+    .eq('trip_id', tripId)
+    .eq('user_id', userId)
+    .select();
+  return data ? data : error;
+}
+
 export async function updatePlanApi(planId, time) {
   const { data, error } = await supabase
     .from('Plans')
@@ -145,13 +155,13 @@ export async function deleteUserCommentApi(userId, commentId) {
   return data ? data : error;
 }
 
-export async function getUserLikedArticlesApi(userId) {
+export async function getAllUserLikedArticlesApi(userId) {
   const { data, error } = await supabase.from('UserLikedArticles').select().eq('user_id', userId);
   return data ? data : error;
 }
 
 // articleInfo 는 객체 형식으로 와야합니다
-export async function postUserLikedArticlesApi(userId, articleInfo) {
+export async function postUserLikedArticleApi(userId, articleInfo) {
   const { data, error } = await supabase
     .from('UserLikedArticles')
     .insert({
@@ -161,14 +171,14 @@ export async function postUserLikedArticlesApi(userId, articleInfo) {
       author_profile_url: articleInfo.profileUrl,
       count_likes: articleInfo.likes,
       count_comments: articleInfo.comments,
-      wrote_at: articleInfo.time,
+      created_at: articleInfo.time,
       channel: articleInfo.channel,
     })
     .select();
   return data ? data : error;
 }
 
-export async function deleteUserLikedArticlesApi(userId, articleId) {
+export async function deleteUserLikedArticleApi(userId, articleId) {
   const { data, error } = await supabase
     .from('UserLikedArticles')
     .delete()

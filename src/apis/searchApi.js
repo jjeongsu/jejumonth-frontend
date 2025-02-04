@@ -1,6 +1,7 @@
 import jejuAPI from '../config/axiosJejuConfig';
 
 export async function getList(query) {
+  console.log('query', query);
   try {
     const response = await jejuAPI.get('', {
       params: {

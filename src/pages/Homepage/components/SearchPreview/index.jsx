@@ -30,6 +30,7 @@ const SearchPreview = () => {
 
   const handleCardClick = (contentId) => {
     navigate(`/detail/${contentId}`); // 상세 페이지로 이동
+    window.scrollTo(0,0)
   };
 
   const handleSearchClick = () => {

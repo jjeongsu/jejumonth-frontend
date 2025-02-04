@@ -4,9 +4,16 @@ import LikesIcon from '../../icon/LikesIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 import { useState } from 'react';
 import { deletePostApi } from '../../../../../apis/postApi';
+import { useNavigate } from 'react-router';
 
 const Post = ({ postData }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const goToPostDetail = () => {
+    navigate(`/community/post/${postData._id}`, { state: { post: postData } });
+  };
 
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
@@ -35,8 +42,8 @@ const Post = ({ postData }) => {
     <>
       {!postData && <p>데이터가없습니다</p>}
       {postData && (
-        <div className="w-full pt-40 px-20 pb-50 border-y border-y-gray-5 border-solid relative">
-          <div>
+        <div className="w-full pt-40 px-20 pb-50 border-t border-t-gray-5 border-solid relative">
+          <div onClick={goToPostDetail} className="cursor-pointer">
             <div className="flex justify-between">
               <div
                 className="w-50 h-50 bg-cover bg-center rounded-[50%]"
@@ -51,6 +58,7 @@ const Post = ({ postData }) => {
               </div>
             </div>
           </div>
+
           {/* right conetnt */}
           <div className="icon-box absolute right-[3%] flex gap-20 mt-15">
             <div className="flex items-center gap-10">

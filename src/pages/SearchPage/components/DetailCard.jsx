@@ -10,7 +10,6 @@ const DetailCard = ({ title, city, street, description, img, category, contentid
     <Link
       to={`/detail/${contentid.contentsid}`}
       className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13"
-      onClick={handleLinkClick}
     >
       <div className="flex-1 content-center">
         <div className="flex justify-between">
@@ -20,7 +19,7 @@ const DetailCard = ({ title, city, street, description, img, category, contentid
             </span>
             <span className="text-gray-7 text-14">{`${city}  >  ${street}`}</span>
           </div>
-          <WishListButton placeInfo={contentid} />
+          <WishListButton placeInfo={contentid} onClick={handleLinkClick} />
         </div>
         <h4 className="">{category}</h4>
         <p className="text-[#333333] mt-35 leading-[140%] text-14 font-normal line-clamp-2">

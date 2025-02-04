@@ -43,9 +43,7 @@ const Category = ({ title, category, searchTitle }) => {
 
   return (
     <>
-      <NavLink to={url(category, searchTitle)} className={getNavLinkClass}>
-        {title}
-      </NavLink>
+      <div className={getNavLinkClass}>{title}</div>
       {isActivePath && category === '' ? (
         <div className="w-full h-4 bg-primary-0"></div>
       ) : (

@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const DetailMediumCard = ({ title, city, street, img, contentid }) => {
   const handleLinkClick = e => {
-    e.preventDefault(); // Link의 기본 동작(페이지 이동)을 막음
+    e.preventDefault(); //
   };
   return (
     <Link
@@ -16,7 +16,7 @@ const DetailMediumCard = ({ title, city, street, img, contentid }) => {
       <div className="p-20">
         <div className="flex justify-between mb-13">
           <div className="text-18 font-semibold w-220 line-clamp-1">{title}</div>
-          <WishListButton placeInfo={contentid} />
+          <WishListButton placeInfo={contentid} onClick={handleLinkClick} />
         </div>
         <div className="text-14 text-gray-5">{`${city} > ${street}`}</div>
       </div>

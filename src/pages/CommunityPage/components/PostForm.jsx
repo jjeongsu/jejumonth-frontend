@@ -2,57 +2,67 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PostFormModal from './PostFormModal';
 import pencil from '../../../../public/icons/pencil.svg';
-import { useSelector } from 'react-redux'; 
-import { getCookie } from '../../../utils/cookie'; 
+import { useSelector } from 'react-redux';
+import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
 
 const PostForm = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isAlertOpen, setAlertOpen] = useState(false);
   const navigate = useNavigate();
 
-  const user = useSelector(state => state.user);
-  const userFullName = user?.userFullName || '회원님';
-  const userProfileImage = user?.profileImage || 'default-avatar.png';
-
-  const token = getCookie('jwt');
+  const { isLoggedIn, userFullName, profileImage } = useSelector((state) => state.user);
+  const userProfileImage = profileImage || '';
 
   const handleOpenModal = () => {
-    if (!token) {
+    if (!isLoggedIn) {
       setAlertOpen(true);
       return;
     }
-    setModalOpen(true); 
+    setModalOpen(true);
   };
 
   const handleCloseModal = () => setModalOpen(false);
   const handleCloseAlert = () => setAlertOpen(false);
-
   const handleConfirmLogin = () => {
-    navigate('/auth'); 
+    navigate('/auth');
   };
 
   return (
     <>
       <div className="flex items-right gap-4 ml-[0px]">
-        <div className="w-[40px] h-[40px] rounded-full flex-shrink-0 overflow-hidden">
-          <img src={userProfileImage} alt="프로필 이미지" className="w-full h-full rounded-full object-cover" />
+        <div className="w-[40px] h-[40px] rounded-full flex-shrink-0 overflow-hidden mt-[10px] ">
+          <ProfileImage
+            src={userProfileImage}
+            alt="프로필"
+            className="w-full h-full rounded-full object-cover"
+          />
         </div>
-
+  
         <button
           className="flex items-start ml-[25px] gap-4 p-6 w-[882px] h-[133px] rounded-[15px] bg-gray-100 border border-gray-300 text-gray-700 text-xl font-medium hover:bg-gray-200 active:bg-gray-300 focus:ring-2 focus:ring-gray-400 shadow-sm transition"
           onClick={handleOpenModal}
         >
-          <img src={pencil} alt="pencil" className="w-[20px] h-[20px] text-gray-400 mt-3 ml-3" />
-          <span className="mt-3 text-gray-400">{userFullName}, 글을 작성해 보세요!</span>
+          <img
+            src={pencil}
+            alt="pencil"
+            className="w-[20px] h-[20px] text-gray-400 mt-3 ml-3"
+          />
+          <span className="mt-3 text-gray-400">
+            {userFullName ? userFullName + '님' : '회원님'}, 글을 작성해 보세요!
+          </span>
         </button>
       </div>
-
-      {isModalOpen && <PostFormModal isOpen={isModalOpen} onClose={handleCloseModal} />}
-
+  
+      {isModalOpen && (
+        <PostFormModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      )}
+  
       {isAlertOpen && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg shadow-lg w-[360px] text-center">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">로그인 후 이용 가능합니다.</h2>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              로그인 후 이용 가능합니다.
+            </h2>
             <p className="text-sm text-gray-600 mb-6">로그인 하시겠습니까?</p>
             <div className="flex justify-center space-x-4">
               <button
