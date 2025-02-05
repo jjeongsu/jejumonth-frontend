@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPlaceByExplanationApi } from '../../apis/visitJejuApi';
+import { getPlaceByExplanationApi } from '@/apis/visitJejuApi';
 import Detail from './components/Detail';
 
 const DetailPage = () => {
