@@ -3,7 +3,7 @@ import PlaceTagButton from './PlaceTag.jsx';
 import PlaceCard from './PlaceCard.jsx';
 import { useState, useRef, useEffect } from 'react';
 import categoryCode from '@/constants/category.js'; //TODO 절대경로로 변경
-import tagData from '@/constants/tagData.js';
+import TAG_DATA from '@/constants/tagData.js';
 import useFetchSearchedPlaceList from '@/hooks/react-query/useFetchSearchedPlaceList.js';
 
 const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
@@ -105,8 +105,13 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
       >
         {!search.submitKeyword && (
           <div className="w-560 flex flex-wrap justify-between gap-8">
-            {tagData.map(tag => (
-              <PlaceTagButton key={tag.id} onNext={onNext} title={tag.title} contentId={tag.contentId} />
+            {TAG_DATA.map(tag => (
+              <PlaceTagButton
+                key={tag.id}
+                onNext={onNext}
+                title={tag.title}
+                contentId={tag.contentId}
+              />
             ))}
           </div>
         )}

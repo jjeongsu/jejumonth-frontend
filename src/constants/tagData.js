@@ -1,4 +1,4 @@
-const tagData = [
+const TAG_DATA = [
   { title: '#광치기 해변🌊', id: 'beach', contentId: 'CNTS_000000000018413' },
   { title: '#카페코지🍵', id: 'cafe', contentId: 'CNTS_000000000019338' },
   { title: '#카멜리아힐🌺', id: 'hill', contentId: 'CNTS_000000000001195' },
@@ -11,4 +11,4 @@ const tagData = [
   { title: '#파더스가든🐰', id: 'garden', contentId: 'CNTS_200000000014189' },
   { title: '#비자림🌳', id: 'beejalim', contentId: 'CONT_000000000500270' },
 ];
-export default tagData;
+export default TAG_DATA;
