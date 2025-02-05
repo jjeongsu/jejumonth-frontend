@@ -73,7 +73,7 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
         <div className="absolute top-20 right-20 cursor-pointer" onClick={closeModal}>
           <img src="/icons/close-icon.svg" alt="닫기 아이콘" />
         </div>
-        <div className="w-315 h-480 bg-white py-48 px-40 rounded-10 overflow-y-auto">
+        <div className="w-315 h-480 bg-white py-48 px-40 rounded-10">
           <h3 className="text-20 pb-8 text-gray-12 text-center">{userName}</h3>
           <div className="flex justify-center mt-30">
             <div
@@ -90,7 +90,12 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
             </div>
           </div>
 
-          <div>
+          <div
+            className="h-[85%] overflow-y-auto"
+            style={{
+              scrollbarWidth: 'none',
+            }}
+          >
             {tapMenu === 'follower' ? (
               <FollowerTap followerDatas={followerData} followHandler={followHandler}></FollowerTap>
             ) : (
