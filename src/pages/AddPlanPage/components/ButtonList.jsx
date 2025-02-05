@@ -1,5 +1,5 @@
 import React from 'react';
-import { generateTimeArray, TIME_BOUNDARY } from '../../../utils/hourFormat';
+import { generateTimeArray, TIME_BOUNDARY } from '@/utils/hourFormat';
 import { Button } from 'antd';
 import { useMemo } from 'react';
 
@@ -30,10 +30,8 @@ const TimezoneButtonList = ({ timezone, hoursArray, setTime }) => {
   );
 };
 
-// TODO : 오전, 낮, 저녁으로 나누기
 const ButtonList = ({ setTime }) => {
   const hoursArray = useMemo(() => generateTimeArray(), []);
-  // {label: '09:00', time: '09:00:00', section: '오전'}
 
   const timeZone = Object.values(TIME_BOUNDARY); // ['오전','오후','저녁']
   return (

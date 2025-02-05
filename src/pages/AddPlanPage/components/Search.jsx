@@ -2,8 +2,8 @@ import { Button, Modal, ConfigProvider, Empty, Select } from 'antd';
 import PlaceTagButton from './PlaceTag.jsx';
 import PlaceCard from './PlaceCard.jsx';
 import { useState, useRef, useEffect } from 'react';
-import categoryCode from '@/constants/category.js'; //TODO 절대경로로 변경
-import tagData from '@/constants/tagData.js';
+import CATEGORY_CODES from '@/constants/category.js';
+import TAG_DATA from '@/constants/tagData.js';
 import useFetchSearchedPlaceList from '@/hooks/react-query/useFetchSearchedPlaceList.js';
 
 const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
@@ -32,8 +32,6 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
   const handleAlertModalCancel = () => {
     setIsAlertModalOpen(false);
   };
-
-  console.log('현재 검색어, 카테고리 상태', search.submitKeyword, search.category);
 
   useEffect(() => {
     // 다시 마운트 될때, searchKeyword를 가지고 있다면
@@ -64,7 +62,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
               width: 120,
             }}
             onChange={handleSelectBoxChange}
-            options={categoryCode}
+            options={CATEGORY_CODES}
           />
         </ConfigProvider>
         <input
@@ -72,7 +70,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
           placeholder="장소를 검색하고 마음에 든다면 일정에 추가해보세요!"
           className="border-0 outline-none p-0 m-0 bg-transparent h-46 w-550 font-medium text-gray-7"
           ref={searchInputRef}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter') {
               handleSearchClick();
             }
@@ -110,8 +108,13 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
       >
         {!search.submitKeyword && (
           <div className="w-750 flex flex-wrap justify-between gap-8">
-            {tagData.map(tag => (
-              <PlaceTagButton key={tag.id} onNext={onNext} title={tag.title} contentId={tag.contentId} />
+            {TAG_DATA.map(tag => (
+              <PlaceTagButton
+                key={tag.id}
+                onNext={onNext}
+                title={tag.title}
+                contentId={tag.contentId}
+              />
             ))}
           </div>
         )}

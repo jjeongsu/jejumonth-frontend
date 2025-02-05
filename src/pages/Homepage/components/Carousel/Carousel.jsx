@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrowButtons';
 import { Link } from 'react-router';
 import useEmblaCarousel from 'embla-carousel-react';
 import PropTypes from 'prop-types';
@@ -79,7 +78,6 @@ const Carousel = ({ options, items }) => {
       .on('slideFocus', onScroll);
   }, [emblaApi, tweenOpacity, onScroll]);
 
-  console.log('scrollProgress', scrollProgress);
   return (
     <div className="my-30 relative">
       <div className="embla h-400">
