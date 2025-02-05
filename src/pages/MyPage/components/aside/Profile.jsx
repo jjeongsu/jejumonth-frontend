@@ -17,7 +17,7 @@ const Profile = ({ showFollowrModalEvent }) => {
 
   return (
     <div className="w-234 border border-[#F0F0F0] rounded-21 shadow-[0px_0px_9px_0px_#dbdbdb] h-240">
-      <div className="pt-20 w-full h-full rounded-96 flex flex-col items-center">
+      <div className="pt-20 w-full h-full rounded-96 flex flex-col items-center gap-3">
         <img
           className="w-96 h-96 bg-cover bg-center rounded-[50%]"
           src={userData.image || PNG_IMAGES.defaultProfile}
@@ -30,12 +30,12 @@ const Profile = ({ showFollowrModalEvent }) => {
         >
           <div>
             <p className="text-gray-7 text-10">
-              팔로잉 <span className="text-sub-accent-1 text-10">{userData.following.length}</span>
+              팔로워 <span className="text-sub-accent-1 text-10">{userData.followers.length}</span>
             </p>
           </div>
           <div>
             <p className="text-gray-7 text-10">
-              팔로우 <span className="text-sub-accent-1 text-10">{userData.followers.length}</span>
+              팔로잉 <span className="text-sub-accent-1 text-10">{userData.following.length}</span>
             </p>
           </div>
         </div>

@@ -62,7 +62,7 @@ const Aside = () => {
                 <NavLink
                   to={item.link}
                   className={({ isActive }) =>
-                    `w-[80%] m-auto text-center flex justify-evenly items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
+                    `ml-46 gap-20 m-auto text-center flex items-center py-8 ${isActive ? 'font-bold text-sub-accent-1' : ''}`
                   }
                 >
                   {({ isActive }) => (
