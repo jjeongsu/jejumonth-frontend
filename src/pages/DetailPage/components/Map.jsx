@@ -5,7 +5,7 @@ export default function KaKaoMap({ latitude, longitude }) {
     const container = document.getElementById("map");
     const options = {
       center: new window.kakao.maps.LatLng(latitude, longitude),
-      level: 6,
+      level: 4,
     };
     const map = new window.kakao.maps.Map(container, options);
 
@@ -18,5 +18,5 @@ export default function KaKaoMap({ latitude, longitude }) {
     marker.setMap(map);
   }, [latitude, longitude]);
 
-  return <div id="map" className="w-[474px] h-[215px]"></div>;
+  return <div id="map" className="w-full h-full"></div>;
 }
