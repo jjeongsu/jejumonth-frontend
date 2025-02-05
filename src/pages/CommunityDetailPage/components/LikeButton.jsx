@@ -17,7 +17,7 @@ const LikeButton = ({
   const [likeId, setLikeId] = useState(initialLikeId);
   const [loading, setLoading] = useState(false);
 
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
   const token = getCookie('jwt');
 
   const handleLikeToggle = async () => {
@@ -59,8 +59,10 @@ const LikeButton = ({
       disabled={loading}
       className="flex items-center cursor-pointer focus:outline-none"
     >
-      <LikeIcon active={liked}/>
-      <span className={`text-sm ml-15 ${liked ? 'text-orange-500' : 'text-gray-500'}`}>{likeCount}</span>
+      <LikeIcon active={liked} />
+      <span className={`text-sm ml-15 ${liked ? 'text-orange-500' : 'text-gray-500'}`}>
+        {likeCount}
+      </span>
     </button>
   );
 };

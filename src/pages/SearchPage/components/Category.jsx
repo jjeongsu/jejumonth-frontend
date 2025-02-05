@@ -41,6 +41,4 @@ export default Category;
 Category.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  searchTitle: PropTypes.string.isRequired,
-  page: PropTypes.string.isRequired,
 };

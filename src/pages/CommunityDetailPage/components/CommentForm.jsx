@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { commentCreateApi } from '../../../apis/commentCreateApi';
+import { commentCreateApi } from '../../../apis/commentApi';
 import { getCookie } from '../../../utils/cookie'; 
 
 const CommentForm = ({ postId, onCommentCreated }) => {
@@ -9,8 +9,8 @@ const CommentForm = ({ postId, onCommentCreated }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
-  const userId = user?.userId;
+  const userId = useSelector((state) => state.user.userId);
+
 
   const token = getCookie('jwt');
 

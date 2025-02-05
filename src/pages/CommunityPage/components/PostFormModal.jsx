@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import { fetchChannels } from '../../../apis/channelApi';
-import { createPost } from '../../../apis/postCreate';
+import { createPostApi } from '../../../apis/postApi';
 import { useSelector } from 'react-redux';
 
 const PostFormModal = ({ isOpen, onClose }) => {
@@ -58,7 +58,7 @@ const PostFormModal = ({ isOpen, onClose }) => {
 
     try {
       setIsSubmitting(true);
-      await createPost(formDataToSend);
+      await createPostApi(formDataToSend);
       alert('게시글이 성공적으로 업로드되었습니다!');
       onClose();
       window.location.reload();

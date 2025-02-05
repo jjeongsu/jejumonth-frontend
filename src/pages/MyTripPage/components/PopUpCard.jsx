@@ -39,7 +39,7 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
           </div>
         </div>
       </div>
-      <div className="flex border-t-[1px] border-solid w-700 border-gray-200 justify-around items-center">
+      <div className="flex border-t-[1px] border-solid w-700 border-gray-4 justify-around items-center">
         <div className="w-349 flex items-center justify-center">
           <button className="flex items-center text-gray-7" onClick={handleDelete}>
             <img
@@ -52,7 +52,7 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
             일정 삭제
           </button>
         </div>
-        <div className="w-1 bg-gray-200 h-[70%] mx-4"></div>
+        <div className="w-1 bg-gray-4 h-[70%] mx-4"></div>
         <div className="w-349 flex items-center justify-center">
           <button className="flex items-center text-gray-7" onClick={handleUpdate}>
             <img src="/icons/timer.svg" height="17" width="17" alt="시계" className="mx-10" />
