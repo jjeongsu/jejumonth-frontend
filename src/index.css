@@ -145,3 +145,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+.rdrDayToday .rdrDayNumber span:after {
+  background-color: #FF7900 !important; /* date-picker 스타일 조정 */
+}
