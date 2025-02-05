@@ -12,7 +12,11 @@ export const createLikesApi = async postId => {
 
 export const deleteLikesApi = async likeId => {
   try {
-    const response = await devAPI.delete(LIKE.delete, { id: likeId });
+
+    const response = await devAPI.delete(LIKE.delete,{
+      data: { id: likeId },
+    });
+
     return response.data;
   } catch (error) {
     console.error(error);

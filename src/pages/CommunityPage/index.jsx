@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchChannels } from '../../apis/channelApi';
 import ChannelTabs from './components/ChannelList';
-import leftArray from '../../../public/icons/left-array.svg';
+import leftArray from '/icons/left-array.svg';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 import PostForm from './components/PostForm';
@@ -82,10 +82,10 @@ const CommunityPage = () => {
   };
 
   return (
-    <div className="container mx-auto px-10 py-10">
+    <div className="container mx-auto px-10 py-10 mt-100">
       <div className="flex items-center mb-4">
-        <button className="text-gray-500 hover:text-orange-500 text-lg mr-4">
-          <img src={leftArray} alt="뒤로 가기" />
+        <button className="text-gray-500 hover:text-orange-500 text-lg mr-10">
+          <img src={leftArray} alt="뒤로 가기" style={{ width: '15px', height: '15px' }}/>
         </button>
         <h2 className="text-2xl font-bold text-gray-800">커뮤니티</h2>
       </div>

@@ -62,13 +62,13 @@ const FollowButton = ({ targetUserId, onFollowUpdate }) => {
           setFollowId(response._id);
           onFollowUpdate(targetUserId, true, response._id);
         } else {
-          console.error("⚠️ 팔로우 요청 후 followId 없음:", response);
+          console.error("팔로우 요청 후 followId 없음:", response);
         }
 
         setIsFollowing(true);
       }
     } catch (error) {
-      console.error("⚠️ 팔로우/언팔로우 요청 실패:", error);
+      console.error("팔로우/언팔로우 요청 실패:", error);
       alert("요청 처리 중 문제가 발생했습니다.");
     } finally {
       setLoading(false);
@@ -78,7 +78,7 @@ const FollowButton = ({ targetUserId, onFollowUpdate }) => {
   return (
     <button
       onClick={handleFollow}
-      className={`text-sm font-semibold px-4 py-1 rounded-full ${
+      className={`text-sm font-semibold px-10 py-3 rounded-full ${
         isFollowing ? "bg-red-100 text-red-500" : "bg-blue-100 text-blue-500"
       } hover:${isFollowing ? "bg-red-200" : "bg-blue-200"}`}
       disabled={loading || !isLoggedIn}
