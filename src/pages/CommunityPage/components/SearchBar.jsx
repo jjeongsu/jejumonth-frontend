@@ -1,5 +1,5 @@
 import React from 'react';
-import searchIcon from '../../../../public/icons/search.svg';
+import searchIcon from '/icons/search.svg';
 
 const SearchBar = ({ onSearch, onSearchSubmit }) => {
   const handleKeyPress = (event) => {

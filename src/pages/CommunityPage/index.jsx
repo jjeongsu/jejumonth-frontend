@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchChannels } from '../../apis/channelApi';
 import ChannelTabs from './components/ChannelList';
-import leftArray from '../../../public/icons/left-array.svg';
+import leftArray from '/icons/left-array.svg';
 import SearchBar from './components/SearchBar';
 import Dropdown from './components/Dropdown';
 import PostForm from './components/PostForm';
