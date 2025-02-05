@@ -6,20 +6,20 @@ const ProfileCard = ({ user, onClose }) => {
   if (!user) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 ">
       <div
         className="bg-white rounded-lg shadow-lg p-4 relative flex flex-col items-center"
         style={{ width: '234px', height: '243px' }}
       >
         <button
-          className="absolute top-3 right-3 text-gray-400 hover:text-red-500"
+          className="absolute top-10 right-10 text-gray-400 hover:text-gray-700"
           onClick={onClose}
         >
-          ✕
+          ✖
         </button>
 
         <div
-          className="w-24 h-24 rounded-full overflow-hidden mb-20 shadow-md mt-15"
+          className="w-24 h-24 rounded-full overflow-hidden mb-20 shadow-md mt-30"
           style={{ width: '70px', height: '70px' }}
         >
           <ProfileImage

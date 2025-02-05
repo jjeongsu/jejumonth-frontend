@@ -18,7 +18,6 @@ const CommentForm = ({ postId, onCommentCreated }) => {
     e.preventDefault();
 
     if (!token || !userId) {
-      alert('로그인이 필요합니다.');
       navigate('/auth'); 
       return;
     }
@@ -49,7 +48,7 @@ const CommentForm = ({ postId, onCommentCreated }) => {
 
   return (
     <div className="relative w-full flex flex-col mt-30 mb-[70px]">
-      <form onSubmit={handleSubmit} className="flex items-center w-full space-x-70">
+      <form onSubmit={handleSubmit} className="flex justify-between items-center w-full">
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -60,13 +59,13 @@ const CommentForm = ({ postId, onCommentCreated }) => {
             }
           }}
           placeholder="댓글을 입력해주세요..."
-          className="w-[639px] h-[44px] p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-[639px] h-[44px] p-12 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-orange-500"
           disabled={isSubmitting}
         ></textarea>
 
         <button
           type="submit"
-          className={`w-[72px] h-[44px] bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition ml-[50px] ${
+          className={`w-[72px] h-[44px] mr-128 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition ${
             isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
           }`}
           disabled={isSubmitting}

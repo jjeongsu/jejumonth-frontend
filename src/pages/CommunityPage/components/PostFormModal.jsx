@@ -73,7 +73,7 @@ const PostFormModal = ({ isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit} className="p-6 space-y-6 relative">
-        <h2 className="text-2xl font-bold mb-4">게시글 쓰기</h2>
+        <h2 className="text-2xl font-bold">게시글 쓰기</h2>
 
         <div className="border-b border-gray-300 pb-2 mb-4">
           <p className="text-gray-500 text-lg">{fullName || '닉네임 로딩 중...'}</p>
@@ -97,7 +97,7 @@ const PostFormModal = ({ isOpen, onClose }) => {
         <label className="block text-sm font-medium mt-4">내용</label>
         <textarea
           name="title"
-          className="border border-gray-300 rounded-lg w-full h-[223px] p-2 text-[16px] leading-6"
+          className="border border-gray-300 rounded-lg w-full h-[223px] p-8 text-[16px] leading-6 "
           placeholder="내용을 입력해주세요"
           onChange={handleChange}
           value={formData.title}
@@ -109,11 +109,11 @@ const PostFormModal = ({ isOpen, onClose }) => {
             <input type="file" name="file" className="hidden" onChange={handleFileChange} />
           </label>
           {formData.file && (
-            <div className="flex items-center gap-2 ml-4">
+            <div className="flex items-center gap-2 ml-4 relative">
               <span className="text-gray-700">{formData.file.name}</span>
               <button
                 type="button"
-                className="text-gray-500 hover:text-red-500"
+                className="text-gray-500 hover:text-red-500 flex items-center"
                 onClick={() => setFormData(prev => ({ ...prev, file: null }))}
               >
                 ✖
@@ -125,7 +125,7 @@ const PostFormModal = ({ isOpen, onClose }) => {
         <div className="flex justify-end gap-4 absolute bottom-2 right-5">
           <button
             type="button"
-            className="rounded border border-orange-500 text-orange-500 hover:bg-orange-100 transition-colors w-[73px] h-[44px] text-sm"
+            className="rounded border border-orange-500 text-orange-500 hover:bg-orange-100 transition-colors w-[73px] h-[44px] text-sm mb-15"
             onClick={onClose}
           >
             취소

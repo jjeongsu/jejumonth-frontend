@@ -37,8 +37,8 @@ const SigninPage = () => {
         }),
       );
 
-      // 메인화면으로 이동
-      navigate('/');
+      // 이전 페이지로 이동
+      navigate(-1);
     }
   };
 

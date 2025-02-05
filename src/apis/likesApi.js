@@ -11,7 +11,9 @@ export const createLikesApi = async postId => {
 
 export const deleteLikesApi = async (likeId, token) => {
   try {
-    const response = await devAPI.delete(`/likes/delete`, { id: likeId });
+    const response = await devAPI.delete(`/likes/delete`, {
+      data: { id: likeId },
+    });
     return response.data;
   } catch (error) {
     console.error(error);

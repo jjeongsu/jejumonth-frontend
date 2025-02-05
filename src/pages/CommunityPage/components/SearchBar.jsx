@@ -18,7 +18,7 @@ const SearchBar = ({ onSearch, onSearchSubmit }) => {
         onKeyDown={handleKeyPress}
       />
       <button className="text-orange-500 hover:text-orange-600" onClick={onSearchSubmit}>
-        <img src={searchIcon} alt="검색" className="w-19 h-18"  />
+        <img src={searchIcon} alt="검색" className="w-19 h-18 mr-10"/>
       </button>
     </div>
   );
