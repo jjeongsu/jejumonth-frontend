@@ -20,7 +20,7 @@ const PostsSection = () => {
     },
   });
 
-  const deletePostMutation = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async postId => {
       await deletePostApi(postId);
     },
@@ -37,7 +37,7 @@ const PostsSection = () => {
     const isChecked = window.confirm('정말로 삭제하시겠습니까?');
 
     if (isChecked) {
-      deletePostMutation.mutate(postId);
+      mutate(postId);
     }
   };
 
