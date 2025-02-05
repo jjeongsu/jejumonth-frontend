@@ -78,7 +78,7 @@ const FollowButton = ({ targetUserId, onFollowUpdate }) => {
   return (
     <button
       onClick={handleFollow}
-      className={`text-sm font-semibold px-4 py-1 rounded-full ${
+      className={`text-sm font-semibold px-10 py-3 rounded-full ${
         isFollowing ? 'bg-red-100 text-red-500' : 'bg-blue-100 text-blue-500'
       } hover:${isFollowing ? 'bg-red-200' : 'bg-blue-200'}`}
       disabled={loading || !isLoggedIn}

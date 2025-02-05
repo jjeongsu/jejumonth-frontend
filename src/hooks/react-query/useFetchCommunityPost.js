@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchChannels } from '@/apis/channelApi';
 import { getPostByChannelApi } from '@/apis/postApi';
+import QUERY_KEY from '@/constants/querykey';
 
 const useFetchCommunityPost = () => {
   //1. 모든 채널 조회
   const { data: channels } = useQuery({
-    queryKey: ['channel', 'list'],
+    queryKey: QUERY_KEY.channel.list,
     queryFn: () => fetchChannels(),
   });
 
@@ -15,7 +16,7 @@ const useFetchCommunityPost = () => {
     isLoading,
     isSuccess,
   } = useQuery({
-    queryKey: ['post', 'list', { category: 'attractions' }],
+    queryKey: QUERY_KEY.post.attractionList,
     queryFn: () => {
       if (!channels) return [];
       const attractionId = channels[0]['_id'];

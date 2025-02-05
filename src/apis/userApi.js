@@ -1,12 +1,12 @@
-import devAPI from '../config/axiosDevConfig';
-import { serverURL } from './endpoints';
-import { getCookie } from '@/utils/cookie';
 import axios from 'axios';
+import devAPI from '../config/axiosDevConfig';
+import { AUTH, USER } from './endpoints';
+import { getCookie } from '@/utils/cookie';
 
 export const postSignupApi = async data => {
   const { email, password, nickname } = data;
   try {
-    const response = await devAPI.post('/signup', {
+    const response = await devAPI.post(AUTH.signup, {
       email,
       password,
       fullName: nickname,
@@ -21,7 +21,7 @@ export const postSignupApi = async data => {
 export const postSigninApi = async data => {
   const { email, password } = data;
   try {
-    const response = await devAPI.post('/login', {
+    const response = await devAPI.post(AUTH.login, {
       email,
       password,
     });
@@ -33,12 +33,10 @@ export const postSigninApi = async data => {
 };
 
 export const postProfileImage = async data => {
-  const url = `${serverURL}/users/upload-photo`;
-
   const jwt = getCookie('jwt');
   try {
     // 헤더 추가
-    const response = await axios.post(url, data, {
+    const response = await axios.post(USER.updatePhoto, data, {
       headers: {
         Authorization: `bearer ${jwt}`,
       },
@@ -52,7 +50,7 @@ export const postProfileImage = async data => {
 export const putUserPassword = async data => {
   const { password } = data;
   try {
-    const response = await devAPI.put('/settings/update-password', {
+    const response = await devAPI.put(USER.updatePassword, {
       password,
     });
     return response.data;
@@ -64,7 +62,7 @@ export const putUserPassword = async data => {
 export const putUserFullname = async data => {
   const { fullName } = data;
   try {
-    const response = await devAPI.put('/settings/update-user', {
+    const response = await devAPI.put(USER.updateUser, {
       fullName,
       userName: fullName,
     });
@@ -77,7 +75,7 @@ export const putUserFullname = async data => {
 
 export const deleteUserApi = async userId => {
   try {
-    const response = await devAPI.delete('/users/delete-user', {
+    const response = await devAPI.delete(USER.deleteUser, {
       id: userId,
     });
     return response.data;
@@ -88,7 +86,7 @@ export const deleteUserApi = async userId => {
 
 export const postLogoutUserApi = async () => {
   try {
-    const response = await devAPI.post('/logout');
+    const response = await devAPI.post(AUTH.logout);
 
     return response.data;
   } catch (error) {
@@ -99,7 +97,7 @@ export const postLogoutUserApi = async () => {
 // 유저정보 가져오기
 export const getUserApi = async userId => {
   try {
-    const response = await devAPI.get(`/users/${userId}`);
+    const response = await devAPI.get(USER.getUser(userId));
 
     return response.data;
   } catch (error) {
@@ -110,7 +108,7 @@ export const getUserApi = async userId => {
 // 팔로우 정보 가져오기
 export const getUserFollowersApi = async userId => {
   try {
-    const response = await devAPI.get(`/users/${userId}`);
+    const response = await devAPI.get(USER.getUser(userId));
     return {
       followers: response.data.followers || [],
       following: response.data.following || [],

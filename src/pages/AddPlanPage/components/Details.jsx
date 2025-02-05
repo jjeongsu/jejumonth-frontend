@@ -31,7 +31,7 @@ const Details = ({ onNext, contentId, onBackClick }) => {
           <span className="text-gray-8 text-14 ml-4 font-semibold">일정 추가</span>
         </button>
       </div>
-      <div className="max-h-400">
+      <div className=" max-w-750 overflow-x-hidden">
         <Detail data={placeData} />
       </div>
     </div>

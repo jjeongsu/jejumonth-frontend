@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { fetchChannels } from '../../apis/channelApi';
 import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '../../apis/supabaseApi.js';
 
-import leftArray from '../../../public/icons/left-array.svg';
-import commentIcon from '../../../public/icons/comment.svg';
+import leftArray from '/icons/left-array.svg';
+import commentIcon from '/icons/comment.svg';
 import ProfileImage from './components/icon/ProfileImage';
 
 import ChannelTabs from '../CommunityPage/components/ChannelList';
@@ -119,7 +119,7 @@ const CommunityDetailPage = () => {
 
   if (!post) {
     return (
-      <div className="container mx-auto px-10 py-10">
+      <div className="container mx-auto px-10 py-10 ">
         <p className="text-red-500">게시물 데이터를 찾을 수 없습니다.</p>
         <button
           onClick={() => navigate('/community')}
@@ -139,13 +139,13 @@ const CommunityDetailPage = () => {
   const initialLikeId = currentUserLike ? currentUserLike._id : null;
 
   return (
-    <div className="container mx-auto px-10 py-10">
+    <div className="container mx-auto px-10 py-10 mt-100">
       <div className="flex items-center pb-10 mb-10">
         <button
-          className="text-gray-500 hover:text-orange-500 text-lg mr-4"
+          className="text-gray-500 hover:text-orange-500 text-lg mr-10"
           onClick={() => navigate('/community')}
         >
-          <img src={leftArray} alt="뒤로 가기" />
+          <img src={leftArray} alt="뒤로 가기" style={{ width: '15px', height: '15px' }}/>
         </button>
         <h2 className="text-2xl font-bold text-gray-800">커뮤니티</h2>
       </div>
@@ -184,7 +184,7 @@ const CommunityDetailPage = () => {
           />
         </div>
 
-        <div className="flex items-center mb-30 ml-12">
+        <div className="flex items-center mb-30 ml-">
           <div className="w-40 h-40 rounded-full overflow-hidden flex-shrink-0">
             <ProfileImage
               src={post.author?.image}
@@ -224,7 +224,7 @@ const CommunityDetailPage = () => {
           />
           <div className="flex items-center space-x-2">
             <img src={commentIcon} alt="댓글" className="w-25 h-23" />
-            <span>{comments.length}</span>
+            <span style={{ marginLeft: '15px' }}>{comments.length}</span>
           </div>
         </div>
 

@@ -37,8 +37,8 @@ const SigninPage = () => {
         }),
       );
 
-      // 메인화면으로 이동
-      navigate('/');
+      // 이전 페이지로 이동
+      navigate(-1);
     }
   };
 
@@ -99,7 +99,9 @@ const SigninPage = () => {
       <div className="w-full">
         <Form {...formProps}>
           <Button className="w-full">
-            <Link to="/auth/signup">회원가입</Link>
+            <Link to="/auth/signup" className="w-full h-full flex justify-center items-center">
+              회원가입
+            </Link>
           </Button>
         </Form>
       </div>

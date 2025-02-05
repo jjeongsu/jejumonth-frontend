@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PostFormModal from './PostFormModal';
-import pencil from '../../../../public/icons/pencil.svg';
+import pencil from '/icons/pencil.svg';
 import { useSelector } from 'react-redux';
 import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
 
@@ -58,24 +58,36 @@ const PostForm = () => {
       )}
   
       {isAlertOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-[360px] text-center">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
-              로그인 후 이용 가능합니다.
-            </h2>
-            <p className="text-sm text-gray-600 mb-6">로그인 하시겠습니까?</p>
-            <div className="flex justify-center space-x-4">
-              <button
-                onClick={handleConfirmLogin}
-                className="px-6 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-all text-sm font-medium"
-              >
-                예
-              </button>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-10 rounded-lg shadow-xl w-[460px] h-[280px] relative flex flex-col items-center">
+            <button 
+              onClick={handleCloseAlert}
+              className="absolute top-5 right-7 text-gray-400 hover:text-gray-600 text-xl"
+            >
+              ✖
+            </button>
+            
+            <div className="text-center mt-70">
+              <p className="text-xl font-medium text-gray-800 mb-3">
+                로그인이 필요한 서비스입니다.
+              </p>
+              <p className="text-lg text-gray-600">
+                로그인 하시겠습니까?
+              </p>
+            </div>
+            
+            <div className="flex justify-center gap-4 mt-40">
               <button
                 onClick={handleCloseAlert}
-                className="px-6 py-2 bg-white text-orange-500 border border-orange-500 rounded-md hover:bg-orange-100 transition-all text-sm font-medium"
+                className="px-10 py-4 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-all duration-200 font-medium w-[140px] text-lg"
               >
                 아니오
+              </button>
+              <button
+                onClick={handleConfirmLogin}
+                className="px-10 py-4 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-all duration-200 font-medium w-[140px] text-lg"
+              >
+                예
               </button>
             </div>
           </div>

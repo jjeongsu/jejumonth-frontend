@@ -35,6 +35,9 @@ export default {
       boxShadow: {
         '2md': '0 3px 20px -3px rgb(127 127 127 / 30%);',
       },
+      fontFamily: {
+        sans: ['Pretendard', 'sans-serif'],
+      },
     },
   },
   plugins: [],

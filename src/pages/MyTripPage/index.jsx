@@ -194,8 +194,7 @@ const MyTripPage = () => {
           <div className="text-gray-6 font-semibold">{Object.keys(datesData).pop()}</div>
         </div>
       </div>
-      <div className="flex relative mt-30">
-        {/* TODO useContext를 일부분에만 감싸서 렌더링 감소 효과를 볼 수 있을듯?*/}
+      <div className="flex relative mt-40 justify-between">
         <CurrentPopUpPlanContext.Provider
           value={{
             planForPopUp,
@@ -203,7 +202,7 @@ const MyTripPage = () => {
           }}
         >
           <div
-            className="grid h-632 w-397 overflow-auto"
+            className="grid h-800 w-397 overflow-auto"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -242,7 +241,7 @@ const MyTripPage = () => {
               </DayCard>
             ))}
           </div>
-          <div id="map" className="w-813 h-632 ml-24"></div>
+          <div id="map" className="w-800 h-800 rounded-t-3"></div>
           {Object.hasOwn(planForPopUp, 'content_id') && (
             <PopUpCard
               plan={planForPopUp}

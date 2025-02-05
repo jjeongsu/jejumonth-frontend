@@ -1,6 +1,6 @@
 import React from 'react';
-import leftArrow from '../../../../public/icons/left-array.svg';
-import rightArrow from '../../../../public/icons/right-array.svg';
+import leftArrow from '/icons/left-array.svg';
+import rightArrow from '/icons/right-array.svg';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const handlePageChange = (page) => {

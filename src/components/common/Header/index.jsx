@@ -20,6 +20,11 @@ const Header = () => {
     etc: 'text-gray-7 ',
   };
 
+  const PaddingVaration = {
+    etc: 'px-0',
+    main: 'px-30',
+  };
+
   const handleTripClick = event => {
     if (!userId) {
       event.preventDefault();
@@ -39,7 +44,9 @@ const Header = () => {
   };
 
   return (
-    <div className="flex flex-row items-center place-content-between pt-27 px-30">
+    <div
+      className={`flex flex-row items-center place-content-between pt-27 ${PaddingVaration[headerType]}`}
+    >
       <div className="items-center">
         <NavLink to="/">
           <Logo width={128} height={28} />
@@ -70,7 +77,7 @@ const Header = () => {
                   variant="text"
                   className={`font-bold w-100 h-34 rounded-4 ${ButtonVariation[headerType]} `}
                 >
-                  mypage
+                  Mypage
                 </Button>
               </ConfigProvider>
             </NavLink>
@@ -81,7 +88,7 @@ const Header = () => {
                   variant="text"
                   className={`font-bold w-100 h-34 rounded-4 ${ButtonVariation[headerType]} `}
                 >
-                  login
+                  Login
                 </Button>
               </ConfigProvider>
             </NavLink>

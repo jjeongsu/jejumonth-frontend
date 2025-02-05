@@ -1,7 +1,7 @@
 import PNG_IMAGES from '@public/images/image.js';
 import { Link } from 'react-router';
 
-const EmptyPlanCard = () => {
+const EmptyPlanCard = ({ link }) => {
   return (
     <div className="flex flex-col  items-center gap-10 py-40  bg-gray-2 rounded-10">
       <div>
@@ -13,7 +13,7 @@ const EmptyPlanCard = () => {
             <span>새로운 일정을 만들어 볼까요?</span>
           </div>
           <Link
-            to="/mypage/scheduleSection"
+            to={link}
             className="border border-solid border-gray-5 w-full px-20 py-15 rounded-5 flex justify-center items-center text-15 font-semibold text-gray-7 hover:bg-gray-3"
           >
             🍊 일정 추가하기

@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { serverURL } from './endpoints';
+import { POST } from './endpoints';
 import { getCookie } from '../utils/cookie';
 
+// TODO(수관) : 해당 파일 없애고 createPostApi로 이름 변경 후 postApi.js파일로 옮기기
 export const createPost = async formData => {
   const token = getCookie('jwt');
 
@@ -10,7 +11,7 @@ export const createPost = async formData => {
   }
 
   try {
-    const response = await axios.post(`${serverURL}/posts/create`, formData, {
+    const response = await axios.post(POST.create, formData, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'multipart/form-data',
