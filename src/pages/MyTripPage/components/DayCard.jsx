@@ -11,8 +11,8 @@ const DayCard = ({ dayNumber, date, children, count }) => {
   };
 
   return (
-    <div className="w-371 h-auto ml-26 grid gap-12 mb-10">
-      <div className="flex items-center justify-around">
+    <div className="w-371 h-auto grid gap-12 pb-25">
+      <div className="flex items-center justify-around mb-15">
         <div className="text-gray-8 text-sm font-semibold">
           day {dayNumber}
         </div>
@@ -26,7 +26,7 @@ const DayCard = ({ dayNumber, date, children, count }) => {
       <div className="grid place-items-center w-full gap-12">
         {children}
       </div>
-      <div className="flex items-center justify-around">
+      <div className="flex items-center justify-around h-20">
         <button
           onClick={handleClick}
           className="flex items-center text-primary-0 text-13 font-medium"
@@ -35,6 +35,7 @@ const DayCard = ({ dayNumber, date, children, count }) => {
           추가
         </button>
       </div>
+      <hr/>
     </div>
   );
 };

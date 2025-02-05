@@ -1,20 +1,20 @@
 import PropTypes from 'prop-types';
+import WishListButtonMain from './WishListButtonMain.jsx';
 
-const MainCard = ({ title, city, street, img, onClick }) => {
-  const locationText = street ? `${city} > ${street}` : `${city}`;
+// TODO 종희님 코드와 합치기
+const MainCard = ({ placeInfo, onClick }) => {
+  const locationText = placeInfo.street ? `${placeInfo.city} > ${placeInfo.street}` : `${placeInfo.city}`;
 
   return (
     <div
       className="border-solid border border-[#E9E9E9] rounded-8 shadow-lg w-313 overflow-hidden [&:nth-child(3n)]:mr-0 cursor-pointer"
       onClick={onClick}
     >
-      <img className="h-209 w-full" src={img} alt="상세 사진" />
+      <img className="h-209 w-full" src={placeInfo.img} alt="상세 사진" />
       <div className="p-20">
         <div className="flex justify-between mb-13">
-          <div className="text-18 font-semibold line-clamp-1">{title}</div>
-          <button>
-            <img src="/icons/scrap-icon.svg" className="w-21 h-19" alt="스크랩 아이콘" />
-          </button>
+          <div className="text-18 font-semibold line-clamp-1">{placeInfo.title}</div>
+          <WishListButtonMain placeInfo={placeInfo} />
         </div>
         <div className="text-14 text-gray-5">{locationText}</div>
       </div>
@@ -25,11 +25,15 @@ const MainCard = ({ title, city, street, img, onClick }) => {
 export default MainCard;
 
 MainCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  street: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  placeInfo: PropTypes.shape({
+    contentsid: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    city: PropTypes.string.isRequired,
+    street: PropTypes.string.isRequired,
+    img: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+  }).isRequired,
   onClick: PropTypes.func.isRequired,
 };
