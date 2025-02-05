@@ -1,5 +1,5 @@
 import { Modal } from 'antd';
-import { DateRangePicker } from 'react-date-range';
+import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useState } from 'react';
@@ -24,12 +24,18 @@ const AddTripPage = () => {
   const handleSubmit = async () => {
     try {
       const result = await postTripApi(userId, dates);
-      const message =
-        result[0].start_date + ' 부터 ' + result[0].end_date + ' 까지의 일정이 생성됐습니다.';
+      const message = (
+        <div>
+          {result[0].start_date} 부터 {result[0].end_date} 까지
+          <br />
+          일정이 생성됐습니다.
+        </div>
+      );
       const tripId = result[0].trip_id;
       Modal.success({
         title: 'Success',
         content: message,
+        centered : true,
         onOk() {
           navigate(`/trip/my?trip_id=${tripId}`);
         },
@@ -60,21 +66,24 @@ const AddTripPage = () => {
         여행을 시작할 날짜, 종료할 날짜를 선택해주세요.
       </div>
       <div className="grid place-items-center">
-        <div className="h-412 border-solid border-gray-200 border-[1px] mb-25">
-          <DateRangePicker
-            onChange={item => setDates([item.selection])}
-            showSelectionPreview={true}
-            moveRangeOnFirstSelection={false}
-            months={2}
-            color="#FF7900"
-            locale={ko}
-            ranges={dates}
-            direction="horizontal"
-            preventSnapRefocus={true}
-            calendarFocus="backwards"
-          />
+        <div className="flex h-430 w-full place-items-center justify-around">
+          <div className="border-solid h-430 border-gray-200 border-[1px] rounded-md p-10">
+            <DateRange
+              onChange={item => setDates([item.selection])}
+              moveRangeOnFirstSelection={false}
+              retainEndDateOnFirstSelection={false}
+              ranges={dates}
+              direction="horizontal"
+              locale={ko}
+              color="#FFAE52"
+              rangeColors={["#FFAE52"]}
+              preventSnapRefocus={true}
+              months={2}
+              className="rounded-md"
+            />
+          </div>
         </div>
-        <div className="w-100">
+        <div className="w-125 my-25">
           <Button type="button" label="일정 생성" onClick={handleSubmit}>
             다음
           </Button>
