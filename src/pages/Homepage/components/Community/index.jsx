@@ -9,7 +9,7 @@ const CommunityPreview = () => {
   if (isLoading) {
     return <div>커뮤니티 글을 가져오는 중입니다.</div>;
   }
-  console.log('posts', posts);
+
   if (!isSuccess) {
     return <div> post데이터를 가져오는데 실패했습니다.</div>;
   }
@@ -33,8 +33,6 @@ const CommunityPreview = () => {
     const wrappers = chunkedCardList.map(cards => renderCardWrapper(cards));
     return wrappers;
   };
-
-  // const carouselItems = chunkpost(posts);
 
   return (
     <div className="mb-100">

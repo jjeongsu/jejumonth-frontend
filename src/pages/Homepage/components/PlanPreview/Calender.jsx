@@ -1,8 +1,8 @@
 import { format, addMonths, subMonths } from 'date-fns';
-import useCalender from '@/hooks/useCalender';
+import makeCalender from '@/utils/makeCalender';
 
 const Calender = ({ selectedDate, setSelectedDate, plans }) => {
-  const { currentMonthAllDates, weekDays } = useCalender(selectedDate);
+  const { currentMonthAllDates, weekDays } = makeCalender(selectedDate);
 
   // 다음 달로 이동
   const nextMonth = () => {

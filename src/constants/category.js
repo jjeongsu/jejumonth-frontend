@@ -1,4 +1,4 @@
-const catetoryCode = [
+const CATEGORY_CODES = [
   {
     value: 'all',
     label: '전체',
@@ -28,4 +28,4 @@ const catetoryCode = [
     label: '테마여행',
   },
 ];
-export default catetoryCode;
+export default CATEGORY_CODES;
