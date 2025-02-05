@@ -2,8 +2,8 @@ import { Button, Modal, ConfigProvider, Empty, Select } from 'antd';
 import PlaceTagButton from './PlaceTag.jsx';
 import PlaceCard from './PlaceCard.jsx';
 import { useState, useRef, useEffect } from 'react';
-import categoryCode from '@/constants/category.js'; //TODO 절대경로로 변경
-import tagData from '@/constants/tagData.js';
+import CATEGORY_CODES from '@/constants/category.js';
+import TAG_DATA from '@/constants/tagData.js';
 import useFetchSearchedPlaceList from '@/hooks/react-query/useFetchSearchedPlaceList.js';
 
 const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
@@ -33,8 +33,6 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
     setIsAlertModalOpen(false);
   };
 
-  console.log('현재 검색어, 카테고리 상태', search.submitKeyword, search.category);
-
   useEffect(() => {
     // 다시 마운트 될때, searchKeyword를 가지고 있다면
     if (search.submitKeyword !== '') {
@@ -42,9 +40,9 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
     }
   }, []);
   return (
-    <div>
+    <div className="w-750">
       {/* 뒤로가기버튼 */}
-      <button onClick={onBackClick}>
+      <button onClick={onBackClick} className="mb-5">
         <img
           src="/icons/back-icon.svg"
           alt="back-icon"
@@ -54,27 +52,32 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
         />
       </button>
       {/* selctor와 검색창 */}
-      <div className="w-560 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
+      <div className="w-750 h-48 flex justify-center items-center border-[1px] border-gray-4 border-solid bg-white rounded-40 shadow-[0px_1px_2px_0px_rgba(199,198,198,0.10)]">
         <ConfigProvider theme={{ token: { colorPrimary: '#FF7900', colorText: '#8C8C8C' } }}>
           <Select
             className="border-0 outline-none bg-transparent"
             defaultValue="전체"
             variant="borderless"
             style={{
-              width: 95,
+              width: 120,
             }}
             onChange={handleSelectBoxChange}
-            options={categoryCode}
+            options={CATEGORY_CODES}
           />
         </ConfigProvider>
         <input
           type="text"
-          placeholder="일정에 추가할 장소를 검색해보세요!"
-          className="border-0 outline-none p-0 m-0 bg-transparent h-46 w-400 font-medium text-gray-7"
+          placeholder="장소를 검색하고 마음에 든다면 일정에 추가해보세요!"
+          className="border-0 outline-none p-0 m-0 bg-transparent h-46 w-550 font-medium text-gray-7"
           ref={searchInputRef}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              handleSearchClick();
+            }
+          }}
         />
-        <button className="w-16 h-16 z-10" onClick={handleSearchClick}>
-          <img src="/icons/search-icon.svg" alt="search-icon" className="h-16 w-16" />
+        <button className="w-20 h-20 z-10" onClick={handleSearchClick}>
+          <img src="/icons/search-icon.svg" alt="search-icon" className="h-20 w-20" />
         </button>
       </div>
 
@@ -104,9 +107,14 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
         }}
       >
         {!search.submitKeyword && (
-          <div className="w-560 flex flex-wrap justify-between gap-8">
-            {tagData.map(tag => (
-              <PlaceTagButton key={tag.id} onNext={onNext} title={tag.title} contentId={tag.contentId} />
+          <div className="w-750 flex flex-wrap justify-between gap-8">
+            {TAG_DATA.map(tag => (
+              <PlaceTagButton
+                key={tag.id}
+                onNext={onNext}
+                title={tag.title}
+                contentId={tag.contentId}
+              />
             ))}
           </div>
         )}

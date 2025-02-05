@@ -25,9 +25,7 @@ const useFetchCommunityPost = () => {
     enabled: !!channels,
   });
 
-  console.log(isSuccess);
   if (isSuccess) {
-    console.log(postsData);
     let posts = postsData[0];
     return { posts, isLoading, isSuccess };
   } else {

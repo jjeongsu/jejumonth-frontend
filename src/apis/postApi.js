@@ -3,6 +3,7 @@ import axios from 'axios';
 import { serverURL, POST } from './endpoints';
 import { getCookie } from '../utils/cookie';
 
+
 export const getPostByChannelApi = async channelId => {
   try {
     const response = await devAPI.get(POST.getChannelPost(channelId));
@@ -49,11 +50,31 @@ export const updatePostApi = async formData => {
         'Content-Type': 'multipart/form-data',
       },
     });
-
-    console.log('게시글 업데이트 성공:', response.data);
     return response.data;
   } catch (error) {
     console.error('게시글 업데이트 실패:', error);
     throw new Error('게시글 업데이트에 실패했습니다.');
   }
 };
+
+export const createPostApi = async formData => {
+  const token = getCookie('jwt');
+
+  if (!token) {
+    throw new Error('로그인이 필요합니다.');
+  }
+
+  try {
+    const response = await axios.post(POST.create, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating post:', error);
+    throw error;
+  }
+};
+

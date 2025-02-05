@@ -11,7 +11,7 @@ import PlanPreviewItem from './PlanPreviewItem';
 import CalenderWrapper from './CalenderWrapper';
 import PlanPreviewCard from './PlanPreviewCard';
 import EmptyPlanCard from './EmptyPlanCard';
-import RECOMMAND_PLACE from './recommend';
+import RECOMMAND_PLACE from '@/constants/recommend';
 import PinnedItem from './PinnedItem';
 import LoginCard from './LoginCard';
 import Calender from './Calender';

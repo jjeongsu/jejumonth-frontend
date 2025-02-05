@@ -184,14 +184,10 @@ const MyTripPage = () => {
       <div className="flex items-center">
         <div className="text-48 font-extrabold text-gray-8">제주 여행</div>
         <div className="text-48 font-extrabold text-sub-accent-2 mx-30">·</div>
-        <div className="grid place-items-center">
-          <div className="text-gray-5 font-semibold">시작일</div>
-          <div className="text-gray-6 font-semibold">{Object.keys(datesData)[0]}</div>
-        </div>
-        <div className="text-20 font-semibold text-gray-5 mx-15">~</div>
-        <div className="grid place-items-center">
-          <div className="text-gray-5 font-semibold">종료일</div>
-          <div className="text-gray-6 font-semibold">{Object.keys(datesData).pop()}</div>
+        <div className="flex place-items-center justify-around bg-gray-4 text-gray-8 w-290 h-35 rounded-md p-10">
+          <div className="font-semibold">{Object.keys(datesData)[0]} - {Object.keys(datesData).pop()}</div>
+          <div className="w-2 bg-gray-5 h-[50%] mx-4"></div>
+          <div className="font-semibold">총 {Object.keys(datesData).length}일</div>
         </div>
       </div>
       <div className="flex relative mt-40 justify-between">

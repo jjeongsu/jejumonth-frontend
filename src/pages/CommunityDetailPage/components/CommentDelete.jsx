@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import deleteIcon from '/icons/delete.svg';
-import { deleteCommentApi } from '../../../apis/commentCreateApi';
+import { deleteCommentApi } from '../../../apis/commentApi';
 
 const CommentDelete = ({ commentId, userId, authorId, isLoggedIn, onDelete }) => {
   const [loading, setLoading] = useState(false);
