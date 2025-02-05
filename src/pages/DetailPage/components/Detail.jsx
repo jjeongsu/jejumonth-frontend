@@ -78,7 +78,6 @@ const DetailContent = ({ data }) => {
         </div>
 
         <div className="p-15 gap-x-6">
-          {/* grid grid-cols-[1fr,0.43fr] 제거*/}
           <div>
             <p className="flex items-center text-lg font-bold text-gray-9 mt-6">
               {data.introduction || "천혜의 자연과 감성 여행지 🌿🏝️"}
