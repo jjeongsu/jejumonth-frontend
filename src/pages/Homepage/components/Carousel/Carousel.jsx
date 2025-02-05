@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { NextButton, PrevButton, usePrevNextButtons } from './EmblaCarouselArrowButtons';
 import { Link } from 'react-router';
 import useEmblaCarousel from 'embla-carousel-react';
 import PropTypes from 'prop-types';
