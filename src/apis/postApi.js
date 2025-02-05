@@ -1,4 +1,7 @@
 import devAPI from '../config/axiosDevConfig';
+import axios from 'axios';
+import { serverURL } from './endpoints';
+import { getCookie } from '../utils/cookie';
 
 export const getPostByChannelApi = async channelId => {
   try {
@@ -27,7 +30,9 @@ export const getChannelNameByIdApi = async channelId => {
 
 export const deletePostApi = async contentID => {
   try {
-    const response = await devAPI.delete(`/posts/delete`, { id: contentID });
+    const response = await devAPI.delete(`/posts/delete`, {
+      data: { id: contentID },
+    });
     return response.data;
   } catch (error) {
     console.error('게시글 삭제에 실패했습니다.', error);

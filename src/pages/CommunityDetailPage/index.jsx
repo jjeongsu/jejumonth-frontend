@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { fetchChannels } from '../../apis/channelApi';
+import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '../../apis/supabaseApi.js';
 
 import leftArray from '../../../public/icons/left-array.svg';
 import commentIcon from '../../../public/icons/comment.svg';
@@ -18,6 +19,7 @@ const CommunityDetailPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
+  const userId = useSelector(state => state.user.userId);
 
   const [posts, setPosts] = useState([]);
   const [post, setPost] = useState(state?.post || null);
@@ -217,6 +219,8 @@ const CommunityDetailPage = () => {
             initialLikeCount={initialLikeCount}
             initialLiked={initialLiked}
             initialLikeId={initialLikeId}
+            handlePostLike={handlePostLike}
+            handleDeleteLike={handleDeleteLike}
           />
           <div className="flex items-center space-x-2">
             <img src={commentIcon} alt="댓글" className="w-25 h-23" />
