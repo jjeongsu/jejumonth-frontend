@@ -2,7 +2,7 @@ import { useSearchParams, useNavigate, useLocation } from 'react-router';
 import DetailCard from './components/DetailCard';
 import { ConfigProvider, Pagination } from 'antd';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getList } from '../../apis/searchApi';
 
 import { useQuery } from '@tanstack/react-query';
@@ -28,6 +28,7 @@ const SearchPage = () => {
   const [inputQuery, setInputQuery] = useState({});
   const [searchText, setSearchText] = useState('');
   const [layout, setLayout] = useState('large-layout');
+  const topRef = useRef(null);
 
   const categoryType = [
     { id: 1, title: '전체', category: '' },
@@ -94,13 +95,6 @@ const SearchPage = () => {
     const nextInputQuery = { ...inputQuery, page, category };
     console.log('nextInputQuery', nextInputQuery);
     setInputQuery(nextInputQuery);
-
-    // setQuery(prevQuery => ({
-    //   ...prevQuery,
-    //   page, // 페이지 번호를 업데이트
-    //   category,
-    //   titl,
-    // }));
     setQuery(nextInputQuery);
     let params = '?';
     Object.entries(nextInputQuery).forEach(([key, value]) => {
@@ -115,7 +109,10 @@ const SearchPage = () => {
     } else {
       navigate(location.pathname);
     }
-    // navigate(`${location.pathname}` + params);
+    window.scrollTo({
+      top: 0,
+      behavior: 'auto',
+    });
   };
 
   useEffect(() => {
@@ -177,15 +174,15 @@ const SearchPage = () => {
   // }, [itemListLength, pagesLength]); // itemListLength, pagesLength가 바
 
   const handleLayoutChange = e => {
-    const { layoutIcon } = e.currentTarget.dataset;
-    const svgs = document.querySelectorAll('[data-layoutIcon]');
+    const { layouticon } = e.currentTarget.dataset;
+    const svgs = document.querySelectorAll('[data-layouticon]');
     svgs.forEach(item => {
       item.classList.remove('fill-gray-8');
     });
 
     e.currentTarget.classList.add('fill-gray-8');
 
-    setLayout(layoutIcon);
+    setLayout(layouticon);
   };
 
   const renderCard = item => {
@@ -198,6 +195,7 @@ const SearchPage = () => {
               const contentId = item.contentsid;
               window.location.href = `/detail/${contentId}`;
             }}
+            key={item.index}
           >
             <DetailCard
               key={item.id}
@@ -222,6 +220,7 @@ const SearchPage = () => {
               const contentId = item.contentsid;
               window.location.href = `/detail/${contentId}`;
             }}
+            key={item.index}
           >
             <DetailMediumCard
               key={item.id}
@@ -245,6 +244,7 @@ const SearchPage = () => {
               const contentId = item.contentsid;
               window.location.href = `/detail/${contentId}`;
             }}
+            key={item.index}
           >
             <DetailSmallCard
               key={item.id}
@@ -299,7 +299,7 @@ const SearchPage = () => {
                 <Category
                   title={item.title}
                   category={item.category}
-                  searchTitle={inputQuery.title}
+                  // searchTitle={inputQuery.title}
                 />
               </button>
             </li>
@@ -312,7 +312,7 @@ const SearchPage = () => {
               height="20"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
-              data-layoutIcon="large-layout"
+              data-layouticon="large-layout"
               className="fill-gray-6  fill-gray-8"
               onClick={event => {
                 handleLayoutChange(event, query.page);
@@ -329,7 +329,7 @@ const SearchPage = () => {
               viewBox="0 0 20 20"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              data-layoutIcon="medium-layout"
+              data-layouticon="medium-layout"
               className="fill-gray-6"
               onClick={event => {
                 handleLayoutChange(event, query.page);
@@ -345,7 +345,7 @@ const SearchPage = () => {
               viewBox="0 0 15 15"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              data-layoutIcon="small-layout"
+              data-layouticon="small-layout"
               className="fill-gray-6"
               onClick={event => {
                 handleLayoutChange(event, query.page);

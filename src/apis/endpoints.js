@@ -78,5 +78,5 @@ export const POST = Object.freeze({
 
 export const COMMENT = Object.freeze({
   create: `/comments/create`,
-  delte: `/comments/delete`,
+  delete: `/comments/delete`,
 });
