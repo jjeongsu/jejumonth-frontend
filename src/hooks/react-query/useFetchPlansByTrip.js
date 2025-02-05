@@ -1,11 +1,12 @@
-import { getPlanApi } from '../../apis/supabaseApi';
+import { getPlanApi } from '@apis/supabaseApi';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
+import QUERY_KEY from '@/constants/querykey';
 
 const useFetchPlansByTrip = tripId => {
   const userId = useSelector(state => state.user.userId);
   const { data: plans, isLoading: isLoadingPlan } = useQuery({
-    queryKey: ['plan', 'list', { userId: userId, tripId: tripId }],
+    queryKey: QUERY_KEY.plan.list(userId, tripId),
     queryFn: () => getPlanApi(userId, tripId),
   });
 

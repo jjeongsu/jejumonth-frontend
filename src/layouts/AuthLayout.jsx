@@ -9,12 +9,14 @@ const AuthLayout = () => {
         <div className="h-70">
           <Header />
         </div>
-        <div className="w-314 mx-auto flex-1">
+        <div className="w-400 mx-auto flex-1">
           <Outlet />
         </div>
       </div>
+
       <div className='w-full h-70 flex-grow'>
           <Footer />
+
       </div>
     </div>
   );

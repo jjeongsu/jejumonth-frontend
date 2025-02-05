@@ -11,8 +11,10 @@ const DefaultLayout = () => {
         </div>
         <Outlet />
       </div>
+
       <div className='w-full h-70 mt-10 flex-grow'>
           <Footer />
+
       </div>
     </div>
   );

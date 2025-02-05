@@ -18,7 +18,7 @@ const PlanDetailPreviewCard = ({ plan }) => {
       </div>
       <div className="mt-17 px-12 ">
         <h3 className="font-semibold text-20 text-gray-8">{formatDate(plan.date)}</h3>
-        <span className="font-medium text-15 text-gray-8 block mt-15">
+        <span className="font-medium text-14 text-gray-8 block mt-15">
           <span className="font-semibold text-sub-accent-2">{formatTime(plan.time)}</span> 에 등록된
           일정이에요.
         </span>
@@ -26,7 +26,7 @@ const PlanDetailPreviewCard = ({ plan }) => {
           {plan.road_address && `📍 ${plan.road_address}`}
         </span>
         <span className="font-regular text-13 leading-4 text-gray-8 block mt-10 pb-10">
-          {`🍊 ${plan.description}`}
+          {`🍊 ${plan.description.slice(0, 30)}`}
         </span>
         <Link
           className="text-primary-2 font-bold text-10 w-full block text-end pb-15"

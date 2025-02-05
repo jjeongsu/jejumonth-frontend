@@ -99,7 +99,9 @@ const SigninPage = () => {
       <div className="w-full">
         <Form {...formProps}>
           <Button className="w-full">
-            <Link to="/auth/signup">회원가입</Link>
+            <Link to="/auth/signup" className="w-full h-full flex justify-center items-center">
+              회원가입
+            </Link>
           </Button>
         </Form>
       </div>

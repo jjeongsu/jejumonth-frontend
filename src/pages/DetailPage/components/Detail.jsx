@@ -1,9 +1,9 @@
-import React, { Suspense } from "react";
-import KaKaoMap from "./Map";
-import DummyIndex from "./DummyIndex"
-import Phone from "/icons/phone.svg";
-import Position from "/icons/position.svg";
-import WishlistButton from "./WishlistButton";
+import React, { Suspense } from 'react';
+import KaKaoMap from './Map';
+import DummyIndex from './DummyIndex';
+import Phone from '/icons/phone.svg';
+import Position from '/icons/position.svg';
+import WishlistButton from './WishlistButton';
 
 const Placeholder = () => (
   <div className="max-w-962 mx-auto p-4 mb-100 opacity-0">
@@ -36,6 +36,7 @@ const DetailContent = ({ data }) => {
   if (!data) return <Placeholder />;
 
   return (
+
     <div className="font-sans max-w-963 mx-auto p-4 mb-80">
       <div className="mt-30 mb-20 text-[14px] text-gray-6">
         {data.region1cd?.label || "제주"}
@@ -43,6 +44,7 @@ const DetailContent = ({ data }) => {
         <span className="text-[18px] text-gray-10">
           {data.region2cd?.label || "제주시"}
         </span>
+
       </div>
       <div className="flex justify-center">
         <div 
@@ -65,6 +67,7 @@ const DetailContent = ({ data }) => {
           <div className="absolute inset-0 flex items-end justify-start p-22">
             <h1 className="text-4xl font-bold text-white">{data.title}</h1>
           </div>
+
         </div>
       </div>
       <section>
@@ -74,6 +77,7 @@ const DetailContent = ({ data }) => {
               <WishlistButton placeInfo={data} />
             </div>
         </div>
+
         <div className="p-20 grid grid-cols-[1fr,0.43fr] gap-x-6">
           <div>
             <p className="text-lg font-bold text-neutral-800 mt-6">
@@ -87,11 +91,16 @@ const DetailContent = ({ data }) => {
       <div className="flex items-center w-963 h-2 border-t-2 bg-gray-3 mt-10 mb-30"></div>
       <h2 className="text-30 font-bold text-neutral-800 mb-20 flex items-center align-middle leading-none">📍 About</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
         <div className="space-y-4">
-          <div className="w-full h-[215px] mt-10">
-            <KaKaoMap latitude={data?.latitude || 33.4896} longitude={data?.longitude || 126.5006} />
+          <div className="w-full h-[215px] mt-10 lg:w-3500 lg:overflow-x-hidden ">
+            <KaKaoMap
+              latitude={data?.latitude || 33.4896}
+              longitude={data?.longitude || 126.5006}
+            />
           </div>
         </div>
+
         <div className="grid grid-cols-[0.5fr,1fr] gap-x-3 gap-y-3 p-10 items-center ml-10">
           <div className="flex items-center gap-4">
             <img src={Position} alt="position" className="w-20 h-20 mr-8" />
@@ -103,6 +112,7 @@ const DetailContent = ({ data }) => {
             <p className="text-[17px] font-bold text-[#8c8c8c]">전화번호</p>
           </div>
           <p className="text-[14px] text-[#434343] leading-6">{data.phoneno || "064-120"}</p>
+
         </div>
       </div>
     </div>
