@@ -20,6 +20,7 @@ const Button = ({
   isDisabled = false,
   rounded = 'base',
   color = 'orange',
+  className,
 }) => {
   return (
     <button
@@ -27,7 +28,7 @@ const Button = ({
       onClick={onClick}
       disabled={isDisabled}
       className={`btn ${bgColorVariants[color]}
-        ${roundedVariants[rounded]} text-14 `}
+        ${roundedVariants[rounded]} text-14 ${className}`}
     >
       {label}
     </button>
@@ -43,4 +44,5 @@ Button.propTypes = {
   isDisabled: PropTypes.bool,
   rounded: PropTypes.string,
   color: PropTypes.string,
+  className: PropTypes.string,
 };
