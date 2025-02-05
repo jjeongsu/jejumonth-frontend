@@ -79,12 +79,7 @@ const SearchPreview = () => {
           <MainCard
             key={index}
             onClick={() => handleCardClick(item.contentsid)}
-            title={item.title}
-            city={item.city}
-            street={item.street}
-            img={item.img}
-            description={item.description}
-            category={item.category}
+            placeInfo={item}
           />
         ))}
       </div>
