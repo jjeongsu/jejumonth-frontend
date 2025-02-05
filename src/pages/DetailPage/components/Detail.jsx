@@ -37,7 +37,7 @@ const DetailContent = ({ data }) => {
 
   return (
 
-    <div className="font-sans max-w-960 mx-auto p-4 mb-80 bg-white">
+    <div className="font-sans max-w-960 mx-auto p-4 mb-80">
       <div className="mt-30 mb-20 text-[14px] text-gray-7 ml-5">
         {data.region1cd?.label || "제주"}
         <span className="text-[11px] text-gray-7">&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;</span>
