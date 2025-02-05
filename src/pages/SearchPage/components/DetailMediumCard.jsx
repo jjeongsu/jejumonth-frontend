@@ -3,14 +3,14 @@ import WishListButton from './WishListButton';
 
 const DetailMediumCard = ({ title, city, street, img, contentid }) => {
   return (
-    <div className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg mb-32 w-313 overflow-hidden">
+    <div className="border-solid border border-[#E9E9E9] rounded-8  shadow-lg mb-32 w-313 overflow-hidden  hover:border-[#ffd3be] border-2">
       <img className="h-209 w-full" src={img} alt="상세 사진" />
       <div className="p-20 text-left">
         <div className="flex justify-between mb-13">
           <div className="text-18 font-semibold w-220 line-clamp-1">{title}</div>
           <WishListButton placeInfo={contentid} />
         </div>
-        <div className="text-14 text-gray-5">{`${city} > ${street}`}</div>
+        <div className="text-14 text-gray-7">{`${city} > ${street}`}</div>
       </div>
     </div>
   );

@@ -3,14 +3,14 @@ import WishListButton from './WishListButton';
 
 const DetailCard = ({ title, city, street, description, img, contentid }) => {
   return (
-    <div className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13">
+    <div className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13 hover:border-[#ffd3be] border-2 hover:bg-[#f5f5f5]/50 ">
       <div className="flex-1 content-center text-left">
         <div className="flex justify-between">
           <div>
             <span className=" text-24 mr-22 font-medium inline-block max-w-312  leading-7">
               {title}
             </span>
-            <span className="text-gray-7 text-14">{`${city}  >  ${street}`}</span>
+            <span className="text-[#8c8c8c] text-14">{`${city}  >  ${street}`}</span>
           </div>
           <WishListButton placeInfo={contentid} />
         </div>
@@ -18,7 +18,7 @@ const DetailCard = ({ title, city, street, description, img, contentid }) => {
           {description}
         </p>
       </div>
-      <img src={img} alt="상세사진" className="rounded-10 w-344 h-171 ml-40" />
+      <img src={img} alt="상세사진" className="rounded-10 w-345 h-171 ml-40" />
     </div>
   );
 };
