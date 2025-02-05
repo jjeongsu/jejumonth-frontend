@@ -1,4 +1,4 @@
-import makePlaceObject from '@/utils/makePlaceObject';
+import makePlaceObject from '../utils/makePlaceObject';
 
 const PlaceCard = ({ item, onNext, onSkipDetail }) => {
   return (

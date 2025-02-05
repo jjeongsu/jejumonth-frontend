@@ -70,7 +70,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
           placeholder="장소를 검색하고 마음에 든다면 일정에 추가해보세요!"
           className="border-0 outline-none p-0 m-0 bg-transparent h-46 w-550 font-medium text-gray-7"
           ref={searchInputRef}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter') {
               handleSearchClick();
             }
@@ -107,8 +107,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
         }}
       >
         {!search.submitKeyword && (
-<<<<<<< HEAD
-          <div className="w-560 flex flex-wrap justify-between gap-8">
+          <div className="w-750 flex flex-wrap justify-between gap-8">
             {TAG_DATA.map(tag => (
               <PlaceTagButton
                 key={tag.id}
@@ -116,11 +115,6 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
                 title={tag.title}
                 contentId={tag.contentId}
               />
-=======
-          <div className="w-750 flex flex-wrap justify-between gap-8">
-            {tagData.map(tag => (
-              <PlaceTagButton key={tag.id} onNext={onNext} title={tag.title} contentId={tag.contentId} />
->>>>>>> main
             ))}
           </div>
         )}

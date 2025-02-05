@@ -1,5 +1,5 @@
 import Detail from '@pages/DetailPage/components/Detail';
-import makePlaceObject from '@/utils/makePlaceObject';
+import makePlaceObject from '../utils/makePlaceObject';
 import { useFetchPlace } from '@/hooks/react-query';
 
 const Details = ({ onNext, contentId, onBackClick }) => {
