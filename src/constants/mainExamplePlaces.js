@@ -218,6 +218,7 @@ export const RESTAURANTS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/518853d0-1d4e-485a-94b9-0573cec3a933.jpg',
     description: '낯선 곳에서 만나는 인도의 향기, 바라나시 책골목',
     category: '음식점',
+    address: "제주시 동한두기길 35-2",
   },
   {
     contentsid: 'CNTS_000000000022580',
@@ -227,6 +228,7 @@ export const RESTAURANTS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/dc917a98-23fe-47e1-96ee-d73a03c3dd01.jpg',
     description: '매일 구운 빵, 커피, 책이 있는 원도심 휴식공간',
     category: '음식점',
+    address: "제주시 탑동로 11",
   },
   {
     contentsid: 'CNTS_200000000009123',
@@ -236,6 +238,7 @@ export const RESTAURANTS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201908/20/b1a8100a-ef60-454a-8428-ed96c09ea800.jpg',
     description: '추자바다 바라보며 먹는 감성 찜닭',
     category: '음식점',
+    address: "제주특별자치도 제주시 추자면 추자로 78",
   },
   {
     contentsid: 'CNTS_200000000014823',
@@ -245,6 +248,7 @@ export const RESTAURANTS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202305/22/9c7c4b8b-7be7-467e-8054-d6e057282726.jpg',
     description: '삭막한 도심 속 쉼터같은 카페',
     category: '음식점',
+    address: "제주특별자치도 제주시 제원4길 10-1",
   },
 ];
 
@@ -257,6 +261,7 @@ export const FESTIVALS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202311/14/3dda82ab-63dc-477e-8008-eb304054ea43.JPG',
     description: '제주성주풀이굿을 해체하고 재구성한 전통창작 음악굿 공연',
     category: '축제/행사',
+    address : "제주특별자치도 제주시 신산로 82 제주영상문화진흥원  1층",
   },
   {
     contentsid: 'CNTS_300000000013058',
@@ -266,6 +271,7 @@ export const FESTIVALS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202406/24/fcb9caec-c074-427c-a5c1-be9513ed5355.jpeg',
     description: '백록담을 품은 영천동, 때 묻지 않은 아름다운 제주를 고스란히 간직한 곳',
     category: '축제/행사',
+    address: "제주특별자치도 서귀포시 솔오름로105번길 24",
   },
   {
     contentsid: 'CNTS_200000000013547',
@@ -275,6 +281,7 @@ export const FESTIVALS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202308/02/03d2c212-b9bf-4f62-8549-2178eebcec70.jpg',
     description: '제주에서 가장 먼저 수국을 볼 수 있는 휴애리',
     category: '축제/행사',
+    address: "제주특별자치도 서귀포시 남원읍 신례동로 256",
   },
   {
     contentsid: 'CNTS_300000000013155',
@@ -284,6 +291,7 @@ export const FESTIVALS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/20/efbd5bbf-c107-48ec-9979-fa1ffb15617f.jpg',
     description: '대한민국의 무용 명인 초청공연',
     category: '축제/행사',
+    address: "제주특별자치도 제주시 동광로 69",
   },
   {
     contentsid: 'CNTS_000000000022053',
@@ -293,6 +301,7 @@ export const FESTIVALS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201808/16/aa69aec5-592e-4ac7-b1b7-f264400a09f4.jpg',
     description: '천혜의 자연경관을 지닌 쇠소깍 일대에서 다채로운 체험을 할 수 있는 축제',
     category: '축제/행사',
+    address: "제주특별자치도 서귀포시 쇠소깍로 128",
   },
   {
     contentsid: 'CNTS_200000000013948',
@@ -302,6 +311,7 @@ export const FESTIVALS = [
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202408/30/855f6ebe-4737-480d-b53b-48d06df2354d.jpg',
     description: '체험형 레저스포츠와 감성문화 예술이 만나는 축제',
     category: '축제/행사',
+    address: "제주특별자치도 제주시 조천읍 조함해안로 525",
   },
 ];
 
@@ -314,6 +324,7 @@ export const THEME_TOURS = [
       '여름을 맞아 시원한 느낌의 라탄 소재 소품들이 인기를 끌고 있다. 제주 라탄의 특별함을 함께 구경해보자.',
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201808/07/b401d087-a1fe-4f48-969e-0bffa96cf4bf.jpg',
     category: '테마여행',
+    address: "제주특별자치도",
   },
   {
     contentsid: 'CNTS_200000000011914',
@@ -323,6 +334,7 @@ export const THEME_TOURS = [
       "제주관광공사가 운영하는 마을여행 프로그램 '제주로 로캉스 떠나요'를 통해 숨겨진 제주의 매력을 발견할 수 있다.",
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202108/31/31027bf7-0a38-4516-8374-aff551deff43.jpg',
     category: '테마여행',
+    address: "제주특별자치도",
   },
   {
     contentsid: 'CNTS_200000000010946',
@@ -332,6 +344,7 @@ export const THEME_TOURS = [
       '제주의 등대는 역사적 가치가 높으며, 관광자원으로 발전했다. 대표적인 등대들을 소개한다.',
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202012/10/1a040c10-c388-415a-b0eb-b588c8815990.JPG',
     category: '테마여행',
+    address: "제주특별자치도",
   },
   {
     contentsid: 'CNTS_000000000021802',
@@ -341,6 +354,7 @@ export const THEME_TOURS = [
       '세계지질공원 제주도의 지질마을 지오하우스에서는 지질자원과 문화를 모티브로 한 체험을 할 수 있다.',
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201804/30/5dee1907-bbce-4ceb-ab8e-a6de1a304133.jpg',
     category: '테마여행',
+    address: "제주특별자치도",
   },
   {
     contentsid: 'CNTS_200000000008992',
@@ -350,6 +364,7 @@ export const THEME_TOURS = [
       '제주 서남쪽에 위치한 사계리 마을에서 자연경관을 감상하며 해남 겸 서퍼 이훈탁 삼촌과의 마을 탐방을 경험해보자.',
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/201907/29/6e5fbc5e-8992-40d2-af78-337f82bc5525.jpg',
     category: '테마여행',
+    address: "제주특별자치도",
   },
   {
     contentsid: 'CNTS_200000000010476',
@@ -358,5 +373,6 @@ export const THEME_TOURS = [
     description: '자연과 문화가 함께하는 서부권 지역에서 자유로운 일정의 혼행을 경험해보자.',
     img: 'https://api.cdn.visitjeju.net/photomng/thumbnailpath/202010/30/50d7e417-56c0-455a-ad0f-83f0a750e149.JPG',
     category: '테마여행',
+    address: "제주특별자치도",
   },
 ];
