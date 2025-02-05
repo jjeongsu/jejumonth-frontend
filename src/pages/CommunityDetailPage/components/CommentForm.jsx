@@ -9,8 +9,8 @@ const CommentForm = ({ postId, onCommentCreated }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
-  const user = useSelector((state) => state.user);
-  const userId = user?.userId;
+  const userId = useSelector((state) => state.user.userId);
+
 
   const token = getCookie('jwt');
 

@@ -50,8 +50,6 @@ export const updatePostApi = async formData => {
         'Content-Type': 'multipart/form-data',
       },
     });
-
-    console.log('게시글 업데이트 성공:', response.data);
     return response.data;
   } catch (error) {
     console.error('게시글 업데이트 실패:', error);
