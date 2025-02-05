@@ -37,14 +37,13 @@ const DetailContent = ({ data }) => {
 
   return (
 
-    <div className="font-sans max-w-963 mx-auto p-4 mb-80">
-      <div className="mt-30 mb-20 text-[14px] text-gray-7">
+    <div className="font-sans max-w-960 mx-auto p-4 mb-80">
+      <div className="mt-30 mb-20 text-[14px] text-gray-7 ml-5">
         {data.region1cd?.label || "제주"}
         <span className="text-[11px] text-gray-7">&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;</span>
         <span className="text-[18px] text-gray-10">
           {data.region2cd?.label || "제주시"}
         </span>
-
       </div>
       <div className="flex justify-center">
         <div 
@@ -81,30 +80,35 @@ const DetailContent = ({ data }) => {
         <div className="p-15 gap-x-6">
           {/* grid grid-cols-[1fr,0.43fr] 제거*/}
           <div>
-            <p className="text-lg font-bold text-neutral-800 mt-6">
+            <p className="flex items-center text-lg font-bold text-gray-9 mt-6">
               {data.introduction || "천혜의 자연과 감성 여행지 🌿🏝️"}
             </p>
             <DummyIndex />
           </div>
         </div>
       </section>
-      <div className="flex items-center w-963 h-2 border-t-2 bg-gray-3 mt-30 mb-30"></div>
+      <div className="flex items-center w-950 h-2 border-t-2 bg-gray-3 mt-30 mb-30"></div>
       <h2 className="text-30 font-bold text-neutral-800 mb-20 flex items-center align-middle leading-none">📍 About</h2>
-      <div className="gap-8">
-        <div className="grid grid-cols-[0.12fr,1fr] gap-x-3 gap-y-3 p-10 items-center ml-10">
-          <div className="flex items-center gap-4">
-            <img src={Position} alt="position" className="w-11 h-11 mr-8" />
-            <p className="text-[15px] font-bold text-[#8c8c8c]">주소</p>
+      <div>
+        <div className="flex items-center p-10 ml-10">
+          <div className="flex items-center">
+            <div className="flex items-center gap-4">
+              <img src={Position} alt="position" className="w-11 h-11 mr-5" />
+              <p className="text-[15px] font-bold text-[#8c8c8c] mr-14">주소</p>
+            </div>
+            <p className="text-[14px] text-[#434343] leading-6">{data.roadaddress || "제주특별자치도 제주시 문연로 6"}</p>
           </div>
-          <p className="text-[14px] text-[#434343] leading-6">{data.roadaddress || "제주특별자치도 제주시 문연로 6"}</p>
-          <div className="flex items-center gap-4">
-            <img src={Phone} alt="phone" className="w-11 h-11 mr-8" />
-            <p className="text-[15px] font-bold text-[#8c8c8c]">전화번호</p>
+          <div className="text-[9px] text-gray-7 mx-18">ㅣ</div>
+          <div className="flex items-center">
+            <div className="flex items-center gap-4">
+              <img src={Phone} alt="phone" className="w-11 h-11 mr-5" />
+              <p className="text-[15px] font-bold text-[#8c8c8c] mr-14">전화번호</p>
+            </div>
+            <p className="text-[14px] text-[#434343] leading-6">{data.phoneno && data.phoneno !== "--" ? data.phoneno : "064-120"}</p>
           </div>
-          <p className="text-[14px] text-[#434343] leading-6">{data.phoneno && data.phoneno !== "--" ? data.phoneno : "064-120"}</p>
         </div>
-        <div className="space-y-4">
-          <div className="w-[963px] h-[550px] mt-10 lg:w-3500 lg:overflow-x-hidden ">
+        <div>
+          <div className="w-[955px] h-[550px] mt-10 lg:w-3500 lg:overflow-x-hidden ">
             <KaKaoMap
               latitude={data?.latitude || 33.4896}
               longitude={data?.longitude || 126.5006}
