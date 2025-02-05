@@ -23,12 +23,12 @@ const DetailSmallCard = ({ title, city, street, description, category, contentid
 
   return (
     <>
-      <table className="w-full ">
+      <table className="w-full table-fixed">
         <colgroup>
-          <col style={{ width: '5%' }}></col>
+          <col style={{ width: '7%' }}></col>
           <col style={{ width: '20%' }}></col>
           <col style={{ width: '15%' }}></col>
-          <col style={{ width: '55%' }}></col>
+          <col style={{ width: '53%' }}></col>
           <col style={{ width: '5%' }}></col>
         </colgroup>
         <tr className="border-b  border-solid border-[#EEEEEE] cursor-pointer">
