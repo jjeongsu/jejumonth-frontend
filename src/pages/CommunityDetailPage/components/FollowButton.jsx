@@ -7,7 +7,8 @@ const FollowButton = ({ targetUserId, onFollowUpdate }) => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followId, setFollowId] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { userId, isLoggedIn } = useSelector(state => state.user);
+  const userId = useSelector(state => state.user.userId);
+  const isLoggedIn = useSelector(state => state.user.isLoggedIn);
 
   useEffect(() => {
     if (!userId) return;
