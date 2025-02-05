@@ -24,7 +24,6 @@ const DetailPage = () => {
         }
         setData(result);
       } catch (error) {
-        console.error('api 호출 중 오류 :', error);
         setError(error.message);
         navigate('/search');
       } finally {
