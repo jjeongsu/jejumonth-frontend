@@ -68,7 +68,7 @@ const SearchPage = () => {
     };
     setQuery(updatedQuery);
     setSearchText(updatedQuery.title);
-  }, [searchParams]);
+  }, [searchParams, itemListLength]);
 
   useEffect(() => {
     if (!isLoading && datas && datas?.items) {
@@ -77,7 +77,7 @@ const SearchPage = () => {
     } else {
       console.log('data 또는 items가 존재하지 않습니다.');
     }
-  }, [data, isLoading]);
+  }, [datas, isLoading]);
 
   const handleChange = e => {
     const { value, type } = e.target;
@@ -92,7 +92,15 @@ const SearchPage = () => {
 
   const handleChangeBtnClick = (page, category) => {
     const nextInputQuery = { ...inputQuery, page, category };
+    console.log('nextInputQuery', nextInputQuery);
     setInputQuery(nextInputQuery);
+
+    // setQuery(prevQuery => ({
+    //   ...prevQuery,
+    //   page, // 페이지 번호를 업데이트
+    //   category,
+    //   titl,
+    // }));
     setQuery(nextInputQuery);
     let params = '?';
     Object.entries(nextInputQuery).forEach(([key, value]) => {
@@ -102,7 +110,12 @@ const SearchPage = () => {
     });
 
     params = params.slice(0, -1);
-    navigate(`${location.pathname}` + params);
+    if (params) {
+      navigate(`${location.pathname}${params}`);
+    } else {
+      navigate(location.pathname);
+    }
+    // navigate(`${location.pathname}` + params);
   };
 
   useEffect(() => {
@@ -119,6 +132,7 @@ const SearchPage = () => {
 
     const totalItems = searchData.length;
     const totalPages = Math.ceil(totalItems / itemListLength);
+    console.log('totalPages', totalPages);
 
     if (query.page > totalPages) {
       setQuery(prevQuery => ({
@@ -129,12 +143,16 @@ const SearchPage = () => {
 
     const nextInputQuery = { ...query };
 
+    console.log('nextInputQuery', nextInputQuery);
+
     const filteredQuery = {};
     ['page', 'category', 'title'].forEach(key => {
       if (nextInputQuery[key]) {
         filteredQuery[key] = nextInputQuery[key];
       }
     });
+
+    console.log('filteredQuery', filteredQuery);
 
     let params = '?';
     Object.entries(filteredQuery).forEach(([key, value]) => {
@@ -144,12 +162,19 @@ const SearchPage = () => {
     });
 
     params = params.slice(0, -1);
-    if (params) {
-      navigate(`${location.pathname}${params}`);
-    } else {
-      navigate(location.pathname);
-    }
-  }, [layout, searchData, itemListLength]);
+    // if (params) {
+    navigate(`${location.pathname}${params}`);
+    // } else {
+    //   navigate(location.pathname);
+    // }
+  }, [layout, itemListLength, searchData]);
+
+  // useEffect(() => {
+  //   console.log('ItemListLength 변경됨:', itemListLength);
+  //   console.log('PagesLength 변경됨:', pagesLength);
+
+  //   console.log('페이지 입니다~~~~~~~~~~~~', searchData.length / itemListLength);
+  // }, [itemListLength, pagesLength]); // itemListLength, pagesLength가 바
 
   const handleLayoutChange = e => {
     const { layoutIcon } = e.currentTarget.dataset;
@@ -178,7 +203,11 @@ const SearchPage = () => {
               key={item.id}
               title={item.title || '제목이 없습니다'}
               city={item.region1cd?.label || '도시'}
-              street={item.region2cd?.label || '지역명'}
+              street={
+                item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
+                  ? '제주시내'
+                  : item.region2cd?.label
+              }
               description={item.introduction || '설명이 없습니다.'}
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               contentid={item}
@@ -198,7 +227,11 @@ const SearchPage = () => {
               key={item.id}
               title={item.title || '제목이 없습니다'}
               city={item.region1cd?.label || '도시'}
-              street={item.region2cd?.label || '지역명'}
+              street={
+                item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
+                  ? '제주시내'
+                  : item.region2cd?.label
+              }
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               category={item.contentscd?.value}
               contentid={item}
@@ -217,7 +250,11 @@ const SearchPage = () => {
               key={item.id}
               title={item.title || '제목이 없습니다'}
               city={item.region1cd?.label || '도시'}
-              street={item.region2cd?.label || '지역명'}
+              street={
+                item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
+                  ? '제주시내'
+                  : item.region2cd?.label
+              }
               description={item.introduction || '설명이 없습니다.'}
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               category={item.contentscd?.value}
@@ -231,8 +268,8 @@ const SearchPage = () => {
   };
 
   return (
-    <div>
-      <div className="w-512 h-52 rounded-20  shadow-2md p-16 box-border flex mx-auto mb-50">
+    <div className="mt-60">
+      <div className="w-512 h-52 rounded-20  shadow-2md p-16 box-border flex mx-auto mb-60">
         <input
           type="text"
           onChange={handleChange}
@@ -258,7 +295,7 @@ const SearchPage = () => {
         <ul className="flex">
           {categoryType.map(item => (
             <li key={item.id} className="mx-6">
-              <button onClick={() => handleChangeBtnClick(1, item.category)}>
+              <button onClick={() => handleChangeBtnClick(query.page, item.category)}>
                 <Category
                   title={item.title}
                   category={item.category}
@@ -363,7 +400,7 @@ const SearchPage = () => {
           <Pagination
             total={searchData.length}
             pageSize={itemListLength}
-            className="justify-center mt-55"
+            className="justify-center mt-55 mb-70"
             current={query.page}
             onChange={value => {
               handleChangeBtnClick(value, query.category || 0);
