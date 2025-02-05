@@ -91,7 +91,6 @@ export async function getUserLikedPlaceApi(userId, contentId) {
 }
 
 export async function postUserLikedPlaceApi(userId, placeInfo) {
-  console.log('Adding liked place for user:', userId, 'Place Info:', placeInfo); // 요청 데이터 출력
   const { data, error } = await supabase
     .from('UserLikedPlaces')
     .insert({
@@ -106,8 +105,6 @@ export async function postUserLikedPlaceApi(userId, placeInfo) {
     .select();
   if (error) {
     console.error('Error adding liked place:', error); // 에러 출력
-  } else {
-    console.log('Liked place added successfully:', data); // 응답 데이터 출력
   }
   return data ? data : error;
 }
@@ -123,7 +120,6 @@ export async function deleteUserLikedPlaceApi(userId, contentId) {
     console.error('Supabase 삭제 오류:', error);
     return null;
   }
-  console.log(`찜 삭제 성공: userId=${userId}, contentId=${contentId}`);
   return contentId;
 }
 

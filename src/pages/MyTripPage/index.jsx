@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 import DayCard from './components/DayCard.jsx';
 import PlanCard from './components/PlanCard.jsx';
 import { useLocation } from 'react-router-dom';
-import { deletePlanApi, getPlanApi, getTripApi, updatePlanApi } from '../../apis/supabaseApi.js';
+import { deletePlanApi, getPlanApi, getTripApi, updatePlanApi } from '@/apis/supabaseApi.js';
 import PopUpCard from './components/PopUpCard.jsx';
 import { Modal } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
@@ -92,7 +92,6 @@ const MyTripPage = () => {
         }
       },
       onCancel() {
-        console.log('Cancel');
       },
       cancelButtonProps: {
         style: {
@@ -136,12 +135,6 @@ const MyTripPage = () => {
       console.error(error);
     }
   }
-
-  // 디버깅 용
-  useEffect(() => {
-    console.log(datesData);
-    console.log(planForPopUp);
-  }, [datesData, planForPopUp]);
 
   useEffect(() => {
     let latitude = 33.39;
