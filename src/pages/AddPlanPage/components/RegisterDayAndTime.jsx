@@ -1,19 +1,16 @@
-import React from 'react';
+import { formatDateKo, formatDate, formatTime } from '@/utils/dateFormat';
 import { getRefinedDate } from './WeekCalendar';
 import { useState } from 'react';
 import WeekCalendar from './WeekCalendar';
 import ButtonList from './ButtonList';
-import { formatDateKo, formatDate, formatTime } from '../../../utils/dateFormat';
 import { message } from 'antd';
 
 // TODO 랜더링 최적화
-// TODO 요약부 이모지를 아이콘으로 변경
 const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRegister }) => {
   const [time, setTime] = useState(null);
   const [selectedDay, setSelectedDay] = useState(() => getRefinedDate(initialTargetDate));
   const [messageApi, contextHolder] = message.useMessage();
 
-  // day : Wed Feb 05 2025 00:00:00 GMT+0900 (한국 표준시)
   const calendarProps = {
     initialTargetDate,
     selectedDay,
@@ -90,12 +87,11 @@ const RegisterDayAndTime = ({ startDate, endDate, initialTargetDate, place, onRe
 
         <button
           type="button"
-          className="text-16 font-semibold text-green-500 ml-3 abolute right-0"
+          className="text-16 font-semibold text-green-500 ml-10 abolute right-0 h-45 w-100 bg-green-50 rounded-full hover:bg-green-100"
           onClick={onSubmitClick}
         >
           {contextHolder}
-          <span>✅</span>
-          <span>확인</span>
+          <span> ✅ 확인</span>
         </button>
       </div>
     </div>

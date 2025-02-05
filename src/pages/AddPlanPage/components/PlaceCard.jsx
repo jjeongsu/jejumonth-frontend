@@ -1,11 +1,11 @@
-import makePlaceObject from '../utils/makePlaceObject';
+import makePlaceObject from '@/utils/makePlaceObject';
 
 const PlaceCard = ({ item, onNext, onSkipDetail }) => {
   return (
     <div className="w-560 h-66 relative border flex justify-around items-center border-white">
       <img
         className="w-57 h-32 rounded-sm"
-        src={item?.repPhoto?.photoid?.thumbnailpath || "/images/no_image.svg"}
+        src={item?.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
         alt="장소 사진"
       />
 

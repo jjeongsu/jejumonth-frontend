@@ -1,6 +1,6 @@
-import makePlaceObject from '../utils/makePlaceObject';
-import { useFetchPlace } from '@/hooks/react-query';
 import Detail from '@pages/DetailPage/components/Detail';
+import makePlaceObject from '@/utils/makePlaceObject';
+import { useFetchPlace } from '@/hooks/react-query';
 
 const Details = ({ onNext, contentId, onBackClick }) => {
   // 컨텐츠 id로 데이터 가져오기

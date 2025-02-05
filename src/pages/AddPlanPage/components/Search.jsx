@@ -2,7 +2,7 @@ import { Button, Modal, ConfigProvider, Empty, Select } from 'antd';
 import PlaceTagButton from './PlaceTag.jsx';
 import PlaceCard from './PlaceCard.jsx';
 import { useState, useRef, useEffect } from 'react';
-import categoryCode from '@/constants/category.js'; //TODO 절대경로로 변경
+import CATEGORY_CODES from '@/constants/category.js';
 import TAG_DATA from '@/constants/tagData.js';
 import useFetchSearchedPlaceList from '@/hooks/react-query/useFetchSearchedPlaceList.js';
 
@@ -33,8 +33,6 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
     setIsAlertModalOpen(false);
   };
 
-  console.log('현재 검색어, 카테고리 상태', search.submitKeyword, search.category);
-
   useEffect(() => {
     // 다시 마운트 될때, searchKeyword를 가지고 있다면
     if (search.submitKeyword !== '') {
@@ -64,7 +62,7 @@ const Search = ({ onBackClick, onNext, onSkipDetail, search, setSearch }) => {
               width: 95,
             }}
             onChange={handleSelectBoxChange}
-            options={categoryCode}
+            options={CATEGORY_CODES}
           />
         </ConfigProvider>
         <input

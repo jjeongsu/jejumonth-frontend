@@ -1,10 +1,10 @@
+import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
+import { useFetchTrip, usePostPlan } from '@/hooks/react-query';
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
-import RegisterDayAndTime from './components/RegisterDayAndTime.jsx';
-import Search from './components/Search.jsx';
-import Details from './components/Details.jsx';
-import { useFetchTrip, usePostPlan } from '@/hooks/react-query';
 import useQueryString from '@/hooks/useQueryString.js';
+import Details from './components/Details.jsx';
+import Search from './components/Search.jsx';
 
 const AddPlanPage = () => {
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ const AddPlanPage = () => {
 
   // 최종 일정 생성 "확인"버튼을 눌렀을 때 작동하는 핸들러
   const onRegister = async data => {
-    console.log('시간등록 컴포넌트에서 전달받는 데이터', data); // day, time 전달
     const planData = {
       trip_id: tripId,
       date: data.day,
@@ -34,7 +33,7 @@ const AddPlanPage = () => {
   };
 
   const handleBackClick = () => {
-    navigate(`/trip/my?trip_id=${tripId}`); // TODO 이렇게 하면 다시 돌아갈때마다 API가 호출되는 문제가 존재
+    navigate(`/trip/my?trip_id=${tripId}`);
   };
 
   if (isLoading) {

@@ -34,8 +34,6 @@ const CommunityPreview = () => {
     return wrappers;
   };
 
-  // const carouselItems = chunkpost(posts);
-
   return (
     <div className="mb-100">
       <h2 className="font-semibold text-24 text-gray-8">
