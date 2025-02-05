@@ -3,14 +3,14 @@ import DayButton from './DayButton.jsx';
 
 const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
   return (
-    <div className="grid w-700 h-200 bg-gray-1 bottom-0 right-58 absolute z-10">
-      <div className="flex justify-between m-8 px-10">
+    <div className="grid w-700 h-200 bg-gray-1 bottom-0 right-51 absolute z-10 rounded-t-3">
+      <div className="flex justify-between px-20 py-10 place-items-center">
         <DayButton dayNumber={plan.dayNumber} />
         <a href={`/detail/${plan.content_id}`} target="_blank">
           <div className="text-sub-accent-1">더보기</div>
         </a>
       </div>
-      <div className="flex mb-10 mx-20">
+      <div className="flex pb-10 px-20 place-items-center">
         <img
           src={plan.thumbnailpath || "/images/no_image.svg"}
           alt="장소사진"
@@ -18,20 +18,28 @@ const PopUpCard = ({ plan, handleDelete, handleUpdate }) => {
           height="77"
           className="rounded-4 w-127 h-77 object-cover"
         />
-        <div className="grid ml-20 w-400 grid-cols-2 grid-rows-3 gap-x-0 gap-y-1">
-          <div className="font-semibold col-span-2">{plan.place_name}</div>
-          <div className="text-gray-6">{plan.category}</div>
-          <div className="text-gray-7 row-start-3">📍 info</div>
-          <div className="text-gray-7 row-span-2 col-start-2 flex items-center">
-            {plan.description.length > 40 ? (
-              plan.description.slice(0,50) + '...'
+        <div className="grid ml-20 w-400 grid-cols-[1fr_2fr]grid-cols-2 grid-rows-3 gap-x-10 gap-y-10">
+          <div className="flex w-auto justify-between place-items-center">
+            <div className="font-semibold col-span-2">
+              {plan.place_name.length > 8 ? (
+                plan.place_name.slice(0,8)+'...'
+              ) : (
+                plan.place_name
+              )}
+            </div>
+            <div className="ml-6 text-gray-6">{plan.category}</div>
+          </div>
+          <div className="text-gray-7 row-start-2">📍 info</div>
+          <div className="text-gray-7 row-span-3 col-start-2 row-start-2 flex">
+            {plan.description.length > 50 ? (
+              plan.description.slice(0,62) + '...'
             ) : (
               plan.description
             )}
           </div>
         </div>
       </div>
-      <div className="flex border-t-[1px] border-solid border-gray-200 justify-around items-center">
+      <div className="flex border-t-[1px] border-solid w-700 border-gray-200 justify-around items-center">
         <div className="w-349 flex items-center justify-center">
           <button className="flex items-center text-gray-7" onClick={handleDelete}>
             <img
