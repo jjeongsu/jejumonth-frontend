@@ -51,7 +51,7 @@ const DetailContent = ({ data }) => {
           className="relative rounded-15 overflow-hidden shadow-md mb-30 w-[963px]"
           style={{
             boxShadow:
-                '0px 35px 10px 0 rgba(97,97,97,0.2), 0px 22px 9px 0 rgba(97,97,97,0.3), 0px 13px 8px 0 rgba(97,97,97,0.5), 0px 6px 6px 0 rgba(97,97,97,0.6), 0px 1px 3px 0 rgba(97,97,97,0.8)',
+                '0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,0.01), 0px 13px 8px 0 rgba(97,97,97,0.05), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)',
           }}>
           <img
             src={data.repPhoto.photoid.imgpath}
