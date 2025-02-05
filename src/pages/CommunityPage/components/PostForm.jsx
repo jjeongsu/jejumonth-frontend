@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PostFormModal from './PostFormModal';
-import pencil from '../../../../public/icons/pencil.svg';
+import pencil from '/icons/pencil.svg';
 import { useSelector } from 'react-redux';
 import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
 

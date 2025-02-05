@@ -1,5 +1,8 @@
 import React from 'react';
-import comment from '../../../../public/icons/comment.svg';
+
+import likes from '/icons/likes.svg';
+import comment from '/icons/comment.svg';
+
 import Pagination from './Pagination';
 import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
 import LikeIcon from '../../CommunityDetailPage/components/icon/LikeIcon';

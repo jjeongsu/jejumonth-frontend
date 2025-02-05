@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../../CommunityPage/components/Modal';
 import { fetchChannels } from '../../../apis/channelApi';
 import { updatePostApi } from '../../../apis/postApi';
-import deleteIcon from '../../../../public/icons/delete.svg';
+import deleteIcon from '/icons/delete.svg';
 
 const PostEditModal = ({ isOpen, onClose, post, onUpdate }) => {
   const authorName = post && post.author ? post.author.fullName : '';

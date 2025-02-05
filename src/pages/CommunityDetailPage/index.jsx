@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { fetchChannels } from '../../apis/channelApi';
 import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '../../apis/supabaseApi.js';
 
-import leftArray from '../../../public/icons/left-array.svg';
-import commentIcon from '../../../public/icons/comment.svg';
+import leftArray from '/icons/left-array.svg';
+import commentIcon from '/icons/comment.svg';
 import ProfileImage from './components/icon/ProfileImage';
 
 import ChannelTabs from '../CommunityPage/components/ChannelList';

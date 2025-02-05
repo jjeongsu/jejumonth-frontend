@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import deleteIcon from '../../../../public/icons/delete.svg';
+import deleteIcon from '/icons/delete.svg';
 import { deleteCommentApi } from '../../../apis/commentCreateApi';
 
 const CommentDelete = ({ commentId, userId, authorId, isLoggedIn, onDelete }) => {

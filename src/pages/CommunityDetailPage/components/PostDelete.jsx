@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { deletePostApi } from '../../../apis/postApi';
 import { useNavigate } from 'react-router-dom';
-import moreIcon from '../../../../public/icons/more.svg';
+import moreIcon from '/icons/more.svg';
 import PostEditModal from './PostEditModal';
 
 const PostDelete = ({ postId, userId, authorId, setPosts, isLoggedIn, post, onUpdate }) => {
