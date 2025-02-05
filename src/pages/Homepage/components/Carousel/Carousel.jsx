@@ -79,7 +79,6 @@ const Carousel = ({ options, items }) => {
       .on('slideFocus', onScroll);
   }, [emblaApi, tweenOpacity, onScroll]);
 
-  console.log('scrollProgress', scrollProgress);
   return (
     <div className="my-30 relative">
       <div className="embla h-400">
