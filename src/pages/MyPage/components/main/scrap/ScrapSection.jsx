@@ -4,6 +4,9 @@ import ScrapPlaceCard from './ScrapPlaceCard';
 import { useSelector } from 'react-redux';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
+import Container from './Container';
+
+// import useEmblaCarousel from 'embla-carousel-react';
 
 const ScrapSection = () => {
   const [scrapsData, setScrapData] = useState([]);
@@ -53,20 +56,23 @@ const ScrapSection = () => {
 
         return (
           <div key={category.title} className="mb-40 mt-24">
-            <h2 className="text-16">
+            <h2 className="text-16 mb-16">
               {category.title} <strong className="text-sub-accent-1">{filteredData.length}</strong>
             </h2>
 
             {filteredData.length > 0 ? (
-              <div className="grid grid-cols-4 gap-10 w-full p-10 mt-16 border border-gray-6 border-dashed min-h-80px">
-                {filteredData.map(scrapData => (
-                  <ScrapPlaceCard
-                    key={scrapData.content_id}
-                    scrapData={scrapData}
-                    onDelete={handleDeleteScrap}
-                  />
-                ))}
-              </div>
+              <Container slideLength={filteredData.length}>
+                <div className="embla__container">
+                  {filteredData.map(scrapData => (
+                    <ScrapPlaceCard
+                      key={scrapData.content_id}
+                      scrapData={scrapData}
+                      onDelete={handleDeleteScrap}
+                      slideLength={filteredData.length}
+                    />
+                  ))}
+                </div>
+              </Container>
             ) : (
               <NoContent>아직 스크랩한 컨텐츠가 없습니다!</NoContent>
             )}
