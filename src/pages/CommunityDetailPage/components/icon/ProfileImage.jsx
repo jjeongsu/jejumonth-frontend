@@ -9,8 +9,8 @@ const ProfileImage = ({
   // 더미 이미지 배열 이미지 추가 필요함
   const dummyImages = [
     '../../../public/images/dummy-user-img.png',
-    '../../../public/images/dummy-user-img.png',
-    '../../../public/images/dummy-user-img.png'
+    '../../../public/images/dummy-user-img2.png',
+    '../../../public/images/dummy-user-img3.png'
   ];
 
   const [dummyImage] = useState(() => {

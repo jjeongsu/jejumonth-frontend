@@ -1,8 +1,6 @@
 import devAPI from '../config/axiosDevConfig';
 import { COMMENT } from './endpoints';
 
-// TODO(수관) : 해당 파일 명을 commentApi.js로 바꿔주세요. 사용처 import 경로도 수정.
-// TODO(수관) : 해당 함수 명을 createCommentApi로 변경해주세요
 export const commentCreateApi = async (postId, comment) => {
   try {
     const response = await devAPI.post(COMMENT.create, {
@@ -18,7 +16,9 @@ export const commentCreateApi = async (postId, comment) => {
 
 export const deleteCommentApi = async commentId => {
   try {
-    const response = await devAPI.delete(COMMENT.delete, { id: commentId });
+    const response = await devAPI.delete(COMMENT.delete, {
+      data: { id: commentId },
+    });
     return response.data;
   } catch (error) {
     console.error('댓글 삭제 실패:', error.response?.data || error.message);
