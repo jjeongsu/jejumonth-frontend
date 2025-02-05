@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { followUser, unfollowUser } from '../../../apis/followApi';
-import { getUserFollowersApi } from '../../../apis/userApi';
+import { followUser, unfollowUser } from '@/apis/followApi';
+import { getUserFollowersApi } from '@/apis/userApi';
 
 const FollowButton = ({ targetUserId, onFollowUpdate }) => {
   const [isFollowing, setIsFollowing] = useState(false);

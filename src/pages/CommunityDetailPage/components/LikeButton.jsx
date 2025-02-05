@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createLikesApi, deleteLikesApi } from '../../../apis/likesApi';
-import { getCookie } from '../../../utils/cookie';
+import { createLikesApi, deleteLikesApi } from '@/apis/likesApi';
+import { getCookie } from '@/utils/cookie';
 import LikeIcon from './icon/LikeIcon';
 import { useSelector } from 'react-redux';
 

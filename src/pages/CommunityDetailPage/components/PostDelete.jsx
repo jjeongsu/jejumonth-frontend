@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { deletePostApi } from '../../../apis/postApi';
+import { deletePostApi } from '@/apis/postApi';
 import { useNavigate } from 'react-router-dom';
 import moreIcon from '/icons/more.svg';
 import PostEditModal from './PostEditModal';
