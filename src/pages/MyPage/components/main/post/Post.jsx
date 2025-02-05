@@ -26,7 +26,7 @@ const Post = ({ postData, postDeleteEvent }) => {
     <>
       {!postData && <p>데이터가없습니다</p>}
       {postData && (
-        <div className="w-full pt-40 px-20 pb-50 border-t border-t-gray-5 border-solid relative">
+        <div className="w-full pt-40 px-20 pb-50 relative">
           <div onClick={goToPostDetail} className="cursor-pointer">
             <div className="flex justify-between">
               <div

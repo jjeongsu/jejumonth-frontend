@@ -31,9 +31,9 @@ const CommentSection = () => {
   return (
     <>
       <article className="w-full">
-        <MyPageHeader title={'작성한 게시글'}></MyPageHeader>
+        <MyPageHeader title={'작성한 댓글'}></MyPageHeader>
 
-        <div className="mt-24">
+        <div className="mt-24 [&>*:not(:first-child)]:border-t [&>*:not(:first-child)]:border-solid [&>*:not(:first-child)]:border-t-gray-5">
           {data?.comments.length > 0 ? (
             data.comments.map((comment, index) => (
               <Comment

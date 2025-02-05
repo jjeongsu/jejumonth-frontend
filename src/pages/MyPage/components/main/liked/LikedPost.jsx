@@ -2,34 +2,19 @@ import PropTypes from 'prop-types';
 import LikesIcon from '../../icon/LikesIcon';
 import CommentIcon from '../../icon/CommentIcon';
 import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
-import { deleteUserLikedArticleApi } from '../../../../../apis/supabaseApi';
-import { useSelector } from 'react-redux';
 
-const LikedPost = ({ postData }) => {
-  const userId = useSelector(state => state.user.userId);
-
-  const deleteLikedPostHandler = async articleId => {
-    const isChecked = window.confirm('정말로 스크랩을 취소하시겠습니까?');
-
-    if (isChecked) {
-      try {
-        console.log(`${articleId}가 클릭되었습니다.`);
-        await deleteUserLikedArticleApi(userId, articleId);
-      } catch (error) {
-        throw new Error(error);
-      }
-    }
-  };
-
+const LikedPost = ({ postData, deleteLikedPostEvent }) => {
   return (
     <>
       {postData && (
-        <div className="w-full pt-40 px-20 pb-50 border-y border-y-gray-5 border-solid relative">
+        <div className="w-full pt-40 px-20 pb-50 relative">
           <div>
             <div className="flex justify-between">
               <div
                 className="w-50 h-50 bg-cover bg-center rounded-[50%]"
-                style={{ backgroundImage: `url('${postData.author_profile_url}')` }}
+                style={{
+                  backgroundImage: `url('${postData.author_profile_url === null ? '/images/dummy-user-img.png' : postData.author_profile_url}')`,
+                }}
               ></div>
 
               <div className="flex flex-col w-[90%] justify-between">
@@ -44,7 +29,7 @@ const LikedPost = ({ postData }) => {
           <div className="icon-box absolute right-[3%] flex gap-20 mt-15">
             <div
               className="flex items-center gap-10 cursor-pointer"
-              onClick={() => deleteLikedPostHandler(postData.article_id)}
+              onClick={() => deleteLikedPostEvent(postData.article_id)}
             >
               <LikesIcon size={14} baseColor="#BFBFBF" licked={true}></LikesIcon>
               <span className="text-gray-6 text-14">{postData.count_likes}</span>
@@ -66,11 +51,12 @@ export default LikedPost;
 LikedPost.propTypes = {
   postData: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    author_profile_url: PropTypes.string.isRequired,
-    channel: PropTypes.string,
+    author_profile_url: PropTypes.string,
+    channel: PropTypes.string.isRequired,
     wrote_time: PropTypes.string.isRequired,
-    count_likes: PropTypes.number,
+    count_likes: PropTypes.number.isRequired,
     count_comments: PropTypes.number.isRequired,
     article_id: PropTypes.string.isRequired,
   }),
+  deleteLikedPostEvent: PropTypes.func.isRequired,
 };

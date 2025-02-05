@@ -3,7 +3,7 @@ import formatAddress from '../../../../../utils/addressFormat';
 import ScrapIcon from '../../icon/ScrapIcon';
 import { Link } from 'react-router';
 
-const ScrapPlaceCard = ({ scrapData, onDelete }) => {
+const ScrapPlaceCard = ({ scrapData, onDelete, slideLength }) => {
   const handleDeleteClick = e => {
     e.preventDefault();
     onDelete(scrapData.user_id, scrapData.content_id);
@@ -12,8 +12,11 @@ const ScrapPlaceCard = ({ scrapData, onDelete }) => {
   return (
     <>
       {scrapData && (
-        <Link to={`/detail/${scrapData.content_id}`}>
-          <div className="w-150 h-140 rounded-8 relative">
+        <Link
+          to={`/detail/${scrapData.content_id}`}
+          className={`  ${slideLength <= 4 && 'first:ml-[-16px]'}`}
+        >
+          <div className={`w-155 h-150 rounded-8 relative border border-gray-5 border-solid ml-16`}>
             <div className="scrap-icon absolute top-[5%] right-[5%]">
               <div onClick={handleDeleteClick} className="cursor-pointer">
                 <ScrapIcon size={18} scrapped={true}></ScrapIcon>
@@ -52,4 +55,5 @@ ScrapPlaceCard.propTypes = {
     user_id: PropTypes.string,
   }),
   onDelete: PropTypes.func,
+  slideLength: PropTypes.number,
 };

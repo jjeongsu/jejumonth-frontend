@@ -7,7 +7,7 @@ const MainCard = ({ placeInfo, onClick }) => {
 
   return (
     <div
-      className="border-solid border border-[#E9E9E9] rounded-8 shadow-lg w-313 overflow-hidden [&:nth-child(3n)]:mr-0 cursor-pointer"
+      className="border-solid border border-[#E9E9E9] rounded-8 shadow-lg w-313 overflow-hidden hover:border-[#ffd3be] hover : border-2 [&:nth-child(3n)]:mr-0 cursor-pointer"
       onClick={onClick}
     >
       <img className="h-209 w-full" src={placeInfo.img} alt="상세 사진" />
