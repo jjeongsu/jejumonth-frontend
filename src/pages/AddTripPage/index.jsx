@@ -3,7 +3,7 @@ import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useState } from 'react';
-import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { postTripApi } from '@/apis/supabaseApi.js';
 import { useNavigate } from 'react-router-dom';
