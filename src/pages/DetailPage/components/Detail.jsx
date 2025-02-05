@@ -38,9 +38,9 @@ const DetailContent = ({ data }) => {
   return (
 
     <div className="font-sans max-w-963 mx-auto p-4 mb-80">
-      <div className="mt-30 mb-20 text-[14px] text-gray-6">
+      <div className="mt-30 mb-20 text-[14px] text-gray-7">
         {data.region1cd?.label || "제주"}
-        <span className="text-[11px] text-gray-6">{" "}&gt;{" "}</span>
+        <span className="text-[11px] text-gray-7">{"  "}&gt;{"  "}</span>
         <span className="text-[18px] text-gray-10">
           {data.region2cd?.label || "제주시"}
         </span>
@@ -51,7 +51,7 @@ const DetailContent = ({ data }) => {
           className="relative rounded-15 overflow-hidden shadow-md mb-30 w-[963px]"
           style={{
             boxShadow:
-                '0px 35px 10px 0 rgba(97,97,97,0), 0px 22px 9px 0 rgba(97,97,97,0.01), 0px 13px 8px 0 rgba(97,97,97,0.05), 0px 6px 6px 0 rgba(97,97,97,0.09), 0px 1px 3px 0 rgba(97,97,97,0.1)',
+              '-54px 119px 37px 0 rgba(0,0,0,0), -35px 76px 33px 0 rgba(0,0,0,0.01), -19px 43px 28px 0 rgba(0,0,0,0.05), -9px 19px 21px 0 rgba(0,0,0,0.09), -2px 5px 11px 0 rgba(0,0,0,0.1)',
           }}>
           <img
             src={data.repPhoto.photoid.imgpath}
