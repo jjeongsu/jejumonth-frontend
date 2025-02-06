@@ -9,7 +9,6 @@ const usePostPlan = tripId => {
   const postPlanMutation = useMutation({
     mutationFn: postPlanApi,
     onSuccess: async () => {
-      console.log('성공적으로 plan 데이터를 보냈습니다.');
       await queryClient.invalidateQueries({
         queryKey: QUERY_KEY.plan.detail(tripId),
       });
