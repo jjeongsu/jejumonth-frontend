@@ -4,14 +4,11 @@ import { ConfigProvider, Pagination } from 'antd';
 
 import { useEffect, useState } from 'react';
 import { getList } from '@/apis/searchApi';
-
 import { useQuery } from '@tanstack/react-query';
 import Category from './components/Category';
 import DetailMediumCard from './components/DetailMediumCard';
 import DetailSmallCard from './components/DetailSmallCard';
-
 import SkeletonLayout from './components/skeletonLayout';
-import NotFound from './components/NotFound';
 
 const SearchPage = () => {
   const [searchData, setSearchData] = useState([]);
@@ -357,7 +354,6 @@ const SearchPage = () => {
               )}
             </div>
           )}
-          <NotFound />
         </div>
         <ConfigProvider
           theme={{
