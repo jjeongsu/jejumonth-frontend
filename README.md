@@ -79,7 +79,8 @@
 
 ### 1️⃣ **여행 일정 관리**
 
-<img width="1303" alt="스크린샷 2025-02-06 오후 12 42 02" src="https://github.com/user-attachments/assets/d32a878c-b01f-4f83-a473-557ad35f4391" />
+<img width="1303" alt="일정 관리 페이지" src="https://github.com/user-attachments/assets/14d713ff-0f37-4a66-9055-838b7ffe02cd" />
+
 
 
 - **캘린더 기반 일정 관리:** 날짜별로 일정을 추가/편집할 수 있음.
