@@ -5,7 +5,7 @@ import {
   addUserLikedPlace,
   fetchUserLikedPlaces,
   removeUserLikedPlace,
-} from '../../../redux/slices/wishlist.slice';
+} from '@/redux/slices/wishlist.slice';
 
 const WishListButton = ({ placeInfo }) => {
   const dispatch = useDispatch();
