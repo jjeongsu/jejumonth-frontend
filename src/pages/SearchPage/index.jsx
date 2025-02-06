@@ -47,12 +47,6 @@ const SearchPage = () => {
 
   useEffect(() => {}, [itemListLength, pagesLength]);
 
-  if (isLoading) {
-    console.log('데이터 로딩 중...');
-  } else if (error) {
-    console.log('데이터 요청 오류:', error);
-  }
-
   useEffect(() => {
     const updatedQuery = {
       page: parseInt(searchParams.get('page') || '1'),
@@ -69,8 +63,6 @@ const SearchPage = () => {
     if (!isLoading && datas && datas?.items) {
       const putdata = datas.items.slice(0, 100);
       setSearchData(putdata);
-    } else {
-      console.log('data 또는 items가 존재하지 않습니다.');
     }
   }, [datas, isLoading]);
 
@@ -176,7 +168,7 @@ const SearchPage = () => {
               const contentId = item.contentsid;
               window.location.href = `/detail/${contentId}`;
             }}
-            key={item.index}
+            key={item.contentsid}
           >
             <DetailCard
               key={item.id}
@@ -189,7 +181,7 @@ const SearchPage = () => {
               }
               description={item.introduction || '설명이 없습니다.'}
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
-              contentid={item}
+              contentid={item?.contentsid}
             />
           </button>
         );
@@ -201,7 +193,7 @@ const SearchPage = () => {
               const contentId = item.contentsid;
               window.location.href = `/detail/${contentId}`;
             }}
-            key={item.index}
+            key={item.contentsid}
           >
             <DetailMediumCard
               key={item.id}
@@ -214,7 +206,7 @@ const SearchPage = () => {
               }
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               category={item.contentscd?.value}
-              contentid={item}
+              contentid={item?.contentsid}
             />
           </button>
         );
@@ -225,7 +217,7 @@ const SearchPage = () => {
               const contentId = item.contentsid;
               window.location.href = `/detail/${contentId}`;
             }}
-            key={item.index}
+            key={item.contentsid || ''}
           >
             <DetailSmallCard
               key={item.id}
@@ -239,7 +231,7 @@ const SearchPage = () => {
               description={item.introduction || '설명이 없습니다.'}
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               category={item.contentscd?.value}
-              contentid={item}
+              contentid={item?.contentsid}
             />
           </button>
         );

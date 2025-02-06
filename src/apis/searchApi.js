@@ -9,7 +9,6 @@ export async function getList(query, itemListLength, pagesLength) {
         ...query,
       },
     });
-    console.log('pagesLength', pagesLength);
 
     if (response.status !== 200) {
       throw 'state' + response.status;
