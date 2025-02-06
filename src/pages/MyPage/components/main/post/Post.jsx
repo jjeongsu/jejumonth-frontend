@@ -18,10 +18,6 @@ const Post = ({ postData, postDeleteEvent }) => {
     setMenuOpen(prev => !prev);
   };
 
-  const upDatePostHandler = () => {
-    console.log(`ID: ${postData._id}의 수정 버튼을 눌렀습니다.`);
-  };
-
   return (
     <>
       {!postData && <p>데이터가없습니다</p>}
@@ -63,12 +59,6 @@ const Post = ({ postData, postDeleteEvent }) => {
                     onClick={() => postDeleteEvent(postData._id)}
                   >
                     삭제하기
-                  </button>
-                  <button
-                    className="text-center hover:bg-gray-100 py-8"
-                    onClick={upDatePostHandler}
-                  >
-                    수정하기
                   </button>
                 </div>
               )}

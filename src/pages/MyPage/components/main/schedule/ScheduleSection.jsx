@@ -14,7 +14,6 @@ const ScheduleSection = () => {
   const fetchScheduleData = async userId => {
     try {
       const response = await getAllTripsApi(userId);
-      console.log(response);
 
       setScheduleData(response);
     } catch (error) {
