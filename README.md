@@ -79,7 +79,8 @@
 
 ### 1️⃣ **여행 일정 관리**
 
-<img width="1464" alt="mainImg" src="https://github.com/user-attachments/assets/5974ff66-2734-4fb0-8cf8-46e375932c1e" />
+<img width="1303" alt="스크린샷 2025-02-06 오후 12 42 02" src="https://github.com/user-attachments/assets/d32a878c-b01f-4f83-a473-557ad35f4391" />
+
 
 - **캘린더 기반 일정 관리:** 날짜별로 일정을 추가/편집할 수 있음.
 - **추천 명소와 일정 연동:** 사용자가 원하는 장소를 일정에 쉽게 추가 가능.
