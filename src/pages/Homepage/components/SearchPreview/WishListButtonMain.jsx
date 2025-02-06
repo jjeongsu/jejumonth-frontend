@@ -5,7 +5,7 @@ import {
   addUserLikedPlace,
   fetchUserLikedPlaces,
   removeUserLikedPlace,
-} from '../../../../redux/slices/wishlist.slice';
+} from '@/redux/slices/wishlist.slice';
 import { Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 

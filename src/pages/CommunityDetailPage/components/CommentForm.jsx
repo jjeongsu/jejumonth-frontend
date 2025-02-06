@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { commentCreateApi } from '../../../apis/commentApi';
-import { getCookie } from '../../../utils/cookie'; 
+import { commentCreateApi } from '@/apis/commentApi';
+import { getCookie } from '@/utils/cookie'; 
 
 const CommentForm = ({ postId, onCommentCreated }) => {
   const [comment, setComment] = useState('');

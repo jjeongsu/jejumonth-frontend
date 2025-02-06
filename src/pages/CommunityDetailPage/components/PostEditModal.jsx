@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Modal from '../../CommunityPage/components/Modal';
-import { fetchChannels } from '../../../apis/channelApi';
-import { updatePostApi } from '../../../apis/postApi';
+import Modal from '@pages/CommunityPage/components/Modal';
+import { fetchChannels } from '@/apis/channelApi';
+import { updatePostApi } from '@/apis/postApi';
 import deleteIcon from '/icons/delete.svg';
 
 const PostEditModal = ({ isOpen, onClose, post, onUpdate }) => {

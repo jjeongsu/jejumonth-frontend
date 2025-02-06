@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { fetchChannels } from '../../apis/channelApi';
-import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '../../apis/supabaseApi.js';
+import { fetchChannels } from '@/apis/channelApi';
+import { deleteUserLikedArticleApi, postUserLikedArticleApi } from '@/apis/supabaseApi.js';
 
 import leftArray from '/icons/left-array.svg';
 import commentIcon from '/icons/comment.svg';
