@@ -3,8 +3,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserData } from '../../../../apis/getUserData';
 import { useState } from 'react';
 import { followUser, unfollowUser } from '../../../../apis/followApi';
-import FollowingTap from './followingTap/FollowingTap';
-import FollowerTap from './followerTap/FollowerTap';
+import FollowingTab from './followingTab/FollowingTab';
+import FollowerTab from './followerTab/FollowerTab';
 
 const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
   const [tapMenu, setTapMenu] = useState('follower');
@@ -14,7 +14,18 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
     queryKey: ['followers', userData?.followers],
     queryFn: async () => {
       if (!userData?.followers) return [];
-      return Promise.all(userData.followers.map(element => getUserData(element.follower)));
+      return Promise.all(
+        userData.followers.map(async element => {
+          const followerUser = await getUserData(element.follower);
+
+          return {
+            _id: followerUser._id,
+            fullName: followerUser.fullName,
+            image: followerUser.image,
+            followerForFollower: false,
+          };
+        }),
+      );
     },
   });
 
@@ -22,12 +33,20 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
     queryKey: ['followings', userData?.following],
     queryFn: async () => {
       if (!userData?.following) return [];
-      return Promise.all(userData.following.map(element => getUserData(element.user)));
+      return Promise.all(
+        userData.following.map(async element => {
+          const followingUser = await getUserData(element.user);
+          return {
+            id: followingUser._id,
+            image: followingUser.image,
+            fullName: followingUser.fullName,
+            following_ID: element._id,
+            user_ID: followingUser._id,
+          };
+        }),
+      );
     },
   });
-
-  console.log(followerData);
-  console.log(followingData);
 
   const { mutate: unfollowHandler } = useMutation({
     mutationFn: async userId => {
@@ -97,12 +116,16 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
             }}
           >
             {tapMenu === 'follower' ? (
-              <FollowerTap followerDatas={followerData} followHandler={followHandler}></FollowerTap>
+              <FollowerTab
+                followerDatas={followerData}
+                followingDatas={followingData}
+                followHandler={followHandler}
+              ></FollowerTab>
             ) : (
-              <FollowingTap
+              <FollowingTab
                 followingData={followingData}
                 unfollowUserHandler={unfollowUserHandler}
-              ></FollowingTap>
+              ></FollowingTab>
             )}
           </div>
         </div>

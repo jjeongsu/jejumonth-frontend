@@ -19,7 +19,7 @@ const LikedPost = ({ postData, deleteLikedPostEvent }) => {
 
               <div className="flex flex-col w-[90%] justify-between">
                 <p className="text-16 text-gray-7 mb-16">
-                  {postData.channel} · {timeFormatter(postData.wrote_time)}
+                  {postData.channel} · {timeFormatter(postData.created_at)}
                 </p>
                 <p className="line-clamp-2 text-14 text-gray-8 leading-5">{postData.title}</p>
               </div>
@@ -53,7 +53,7 @@ LikedPost.propTypes = {
     title: PropTypes.string.isRequired,
     author_profile_url: PropTypes.string,
     channel: PropTypes.string.isRequired,
-    wrote_time: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
     count_likes: PropTypes.number.isRequired,
     count_comments: PropTypes.number.isRequired,
     article_id: PropTypes.string.isRequired,

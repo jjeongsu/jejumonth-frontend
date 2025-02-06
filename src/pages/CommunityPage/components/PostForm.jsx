@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PostFormModal from './PostFormModal';
 import pencil from '/icons/pencil.svg';
 import { useSelector } from 'react-redux';
-import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
+import ProfileImage from '@/pages/CommunityDetailPage/components/icon/ProfileImage';
 
 const PostForm = () => {
   const [isModalOpen, setModalOpen] = useState(false);

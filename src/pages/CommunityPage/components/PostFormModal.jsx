@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
-import { fetchChannels } from '../../../apis/channelApi';
-import { createPostApi } from '../../../apis/postApi';
+import { fetchChannels } from '@/apis/channelApi';
+import { createPostApi } from '@/apis/postApi';
 import { useSelector } from 'react-redux';
 
 const PostFormModal = ({ isOpen, onClose }) => {

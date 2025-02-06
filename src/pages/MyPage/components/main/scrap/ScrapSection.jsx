@@ -29,8 +29,6 @@ const ScrapSection = () => {
   }, [userId]);
 
   const handleDeleteScrap = async (userId, contentId) => {
-    console.log(`ID: ${contentId._id}의 스크랩 취소 버튼을 눌렀습니다.`);
-
     const isChecked = window.confirm('정말로 스크랩을 취소하시겠습니까?');
 
     if (isChecked) {
@@ -38,8 +36,6 @@ const ScrapSection = () => {
         await deleteUserLikedPlaceApi(userId, contentId);
 
         setScrapData(prevData => prevData.filter(scrapData => scrapData.content_id !== contentId));
-
-        console.log(`스크랩 삭제 성공: userId=${userId}, contentId=${contentId}`);
       } catch (error) {
         console.error('스크렙 취소하기를 실패했습니다.');
         throw new Error(error);

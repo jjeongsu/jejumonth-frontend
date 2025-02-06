@@ -15,12 +15,9 @@ export const fetchUserLikedPlaces = createAsyncThunk(
   'wishlist/fetchUserLikedPlaces',
   async ({ userId }, thunkAPI) => {
     try {
-      console.log('Fetching liked places for user:', userId); // 요청 정보 출력
       const response = await getAllUserLikedPlacesApi(userId);
-      console.log('Fetched liked places response:', response); // 응답 정보 출력
       return response; 
     } catch (error) {
-      console.error('Error fetching liked places:', error); // 에러 출력
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -44,10 +41,8 @@ export const removeUserLikedPlace = createAsyncThunk(
   async ({ userId, contentId }, thunkAPI) => {
     try {
       const response = await deleteUserLikedPlaceApi(userId, contentId);
-      console.log('삭제된 데이터:', response);
       return contentId;
     } catch (error) {
-      console.log('찜 삭제 에러:', error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -63,7 +58,6 @@ const wishlistSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchUserLikedPlaces.fulfilled, (state, action) => {
-      console.log('Fetched places from API:', action.payload); // 디버깅
       state.loading = false;
       state.likedPlaces = Array.isArray(action.payload) ? action.payload : [];
     });

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPlaceByExplanationApi } from '../../apis/visitJejuApi';
+import { getPlaceByExplanationApi } from '@/apis/visitJejuApi';
 import Detail from './components/Detail';
 
 const DetailPage = () => {
@@ -24,7 +24,6 @@ const DetailPage = () => {
         }
         setData(result);
       } catch (error) {
-        console.error('api 호출 중 오류 :', error);
         setError(error.message);
         navigate('/search');
       } finally {
