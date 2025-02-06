@@ -2,7 +2,6 @@ import React from 'react';
 import ProfileImage from './icon/ProfileImage';
 
 const ProfileCard = ({ user, onClose }) => {
-  console.log('ProfileCard - user:', user);
   if (!user) return null;
 
   return (
@@ -23,7 +22,7 @@ const ProfileCard = ({ user, onClose }) => {
           style={{ width: '70px', height: '70px' }}
         >
           <ProfileImage
-            src={user.author?.image} 
+            src={user.author?.image || user.image || '/default-profile.png'} 
             alt="프로필 이미지"
             className="w-full h-full object-cover"
           />
