@@ -2,12 +2,6 @@ import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 
 const Category = ({ title, category }) => {
-  //   const location = useLocation();
-
-  //   const isCategoryActive = location.search === category;
-
-  //   /////////////////////////////////////////////////////////////////////
-
   const location = useLocation();
   const path = location.pathname;
   const queryParams = new URLSearchParams(location.search);

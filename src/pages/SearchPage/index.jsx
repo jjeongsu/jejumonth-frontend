@@ -2,33 +2,30 @@ import { useSearchParams, useNavigate, useLocation } from 'react-router';
 import DetailCard from './components/DetailCard';
 import { ConfigProvider, Pagination } from 'antd';
 
-import { useEffect, useRef, useState } from 'react';
-import { getList } from '../../apis/searchApi';
+import { useEffect, useState } from 'react';
+import { getList } from '@/apis/searchApi';
 
 import { useQuery } from '@tanstack/react-query';
-// import axios from 'axios';
 import Category from './components/Category';
 import DetailMediumCard from './components/DetailMediumCard';
 import DetailSmallCard from './components/DetailSmallCard';
 
 import SkeletonLayout from './components/skeletonLayout';
+import NotFound from './components/NotFound';
 
 const SearchPage = () => {
   const [searchData, setSearchData] = useState([]);
-
   const [searchParams, setSearchParams] = useSearchParams();
-
   const [prevInput, setPrevInput] = useState();
   const location = useLocation();
   const navigate = useNavigate();
 
   const [query, setQuery] = useState({});
-  const [itemListLength, setItemListLength] = useState(5);
+  const [itemListLength, setItemListLength] = useState(10);
   const [pagesLength, setPagesLength] = useState(5);
   const [inputQuery, setInputQuery] = useState({});
   const [searchText, setSearchText] = useState('');
   const [layout, setLayout] = useState('large-layout');
-  const topRef = useRef(null);
 
   const categoryType = [
     { id: 1, title: '전체', category: '' },
@@ -93,7 +90,6 @@ const SearchPage = () => {
 
   const handleChangeBtnClick = (page, category) => {
     const nextInputQuery = { ...inputQuery, page, category };
-    console.log('nextInputQuery', nextInputQuery);
     setInputQuery(nextInputQuery);
     setQuery(nextInputQuery);
     let params = '?';
@@ -117,11 +113,11 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (layout === 'large-layout') {
-      setItemListLength(5);
-      setPagesLength(5);
+      setItemListLength(10);
+      setPagesLength(10);
     } else if (layout === 'medium-layout') {
-      setItemListLength(6);
-      setPagesLength(6);
+      setItemListLength(9);
+      setPagesLength(9);
     } else if (layout === 'small-layout') {
       setItemListLength(12);
       setPagesLength(12);
@@ -129,7 +125,6 @@ const SearchPage = () => {
 
     const totalItems = searchData.length;
     const totalPages = Math.ceil(totalItems / itemListLength);
-    console.log('totalPages', totalPages);
 
     if (query.page > totalPages) {
       setQuery(prevQuery => ({
@@ -140,16 +135,12 @@ const SearchPage = () => {
 
     const nextInputQuery = { ...query };
 
-    console.log('nextInputQuery', nextInputQuery);
-
     const filteredQuery = {};
     ['page', 'category', 'title'].forEach(key => {
       if (nextInputQuery[key]) {
         filteredQuery[key] = nextInputQuery[key];
       }
     });
-
-    console.log('filteredQuery', filteredQuery);
 
     let params = '?';
     Object.entries(filteredQuery).forEach(([key, value]) => {
@@ -159,19 +150,12 @@ const SearchPage = () => {
     });
 
     params = params.slice(0, -1);
-    // if (params) {
-    navigate(`${location.pathname}${params}`);
-    // } else {
-    //   navigate(location.pathname);
-    // }
+    if (params) {
+      navigate(`${location.pathname}${params}`);
+    } else {
+      navigate(location.pathname);
+    }
   }, [layout, itemListLength, searchData]);
-
-  // useEffect(() => {
-  //   console.log('ItemListLength 변경됨:', itemListLength);
-  //   console.log('PagesLength 변경됨:', pagesLength);
-
-  //   console.log('페이지 입니다~~~~~~~~~~~~', searchData.length / itemListLength);
-  // }, [itemListLength, pagesLength]); // itemListLength, pagesLength가 바
 
   const handleLayoutChange = e => {
     const { layouticon } = e.currentTarget.dataset;
@@ -296,11 +280,7 @@ const SearchPage = () => {
           {categoryType.map(item => (
             <li key={item.id} className="mx-6">
               <button onClick={() => handleChangeBtnClick(query.page, item.category)}>
-                <Category
-                  title={item.title}
-                  category={item.category}
-                  // searchTitle={inputQuery.title}
-                />
+                <Category title={item.title} category={item.category} />
               </button>
             </li>
           ))}
@@ -377,6 +357,7 @@ const SearchPage = () => {
               )}
             </div>
           )}
+          <NotFound />
         </div>
         <ConfigProvider
           theme={{
