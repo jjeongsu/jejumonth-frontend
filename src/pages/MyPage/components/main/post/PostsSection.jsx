@@ -4,7 +4,7 @@ import Post from './Post';
 import { useSelector } from 'react-redux';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
-import { deletePostApi, getUserPost } from '../../../../../apis/postApi';
+import { deletePostApi, getUserPost } from '@/apis/postApi';
 
 const PostsSection = () => {
   const { userId } = useSelector(state => state.user);

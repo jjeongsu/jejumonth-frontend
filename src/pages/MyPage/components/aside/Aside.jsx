@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { useState } from 'react';
 import UserFollow from '../userfollower/userFollow';
-import { getUserApi } from '../../../../apis/userApi';
+import { getUserApi } from '@/apis/userApi';
 
 const Aside = () => {
   const { userId, userFullName } = useSelector(state => state.user);
@@ -29,7 +29,6 @@ const Aside = () => {
     queryKey: ['userData', userId],
     queryFn: async () => await getUserApi(userId),
   });
-  console.log(data);
 
   const showFollow = () => {
     setTimeout(() => {

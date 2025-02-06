@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Comment from './Comment';
 import { useSelector } from 'react-redux';
-import { deleteCommentApi } from '../../../../../apis/commentApi';
+import { deleteCommentApi } from '@/apis/commentApi';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
-import { getUserApi } from '../../../../../apis/userApi';
+import { getUserApi } from '@/apis/userApi';
 
 const CommentSection = () => {
   const { userId } = useSelector(state => state.user);
