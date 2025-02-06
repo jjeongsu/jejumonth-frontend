@@ -104,7 +104,7 @@ export async function postUserLikedPlaceApi(userId, placeInfo) {
     })
     .select();
   if (error) {
-    console.error('Error adding liked place:', error);
+    console.error('Error adding liked place:', error); // 에러 출력
   }
   return data ? data : error;
 }
