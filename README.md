@@ -1,8 +1,9 @@
 # 🍊 Jeju Month
 
 ## 제주 한달살이를 위한 웹 서비스
+![screencapture-localhost-5173-2025-02-06-14_19_19](https://github.com/user-attachments/assets/ff37edb9-8ae1-45c8-8796-45930f297b64)
 
-<img width="1464" alt="mainImg" src="https://github.com/user-attachments/assets/dd24941a-eaa2-48c8-966b-c4d45e02a1f3" />
+
 
 ## **제주 한달살이를 위한 맞춤형 웹 서비스**
 **Jeju Month**는 제주 한달살이를 계획하는 사람들을 위한 **맞춤형 여행 정보 제공 플랫폼**입니다.  
