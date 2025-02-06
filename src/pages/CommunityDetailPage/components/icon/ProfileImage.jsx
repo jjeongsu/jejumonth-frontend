@@ -7,9 +7,9 @@ const ProfileImage = ({
   className = 'w-full h-full object-cover',
 }) => {
   const dummyImages = [
-    '../../../public/images/dummy-user-img.png',
-    '../../../public/images/dummy-user-img2.png',
-    '../../../public/images/dummy-user-img3.png',
+    '/images/dummy-user-img.png',
+    '/images/dummy-user-img2.png',
+    '/images/dummy-user-img3.png',
   ];
 
   const [dummyImage] = useState(() => {

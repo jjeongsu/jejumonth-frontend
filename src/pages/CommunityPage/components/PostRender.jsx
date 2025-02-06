@@ -1,11 +1,10 @@
 import React from 'react';
 
-import likes from '/icons/likes.svg';
 import comment from '/icons/comment.svg';
 
 import Pagination from './Pagination';
-import ProfileImage from '../../CommunityDetailPage/components/icon/ProfileImage';
-import LikeIcon from '../../CommunityDetailPage/components/icon/LikeIcon';
+import ProfileImage from '@/pages/CommunityDetailPage/components/icon/ProfileImage';
+import LikeIcon from '@/pages/CommunityDetailPage/components/icon/LikeIcon';
 import { useSelector } from 'react-redux';
 
 const PostRender = ({ posts, onPostClick, currentPage, onPageChange }) => {

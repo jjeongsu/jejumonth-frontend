@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getPostByChannelApi } from '../../../apis/postApi';
+import { getPostByChannelApi } from '@/apis/postApi';
 
 const TabPosts = ({ activeTab, channels, setPosts, setError }) => {
   useEffect(() => {
