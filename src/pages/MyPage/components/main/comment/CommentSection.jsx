@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getUserData } from '../../../../../apis/getUserData';
 import Comment from './Comment';
 import { useSelector } from 'react-redux';
-import { commentDeleteApi } from '../../../../../apis/commentCreateApi';
+import { commentDeleteApi } from '../../../../../apis/commentApi';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
 

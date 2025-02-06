@@ -1,5 +1,5 @@
-import ButtonList from '../../AddPlanPage/components/ButtonList.jsx';
-import Button from '../../../components/common/Button/index.jsx';
+import ButtonList from '@pages/AddPlanPage/components/ButtonList.jsx';
+import Button from '@components/common/Button/index.jsx';
 
 const ChangeTimeModal = ({ setTime, setIsOpenModal, onClick }) => {
   return (

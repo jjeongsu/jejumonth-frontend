@@ -16,7 +16,7 @@ const MainCard = ({ placeInfo, onClick }) => {
           <div className="text-18 font-semibold line-clamp-1">{placeInfo.title}</div>
           <WishListButtonMain placeInfo={placeInfo} />
         </div>
-        <div className="text-14 text-gray-5">{locationText}</div>
+        <div className="text-14 text-gray-7">{locationText}</div>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
-import React from 'react';
+import { getPlaceByExplanationApi } from '@/apis/visitJejuApi';
 import { useQuery } from '@tanstack/react-query';
-import { getPlaceByExplanationApi } from '../../../apis/visitJejuApi';
-import makePlaceObject from '../utils/makePlaceObject';
+import makePlaceObject from '@/utils/makePlaceObject';
+
 const Detail = ({ onNext, contentId }) => {
   // 컨텐츠 id로 데이터 가져오기
   const { data, isLoading } = useQuery({
@@ -12,7 +12,6 @@ const Detail = ({ onNext, contentId }) => {
     return <div>여행지 상세정보 로딩중</div>;
   }
 
-  //  TODO 디테일 페이지
   return (
     <div>
       Detail

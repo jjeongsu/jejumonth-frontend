@@ -1,41 +1,54 @@
 import {
-  tourPlaces,
-  shoppingPlaces,
-  accommodations,
-  restaurants,
-  festivals, themeTours,
-} from '../../../../constants/mainExamplePlaces.js';
+  TOUR_PLACES,
+  SHOPPING_PLACES,
+  ACCOMMODATIONS,
+  RESTAURANTS,
+  FESTIVALS,
+  THEME_TOURS,
+} from '@/constants/mainExamplePlaces.js';
 import MainCard from './MainCard.jsx';
-import catetoryCode from '../../../../constants/category.js';
+import CATEGORY_CODES from '@/constants/category.js';
 import { useState } from 'react';
 import CategoryButton from './CategoryButton.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const SearchPreview = () => {
   const [category, setCategory] = useState('관광지');
-  const [places, setPlaces] = useState(tourPlaces);
+  const [places, setPlaces] = useState(TOUR_PLACES);
   const navigate = useNavigate();
 
-  const handleCategoryClick = (categoryName) => {
+  const handleCategoryClick = categoryName => {
     setCategory(categoryName);
     switch (categoryName) {
-      case '관광지' : setPlaces(tourPlaces); break;
-      case '쇼핑' : setPlaces(shoppingPlaces); break;
-      case '숙박' : setPlaces(accommodations); break;
-      case '음식' : setPlaces(restaurants); break;
-      case '축제/행사' : setPlaces(festivals); break;
-      case '테마여행' : setPlaces(themeTours); break;
+      case '관광지':
+        setPlaces(TOUR_PLACES);
+        break;
+      case '쇼핑':
+        setPlaces(SHOPPING_PLACES);
+        break;
+      case '숙박':
+        setPlaces(ACCOMMODATIONS);
+        break;
+      case '음식':
+        setPlaces(RESTAURANTS);
+        break;
+      case '축제/행사':
+        setPlaces(FESTIVALS);
+        break;
+      case '테마여행':
+        setPlaces(THEME_TOURS);
+        break;
     }
-  }
+  };
 
-  const handleCardClick = (contentId) => {
+  const handleCardClick = contentId => {
     navigate(`/detail/${contentId}`); // 상세 페이지로 이동
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0);
   };
 
   const handleSearchClick = () => {
     navigate('/search');
-  }
+  };
 
   return (
     <div className="w-screen relative left-1/2 -translate-x-1/2 bg-gray-2 mb-50">
@@ -56,23 +69,18 @@ const SearchPreview = () => {
             </button>
           </div>
           <div className="flex w-500 justify-between">
-            {catetoryCode
-              .filter(item => item.value !== "all")
-              .map((item, index) => (
-                <CategoryButton
-                  key={index}
-                  category={item.label}
-                  isClicked={category === item.label}
-                  onClick={() => handleCategoryClick(item.label)}
-                />
-              ))}
+            {CATEGORY_CODES.filter(item => item.value !== 'all').map((item, index) => (
+              <CategoryButton
+                key={index}
+                category={item.label}
+                isClicked={category === item.label}
+                onClick={() => handleCategoryClick(item.label)}
+              />
+            ))}
           </div>
           <div className="flex w-940 justify-between mx-13">
             <div className="text-gray-8 font-semibold">📍 제주도 추천 명소</div>
-            <button
-              onClick={handleSearchClick}
-              className="text-sub-accent-1 font-bold"
-            >
+            <button onClick={handleSearchClick} className="text-sub-accent-1 font-bold">
               더보기
             </button>
           </div>
@@ -89,6 +97,6 @@ const SearchPreview = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SearchPreview;

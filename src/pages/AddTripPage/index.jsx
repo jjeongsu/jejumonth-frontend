@@ -3,11 +3,11 @@ import { DateRange } from 'react-date-range';
 import { addDays } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useState } from 'react';
-import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import { postTripApi } from '../../apis/supabaseApi.js';
+import { postTripApi } from '@/apis/supabaseApi.js';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/common/Button/index.jsx';
+import Button from '@components/common/Button/index.jsx';
 import { useSelector } from 'react-redux';
 
 const AddTripPage = () => {
@@ -61,8 +61,8 @@ const AddTripPage = () => {
 
   return (
     <>
-      <div className="font-extrabold text-48 text-gray-8 mb-10">여행 일정 등록</div>
-      <div className="font-semibold text-16 text-gray-6 mb-25">
+      <div className="font-extrabold text-40 text-gray-8 mb-14">여행 일정 등록</div>
+      <div className="font-semibold text-14 text-gray-6 mb-40 tracking-[1px]">
         여행을 시작할 날짜, 종료할 날짜를 선택해주세요.
       </div>
       <div className="grid place-items-center">
@@ -83,8 +83,8 @@ const AddTripPage = () => {
             />
           </div>
         </div>
-        <div className="w-125 my-25">
-          <Button type="button" label="일정 생성" onClick={handleSubmit}>
+        <div className="w-250 my-25">
+          <Button type="button" label="일정 생성" onClick={handleSubmit} className="h-37">
             다음
           </Button>
         </div>
