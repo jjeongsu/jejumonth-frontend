@@ -29,7 +29,6 @@ const Aside = () => {
     queryKey: ['userData', userId],
     queryFn: async () => await getUserData(userId),
   });
-  console.log(data);
 
   const showFollow = () => {
     setTimeout(() => {
