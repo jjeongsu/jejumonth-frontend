@@ -4,7 +4,7 @@ import {
   fetchUserLikedPlaces,
   addUserLikedPlace,
   removeUserLikedPlace,
-} from '../../../redux/slices/wishlist.slice';
+} from '@/redux/slices/wishlist.slice';
 import fullHeart from '/icons/fullHeart.svg';
 import emptyHeart from '/icons/emptyHeart.svg';
 
