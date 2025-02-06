@@ -2,7 +2,7 @@
 
 ## 제주 한달살이를 위한 웹 서비스
 
-<img src="public/images/mainImg.png" alt="Jeju Month Main">
+<img width="1464" alt="mainImg" src="https://github.com/user-attachments/assets/dd24941a-eaa2-48c8-966b-c4d45e02a1f3" />
 <p style="text-align: center;">Jeju Month Main</p>
 
 ## **제주 한달살이를 위한 맞춤형 웹 서비스**
@@ -82,7 +82,8 @@
 ## 🌟 **주요 기능**
 
 ### 1️⃣ **여행 일정 관리**
-![여행 일정 관리](public/images/schedule-list.png)
+
+![여행 일정 관리]<img width="1464" alt="mainImg" src="https://github.com/user-attachments/assets/5974ff66-2734-4fb0-8cf8-46e375932c1e" />
 - **캘린더 기반 일정 관리:** 날짜별로 일정을 추가/편집할 수 있음.
 - **추천 명소와 일정 연동:** 사용자가 원하는 장소를 일정에 쉽게 추가 가능.
 - **여행 일정 시각화:** 한눈에 여행 계획을 확인할 수 있도록 UI 최적화.
@@ -90,17 +91,20 @@
 ---
 
 ### 2️⃣ **카테고리별 주요 행사 검색 및 상세 페이지 이동**
-![행사 검색 및 상세 페이지](public/images/tour-info.png)
+![행사 검색 및 상세 페이지] <img width="1367" alt="tour-info" src="https://github.com/user-attachments/assets/2b9b241e-e392-4c4c-b26e-d96364a1acf1" />
+
 
 - **카테고리별 주요 행사 검색:** 제주에서 열리는 다양한 행사 및 이벤트를 탐색 가능.
 - **태그(#) 검색 지원:** 특정 주제나 관심사에 맞는 행사를 쉽게 찾을 수 있음.
 - **상세 페이지 이동:** 각 행사 또는 관광지의 상세 정보 및 위치, 사진 등을 볼 수 있음.
-![상세 페이지 이동](public/images/tour-info2.png)
+![상세 페이지 이동]<img width="1190" alt="tour-info2" src="https://github.com/user-attachments/assets/b39cb364-10ac-4398-8fa9-c58545f2608f" />
+
 
 ---
 
 ### 3️⃣ **커뮤니티 공간 제공**
-![커뮤니티 공간 제공](public/images/community.png)
+![커뮤니티 공간 제공] <img width="1279" alt="community" src="https://github.com/user-attachments/assets/89bf220c-9473-4aee-b632-2af259006cfc" />
+
 - 여행 후기를 공유하거나 다른 사용자와 댓글로 소통 가능.
 - **좋아요 기능**을 통해 인기 게시물을 확인할 수 있음.
 - 관심 있는 사용자와 **팔로우 기능**을 통해 소통 가능.
@@ -108,7 +112,8 @@
 ---
 
 ### 4️⃣ **마이페이지**
-![마이페이지](public/images/mypage.png)
+![마이페이지] <img width="1221" alt="mypage" src="https://github.com/user-attachments/assets/4747f939-7aae-4fc3-915b-ceedef4e2b8e" />
+
 - **내가 작성한 게시글 및 좋아요한 게시글을 한눈에 확인 가능.**
 - **팔로우/팔로워 목록 관리 기능 지원.**
 - **저장한 일정 및 여행 정보를 편리하게 수정할 수 있는 개인화된 공간 제공.**
