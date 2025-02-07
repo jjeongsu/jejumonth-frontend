@@ -158,82 +158,64 @@ const SearchPage = () => {
     setLayout(layouticon);
   };
 
+  const handleCardClick = contentId => {
+    navigate(`/detail/${contentId}`); // 상세 페이지로 이동
+    window.scrollTo(0, 0);
+  };
+
   const renderCard = item => {
     switch (layout) {
       case 'large-layout':
         return (
-          <button
-            className="w-full"
-            onClick={() => {
-              const contentId = item.contentsid;
-              window.location.href = `/detail/${contentId}`;
-            }}
-            key={item.contentsid}
-          >
-            <DetailCard
-              key={item.id}
-              title={item.title || '제목이 없습니다'}
-              city={item.region1cd?.label || '도시'}
-              street={
-                item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
-                  ? '제주시내'
-                  : item.region2cd?.label
-              }
-              description={item.introduction || '설명이 없습니다.'}
-              img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
-              contentid={item}
-            />
-          </button>
+          <DetailCard
+            key={item.id}
+            onClick={() => handleCardClick(item.contentsid)}
+            title={item.title || '제목이 없습니다'}
+            city={item.region1cd?.label || '도시'}
+            street={
+              item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
+                ? '제주시내'
+                : item.region2cd?.label
+            }
+            description={item.introduction || '설명이 없습니다.'}
+            img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
+            contentid={item}
+          />
         );
       case 'medium-layout':
         return (
-          <button
-            className=" mr-10 [&:nth-child(3n)]:mr-0"
-            onClick={() => {
-              const contentId = item.contentsid;
-              window.location.href = `/detail/${contentId}`;
-            }}
-            key={item.contentsid}
-          >
-            <DetailMediumCard
-              key={item.id}
-              title={item.title || '제목이 없습니다'}
-              city={item.region1cd?.label || '도시'}
-              street={
-                item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
-                  ? '제주시내'
-                  : item.region2cd?.label
-              }
-              img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
-              category={item.contentscd?.value}
-              contentid={item}
-            />
-          </button>
+          <DetailMediumCard
+            key={item.id}
+            onClick={() => handleCardClick(item.contentsid)}
+            title={item.title || '제목이 없습니다'}
+            city={item.region1cd?.label || '도시'}
+            street={
+              item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
+                ? '제주시내'
+                : item.region2cd?.label
+            }
+            img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
+            category={item.contentscd?.value}
+            contentid={item}
+          />
         );
       case 'small-layout':
         return (
-          <button
-            onClick={() => {
-              const contentId = item.contentsid;
-              window.location.href = `/detail/${contentId}`;
-            }}
-            key={item.contentsid || ''}
-          >
-            <DetailSmallCard
-              key={item.id}
-              title={item.title || '제목이 없습니다'}
-              city={item.region1cd?.label || '도시'}
-              street={
-                item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
-                  ? '제주시내'
-                  : item.region2cd?.label
-              }
-              description={item.introduction || '설명이 없습니다.'}
-              img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
-              category={item.contentscd?.value}
-              contentid={item}
-            />
-          </button>
+          <DetailSmallCard
+            key={item.id}
+            onClick={() => handleCardClick(item.contentsid)}
+            title={item.title || '제목이 없습니다'}
+            city={item.region1cd?.label || '도시'}
+            street={
+              item.region2cd?.label == 'region>' || item.region2cd?.label == undefined
+                ? '제주시내'
+                : item.region2cd?.label
+            }
+            description={item.introduction || '설명이 없습니다.'}
+            img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
+            category={item.contentscd?.value}
+            contentid={item}
+          />
         );
       default:
         return null;
