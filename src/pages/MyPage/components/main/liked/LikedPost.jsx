@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import LikesIcon from '../../icon/LikesIcon';
 import CommentIcon from '../../icon/CommentIcon';
-import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
+import timeFormatter from '@/utils/timeDifferenceFormat';
 
 const LikedPost = ({ postData, deleteLikedPostEvent }) => {
   return (

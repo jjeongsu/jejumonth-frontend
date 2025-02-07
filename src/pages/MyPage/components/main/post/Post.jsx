@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import CommentIcon from '../../icon/CommentIcon';
 import LikesIcon from '../../icon/LikesIcon';
-import timeFormatter from '../../../../../utils/dateFormat/timeDifferenceFormat';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import timeFormatter from '@/utils/timeDifferenceFormat';
 
 const Post = ({ postData, postDeleteEvent }) => {
   const [menuOpen, setMenuOpen] = useState(false);

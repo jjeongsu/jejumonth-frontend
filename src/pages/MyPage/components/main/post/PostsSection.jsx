@@ -1,11 +1,10 @@
 // import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Post from './Post';
-import { getUserPost } from '../../../../../apis/getUserData';
 import { useSelector } from 'react-redux';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
-import { deletePostApi } from '../../../../../apis/postApi';
+import { deletePostApi, getUserPost } from '@/apis/postApi';
 
 const PostsSection = () => {
   const { userId } = useSelector(state => state.user);

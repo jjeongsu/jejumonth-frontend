@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUserData } from '../../../../apis/getUserData';
 import { useState } from 'react';
-import { followUser, unfollowUser } from '../../../../apis/followApi';
+import { followUser, unfollowUser } from '@/apis/followApi';
 import FollowingTab from './followingTab/FollowingTab';
 import FollowerTab from './followerTab/FollowerTab';
+import { getUserApi } from '@/apis/userApi';
 
 const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
   const [tapMenu, setTapMenu] = useState('follower');
@@ -16,7 +16,7 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
       if (!userData?.followers) return [];
       return Promise.all(
         userData.followers.map(async element => {
-          const followerUser = await getUserData(element.follower);
+          const followerUser = await getUserApi(element.follower);
 
           return {
             _id: followerUser._id,
@@ -35,7 +35,7 @@ const UserFollow = ({ isOpen, closeModal, userData, userName }) => {
       if (!userData?.following) return [];
       return Promise.all(
         userData.following.map(async element => {
-          const followingUser = await getUserData(element.user);
+          const followingUser = await getUserApi(element.user);
           return {
             id: followingUser._id,
             image: followingUser.image,

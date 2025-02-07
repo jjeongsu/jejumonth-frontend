@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import formatAddress from '../../../../../utils/addressFormat';
+import formatAddress from '@/utils/addressFormat';
 import ScrapIcon from '../../icon/ScrapIcon';
 import { Link } from 'react-router';
 
