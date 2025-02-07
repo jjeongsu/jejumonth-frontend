@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { deleteUserLikedPlaceApi, getAllUserLikedPlacesApi } from '@/apis/supabaseApi';
 import ScrapPlaceCard from './ScrapPlaceCard';
 import { useSelector } from 'react-redux';
-import MyPageHeader from '../common/myPageHeader';
+import MyPageHeader from '../common/MyPageHeader';
 import NoContent from '../common/NoContent';
 import Container from './Container';
 

@@ -37,7 +37,7 @@ FollowerItem.propTypes = {
     image: PropTypes.string,
     fullName: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
-    followerForFollower: PropTypes.bool.isRequired,
+    followerForFollower: PropTypes.bool,
   }),
 
   followHandler: PropTypes.func,
