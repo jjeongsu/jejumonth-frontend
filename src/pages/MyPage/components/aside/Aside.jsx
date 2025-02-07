@@ -10,8 +10,8 @@ import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
 
 import { useState } from 'react';
+import UserFollow from '../userfollower/UserFollow.jsx';
 import { getUserApi } from '@/apis/userApi';
-import UserFollow from '../userfollower/UserFollow';
 
 const Aside = () => {
   const { userId, userFullName } = useSelector(state => state.user);
