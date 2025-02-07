@@ -1,7 +1,7 @@
 import { getAllUserLikedArticlesApi } from '@/apis/supabaseApi';
 import LikedPost from './LikedPost';
 import { useSelector } from 'react-redux';
-import MyPageHeader from '../common/myPageHeader';
+import MyPageHeader from '../common/MyPageHeader';
 import NoContent from '../common/NoContent';
 import { deleteUserLikedArticleApi } from '@/apis/supabaseApi';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
