@@ -25,5 +25,5 @@ DetailMediumCard.propTypes = {
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  contentid: PropTypes.string.isRequired,
+  contentid: PropTypes.object.isRequired,
 };
