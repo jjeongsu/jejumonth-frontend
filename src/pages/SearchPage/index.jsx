@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import Category from './components/Category';
 import DetailMediumCard from './components/DetailMediumCard';
 import DetailSmallCard from './components/DetailSmallCard';
-import SkeletonLayout from './components/skeletonLayout';
+import SkeletonLayout from './components/SkeletonLayout';
 
 const SearchPage = () => {
   const [searchData, setSearchData] = useState([]);
@@ -312,6 +312,7 @@ const SearchPage = () => {
       <main className="mt-22 ">
         <div className="min-h-658">
           {isLoading ? (
+            // <SkeletonLayout layout={layout} itemList={itemListLength} />
             <SkeletonLayout layout={layout} itemList={itemListLength} />
           ) : (
             <div className={layout === 'medium-layout' ? 'flex flex-wrap' : ''}>
