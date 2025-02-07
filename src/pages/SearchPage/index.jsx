@@ -312,6 +312,7 @@ const SearchPage = () => {
       <main className="mt-22 ">
         <div className="min-h-658">
           {isLoading ? (
+            // <SkeletonLayout layout={layout} itemList={itemListLength} />
             <SkeletonLayout layout={layout} itemList={itemListLength} />
           ) : (
             <div className={layout === 'medium-layout' ? 'flex flex-wrap' : ''}>
