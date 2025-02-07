@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import Category from './components/Category';
 import DetailMediumCard from './components/DetailMediumCard';
 import DetailSmallCard from './components/DetailSmallCard';
-import SkeletonLayout from './components/skeletonLayout';
+import SkeletonLayout from './components/SkeletonLayout';
 
 const SearchPage = () => {
   const [searchData, setSearchData] = useState([]);
