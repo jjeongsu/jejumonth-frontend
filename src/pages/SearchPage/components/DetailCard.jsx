@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import WishListButton from './WishListButton';
 
-const DetailCard = ({ title, city, street, description, img, contentid }) => {
+const DetailCard = ({ onClick, title, city, street, description, img, contentid }) => {
   return (
-    <div className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13 hover:border-[#ffd3be] border-2 hover:bg-[#f5f5f5]/50 ">
+    <div onClick={onClick} className="p-20 border-solid border border-[#E9E9E9] rounded-8  shadow-lg flex mb-13 hover:border-[#ffd3be] border-2 hover:bg-[#f5f5f5]/50 cursor-pointer">
       <div className="flex-1 content-center text-left">
         <div className="flex justify-between">
           <div>
@@ -26,10 +26,11 @@ const DetailCard = ({ title, city, street, description, img, contentid }) => {
 export default DetailCard;
 
 DetailCard.propTypes = {
+  onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   street: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
-  contentid: PropTypes.string.isRequired,
+  contentid: PropTypes.object.isRequired,
 };

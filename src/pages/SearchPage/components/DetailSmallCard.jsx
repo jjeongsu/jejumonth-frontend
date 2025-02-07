@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import WishListButton from './WishListButton';
 
-const DetailSmallCard = ({ title, city, street, description, category, contentid }) => {
+const DetailSmallCard = ({ onClick, title, city, street, description, category, contentid }) => {
   const [color, setColor] = useState('');
   const [categoryName, setCategoryName] = useState('');
 
@@ -31,7 +31,7 @@ const DetailSmallCard = ({ title, city, street, description, category, contentid
           <col style={{ width: '53%' }}></col>
           <col style={{ width: '5%' }}></col>
         </colgroup>
-        <tr className="border-b  border-solid border-[#EEEEEE] cursor-pointer">
+        <tr onClick={onClick} className="border-b  border-solid border-[#EEEEEE] cursor-pointer">
           <td className="py-14 px-8">
             <div
               className={`rounded-6 flex justify-center items-center  w-48 h-22 text-12 text-white line-clamp-1 ${color}`}
@@ -55,11 +55,12 @@ const DetailSmallCard = ({ title, city, street, description, category, contentid
 export default DetailSmallCard;
 
 DetailSmallCard.propTypes = {
+  onClick: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   city: PropTypes.string.isRequired,
   street: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  contentid: PropTypes.string.isRequired,
+  contentid: PropTypes.object.isRequired,
 };
