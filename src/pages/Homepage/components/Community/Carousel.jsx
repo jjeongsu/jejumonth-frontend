@@ -47,14 +47,14 @@ const Carousel = ({ slides, options }) => {
               disabled={prevBtnDisabled}
               className="absolute top-133 -left-35  w-30 h-30 flex justify-center items-center rounded-full shadow-2md"
             >
-              <img src={'/public/icons/left-array.svg'} />
+              <img src="/icons/left-array.svg" alt="left-carousel-button" />
             </button>
             <button
               onClick={onNextButtonClick}
               disabled={nextBtnDisabled}
               className="absolute top-133 -right-35  w-30 h-30 flex justify-center items-center rounded-full shadow-2md"
             >
-              <img src={'/public/icons/right-array2.svg'} />
+              <img src="/icons/right-array2.svg" alt="right-carousel-button" />
             </button>
           </div>
         </div>
