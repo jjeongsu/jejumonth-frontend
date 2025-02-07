@@ -3,7 +3,7 @@ import {
   getAllUserLikedPlacesApi, 
   postUserLikedPlaceApi, 
   deleteUserLikedPlaceApi 
-} from '../../apis/supabaseApi';
+} from '@/apis/supabaseApi';
 
 const initialState = {
   likedPlaces: [], 
