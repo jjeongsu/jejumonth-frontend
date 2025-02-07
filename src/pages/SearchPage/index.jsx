@@ -181,7 +181,7 @@ const SearchPage = () => {
               }
               description={item.introduction || '설명이 없습니다.'}
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
-              contentid={item?.contentsid}
+              contentid={item}
             />
           </button>
         );
@@ -206,7 +206,7 @@ const SearchPage = () => {
               }
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               category={item.contentscd?.value}
-              contentid={item?.contentsid}
+              contentid={item}
             />
           </button>
         );
@@ -231,7 +231,7 @@ const SearchPage = () => {
               description={item.introduction || '설명이 없습니다.'}
               img={item.repPhoto?.photoid?.thumbnailpath || '/images/no_image.svg'}
               category={item.contentscd?.value}
-              contentid={item?.contentsid}
+              contentid={item}
             />
           </button>
         );
