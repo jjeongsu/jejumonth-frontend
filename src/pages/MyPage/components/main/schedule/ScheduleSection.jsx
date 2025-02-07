@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { deleteTripApi, getAllTripsApi } from '../../../../../apis/supabaseApi';
+import { deleteTripApi, getAllTripsApi } from '@/apis/supabaseApi';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
 import Schedule from './Schedule';

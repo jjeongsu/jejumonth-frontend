@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getUserData } from '../../../../../apis/getUserData';
 import Comment from './Comment';
 import { useSelector } from 'react-redux';
-import { commentDeleteApi } from '../../../../../apis/commentApi';
+import { deleteCommentApi } from '@/apis/commentApi';
 import MyPageHeader from '../common/myPageHeader';
 import NoContent from '../common/NoContent';
+import { getUserApi } from '@/apis/userApi';
 
 const CommentSection = () => {
   const { userId } = useSelector(state => state.user);
@@ -13,11 +13,11 @@ const CommentSection = () => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['userData', userId],
-    queryFn: async () => await getUserData(userId),
+    queryFn: async () => await getUserApi(userId),
   });
 
   const { mutate } = useMutation({
-    mutationFn: commentDeleteApi,
+    mutationFn: deleteCommentApi,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['userData', userId] });
     },

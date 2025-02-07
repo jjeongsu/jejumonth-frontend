@@ -8,10 +8,10 @@ import ButtonWrapper from './ButtonWrapper';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
-import { getUserData } from '../../../../apis/getUserData';
 
 import { useState } from 'react';
 import UserFollow from '../userfollower/userFollow';
+import { getUserApi } from '@/apis/userApi';
 
 const Aside = () => {
   const { userId, userFullName } = useSelector(state => state.user);
@@ -27,7 +27,7 @@ const Aside = () => {
 
   const { data } = useQuery({
     queryKey: ['userData', userId],
-    queryFn: async () => await getUserData(userId),
+    queryFn: async () => await getUserApi(userId),
   });
 
   const showFollow = () => {
