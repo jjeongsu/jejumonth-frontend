@@ -5,11 +5,12 @@ import { deleteTripApi, getAllTripsApi } from '@/apis/supabaseApi';
 import MyPageHeader from '../common/MyPageHeader';
 import NoContent from '../common/NoContent';
 import Schedule from './Schedule';
+import { useNavigate } from 'react-router-dom';
 
 const ScheduleSection = () => {
   const [scheduleData, setScheduleData] = useState([]);
-
   const { userId } = useSelector(state => state.user);
+  const navigate = useNavigate();
 
   const fetchScheduleData = async userId => {
     try {
@@ -54,7 +55,7 @@ const ScheduleSection = () => {
             ></Schedule>
           ))
         ) : (
-          <NoContent>일정을 등록해주세요!</NoContent>
+          <NoContent onClick={() => navigate('/trip/add-trip')}>아이콘을 눌러 일정을 등록해주세요!</NoContent>
         )}
       </div>
     </>
