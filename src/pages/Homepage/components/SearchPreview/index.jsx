@@ -48,6 +48,7 @@ const SearchPreview = () => {
 
   const handleSearchClick = () => {
     navigate('/search');
+    window.scrollTo(0, 0);
   };
 
   return (
