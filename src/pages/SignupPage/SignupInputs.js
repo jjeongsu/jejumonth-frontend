@@ -23,7 +23,7 @@ const SignupInputs = getValues => {
     password: {
       attributes: {
         placeholder: '비밀번호를 입력해주세요.',
-        type: 'text',
+        type: 'password',
       },
       validate: {
         required: {
@@ -44,7 +44,7 @@ const SignupInputs = getValues => {
     confirmPassword: {
       attributes: {
         placeholder: '비밀번호를 입력해주세요',
-        type: 'text',
+        type: 'password',
       },
       validate: {
         required: {
